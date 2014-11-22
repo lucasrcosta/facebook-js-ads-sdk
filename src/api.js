@@ -8,6 +8,8 @@ function FacebookAdsApi(token) {
 	if (!token) 
 		throw new Error('Be a darling and get us a nice token, will you?');
 
+	this.http = FacebookAdsApi.XMLHttRequest;
+
 	/**
 	 * Set API Token
 	 * @param {string} token

@@ -18,13 +18,13 @@ FacebookAdsApi.DataObject = function(fields) {
 		if (!ownPublicMethods.length) 
 			setOwnPublicMethods();
 		var properties = Object.keys(newData);
-    dataFields = [];
+		dataFields = [];
 		for (i = properties.length - 1; i >= 0; i--) {
 			var prop = properties[i];
 			if (ownPublicMethods.indexOf(prop) >= 0)
 				throw new Error('Data contains a method conflicting property');
 			_this[prop] = newData[prop];
-      dataFields.push(prop);
+	  		dataFields.push(prop);
 		}
 		persistedData = newData;
 		return _this;

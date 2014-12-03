@@ -45,12 +45,16 @@ FacebookAdsApi.DataObject = function(fields) {
   }
 
   /**
+   * Get current object data
    * @return {Object}
+   * @param {array} [fields]
    */
-  this.getData = function() {
+  this.getData = function(fields) {
+    fields = fields || dataFields;
     var data = {};
-    for (i = dataFields.length - 1; i >= 0; i--) {
-      data[dataFields[i]] = _this[dataFields[i]];
+    for (i = fields.length - 1; i >= 0; i--) {
+      if (_this[fields[i]] != undefined) data[fields[i]] = _this[fields[i]];
+      else console.warn('Inexistent property ', fields[i]);
     }
     return data;
   };
@@ -69,7 +73,7 @@ FacebookAdsApi.DataObject = function(fields) {
   this.getChangedData = function() {
     var changedData = {};
     for (i = dataFields.length - 1; i >= 0; i--) {
-      if(_this[dataFields[i]] != persistedData[dataFields[i]])
+      if (_this[dataFields[i]] != persistedData[dataFields[i]])
         changedData[dataFields[i]] = _this[dataFields[i]];
     }
     return changedData;

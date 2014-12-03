@@ -21,7 +21,7 @@ FacebookAdsApi.DataObject = function(fields) {
     for (i = properties.length - 1; i >= 0; i--) {
       var prop = properties[i];
       if (ownPublicMethods.indexOf(prop) >= 0)
-        throw new Error('Data contains a public method conflicting property');
+        throw new Error('Data contains a public method conflicting property', prop);
       _this[prop] = newData[prop];
       dataFields.push(prop);
     }
@@ -38,7 +38,7 @@ FacebookAdsApi.DataObject = function(fields) {
   this.set = function(name, value) {
     if (!ownPublicMethods.length) setOwnPublicMethods();
     if (ownPublicMethods.indexOf(name) >= 0)
-        throw new Error('Property name conflicts with a public method');
+        throw new Error('Property conflicts with a public method', name);
     dataFields.push(name);
     _this[name] = persistedData[name] = value;
     return _this;

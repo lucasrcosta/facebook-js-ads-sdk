@@ -1,7 +1,6 @@
 /**
  * Data Object
  * Manages object data and provides matching object properties
- * @author Lucas Costa
  * @class
  */
 FacebookAdsApi.DataObject = function(fields) {

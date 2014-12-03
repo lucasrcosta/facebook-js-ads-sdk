@@ -1,6 +1,5 @@
 /**
  * Facebook Ads Api
- * @author Lucas Costa
  * @param {string} token
  * @class
  */

@@ -3,7 +3,7 @@
 
   /**
    * Data Object
-   * Manages object data and provides matching object properties
+   * Manages object data and provides matching properties
    * @class
    */
   function DataObject(data) {
@@ -23,11 +23,11 @@
       var properties = Object.keys(newData);
       dataFields = [];
       for (var i = properties.length - 1; i >= 0; i--) {
-        var prop = properties[i];
-        if (ownPublicMethods.indexOf(prop) >= 0)
-          throw new Error('Data contains a public method conflicting property', prop);
-        _this[prop] = newData[prop];
-        dataFields.push(prop);
+        var field = properties[i];
+        if (ownPublicMethods.indexOf(field) >= 0)
+          throw new Error('Data contains a public method conflicting property', field);
+        _this[field] = newData[field];
+        dataFields.push(field);
       }
       persistedData = newData;
       return _this;
@@ -35,17 +35,17 @@
     this.setData = setData;
 
     /**
-     * Set single property
-     * @param {string} name
+     * Set single data field
+     * @param {string} field
      * @param {mixed} value
      * @returns this
      */
-    function set(name, value) {
+    function set(field, value) {
       if (!ownPublicMethods.length) setOwnPublicMethods();
-      if (ownPublicMethods.indexOf(name) >= 0)
-        throw new Error('Property conflicts with a public method', name);
-      dataFields.push(name);
-      _this[name] = persistedData[name] = value;
+      if (ownPublicMethods.indexOf(field) >= 0)
+        throw new Error('Property conflicts with a public method', field);
+      dataFields.push(field);
+      _this[field] = persistedData[field] = value;
       return _this;
     }
     this.set = set;
@@ -59,8 +59,9 @@
       fields = fields || dataFields;
       var data = {};
       for (var i = fields.length - 1; i >= 0; i--) {
-        if (_this[fields[i]] != undefined) data[fields[i]] = _this[fields[i]];
-        else console.warn('Inexistent property ', fields[i]);
+        var field = fields[i];
+        if (_this[field] != undefined) data[field] = _this[field];
+        else console.warn('Inexistent field ', field);
       }
       return data;
     };

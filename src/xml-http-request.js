@@ -6,14 +6,14 @@
    * @type {Object}
    * @see {@link http://www.html5rocks.com/en/tutorials/es6/promises/}
    */
-  var XMLHttRequest = {
+  function XMLHttRequest() {
     /**
      * Get Request
      * @author Jake Archibald
      * @param  {string} url
      * @return {Promise}
      */
-    get: function(url) {
+    function get(url) {
       return new Promise(function(resolve, reject) {
         var req = new XMLHttpRequest();
         req.open('GET', url);
@@ -29,7 +29,8 @@
         };
         req.send();
       });
-    },
+    }
+    this.get = get;
 
     /**
      * Get JSON Request
@@ -37,9 +38,12 @@
      * @param  {string} url
      * @return {Promise}
      */
-    getJSON: function(url) {
+    function getJSON(url) {
       return this.get(url).then(JSON.parse);
     }
+    this.getJSON = getJSON;
+
+    return this;
   };
 
   // Module

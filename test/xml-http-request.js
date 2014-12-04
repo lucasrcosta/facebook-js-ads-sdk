@@ -8,7 +8,7 @@ describe('XMLHttRequest', function () {
 
   describe("constructor", function() {
     it('exists', function () {
-      expect(XMLHttRequest).to.be.a('object');
+      expect(XMLHttRequest).to.be.a('function');
     });
   });
 });

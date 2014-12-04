@@ -14,27 +14,22 @@
       dataFields = [],
       persistedData = {};
 
-    if(data) setData(data);
-
     /**
      * @param {Object} newData
      * @returns this
      */
-    function setData(newData) {
+    this.setData = function(newData) {
       if (!ownPublicMethods.length) setOwnPublicMethods();
-      var properties = Object.keys(newData);
-      dataFields = [];
-      for (var i = properties.length - 1; i >= 0; i--) {
-        var field = properties[i];
-        if (ownPublicMethods.indexOf(field) >= 0)
-          throw new Error('Data contains a public method conflicting property', field);
-        _this[field] = newData[field];
+      var newDataFields = Object.keys(newData);
+      for (var i = newDataFields.length - 1; i >= 0; i--) {
+        var dataField = newDataFields[i];
+        var field = getSafeFieldName(dataField);
+        _this[field] = newData[dataField];
         dataFields.push(field);
       }
       persistedData = newData;
       return _this;
     };
-    this.setData = setData;
 
     /**
      * Set single data field
@@ -42,22 +37,20 @@
      * @param {mixed} value
      * @returns this
      */
-    function set(field, value) {
+    this.set = function(field, value) {
       if (!ownPublicMethods.length) setOwnPublicMethods();
-      if (ownPublicMethods.indexOf(field) >= 0)
-        throw new Error('Property conflicts with a public method', field);
+      var field = getSafeFieldName(field);
       dataFields.push(field);
       _this[field] = persistedData[field] = value;
       return _this;
     }
-    this.set = set;
 
     /**
      * Get current object data
      * @return {Object}
      * @param {array} [fields]
      */
-    function getData(fields) {
+    this.getData = function(fields) {
       fields = fields || dataFields;
       var data = {};
       for (var i = fields.length - 1; i >= 0; i--) {
@@ -67,21 +60,19 @@
       }
       return data;
     };
-    this.getData = getData;
 
     /**
      * @return {Object}
      */
-    function getPersistedData() {
+    this.getPersistedData = function() {
       return persistedData;
     };
-    this.getPersistedData = getPersistedData;
 
     /**
      * Shallow comparisson between persisted data and current data
      * @return {Object}
      */
-    function getChangedData() {
+    this.getChangedData = function() {
       var changedData = {};
       for (var i = dataFields.length - 1; i >= 0; i--) {
         if (_this[dataFields[i]] != persistedData[dataFields[i]])
@@ -89,31 +80,28 @@
       }
       return changedData;
     };
-    this.getChangedData = getChangedData;
 
     /**
      * Persist current data
      * @return {Object} this
      */
-    function persistData() {
+    this.persistData = function() {
       for (var i = dataFields.length - 1; i >= 0; i--) {
         persistedData[dataFields[i]] = _this[dataFields[i]];
       }
       return _this;
     };
-    this.persistData = persistData;
 
     /**
      * Reset data to persisted state
      * @return {Object} this
      */
-    function resetData() {
+    this.resetData = function() {
       for (var i = dataFields.length - 1; i >= 0; i--) {
         _this[dataFields[i]] = persistedData[dataFields[i]];
       }
       return _this;
     };
-    this.resetData = resetData;
 
     /**
      * Set object's methods array for conflict prevention
@@ -123,6 +111,22 @@
         if (typeof _this[prop] == 'function') ownPublicMethods.push(prop);
       }
     }
+
+    /**
+     * Return field name that doesn't conflict with public methods
+     * @param  {string} field
+     * @param  {string} original field name
+     * @return {string}
+     */
+    function getSafeFieldName(field, original) {
+      var ajusted = original;
+      var original = original || field;
+      if (ownPublicMethods.indexOf(field) >= 0) return getSafeFieldName('_' + field, original);
+      if(ajusted) console.warn('Public method conflict. Property "' + original + '" renamed to "' + field + '"');
+      return field;
+    }
+
+    if(data) this.setData(data);
 
     return this;
   };

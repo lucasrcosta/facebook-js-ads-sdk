@@ -8,14 +8,14 @@
    */
   function XMLHttRequest() {
     FacebookAdsApi.checkThis(this);
-    
+
     /**
      * Get Request
      * @author Jake Archibald
      * @param  {string} url
      * @return {Promise}
      */
-    function get(url) {
+    this.get = function(url) {
       return new Promise(function(resolve, reject) {
         var req = new XMLHttpRequest();
         req.open('GET', url);
@@ -32,7 +32,6 @@
         req.send();
       });
     }
-    this.get = get;
 
     /**
      * Get JSON Request
@@ -40,10 +39,9 @@
      * @param  {string} url
      * @return {Promise}
      */
-    function getJSON(url) {
+    this.getJSON = function(url) {
       return this.get(url).then(JSON.parse);
     }
-    this.getJSON = getJSON;
 
     return this;
   };

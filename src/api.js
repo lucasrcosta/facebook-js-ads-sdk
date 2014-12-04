@@ -18,19 +18,17 @@
      * Set API Token
      * @param {string} token
      */
-    function setToken(token) {
+    this.setToken = function(token) {
       token = token;
     }
-    this.setToken = setToken;
 
     /**
      * Get API Token
      * @returns {string} token
      */
-    function getToken() {
+    this.getToken = function() {
       return token;
     }
-    this.getToken = getToken;
 
     return this;
   }

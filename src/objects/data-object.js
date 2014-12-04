@@ -7,6 +7,8 @@
    * @class
    */
   function DataObject(data) {
+    FacebookAdsApi.checkThis(this);
+
     var _this = this,
       ownPublicMethods = [],
       dataFields = [],

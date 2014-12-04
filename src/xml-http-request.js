@@ -7,6 +7,8 @@
    * @see {@link http://www.html5rocks.com/en/tutorials/es6/promises/}
    */
   function XMLHttRequest() {
+    FacebookAdsApi.checkThis(this);
+    
     /**
      * Get Request
      * @author Jake Archibald

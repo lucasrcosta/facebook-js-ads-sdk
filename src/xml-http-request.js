@@ -42,6 +42,7 @@
     }
   };
 
+  // Module
   if (typeof module !== 'undefined') module.exports = XMLHttRequest;
   else root.FacebookAdsApi.XMLHttRequest = XMLHttRequest;
 })(this);

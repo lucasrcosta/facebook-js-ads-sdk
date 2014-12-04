@@ -31,6 +31,7 @@
     return this;
   }
 
+  // Module
   if (typeof module !== 'undefined') module.exports = FacebookAdsApi;
   else root.FacebookAdsApi = FacebookAdsApi;
 })(this);

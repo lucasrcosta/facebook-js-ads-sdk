@@ -115,6 +115,7 @@
     return this;
   };
 
+  // Module
   if (typeof module !== 'undefined') module.exports = DataObject;
   else root.FacebookAdsApi.DataObject = DataObject;
 })(this);

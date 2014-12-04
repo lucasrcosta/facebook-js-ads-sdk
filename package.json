@@ -1,0 +1,9 @@
+{
+  "name": "facebook-js-ads-sdk",
+  "private": true,
+  "version": "0.0.1",
+  "devDependencies": {
+    "mocha": "^2.0.1",
+    "chai": "~1.8.0"
+  }
+}

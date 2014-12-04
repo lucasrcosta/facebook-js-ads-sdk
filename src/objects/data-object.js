@@ -126,6 +126,7 @@
       return field;
     }
 
+    // wait for the methods to load
     if(data) this.setData(data);
 
     return this;

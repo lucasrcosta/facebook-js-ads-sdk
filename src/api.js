@@ -9,7 +9,8 @@
   function FacebookAdsApi(token) {
     if (!token)
       throw new Error('Be a darling and get us a nice token, will you?');
-
+    else setToken(token);
+    
     this.http = FacebookAdsApi.XMLHttRequest;
 
     /**

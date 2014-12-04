@@ -6,11 +6,13 @@
    * Manages object data and provides matching object properties
    * @class
    */
-  function DataObject(data) { // TODO set initial data
+  function DataObject(data) {
     var _this = this,
       ownPublicMethods = [],
       dataFields = [],
       persistedData = {};
+
+    if(data) setData(data);
 
     /**
      * @param {Object} newData

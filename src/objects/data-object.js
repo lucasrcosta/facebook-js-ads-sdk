@@ -6,7 +6,7 @@
    * Manages object data and provides matching properties
    * @class
    */
-  function DataObject(data) {
+  function DataObject() {
     FacebookAdsApi.checkThis(this);
 
     var _this = this,
@@ -125,9 +125,6 @@
       if(ajusted) console.warn('Public method conflict. Property "' + original + '" renamed to "' + field + '"');
       return field;
     }
-
-    // wait for the methods to load
-    if(data) this.setData(data);
 
     return this;
   };

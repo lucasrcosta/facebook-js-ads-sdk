@@ -4,6 +4,11 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
+gulp.task('jscs', function () {
+  return gulp.src('src/**/*.js')
+        .pipe($.jscs());
+});
+
 gulp.task('jshint', function () {
   return gulp.src('src/**/*.js')
     .pipe($.jshint())

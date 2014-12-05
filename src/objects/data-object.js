@@ -39,11 +39,11 @@
      */
     this.set = function(field, value) {
       if (!ownPublicMethods.length) setOwnPublicMethods();
-      var field = getSafeFieldName(field);
+      field = getSafeFieldName(field);
       dataFields.push(field);
       _this[field] = persistedData[field] = value;
       return _this;
-    }
+    };
 
     /**
      * Get current object data
@@ -55,7 +55,7 @@
       var data = {};
       for (var i = fields.length - 1; i >= 0; i--) {
         var field = fields[i];
-        if (_this[field] != undefined) data[field] = _this[field];
+        if (_this[field] !== undefined) data[field] = _this[field];
         else console.warn('Inexistent field ', field);
       }
       return data;
@@ -120,14 +120,14 @@
      */
     function getSafeFieldName(field, original) {
       var ajusted = original;
-      var original = original || field;
+      original = original || field;
       if (ownPublicMethods.indexOf(field) >= 0) return getSafeFieldName('_' + field, original);
       if(ajusted) console.warn('Public method conflict. Property "' + original + '" renamed to "' + field + '"');
       return field;
     }
 
     return this;
-  };
+  }
 
   // Module
   if (typeof module !== 'undefined') module.exports = DataObject;

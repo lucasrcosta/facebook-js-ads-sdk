@@ -31,7 +31,7 @@
         };
         req.send();
       });
-    }
+    };
 
     /**
      * Get JSON Request
@@ -41,10 +41,10 @@
      */
     this.getJSON = function(url) {
       return this.get(url).then(JSON.parse);
-    }
+    };
 
     return this;
-  };
+  }
 
   // Module
   if (typeof module !== 'undefined') module.exports = XMLHttRequest;

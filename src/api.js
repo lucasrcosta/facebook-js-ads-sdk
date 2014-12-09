@@ -23,6 +23,7 @@
      */
     function setToken(token) {
       token = token;
+      return this;
     }
     this.setToken = setToken;
 

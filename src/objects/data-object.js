@@ -1,5 +1,5 @@
 (function(root) {
-  "use strict";
+  'use strict';
 
   /**
    * Data Object
@@ -9,10 +9,10 @@
   function DataObject() {
     FacebookAdsApi.checkThis(this);
 
-    var _this = this,
-      ownPublicMethods = [],
-      dataFields = [],
-      persistedData = {};
+    var _this = this;
+    var ownPublicMethods = [];
+    var dataFields = [];
+    var persistedData = {};
 
     /**
      * @param {Object} newData
@@ -122,7 +122,7 @@
       var ajusted = original;
       original = original || field;
       if (ownPublicMethods.indexOf(field) >= 0) return getSafeFieldName('_' + field, original);
-      if(ajusted) console.warn('Public method conflict. Property "' + original + '" renamed to "' + field + '"');
+      if (ajusted) console.warn('Public method conflict. Property "' + original + '" renamed to "' + field + '"');
       return field;
     }
 

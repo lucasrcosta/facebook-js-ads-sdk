@@ -1,5 +1,5 @@
 (function(root) {
-  "use strict";
+  'use strict';
 
   /**
    * Facebook Ads Api
@@ -40,7 +40,7 @@
    * @throws {Error} if "new" was ommited
    */
   FacebookAdsApi.checkThis = function(object) {
-    if(object == FacebookAdsApi)
+    if (object == FacebookAdsApi)
       throw Error('Initialize object with "new" operator');
   };
 

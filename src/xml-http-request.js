@@ -1,5 +1,5 @@
 (function(root) {
-  "use strict";
+  'use strict';
 
   /**
    * Promise based XMLHttRequest
@@ -27,7 +27,7 @@
           }
         };
         req.onerror = function() {
-          reject(Error("Network Error"));
+          reject(Error('Network Error'));
         };
         req.send();
       });

@@ -10,5 +10,6 @@
   "newcap": true,
   "noarg": true,
   "strict": true,
+  "validthis": true,
   "unused": true
 }

@@ -13,12 +13,6 @@ describe('Api', function() {
       FacebookAdsApi.should.be.a('function');
     });
 
-    it('throws TypeError in direct function call', function() {
-      (function() {
-        FacebookAdsApi(token); // jshint ignore:line
-      }).should.throw(TypeError);
-    });
-
     it('throws an error if no token is given', function() {
       FacebookAdsApi.should.throw(Error);
     });

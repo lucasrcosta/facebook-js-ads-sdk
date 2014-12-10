@@ -4,20 +4,17 @@
   /**
    * Facebook Ads Api
    * @param {string} initToken
-   * @class
-   * @throws {TypeError} if "new" operator was ommited during instanciation
    * @throws {Error} if no token is given
    */
   function FacebookAdsApi(initToken) {
-    if (!this)
-      throw new TypeError('Instantiate object with "new" operator');
+    var _this = {};
+    var token;
+
     if (!initToken)
       throw new Error('Be a darling and get us a nice token, will you?');
     else setToken(initToken);
 
-    var token = initToken;
-
-    this.http = FacebookAdsApi.XMLHttRequest;
+    _this.http = FacebookAdsApi.XMLHttRequest;
 
     /**
      * Set API Token
@@ -25,19 +22,19 @@
      */
     function setToken(newToken) {
       token = newToken;
-      return this;
+      return _this;
     }
-    this.setToken = setToken;
+    _this.setToken = setToken;
 
     /**
      * Get API Token
      * @returns {string} token
      */
-    this.getToken = function() {
+    _this.getToken = function() {
       return token;
     };
 
-    return this;
+    return _this;
   }
 
   /**

@@ -1,14 +1,15 @@
-var path = require('path');
-var expect = require('chai').expect;
+if (typeof require === 'function') {
+  var path = require('path');
+  var FacebookAdsApi = require(path.join(__dirname, '../..', 'src/api.js'));
+  require('chai').should();
+}
 
-var DataObject = require(path.join(__dirname, '../..', 'src/objects/data-object.js'));
-
-describe('DataObject', function() {
+describe('FacebookAdsApi.DataObject', function() {
   'use strict';
 
   describe('constructor', function() {
     it('exists', function() {
-      expect(DataObject).to.be.a('function');
+      FacebookAdsApi.DataObject.should.be.a('function');
     });
   });
 });

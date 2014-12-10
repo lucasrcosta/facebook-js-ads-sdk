@@ -7,7 +7,7 @@
    * @see {@link http://www.html5rocks.com/en/tutorials/es6/promises/}
    */
   function XMLHttRequest() {
-    FacebookAdsApi.checkThis(this);
+    var _this = {};
 
     /**
      * Get Request
@@ -15,7 +15,7 @@
      * @param  {string} url
      * @return {Promise}
      */
-    this.get = function(url) {
+    _this.get = function(url) {
       return new Promise(function(resolve, reject) {
         var req = new XMLHttpRequest();
         req.open('GET', url);
@@ -39,11 +39,11 @@
      * @param  {string} url
      * @return {Promise}
      */
-    this.getJSON = function(url) {
-      return this.get(url).then(JSON.parse);
+    _this.getJSON = function(url) {
+      return _this.get(url).then(JSON.parse);
     };
 
-    return this;
+    return _this;
   }
 
   // Module

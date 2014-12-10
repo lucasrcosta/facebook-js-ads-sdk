@@ -7,18 +7,16 @@
    * @class
    */
   function DataObject() {
-    FacebookAdsApi.checkThis(this);
-
-    var _this = this;
+    var _this = {};
     var ownPublicMethods = [];
     var dataFields = [];
     var persistedData = {};
 
     /**
      * @param {Object} newData
-     * @returns this
+     * @returns _this
      */
-    this.setData = function(newData) {
+    _this.setData = function(newData) {
       if (!ownPublicMethods.length) setOwnPublicMethods();
       var newDataFields = Object.keys(newData);
       for (var i = newDataFields.length - 1; i >= 0; i--) {
@@ -35,9 +33,9 @@
      * Set single data field
      * @param {string} field
      * @param {mixed} value
-     * @returns this
+     * @returns _this
      */
-    this.set = function(field, value) {
+    _this.set = function(field, value) {
       if (!ownPublicMethods.length) setOwnPublicMethods();
       field = getSafeFieldName(field);
       dataFields.push(field);
@@ -50,7 +48,7 @@
      * @return {Object}
      * @param {array} [fields]
      */
-    this.getData = function(fields) {
+    _this.getData = function(fields) {
       fields = fields || dataFields;
       var data = {};
       for (var i = fields.length - 1; i >= 0; i--) {
@@ -64,7 +62,7 @@
     /**
      * @return {Object}
      */
-    this.getPersistedData = function() {
+    _this.getPersistedData = function() {
       return persistedData;
     };
 
@@ -72,7 +70,7 @@
      * Shallow comparisson between persisted data and current data
      * @return {Object}
      */
-    this.getChangedData = function() {
+    _this.getChangedData = function() {
       var changedData = {};
       for (var i = dataFields.length - 1; i >= 0; i--) {
         if (_this[dataFields[i]] != persistedData[dataFields[i]])
@@ -85,7 +83,7 @@
      * Persist current data
      * @return {Object} this
      */
-    this.persistData = function() {
+    _this.persistData = function() {
       for (var i = dataFields.length - 1; i >= 0; i--) {
         persistedData[dataFields[i]] = _this[dataFields[i]];
       }
@@ -96,7 +94,7 @@
      * Reset data to persisted state
      * @return {Object} this
      */
-    this.resetData = function() {
+    _this.resetData = function() {
       for (var i = dataFields.length - 1; i >= 0; i--) {
         _this[dataFields[i]] = persistedData[dataFields[i]];
       }
@@ -126,7 +124,7 @@
       return field;
     }
 
-    return this;
+    return _this;
   }
 
   // Module

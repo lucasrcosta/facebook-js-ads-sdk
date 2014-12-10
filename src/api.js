@@ -37,16 +37,6 @@
     return _this;
   }
 
-  /**
-   * Make sure that a submodule was called with the "new" operator
-   * @param  {Object} object
-   * @throws {TypeError} object (caller's this) is not FacebookAdsApi
-   */
-  FacebookAdsApi.checkThis = function(object) {
-    if (object == FacebookAdsApi)
-      throw new TypeError('Instantiate object with "new" operator');
-  };
-
   // Module
   if (typeof module !== 'undefined') module.exports = FacebookAdsApi;
   else root.FacebookAdsApi = FacebookAdsApi;

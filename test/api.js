@@ -34,4 +34,11 @@ describe('Api', function() {
       api.setToken(newToken).getToken().should.be.equal(newToken);
     });
   });
+
+  describe('dependencies', function() {
+    it('loads XMLHttRequest into http', function() {
+      var api = new FacebookAdsApi(token);
+      api.http.should.be.a('object');
+    });
+  });
 });

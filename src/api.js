@@ -14,7 +14,7 @@
       throw new Error('Be a darling and get us a nice token, will you?');
     else setToken(initToken);
 
-    _this.http = FacebookAdsApi.XMLHttRequest;
+    _this.http = new FacebookAdsApi.XMLHttRequest();
 
     /**
      * Set API Token
@@ -38,6 +38,11 @@
   }
 
   // Module
-  if (typeof module !== 'undefined') module.exports = FacebookAdsApi;
-  else root.FacebookAdsApi = FacebookAdsApi;
+  if (typeof module !== 'undefined') {
+    var path = require('path');
+    FacebookAdsApi.XMLHttRequest = require(path.join(__dirname, '..', 'src/xml-http-request.js'));
+    module.exports = FacebookAdsApi;
+  } else {
+    root.FacebookAdsApi = FacebookAdsApi;
+  }
 })(this);

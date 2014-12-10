@@ -1,6 +1,6 @@
 if (typeof require === 'function') {
   var path = require('path');
-  var FacebookAdsApi = require(path.join(__dirname, '../..', 'src/api.js'));
+  var FacebookAdsApi = require(path.join(__dirname, '../../src/api.js'));
   require('chai').should();
 }
 

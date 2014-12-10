@@ -1,7 +1,8 @@
-var path = require('path');
-require('chai').should();
-
-var FacebookAdsApi = require(path.join(__dirname, '..', 'src/api.js'));
+if (typeof require === 'function') {
+  var path = require('path');
+  var FacebookAdsApi = require(path.join(__dirname, '..', 'src/api.js'));
+  require('chai').should();
+}
 
 describe('Api', function() {
   'use strict';

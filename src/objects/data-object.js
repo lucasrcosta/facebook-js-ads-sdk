@@ -4,9 +4,10 @@
   /**
    * Data Object
    * Manages object data and provides matching properties
+   * @param {Object} initData
    * @class
    */
-  function DataObject() {
+  function DataObject(initData) {
     var _this = {};
     var ownPublicMethods = [];
     var dataFields = [];
@@ -123,6 +124,10 @@
       if (ajusted) console.warn('Public method conflict. Property "' + original + '" renamed to "' + field + '"');
       return field;
     }
+
+    // Set initial data
+    if (initData)
+      _this.setData(initData);
 
     return _this;
   }

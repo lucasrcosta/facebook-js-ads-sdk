@@ -54,6 +54,11 @@ describe('FacebookAdsApi.DataObject', function() {
       dataObj.setData({a: 1, b: 2}).should.be.eql(dataObj);
       dataObj.set('c', 3).should.be.eql(dataObj);
     });
+
+    it('can set initial data', function() {
+      var dataObj = new FacebookAdsApi.DataObject({a: 1, b: 2});
+      dataObj.getData().should.be.eql({a: 1, b: 2});
+    });
   });
 
   describe('object data persistence', function() {

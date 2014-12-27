@@ -7,6 +7,16 @@ if (typeof require === 'function') {
 describe('FacebookAdsApi.DataObject', function() {
   'use strict';
 
+  var warn = console.warn;
+
+  before(function() {
+    console.warn = function() {};
+  });
+
+  after(function() {
+    console.warn = warn;
+  });
+
   describe('constructor', function() {
     it('exists', function() {
       FacebookAdsApi.DataObject.should.be.a('function');

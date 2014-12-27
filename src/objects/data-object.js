@@ -10,21 +10,21 @@
   function DataObject(initData) {
     var _this = {};
     var ownPublicMethods = [];
-    var dataFields = [];
+    var fields = [];
     var persistedData = {};
 
     /**
      * @param {Object} newData
-     * @returns _this
+     * @return _this
      */
     _this.setData = function(newData) {
       if (!ownPublicMethods.length) setOwnPublicMethods();
       var newDataFields = Object.keys(newData);
-      for (var i = newDataFields.length - 1; i >= 0; i--) {
+      for (var i = 0; i < newDataFields.length; i++) {
         var dataField = newDataFields[i];
         var field = getSafeFieldName(dataField);
         _this[field] = newData[dataField];
-        dataFields.push(field);
+        fields.push(field);
       }
       persistedData = newData;
       return _this;
@@ -34,30 +34,38 @@
      * Set single data field
      * @param {string} field
      * @param {mixed} value
-     * @returns _this
+     * @return _this
      */
     _this.set = function(field, value) {
       if (!ownPublicMethods.length) setOwnPublicMethods();
       field = getSafeFieldName(field);
-      dataFields.push(field);
+      fields.push(field);
       _this[field] = persistedData[field] = value;
       return _this;
     };
 
     /**
      * Get current object data
+     * @param {array} [fieldsFilter]
      * @return {Object}
-     * @param {array} [fields]
      */
-    _this.getData = function(fields) {
-      fields = fields || dataFields;
+    _this.getData = function(fieldsFilter) {
+      var selectedFields = fieldsFilter || fields;
       var data = {};
-      for (var i = fields.length - 1; i >= 0; i--) {
-        var field = fields[i];
+      for (var i = selectedFields.length - 1; i >= 0; i--) {
+        var field = selectedFields[i];
         if (_this[field] !== undefined) data[field] = _this[field];
         else console.warn('Inexistent field ', field);
       }
       return data;
+    };
+
+    /**
+     * Get current object data fields
+     * @return {array}
+     */
+    _this.getFields = function() {
+      return fields;
     };
 
     /**
@@ -73,9 +81,9 @@
      */
     _this.getChangedData = function() {
       var changedData = {};
-      for (var i = dataFields.length - 1; i >= 0; i--) {
-        if (_this[dataFields[i]] != persistedData[dataFields[i]])
-          changedData[dataFields[i]] = _this[dataFields[i]];
+      for (var i = fields.length - 1; i >= 0; i--) {
+        if (_this[fields[i]] != persistedData[fields[i]])
+          changedData[fields[i]] = _this[fields[i]];
       }
       return changedData;
     };
@@ -85,8 +93,8 @@
      * @return {Object} this
      */
     _this.persistData = function() {
-      for (var i = dataFields.length - 1; i >= 0; i--) {
-        persistedData[dataFields[i]] = _this[dataFields[i]];
+      for (var i = fields.length - 1; i >= 0; i--) {
+        persistedData[fields[i]] = _this[fields[i]];
       }
       return _this;
     };
@@ -96,8 +104,8 @@
      * @return {Object} this
      */
     _this.resetData = function() {
-      for (var i = dataFields.length - 1; i >= 0; i--) {
-        _this[dataFields[i]] = persistedData[dataFields[i]];
+      for (var i = fields.length - 1; i >= 0; i--) {
+        _this[fields[i]] = persistedData[fields[i]];
       }
       return _this;
     };

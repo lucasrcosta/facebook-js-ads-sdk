@@ -53,10 +53,16 @@ describe('FacebookAdsApi.DataObject', function() {
       dataObj.__a.should.be.equal(1);
     });
 
-    it('gets current data fields', function() {
+    it('gets current data', function() {
       var dataObj = new FacebookAdsApi.DataObject();
       dataObj.setData({a: 1, b: 2});
       dataObj.getData().should.be.eql({a: 1, b: 2});
+    });
+
+    it('gets current data fields', function() {
+      var dataObj = new FacebookAdsApi.DataObject();
+      dataObj.setData({a: 1, b: 2});
+      dataObj.getFields().should.be.eql(['a', 'b']);
     });
 
     it('returns the object on set operations', function() {

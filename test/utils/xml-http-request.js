@@ -8,8 +8,11 @@ describe('FacebookAdsApi.XMLHttRequest', function() {
   'use strict';
 
   describe('constructor', function() {
+
     it('exists', function() {
       FacebookAdsApi.XMLHttRequest.should.be.a('function');
     });
+
   });
+
 });

@@ -10,6 +10,7 @@ describe('Api', function() {
   var token = 'a1b2c3d4e5';
 
   describe('constructor', function() {
+
     it('exists', function() {
       FacebookAdsApi.should.be.a('function');
     });
@@ -21,9 +22,11 @@ describe('Api', function() {
     it('throws no error if token is given', function() {
       FacebookAdsApi.bind(FacebookAdsApi, token).should.not.throw(Error);
     });
+
   });
 
   describe('token functions', function() {
+
     it('gets the token', function() {
       var api = new FacebookAdsApi(token);
       api.getToken().should.be.equal(token);
@@ -34,12 +37,15 @@ describe('Api', function() {
       var newToken = '5e4d3c2b1a';
       api.setToken(newToken).getToken().should.be.equal(newToken);
     });
+
   });
 
   describe('dependencies', function() {
+
     it('loads XMLHttRequest into http', function() {
       var api = new FacebookAdsApi(token);
       api.http.should.be.a('object');
     });
+
   });
 });

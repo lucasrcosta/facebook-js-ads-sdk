@@ -8,8 +8,11 @@ describe('FacebookAdsApi.CrudObject', function() {
   'use strict';
 
   describe('constructor', function() {
+
     it('exists', function() {
       FacebookAdsApi.CrudObject.should.be.a('function');
     });
+
   });
+
 });

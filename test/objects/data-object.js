@@ -18,12 +18,15 @@ describe('FacebookAdsApi.DataObject', function() {
   });
 
   describe('constructor', function() {
+
     it('exists', function() {
       FacebookAdsApi.DataObject.should.be.a('function');
     });
+
   });
 
   describe('object data fields', function() {
+
     it('can set data fields from an object', function() {
       var dataObj = new FacebookAdsApi.DataObject();
       dataObj.setData({a: 1, b: 2});
@@ -75,9 +78,11 @@ describe('FacebookAdsApi.DataObject', function() {
       var dataObj = new FacebookAdsApi.DataObject({a: 1, b: 2});
       dataObj.getData().should.be.eql({a: 1, b: 2});
     });
+
   });
 
   describe('object data persistence', function() {
+
     it('data set is stored in a persistence object', function() {
       var dataObj = new FacebookAdsApi.DataObject();
       dataObj.setData({a: 1, b: 2});
@@ -107,5 +112,7 @@ describe('FacebookAdsApi.DataObject', function() {
       dataObj.resetData();
       dataObj.a.should.be.eql(1);
     });
+
   });
+
 });

@@ -42,6 +42,7 @@
     var path = require('path');
     FacebookAdsApi.XMLHttRequest = require(path.join(__dirname, '../src/utils/xml-http-request.js'));
     FacebookAdsApi.DataObject = require(path.join(__dirname, '../src/objects/data-object.js'));
+    FacebookAdsApi.CrudObject = require(path.join(__dirname, '../src/objects/crud-object.js'));
     module.exports = FacebookAdsApi;
   } else {
     root.FacebookAdsApi = FacebookAdsApi;

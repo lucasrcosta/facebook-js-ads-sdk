@@ -3,16 +3,14 @@
 
   /**
    * Facebook Ads Api
-   * @param {string} initToken
+   * @param {string} token
    * @throws {Error} if no token is given
    */
-  function FacebookAdsApi(initToken) {
+  function FacebookAdsApi(token) {
     var _this = {};
-    var token;
 
-    if (!initToken)
+    if (!token)
       throw new Error('Be a darling and get us a nice token, will you?');
-    else setToken(initToken);
 
     _this.http = new FacebookAdsApi.XMLHttRequest();
     _this.AdAccount = function() {

@@ -22,18 +22,6 @@ describe('CrudObject', function() {
       crudObj.getEndpoint().should.be.eql('endpoint');
     });
 
-    it('makes a fields object', function() {
-      var crudObj = new FacebookAdsApi.CrudObject('endpoint', ['a', 'b']);
-      crudObj.fields.should.be.eql({a: 'a', b: 'b'});
-    });
-
-    it('fields object is frozen', function() {
-      (function() {
-        var crudObj = new FacebookAdsApi.CrudObject('endpoint', ['a', 'b']);
-        crudObj.fields.a = 'c';
-      }).should.throw(TypeError);
-    });
-
   });
 
 });

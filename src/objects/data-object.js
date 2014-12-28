@@ -3,31 +3,23 @@
 
   /**
    * Data Object
-   * Manages object data and provides matching properties
-   * @param {Object} initData
+   * Manages object data fields and provides matching properties
+   * @param {array} fields
+   * @param {Object} [initData]
    * @class
    */
-  function DataObject(initData) {
-    var _this = {};
-    var ownPublicMethods = [];
-    var fields = [];
+  function DataObject(fields, initData) {
+    var _this = createObjectFromFields(fields);
     var persistedData = {};
 
+    _this.fields = createFieldsObject(fields);
+
     /**
-     * @param {Object} newData
-     * @return _this
+     * Get data fields
+     * @return {array}
      */
-    _this.setData = function(newData) {
-      if (!ownPublicMethods.length) setOwnPublicMethods();
-      var newDataFields = Object.keys(newData);
-      for (var i = 0; i < newDataFields.length; i++) {
-        var dataField = newDataFields[i];
-        var field = getSafeFieldName(dataField);
-        _this[field] = newData[dataField];
-        fields.push(field);
-      }
-      persistedData = newData;
-      return _this;
+    _this.getFields = function() {
+      return fields;
     };
 
     /**
@@ -37,35 +29,32 @@
      * @return _this
      */
     _this.set = function(field, value) {
-      if (!ownPublicMethods.length) setOwnPublicMethods();
-      field = getSafeFieldName(field);
-      fields.push(field);
+      if (fields.indexOf(field) < 0)
+        throw Error(field + ' is not one of this object\'s fields');
       _this[field] = persistedData[field] = value;
       return _this;
     };
 
     /**
-     * Get current object data
-     * @param {array} [fieldsFilter]
-     * @return {Object}
+     * @param {Object} newData
+     * @return _this
      */
-    _this.getData = function(fieldsFilter) {
-      var selectedFields = fieldsFilter || fields;
-      var data = {};
-      for (var i = selectedFields.length - 1; i >= 0; i--) {
-        var field = selectedFields[i];
-        if (_this[field] !== undefined) data[field] = _this[field];
-        else console.warn('Inexistent field ', field);
-      }
-      return data;
+    _this.setData = function(newData) {
+      var keys = Object.keys(newData);
+      for (var i = keys.length - 1; i >= 0; i--)
+        _this.set(keys[i], newData[keys[i]]);
+      return _this;
     };
 
     /**
-     * Get current object data fields
-     * @return {array}
+     * Get current object data
+     * @return {Object}
      */
-    _this.getFields = function() {
-      return fields;
+    _this.getData = function() {
+      var data = {};
+      for (var i = fields.length - 1; i >= 0; i--)
+          data[fields[i]] = _this[fields[i]];
+      return data;
     };
 
     /**
@@ -111,26 +100,29 @@
     };
 
     /**
-     * Set object's methods array for conflict prevention
+     * Create object with fields as properties
+     * @param  {array} fields
+     * @return {Object}
      */
-    function setOwnPublicMethods() {
-      for (var prop in _this) {
-        if (typeof _this[prop] == 'function') ownPublicMethods.push(prop);
+    function createObjectFromFields(fields) {
+      var obj = {};
+      for (var i = fields.length - 1; i >= 0; i--) {
+        obj[fields[i]] = null;
       }
+      return obj;
     }
 
     /**
-     * Return field name that doesn't conflict with public methods
-     * @param  {string} field
-     * @param  {string} original field name
-     * @return {string}
+     * Create fields object from fields array
+     * @param  {array} fields
+     * @return {Object}
      */
-    function getSafeFieldName(field, original) {
-      var ajusted = original;
-      original = original || field;
-      if (ownPublicMethods.indexOf(field) >= 0) return getSafeFieldName('_' + field, original);
-      if (ajusted) console.warn('Public method conflict. Property "' + original + '" renamed to "' + field + '"');
-      return field;
+    function createFieldsObject(fields) {
+      var fieldsObj = {};
+      for (var i = 0; i < fields.length; i++) {
+        fieldsObj[fields[i]] = fields[i];
+      }
+      return Object.freeze(fieldsObj);
     }
 
     // Set initial data

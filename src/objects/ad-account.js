@@ -6,7 +6,7 @@
   /**
    * Crud Object
    * Basic Facebook Object properties operations
-   * @param {Object} initData
+   * @param {Object} [initData]
    * @extends DataObject
    * @class
    */

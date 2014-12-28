@@ -40,10 +40,10 @@
   // Module
   if (typeof module !== 'undefined') {
     var path = require('path');
-    FacebookAdsApi.XMLHttRequest = require(path.join(__dirname, '../src/utils/xml-http-request.js'));
-    FacebookAdsApi.DataObject = require(path.join(__dirname, '../src/objects/data-object.js'));
-    FacebookAdsApi.CrudObject = require(path.join(__dirname, '../src/objects/crud-object.js'));
     module.exports = FacebookAdsApi;
+    module.exports.XMLHttRequest = require(path.join(__dirname, '../src/utils/xml-http-request.js'));
+    module.exports.DataObject = require(path.join(__dirname, '../src/objects/data-object.js'));
+    module.exports.CrudObject = require(path.join(__dirname, '../src/objects/crud-object.js'));
   } else {
     root.FacebookAdsApi = FacebookAdsApi;
   }

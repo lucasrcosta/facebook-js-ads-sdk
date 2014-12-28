@@ -4,7 +4,7 @@ if (typeof require === 'function') {
   require('chai').should();
 }
 
-describe('FacebookAdsApi.CrudObject', function() {
+describe('CrudObject', function() {
   'use strict';
 
   describe('constructor', function() {

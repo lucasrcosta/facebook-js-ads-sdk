@@ -4,7 +4,7 @@ if (typeof require === 'function') {
   require('chai').should();
 }
 
-describe('FacebookAdsApi.DataObject', function() {
+describe('DataObject', function() {
   'use strict';
 
   var warn = console.warn;

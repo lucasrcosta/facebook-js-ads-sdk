@@ -4,7 +4,7 @@ if (typeof require === 'function') {
   require('chai').should();
 }
 
-describe('FacebookAdsApi.XMLHttRequest', function() {
+describe('XMLHttRequest', function() {
   'use strict';
 
   describe('constructor', function() {

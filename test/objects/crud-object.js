@@ -15,4 +15,25 @@ describe('CrudObject', function() {
 
   });
 
+  describe('object properties', function() {
+
+    it('stores an endpoint', function() {
+      var crudObj = new FacebookAdsApi.CrudObject('endpoint', []);
+      crudObj.getEndpoint().should.be.eql('endpoint');
+    });
+
+    it('makes a fields object', function() {
+      var crudObj = new FacebookAdsApi.CrudObject('endpoint', ['a', 'b']);
+      crudObj.fields.should.be.eql({a: 'a', b: 'b'});
+    });
+
+    it('fields object is frozen', function() {
+      (function() {
+        var crudObj = new FacebookAdsApi.CrudObject('endpoint', ['a', 'b']);
+        crudObj.fields.a = 'c';
+      }).should.throw(TypeError);
+    });
+
+  });
+
 });

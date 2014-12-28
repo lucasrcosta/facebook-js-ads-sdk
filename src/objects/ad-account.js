@@ -10,7 +10,7 @@
    * @extends DataObject
    * @class
    */
-  function AdAccount(initData) {
+  function AdAccount(api, initData) {
     var endpoint = 'adaccounts';
     var fields = [
       'account_groups',

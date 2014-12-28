@@ -15,6 +15,9 @@
     else setToken(initToken);
 
     _this.http = new FacebookAdsApi.XMLHttRequest();
+    _this.AdAccount = function() {
+      return new FacebookAdsApi.AdAccount(_this, arguments);
+    };
 
     /**
      * Set API Token

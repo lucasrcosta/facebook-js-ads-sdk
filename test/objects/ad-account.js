@@ -7,10 +7,12 @@ if (typeof require === 'function') {
 describe('AdAccount', function() {
   'use strict';
 
+  var api = new FacebookAdsApi('a1b2c3d4e5');
+
   describe('constructor', function() {
 
-    it('exists', function() {
-      FacebookAdsApi.AdAccount.should.be.a('function');
+    it('exists in API instance', function() {
+      api.AdAccount.should.be.a('function');
     });
 
   });

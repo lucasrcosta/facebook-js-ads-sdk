@@ -33,8 +33,8 @@ describe('DataObject', function() {
 
     it('sets object properties from data fields', function() {
       var dataObj = new FacebookAdsApi.DataObject(['a', 'b']);
-      should.not.be.equal(dataObj.a, undefined);
-      should.not.be.equal(dataObj.b, undefined);
+      should.not.equal(dataObj.a, undefined);
+      should.not.equal(dataObj.b, undefined);
     });
 
     it('creates a fields object property', function() {

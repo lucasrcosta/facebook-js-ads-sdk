@@ -2,7 +2,7 @@
   'use strict';
 
   /**
-   * Facebook Ads Api
+   * Facebook Ads API
    * @param {string} token
    * @throws {Error} if no token is given
    */

@@ -6,14 +6,22 @@
   /**
    * Crud Object
    * Basic Facebook Object properties operations
+   * @param {FacebookAdsApi} api
    * @param {string} endpoint
    * @param {array} fields
    * @param {Object} [initData]
    * @extends DataObject
    * @class
    */
-  function CrudObject(endpoint, fields, initData) {
+  function CrudObject(api, endpoint, fields, initData) {
     var _this = new FacebookAdsApi.DataObject(fields, initData);
+
+    /**
+     * @return {FacebookAdsApi}
+     */
+    _this.getApi = function() {
+      return api;
+    };
 
     /**
      * @return {string}

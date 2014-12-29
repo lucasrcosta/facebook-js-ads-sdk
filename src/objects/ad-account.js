@@ -6,6 +6,7 @@
   /**
    * Crud Object
    * Basic Facebook Object properties operations
+   * @param {FacebookAdsApi} api
    * @param {Object} [initData]
    * @extends DataObject
    * @class
@@ -48,7 +49,7 @@
       'tos_accepted',
       'users'
     ];
-    var _this = new FacebookAdsApi.CrudObject(endpoint, fields, initData);
+    var _this = new FacebookAdsApi.CrudObject(api, endpoint, fields, initData);
 
     return _this;
   }

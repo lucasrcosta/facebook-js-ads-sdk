@@ -25,7 +25,12 @@ describe('Api', function() {
 
   });
 
-  describe('token functions', function() {
+  describe('request functions', function() {
+
+    it('gets the version', function() {
+      var api = new FacebookAdsApi(token);
+      api.getVersion().should.be.a('string');
+    });
 
     it('gets the token', function() {
       var api = new FacebookAdsApi(token);

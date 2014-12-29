@@ -8,11 +8,12 @@
    */
   function FacebookAdsApi(token) {
     var _this = {};
+    var version = '2.2';
 
     if (!token)
       throw new Error('Be a darling and get us a nice token, will you?');
 
-    _this.graph = new FacebookAdsApi.http.Graph();
+    _this.graph = new FacebookAdsApi.http.Graph(_this);
 
     // Facebook Objects constructors
     var objects = ['AdAccount'];
@@ -22,6 +23,14 @@
         return new FacebookAdsApi.objects[object](_this, arguments);
       };
     }
+
+    /**
+     * Get API Version
+     * @returns {string} version
+     */
+    _this.getVersion = function() {
+      return version;
+    };
 
     /**
      * Set API Token

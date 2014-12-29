@@ -12,7 +12,7 @@
     if (!token)
       throw new Error('Be a darling and get us a nice token, will you?');
 
-    _this.http = new FacebookAdsApi.XMLHttRequest();
+    _this.http = new FacebookAdsApi.XmlHttpRequest();
     _this.AdAccount = function() {
       return new FacebookAdsApi.AdAccount(_this, arguments);
     };
@@ -42,7 +42,7 @@
   if (typeof module !== 'undefined') {
     var path = require('path');
     module.exports = FacebookAdsApi;
-    module.exports.XMLHttRequest = require(path.join(__dirname, '../src/utils/xml-http-request.js'));
+    module.exports.XmlHttpRequest = require(path.join(__dirname, '../src/utils/xml-http-request.js'));
 
     // Objects
     module.exports.DataObject = require(path.join(__dirname, '../src/objects/data-object.js'));

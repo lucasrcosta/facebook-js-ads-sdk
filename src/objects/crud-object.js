@@ -1,8 +1,6 @@
 (function(root) {
   'use strict';
 
-  var FacebookAdsApi;
-
   /**
    * Crud Object
    * Basic Facebook Object properties operations
@@ -34,6 +32,7 @@
   }
 
   // Module
+  var FacebookAdsApi;
   if (typeof module !== 'undefined') {
     FacebookAdsApi = module.parent.exports;
     module.exports = CrudObject;

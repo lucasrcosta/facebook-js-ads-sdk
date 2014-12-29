@@ -12,8 +12,7 @@
     if (!token)
       throw new Error('Be a darling and get us a nice token, will you?');
 
-    // Http
-    _this.http = new FacebookAdsApi.http.XmlHttpRequest();
+    _this.graph = new FacebookAdsApi.http.Graph();
 
     // Facebook Objects constructors
     var objects = ['AdAccount'];
@@ -52,7 +51,8 @@
 
     // Http
     module.exports.http = {
-      XmlHttpRequest: require(path.join(__dirname, '../src/http/xml-http-request.js'))
+      XmlHttpRequest: require(path.join(__dirname, '../src/http/xml-http-request.js')),
+      Graph: require(path.join(__dirname, '../src/http/graph.js'))
     };
 
     // Facebook Objects

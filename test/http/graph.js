@@ -7,12 +7,20 @@ if (typeof require === 'function') {
 describe('Graph', function() {
   'use strict';
 
-  var Graph = FacebookAdsApi.http.Graph;
+  var api = new FacebookAdsApi('a1b2c3d4e5');
 
   describe('constructor', function() {
 
     it('exists', function() {
-      Graph.should.be.a('function');
+      FacebookAdsApi.http.Graph.should.be.a('function');
+    });
+
+  });
+
+  describe('requests', function() {
+
+    it('gets an endpoints url', function() {
+      api.graph.getRequestUrl('endpoint').should.be.a('string');
     });
 
   });

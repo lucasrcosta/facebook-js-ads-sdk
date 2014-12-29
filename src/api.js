@@ -12,10 +12,17 @@
     if (!token)
       throw new Error('Be a darling and get us a nice token, will you?');
 
+    // Utils
     _this.http = new FacebookAdsApi.XmlHttpRequest();
-    _this.AdAccount = function() {
-      return new FacebookAdsApi.AdAccount(_this, arguments);
-    };
+
+    // Facebook Objects constructors
+    var objects = ['AdAccount'];
+    for (var i = 0; i < objects.length; i++) {
+      var object = objects[i];
+      _this[object] = function() {
+        return new FacebookAdsApi[object](_this, arguments);
+      };
+    }
 
     /**
      * Set API Token
@@ -38,13 +45,15 @@
     return _this;
   }
 
-  // Module
+  // Modules
   if (typeof module !== 'undefined') {
     var path = require('path');
     module.exports = FacebookAdsApi;
+
+    // Utils
     module.exports.XmlHttpRequest = require(path.join(__dirname, '../src/utils/xml-http-request.js'));
 
-    // Objects
+    // Facebook Objects
     module.exports.DataObject = require(path.join(__dirname, '../src/objects/data-object.js'));
     module.exports.CrudObject = require(path.join(__dirname, '../src/objects/crud-object.js'));
     module.exports.AdAccount = require(path.join(__dirname, '../src/objects/ad-account.js'));

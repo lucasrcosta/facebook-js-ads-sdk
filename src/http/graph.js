@@ -12,12 +12,26 @@
     var http = new FacebookAdsApi.http.XmlHttpRequest();
 
     /**
+     * Get Graph Request
+     * @param  {string} path
+     * @return {Promise}
+     */
+    _this.get = function(path) {
+      var requestUrl = _this.getRequestUrl(path);
+      requestUrl += '?access_token=' + api.getToken();
+      http.get(requestUrl)
+        .then(function(data) {
+          console.log(data);
+        });
+    };
+
+    /**
      * URL, version and enpoint
-     * @param  {string} endpoint
+     * @param  {string} path
      * @return {string}
      */
-    _this.getRequestUrl = function(endpoint) {
-      return url + 'v' + api.getVersion() + '/' + endpoint;
+    _this.getRequestUrl = function(path) {
+      return url + 'v' + api.getVersion() + '/' + path;
     };
 
     return _this;

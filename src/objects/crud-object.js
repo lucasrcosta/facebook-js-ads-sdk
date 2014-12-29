@@ -28,6 +28,16 @@
       return endpoint;
     };
 
+    _this.read = function() {
+      return api.graph.get(assureId());
+    };
+
+    function assureId() {
+      if (!_this.id)
+        throw new Error('id is required');
+      return _this.id;
+    }
+
     return _this;
   }
 

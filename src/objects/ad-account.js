@@ -49,7 +49,7 @@
       'tos_accepted',
       'users'
     ];
-    var _this = new FacebookAdsApi.CrudObject(api, endpoint, fields, initData);
+    var _this = new FacebookAdsApi.objects.CrudObject(api, endpoint, fields, initData);
 
     return _this;
   }

@@ -12,7 +12,7 @@
     if (!token)
       throw new Error('Be a darling and get us a nice token, will you?');
 
-    // Utils
+    // Http
     _this.http = new FacebookAdsApi.XmlHttpRequest();
 
     // Facebook Objects constructors
@@ -50,8 +50,8 @@
     var path = require('path');
     module.exports = FacebookAdsApi;
 
-    // Utils
-    module.exports.XmlHttpRequest = require(path.join(__dirname, '../src/utils/xml-http-request.js'));
+    // Http
+    module.exports.XmlHttpRequest = require(path.join(__dirname, '../src/http/xml-http-request.js'));
 
     // Facebook Objects
     module.exports.DataObject = require(path.join(__dirname, '../src/objects/data-object.js'));

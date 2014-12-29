@@ -48,5 +48,5 @@
 
   // Module
   if (typeof module !== 'undefined') module.exports = XmlHttpRequest;
-  else root.FacebookAdsApi.XmlHttpRequest = XmlHttpRequest;
+  else root.FacebookAdsApi.http.XmlHttpRequest = XmlHttpRequest;
 })(this);

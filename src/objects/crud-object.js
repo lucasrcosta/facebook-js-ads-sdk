@@ -14,7 +14,7 @@
    * @class
    */
   function CrudObject(api, endpoint, fields, initData) {
-    var _this = new FacebookAdsApi.DataObject(fields, initData);
+    var _this = new FacebookAdsApi.objects.DataObject(fields, initData);
 
     /**
      * @return {FacebookAdsApi}
@@ -38,7 +38,7 @@
     FacebookAdsApi = module.parent.exports;
     module.exports = CrudObject;
   } else {
-    root.FacebookAdsApi.CrudObject = CrudObject;
+    root.FacebookAdsApi.objects.CrudObject = CrudObject;
     FacebookAdsApi = root.FacebookAdsApi;
   }
 })(this);

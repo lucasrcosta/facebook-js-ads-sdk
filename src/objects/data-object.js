@@ -134,5 +134,5 @@
 
   // Module
   if (typeof module !== 'undefined') module.exports = DataObject;
-  else root.FacebookAdsApi.DataObject = DataObject;
+  else root.FacebookAdsApi.objects.DataObject = DataObject;
 })(this);

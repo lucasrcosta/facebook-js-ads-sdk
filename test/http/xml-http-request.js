@@ -7,10 +7,12 @@ if (typeof require === 'function') {
 describe('XmlHttpRequest', function() {
   'use strict';
 
+  var XmlHttpRequest = FacebookAdsApi.http.XmlHttpRequest;
+
   describe('constructor', function() {
 
     it('exists', function() {
-      FacebookAdsApi.XmlHttpRequest.should.be.a('function');
+      XmlHttpRequest.should.be.a('function');
     });
 
   });

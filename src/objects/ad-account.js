@@ -59,7 +59,7 @@
     FacebookAdsApi = module.parent.exports;
     module.exports = AdAccount;
   } else {
-    root.FacebookAdsApi.AdAccount = AdAccount;
+    root.FacebookAdsApi.objects.AdAccount = AdAccount;
     FacebookAdsApi = root.FacebookAdsApi;
   }
 })(this);

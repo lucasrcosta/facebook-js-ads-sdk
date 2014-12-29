@@ -7,12 +7,13 @@ if (typeof require === 'function') {
 describe('CrudObject', function() {
   'use strict';
 
+  var CrudObject = FacebookAdsApi.objects.CrudObject;
   var api = new FacebookAdsApi('a1b2c3d4e5');
 
   describe('constructor', function() {
 
     it('exists', function() {
-      FacebookAdsApi.CrudObject.should.be.a('function');
+      CrudObject.should.be.a('function');
     });
 
   });
@@ -20,12 +21,12 @@ describe('CrudObject', function() {
   describe('object properties', function() {
 
     it('contains an API instance', function() {
-      var crudObj = new FacebookAdsApi.CrudObject(api, 'endpoint', []);
+      var crudObj = new CrudObject(api, 'endpoint', []);
       crudObj.getApi().should.be.eql(api);
     });
 
     it('stores an endpoint', function() {
-      var crudObj = new FacebookAdsApi.CrudObject(api, 'endpoint', []);
+      var crudObj = new CrudObject(api, 'endpoint', []);
       crudObj.getEndpoint().should.be.eql('endpoint');
     });
 

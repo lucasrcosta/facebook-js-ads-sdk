@@ -13,14 +13,14 @@
       throw new Error('Be a darling and get us a nice token, will you?');
 
     // Http
-    _this.http = new FacebookAdsApi.XmlHttpRequest();
+    _this.http = new FacebookAdsApi.http.XmlHttpRequest();
 
     // Facebook Objects constructors
     var objects = ['AdAccount'];
     for (var i = 0; i < objects.length; i++) {
       var object = objects[i];
       _this[object] = function() {
-        return new FacebookAdsApi[object](_this, arguments);
+        return new FacebookAdsApi.objects[object](_this, arguments);
       };
     }
 
@@ -51,13 +51,18 @@
     module.exports = FacebookAdsApi;
 
     // Http
-    module.exports.XmlHttpRequest = require(path.join(__dirname, '../src/http/xml-http-request.js'));
+    module.exports.http = {
+      XmlHttpRequest: require(path.join(__dirname, '../src/http/xml-http-request.js'))
+    };
 
     // Facebook Objects
-    module.exports.DataObject = require(path.join(__dirname, '../src/objects/data-object.js'));
-    module.exports.CrudObject = require(path.join(__dirname, '../src/objects/crud-object.js'));
-    module.exports.AdAccount = require(path.join(__dirname, '../src/objects/ad-account.js'));
+    module.exports.objects = {
+      DataObject: require(path.join(__dirname, '../src/objects/data-object.js')),
+      CrudObject: require(path.join(__dirname, '../src/objects/crud-object.js')),
+      AdAccount: require(path.join(__dirname, '../src/objects/ad-account.js'))
+    };
   } else {
+    FacebookAdsApi.http = FacebookAdsApi.objects = {};
     root.FacebookAdsApi = FacebookAdsApi;
   }
 })(this);

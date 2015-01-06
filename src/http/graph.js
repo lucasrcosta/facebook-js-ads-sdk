@@ -19,10 +19,7 @@
     _this.get = function(path) {
       var requestUrl = _this.getRequestUrl(path);
       requestUrl += '?access_token=' + api.getToken();
-      http.get(requestUrl)
-        .then(function(data) {
-          console.log(data);
-        });
+      return http.get(requestUrl);
     };
 
     /**

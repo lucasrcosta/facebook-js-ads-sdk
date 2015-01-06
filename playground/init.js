@@ -27,6 +27,7 @@ window.fbAsyncInit = function() {
  */
 function initApi(token) {
   window.api = new FacebookAdsApi(token);
+  document.getElementById('token').innerHTML = token;
   console.info('The Facebook Ads API is ready for action!');
 }
 
@@ -35,7 +36,7 @@ function initApi(token) {
  * @returns {string} token
  */
 function getLocalToken() {
-  if (!(token = JSON.parse(localStorage.getItem('token')))) 
+  if (!(token = JSON.parse(localStorage.getItem('token'))))
     return false;
   if (token.expiresIn < new Date().getTime()) {
     localStorage.removeItem('token');

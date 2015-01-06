@@ -7,7 +7,7 @@ if (typeof require === 'function') {
 describe('XmlHttpRequest', function() {
   'use strict';
 
-  var XmlHttpRequest = FacebookAdsApi.http.XmlHttpRequest;
+  var XmlHttpRequest = FacebookAdsApi.http.Http;
 
   describe('constructor', function() {
 

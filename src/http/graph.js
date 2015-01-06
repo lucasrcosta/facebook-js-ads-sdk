@@ -9,7 +9,7 @@
   function Graph(api) {
     var _this = {};
     var url = 'https://graph.facebook.com/';
-    var http = new FacebookAdsApi.http.XmlHttpRequest();
+    var http = new FacebookAdsApi.http.Http();
 
     /**
      * Get Graph Request

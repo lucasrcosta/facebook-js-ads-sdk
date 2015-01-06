@@ -47,5 +47,5 @@
   }
 
   // Module
-  root.FacebookAdsApi.http.XmlHttpRequest = XmlHttpRequest;
+  root.FacebookAdsApi.http.Http = XmlHttpRequest;
 })(this);

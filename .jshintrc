@@ -1,7 +1,6 @@
 {
   "bitwise": true,
   "browser": true,
-  "camelcase": true,
   "esnext": true,
   "immed": true,
   "indent": 2,

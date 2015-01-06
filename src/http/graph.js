@@ -14,11 +14,14 @@
     /**
      * Get Graph Request
      * @param  {string} path
+     * @param  {Object} params
      * @return {Promise}
      */
-    _this.get = function(path) {
+    _this.get = function(path, params) {
       var requestUrl = _this.getRequestUrl(path);
-      requestUrl += '?access_token=' + api.getToken();
+      params = params || {};
+      params.access_token =  api.getToken();
+      requestUrl += '?' + encodeParams(params);
       return http.getJSON(requestUrl);
     };
 
@@ -30,6 +33,17 @@
     _this.getRequestUrl = function(path) {
       return url + 'v' + api.getVersion() + '/' + path;
     };
+
+    /**
+     * Encode parameter object as querystring
+     * @param  {Object} params
+     * @return {string} querystring
+     */
+    function encodeParams(params) {
+      return Object.keys(params).map(function(param) {
+        return param + '=' + params[param];
+      }).join('&');
+    }
 
     return _this;
   }

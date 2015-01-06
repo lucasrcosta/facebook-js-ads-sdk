@@ -60,7 +60,7 @@
 
     // Http
     module.exports.http = {
-      XmlHttpRequest: require(path.join(__dirname, '../src/http/xml-http-request.js')),
+      XmlHttpRequest: require(path.join(__dirname, '../src/http/http.js')),
       Graph: require(path.join(__dirname, '../src/http/graph.js'))
     };
 

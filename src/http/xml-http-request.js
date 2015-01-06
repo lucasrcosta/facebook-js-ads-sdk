@@ -2,7 +2,7 @@
   'use strict';
 
   /**
-   * Promise based XmlHttpRequest
+   * Promise-based XmlHttpRequest
    * @type {Object}
    * @see {@link http://www.html5rocks.com/en/tutorials/es6/promises/}
    */
@@ -47,6 +47,5 @@
   }
 
   // Module
-  if (typeof module !== 'undefined') module.exports = XmlHttpRequest;
-  else root.FacebookAdsApi.http.XmlHttpRequest = XmlHttpRequest;
+  root.FacebookAdsApi.http.XmlHttpRequest = XmlHttpRequest;
 })(this);

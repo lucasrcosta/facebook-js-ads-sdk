@@ -2,6 +2,8 @@
   'use strict';
 
   var Promise = require('promise');
+  var request = require('request-json');
+  var client = request.newClient('http://localhost:8888/');
 
   /**
    * Promise-based Http wrapper
@@ -11,23 +13,26 @@
     var _this = {};
 
     /**
-     * Get Request
+     * Get request
+     * @param {string} url
      * @return {Promise}
      */
-    _this.get = function() {
-      return new Promise(function(resolve) {
-        resolve(42);
+    _this.get = function(url) {
+      return new Promise(function(resolve, reject) {
+        client.get(url, function(err, res, body) {
+          if (err) reject(err);
+          else resolve(body);
+        });
       });
     };
 
     /**
-     * Get JSON Request
-     * @author Jake Archibald
-     * @param  {string} url
+     * Get JSON request alias
+     * @param {string} url
      * @return {Promise}
      */
     _this.getJSON = function(url) {
-      return _this.get(url).then(JSON.parse);
+      return _this.get(url);
     };
 
     return _this;

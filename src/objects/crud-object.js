@@ -7,11 +7,16 @@
    * @param {FacebookAdsApi} api
    * @param {string} endpoint
    * @param {array} fields
-   * @param {Object} [initData]
+   * @param {mixed} [initData]
+   * @param {int} [parentId] for new object creation
    * @extends DataObject
    * @class
    */
-  function CrudObject(api, endpoint, fields, initData) {
+  function CrudObject(api, endpoint, fields, initData, parentId) {
+    initData = initData || {};
+    if (initData && typeof initData != 'object')
+      initData = {id: initData};
+
     var _this = new FacebookAdsApi.objects.DataObject(fields, initData);
 
     /**
@@ -28,15 +33,35 @@
       return endpoint;
     };
 
+    /**
+     * @return {mixed}
+     */
+    _this.getParentId = function() {
+      return parentId;
+    };
+
+    /**
+     * @param {mixed} newParentId
+     * @return _this
+     */
+    _this.setParentId = function(newParentId) {
+      parentId = newParentId;
+      return _this;
+    };
+
+    /**
+     * @throws {Error} object has no id
+     * @return {[type]} [description]
+     */
+    _this.getId = function() {
+      if (_this.id !== 0 && !_this.id)
+        throw new Error('id not defined');
+      return _this.id;
+    };
+
     _this.read = function() {
       return api.graph.get(assureId());
     };
-
-    function assureId() {
-      if (!_this.id)
-        throw new Error('id is required');
-      return _this.id;
-    }
 
     return _this;
   }

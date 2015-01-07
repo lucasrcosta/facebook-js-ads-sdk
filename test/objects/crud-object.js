@@ -18,20 +18,10 @@ describe('CrudObject', function() {
 
   });
 
-  describe('object properties', function() {
-
-    it('contains an API instance', function() {
-      var api = new FacebookAdsApi(token);
-      var crudObj = new CrudObject(api, 'endpoint', []);
-      crudObj.getApi().should.be.eql(api);
-    });
-
-    it('stores an endpoint', function() {
-      var api = new FacebookAdsApi(token);
-      var crudObj = new CrudObject(api, 'endpoint', []);
-      crudObj.getEndpoint().should.be.eql('endpoint');
-    });
-
+  it('throws an error if it can\'t get the id', function() {
+    var api = new FacebookAdsApi(token);
+    var crudObj = new CrudObject(api, 'endpoint', []);
+    crudObj.getId.should.throw(Error);
   });
 
 });

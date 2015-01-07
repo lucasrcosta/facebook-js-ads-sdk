@@ -9,7 +9,7 @@
   function Graph(api) {
     var _this = {};
     var url = 'https://graph.facebook.com/';
-    var http = new FacebookAdsApi.http.Http();
+    _this.http = new FacebookAdsApi.http.Http();
 
     /**
      * Get Graph Request
@@ -22,7 +22,7 @@
       params = params || {};
       params.access_token =  api.getToken();
       requestUrl += '?' + encodeParams(params);
-      return http.getJSON(requestUrl);
+      return _this.http.getJSON(requestUrl);
     };
 
     /**
@@ -32,6 +32,14 @@
      */
     _this.getRequestUrl = function(path) {
       return url + 'v' + api.getVersion() + '/' + path;
+    };
+
+    /**
+     * Facebook Graph Url
+     * @return {string}
+     */
+    _this.getGraphUrl = function() {
+      return url;
     };
 
     /**

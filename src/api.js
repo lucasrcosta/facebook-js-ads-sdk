@@ -20,7 +20,8 @@
     for (var i = 0; i < objects.length; i++) {
       var object = objects[i];
       _this[object] = function() {
-        return new FacebookAdsApi.objects[object](_this, arguments);
+        var params = [_this].concat(Array.prototype.slice.call(arguments));
+        return FacebookAdsApi.objects[object].apply({}, params);
       };
     }
 

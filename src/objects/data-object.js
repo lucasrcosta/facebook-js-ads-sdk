@@ -9,6 +9,9 @@
    * @class
    */
   function DataObject(fields, initData) {
+    if (!fields)
+      throw new Error('a data object needs fields');
+
     var _this = createObjectFromFields(fields);
     var persistedData = {};
 

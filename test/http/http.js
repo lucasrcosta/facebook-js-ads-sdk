@@ -4,15 +4,15 @@ if (typeof require === 'function') {
   require('chai').should();
 }
 
-describe('XmlHttpRequest', function() {
+describe('Http', function() {
   'use strict';
 
-  var XmlHttpRequest = FacebookAdsApi.http.Http;
+  var Http = FacebookAdsApi.http.Http;
 
   describe('constructor', function() {
 
     it('exists', function() {
-      XmlHttpRequest.should.be.a('function');
+      Http.should.be.a('function');
     });
 
   });

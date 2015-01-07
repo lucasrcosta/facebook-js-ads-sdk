@@ -24,24 +24,4 @@ describe('Api', function() {
     });
 
   });
-
-  describe('token functions', function() {
-
-    it('returns the token', function() {
-      var api = new FacebookAdsApi(token);
-      api.getToken().should.be.equal(token);
-    });
-
-    it('sets the token', function() {
-      var api = new FacebookAdsApi(token);
-      var newToken = '5e4d3c2b1a';
-      api.setToken(newToken).getToken().should.be.equal(newToken);
-    });
-
-  });
-
-  it('returns it\'s version', function() {
-    var api = new FacebookAdsApi(token);
-    api.getVersion().should.be.a('string');
-  });
 });

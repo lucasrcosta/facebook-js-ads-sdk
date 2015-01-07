@@ -21,11 +21,6 @@ describe('Graph', function() {
 
   });
 
-  it('returns endpoint\'s request url', function() {
-    var api = new FacebookAdsApi(token);
-    api.graph.getRequestUrl('endpoint').should.be.a('string');
-  });
-
   describe('requests', function() {
 
     it('calls a facebook ajax request with parameters and the token', function() {

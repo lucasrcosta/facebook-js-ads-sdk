@@ -3,9 +3,7 @@ if (typeof require === 'function') {
   var FacebookAdsApi = require(path.join(__dirname, '../../src/api.js'));
   var chai = require('chai');
   var sinon = require('sinon');
-  var sinonChai = require('sinon-chai');
   chai.should();
-  chai.use(sinonChai);
 }
 
 describe('CrudObject', function() {
@@ -30,7 +28,7 @@ describe('CrudObject', function() {
 
   describe('crud operations', function() {
 
-    it('can read', function(done) {
+    it('reads an object from the graph and stores it\'s data', function(done) {
       var api = new FacebookAdsApi(token);
       var objId = 123;
       var readData = {
@@ -40,10 +38,10 @@ describe('CrudObject', function() {
         string: 'string'
       };
       var request = sinon.stub(api.graph, 'get').returns(new Promise(function(resolve) { resolve(readData); }));
-      var crudObj = new CrudObject(api, 'endpoint', ['id', 'string', 'int', 'object'], objId);
+      var crudObj = new CrudObject(api, 'endpoint', ['id', 'int', 'object', 'string'], objId);
       crudObj.read()
-        .then(function(data) {
-          data.should.be.equal(readData);
+        .then(function(obj) {
+          obj.getData().should.be.eql(readData);
           done();
         })
         .catch(function(err) { done(err); });

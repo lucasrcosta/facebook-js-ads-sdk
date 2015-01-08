@@ -71,13 +71,20 @@
      * Read object data from the graph
      * @param  {array} [filter] selected fields
      * @param  {Object} [params] additional params
+     * @throws {Error} if graph promise is rejected
      * @return _this
      */
     _this.read = function(filter, params) {
       filter = filter || fields;
       params = params || {};
       params.fields = filter;
-      return api.graph.get(_this.getNodePath(), params);
+      return new Promise(function(resolve, reject) {
+        api.graph.get(_this.getNodePath(), params)
+        .then(function(data) {
+          resolve(_this.setData(data));
+        })
+        .catch(function(err) { reject(err); });
+      });
     };
 
     return _this;

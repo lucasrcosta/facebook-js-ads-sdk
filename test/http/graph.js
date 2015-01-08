@@ -25,13 +25,13 @@ describe('Graph', function() {
 
     it('calls a facebook ajax request with parameters and the token', function() {
       var api = new FacebookAdsApi(token);
-      var getJSON = sinon.stub(api.graph.http, 'getJSON');
+      var request = sinon.stub(api.graph.http, 'getJSON');
       var url = api.graph.getGraphUrl();
       var version = api.getVersion();
       var endpoint = 'endpoint';
       var requestUrl = url + 'v' + version + '/' + endpoint + '?a=1&access_token=' + token;
       api.graph.get(endpoint, {a: 1});
-      getJSON.should.have.been.calledWith(requestUrl);
+      request.should.have.been.calledWith(requestUrl);
     });
 
   });

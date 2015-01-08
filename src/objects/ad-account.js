@@ -7,11 +7,12 @@
    * Crud Object
    * Basic Facebook Object properties operations
    * @param {FacebookAdsApi} api
-   * @param {Object} [initData]
-   * @extends DataObject
+   * @param {mixed} [initData]
+   * @param {int} [parentId]
+   * @extends CrudObject
    * @class
    */
-  function AdAccount(api, initData) {
+  function AdAccount(api, initData, parentId) {
     var endpoint = 'adaccounts';
     var fields = [
       'account_groups',
@@ -25,31 +26,31 @@
       'business_country_code',
       'business_name',
       'business_state',
-      'business_street2',
       'business_street',
+      'business_street2',
       'business_zip',
-      'created_time',
-      'end_advertiser',
-      'media_agency',
-      'partner',
       'capabilities',
+      'created_time',
       'currency',
       'daily_spend_limit',
-      'id',
-      'is_personal',
-      'name',
-      'offsite_pixels_tos_accepted',
-      'spend_cap',
-      'spend_cap_action',
+      'end_advertiser',
       'funding_source',
       'funding_source_details',
+      'id',
+      'is_personal',
+      'media_agency',
+      'name',
+      'offsite_pixels_tos_accepted',
+      'partner',
+      'spend_cap',
       'timezone_id',
       'timezone_name',
       'timezone_offset_hours_utc',
       'tos_accepted',
-      'users'
+      'users',
+      'tax_id_status',
     ];
-    var _this = new FacebookAdsApi.objects.CrudObject(api, endpoint, fields, initData);
+    var _this = new FacebookAdsApi.objects.CrudObject(api, endpoint, fields, initData, parentId);
 
     return _this;
   }

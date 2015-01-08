@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "devDependencies": {
-    "chai": "~1.8.0",
+    "chai": "~1.10.0",
     "mocha": "~1.14.0",
     "sinonjs": "~1.10.2",
     "sinon-chai": "~2.6.0"

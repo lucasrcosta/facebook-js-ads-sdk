@@ -18,12 +18,19 @@
     </script>
 
     <!-- include source files here... -->
-    <script src="../src/api.js"></script>
+    <script>
+      // Prepend
+      this.FbApiAssets = {
+        http: {},
+        objects: {}
+      }
+    </script>
     <script src="../src/http/xml-http-request.js"></script>
     <script src="../src/http/graph.js"></script>
     <script src="../src/objects/data-object.js"></script>
     <script src="../src/objects/crud-object.js"></script>
-    <script src="../src/objects/ad-account.js"></script>
+    <script src="../src/api.js"></script>
+    <!-- <script src="../src/objects/ad-account.js"></script> -->
 
     <!-- include spec files here... -->
     <script src="api.js"></script>
@@ -32,8 +39,8 @@
     <script src="objects/data-object.js"></script>
     <script src="objects/crud-object.js"></script>
 
-    <script src="test-data.js"></script>
-    <script src="objects/ad-account.js"></script>
+    <!-- <script src="test-data.js"></script> -->
+    <!-- <script src="objects/ad-account.js"></script> -->
 
     <script>mocha.run()</script>
 </body>

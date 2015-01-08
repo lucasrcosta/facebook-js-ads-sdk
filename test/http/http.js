@@ -1,18 +1,17 @@
 if (typeof require === 'function') {
-  var path = require('path');
-  var FacebookAdsApi = require(path.join(__dirname, '../../src/api.js'));
+  var Http = require('./../../src/http/http.js');
   require('chai').should();
+} else {
+  var Http = FbApiAssets.http.Http;
 }
 
 describe('Http', function() {
   'use strict';
 
-  var Http = FacebookAdsApi.http.Http;
-
   describe('constructor', function() {
 
-    it('exists', function() {
-      Http.should.be.a('function');
+    it('can be instantiated', function() {
+      (new Http()).should.be.an('object');
     });
 
   });

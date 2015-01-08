@@ -1,6 +1,5 @@
 if (typeof require === 'function') {
-  var path = require('path');
-  var FacebookAdsApi = require(path.join(__dirname, '../src/api.js'));
+  var FacebookAdsApi = require('./../src/api.js');
   require('chai').should();
 }
 
@@ -11,10 +10,6 @@ describe('Api', function() {
 
   describe('constructor', function() {
 
-    it('exists', function() {
-      FacebookAdsApi.should.be.a('function');
-    });
-
     it('throws an error if no token is given', function() {
       FacebookAdsApi.should.throw(Error);
     });
@@ -24,4 +19,5 @@ describe('Api', function() {
     });
 
   });
+
 });

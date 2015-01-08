@@ -1,4 +1,16 @@
-(function(root) {
+(function(root, factory) {
+  'use strict';
+
+  if (typeof define === 'function' && define.amd) {
+    define(['http', 'graph', 'ad-account'], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory(
+      require('./http/graph.js')
+    );
+  } else {
+    root.FacebookAdsApi = factory(root.FbApiAssets.http.Graph);
+  }
+}(this, function(Graph) {
   'use strict';
 
   /**
@@ -13,17 +25,17 @@
     if (!token)
       throw new Error('Be a darling and get us a nice token, will you?');
 
-    _this.graph = new FacebookAdsApi.http.Graph(_this);
+    _this.graph = new Graph(_this);
 
     // Facebook Objects constructors
-    var objects = ['AdAccount'];
-    for (var i = 0; i < objects.length; i++) {
-      var object = objects[i];
-      _this[object] = function() {
-        var params = [_this].concat(Array.prototype.slice.call(arguments));
-        return FacebookAdsApi.objects[object].apply({}, params);
-      };
-    }
+    // var objects = ['AdAccount'];
+    // for (var i = 0; i < objects.length; i++) {
+    //   var object = objects[i];
+    //   _this[object] = function() {
+    //     var params = [_this].concat(Array.prototype.slice.call(arguments));
+    //     return FacebookAdsApi.objects[object].apply({}, params);
+    //   };
+    // }
 
     /**
      * Get API Version
@@ -54,25 +66,5 @@
     return _this;
   }
 
-  // Modules
-  if (typeof module !== 'undefined') {
-    var path = require('path');
-    module.exports = FacebookAdsApi;
-
-    // Http
-    module.exports.http = {
-      Http: require(path.join(__dirname, '../src/http/http.js')),
-      Graph: require(path.join(__dirname, '../src/http/graph.js'))
-    };
-
-    // Facebook Objects
-    module.exports.objects = {
-      DataObject: require(path.join(__dirname, '../src/objects/data-object.js')),
-      CrudObject: require(path.join(__dirname, '../src/objects/crud-object.js')),
-      AdAccount: require(path.join(__dirname, '../src/objects/ad-account.js'))
-    };
-  } else {
-    FacebookAdsApi.http = FacebookAdsApi.objects = {};
-    root.FacebookAdsApi = FacebookAdsApi;
-  }
-})(this);
+  return FacebookAdsApi;
+}));

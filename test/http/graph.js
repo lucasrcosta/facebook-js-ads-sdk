@@ -23,7 +23,7 @@ describe('Graph', function() {
 
   describe('requests', function() {
 
-    it('calls a facebook ajax request with parameters and the token', function() {
+    it('calls a GET facebook ajax request with parameters and the token', function() {
       var api = new FacebookAdsApi(token);
       var request = sinon.stub(api.graph.http, 'getJSON');
       var url = api.graph.getGraphUrl();

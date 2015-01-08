@@ -48,7 +48,7 @@
       'timezone_offset_hours_utc',
       'tos_accepted',
       'users',
-      'tax_id_status',
+      'tax_id_status'
     ];
     var _this = new FacebookAdsApi.objects.CrudObject(api, endpoint, fields, initData, parentId);
 

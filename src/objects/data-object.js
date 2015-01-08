@@ -55,8 +55,10 @@
      */
     _this.getData = function() {
       var data = {};
-      for (var i = fields.length - 1; i >= 0; i--)
+      for (var i = 0; i < fields.length; i++) {
+        if (_this[fields[i]])
           data[fields[i]] = _this[fields[i]];
+      }
       return data;
     };
 

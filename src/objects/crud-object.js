@@ -13,6 +13,7 @@
    * @class
    */
   function CrudObject(api, endpoint, fields, initData, parentId) {
+    fields = fields || ['id'];
     initData = initData || {};
     if (initData && typeof initData != 'object')
       initData = {id: initData};
@@ -50,8 +51,8 @@
     };
 
     /**
-     * @throws {Error} object has no id
-     * @return {[type]} [description]
+     * @throws {Error} if object has no id
+     * @return {mixed]}
      */
     _this.getId = function() {
       if (_this.id !== 0 && !_this.id)
@@ -59,8 +60,24 @@
       return _this.id;
     };
 
-    _this.read = function() {
-      return api.graph.get(assureId());
+    /**
+     * @return {string}
+     */
+    _this.getNodePath = function() {
+      return _this.getId();
+    };
+
+    /**
+     * Read object data from the graph
+     * @param  {array} [filter] selected fields
+     * @param  {Object} [params] additional params
+     * @return _this
+     */
+    _this.read = function(filter, params) {
+      filter = filter || fields;
+      params = params || {};
+      params.fields = filter;
+      return api.graph.get(_this.getNodePath(), params);
     };
 
     return _this;

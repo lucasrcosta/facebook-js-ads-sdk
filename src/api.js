@@ -32,12 +32,13 @@
     _this.graph = new Graph(_this);
 
     // Facebook Objects constructors
-    for (var object in objects) {
+    var objKeys = Object.keys(objects);
+    objKeys.forEach(function(object) {
       _this[object] = function() {
         var params = [_this].concat(Array.prototype.slice.call(arguments));
         return objects[object].apply({}, params);
       };
-    }
+    });
 
     /**
      * Get API Version

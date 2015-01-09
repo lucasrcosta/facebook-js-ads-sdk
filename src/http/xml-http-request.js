@@ -17,7 +17,7 @@
     var _this = {};
 
     /**
-     * Get Request
+     * Get request
      * @param {string} url
      * @return {promise}
      */
@@ -51,6 +51,36 @@
      */
     _this.getJSON = function(url) {
       return _this.get(url).then(JSON.parse);
+    };
+
+    /**
+     * Post request
+     * @param {string} url
+     * @param {object} data
+     * @return {promise}
+     */
+    _this.post = function(url, data) {
+      return new Promise(function(resolve, reject) {
+        var req = new XMLHttpRequest();
+        req.open('POST', url);
+        req.onload = function() {
+          if (req.status == 200) {
+            resolve(req.response);
+          } else {
+            try {
+              var response = JSON.parse(req.response);
+              var error = response.error ? response.error : response;
+              reject(new FbError(error, req));
+            } catch (e) {
+              reject(Error(req.statusText));
+            }
+          }
+        };
+        req.onerror = function() {
+          reject(Error('Network Error'));
+        };
+        req.send(encodeParams(data));
+      });
     };
 
     return _this;

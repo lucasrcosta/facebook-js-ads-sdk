@@ -41,6 +41,26 @@
       return _this.get(url);
     };
 
+    /**
+     * Post request
+     * @param {string} url
+     * @param {object} data
+     * @return {promise}
+     */
+    _this.post = function(url, data) {
+      return new Promise(function(resolve, reject) {
+        client.post(url, data, function(err, res, body) {
+          if (err) reject(err);
+          else {
+            if (body.error)
+              reject(new FbError(body.error));
+            else
+              resolve(body);
+          }
+        });
+      });
+    };
+
     return _this;
   }
 

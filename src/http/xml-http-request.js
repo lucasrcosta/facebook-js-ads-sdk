@@ -1,10 +1,18 @@
-(function(root) {
+(function(root, factory) {
+  'use strict';
+
+  if (typeof define === 'function' && define.amd) {
+    define([], factory);
+  } else {
+    root.FbApiAssets.http.Http = factory();
+  }
+}(this, function() {
   'use strict';
 
   /**
    * Promise-based XmlHttpRequest
    * @type {Object}
-   * @see {@link http://www.html5rocks.com/en/tutorials/es6/promises/}
+   * @see {@link} http://www.html5rocks.com/en/tutorials/es6/promises/
    */
   function XmlHttpRequest() {
     var _this = {};
@@ -46,6 +54,5 @@
     return _this;
   }
 
-  // Module
-  root.FacebookAdsApi.http.Http = XmlHttpRequest;
-})(this);
+  return XmlHttpRequest;
+}));

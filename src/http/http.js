@@ -38,6 +38,5 @@
     return _this;
   }
 
-  // Module
   module.exports = Http;
-})(this);
+})();

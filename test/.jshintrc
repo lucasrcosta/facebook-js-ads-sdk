@@ -1,3 +1,17 @@
 {
-  "expr": true
+  "bitwise": true,
+  "browser": true,
+  "esnext": true,
+  "immed": true,
+  "indent": 2,
+  "latedef": "nofunc",
+  "loopfunc": true,
+  "maxparams": 5,
+  "newcap": true,
+  "noarg": true,
+  "strict": true,
+  "validthis": true,
+  "unused": true,
+  "expr": true,
+  "predef": [ "-Promise" ]
 }

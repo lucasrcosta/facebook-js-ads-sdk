@@ -1,4 +1,14 @@
-(function(root) {
+(function(root, factory) {
+  'use strict';
+
+  if (typeof define === 'function' && define.amd) {
+    define(['http'], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory(require('./http.js'));
+  } else {
+    root.FbApiAssets.http.Graph = factory(root.FbApiAssets.http.Http);
+  }
+}(this, function(Http) {
   'use strict';
 
   /**
@@ -9,7 +19,7 @@
   function Graph(api) {
     var _this = {};
     var url = 'https://graph.facebook.com/';
-    _this.http = new FacebookAdsApi.http.Http();
+    _this.http = new Http();
 
     /**
      * Get Graph Request
@@ -56,13 +66,5 @@
     return _this;
   }
 
-  // Module
-  var FacebookAdsApi;
-  if (typeof module !== 'undefined') {
-    FacebookAdsApi = module.parent.exports;
-    module.exports = Graph;
-  } else {
-    root.FacebookAdsApi.http.Graph = Graph;
-    FacebookAdsApi = root.FacebookAdsApi;
-  }
-})(this);
+  return Graph;
+}));

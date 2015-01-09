@@ -1,4 +1,13 @@
-(function(root) {
+(function(root, factory) {
+  'use strict';
+
+  if (typeof define === 'function' && define.amd)
+    define([], factory);
+  else if (typeof exports === 'object')
+    module.exports = factory();
+  else
+  root.FbApiAssets.coreObjects.DataObject = factory();
+}(this, function() {
   'use strict';
 
   /**
@@ -137,7 +146,5 @@
     return _this;
   }
 
-  // Module
-  if (typeof module !== 'undefined') module.exports = DataObject;
-  else root.FacebookAdsApi.objects.DataObject = DataObject;
-})(this);
+  return DataObject;
+}));

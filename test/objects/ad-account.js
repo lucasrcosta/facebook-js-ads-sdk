@@ -1,6 +1,5 @@
 if (typeof require === 'function') {
-  var path = require('path');
-  var FacebookAdsApi = require(path.join(__dirname, '../../src/api.js'));
+  var FacebookAdsApi = require('./../../src/api.js');
   require('chai').should();
 }
 
@@ -14,6 +13,12 @@ describe('AdAccount', function() {
     it('exists in API instance', function() {
       var api = new FacebookAdsApi(token);
       api.AdAccount.should.be.a('function');
+    });
+
+    it('holds the API instance', function() {
+      var api = new FacebookAdsApi(token);
+      var adAccount = new api.AdAccount();
+      adAccount.getApi().should.be.eql(api);
     });
 
   });

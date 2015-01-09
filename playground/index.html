@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Facebook Ads SDK Playground</title>
+    <title>Playground Facebook Ads SDK</title>
   </head>
   <body>
     <button onclick="getToken()">Get Token</button>
@@ -9,18 +9,24 @@
   </body>
 
   <!-- SDK -->
-  <script src="../src/api.js"></script>
+  <script>
+    // Prepend
+    this.FbApiAssets = {
+      http: {},
+      coreObjects: {},
+      objects: {}
+    }
+  </script>
+  <script src="../src/http/fb-error.js"></script>
   <script src="../src/http/xml-http-request.js"></script>
   <script src="../src/http/graph.js"></script>
-
   <script src="../src/objects/data-object.js"></script>
   <script src="../src/objects/crud-object.js"></script>
   <script src="../src/objects/ad-account.js"></script>
-  <!-- /SDK -->
+  <script src="../src/api.js"></script>
 
   <!-- Playground -->
   <script src="http://connect.facebook.net/en_US/sdk.js"></script>
   <script src="appid.js"></script>
   <script src="init.js"></script>
-  <!-- Playground -->
 </html>

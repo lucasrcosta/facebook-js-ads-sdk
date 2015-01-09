@@ -21,9 +21,10 @@
    * @param {string} token
    * @throws {Error} if no token is given
    */
-  function FacebookAdsApi(token) {
+  function FacebookAdsApi(token, locale) {
     var _this = {};
     var version = '2.2';
+    locale =  locale || 'en_US';
 
     if (!token)
       throw new Error('Be a darling and get us a nice token, will you?');
@@ -40,15 +41,23 @@
 
     /**
      * Get API Version
-     * @returns {string} version
+     * @returns {string}
      */
     _this.getVersion = function() {
       return version;
     };
 
     /**
+     * Get locale
+     * @returns {string}
+     */
+    _this.getLocale = function() {
+      return locale;
+    };
+
+    /**
      * Set API Token
-     * @param {string} newToken
+     * @param {string}
      */
     function setToken(newToken) {
       token = newToken;
@@ -58,7 +67,7 @@
 
     /**
      * Get API Token
-     * @returns {string} token
+     * @returns {string}
      */
     _this.getToken = function() {
       return token;

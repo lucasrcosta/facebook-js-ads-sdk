@@ -30,6 +30,7 @@
       var requestUrl = _this.getRequestUrl(path);
       params = params || {};
       params.access_token =  api.getToken();
+      params.locale =  api.getLocale();
       requestUrl += '?' + encodeParams(params);
       return _this.http.getJSON(requestUrl);
     };

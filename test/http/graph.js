@@ -30,8 +30,9 @@ describe('Graph', function() {
       var api = new FacebookAdsApi(token);
       var url = api.graph.getGraphUrl();
       var version = api.getVersion();
+      var locale = api.getLocale();
       var endpoint = 'endpoint';
-      var requestUrl = url + 'v' + version + '/' + endpoint + '?a=1&access_token=' + token;
+      var requestUrl = url + 'v' + version + '/' + endpoint + '?a=1&access_token=' + token + '&locale=' + locale;
       var requestStub = sinon.stub(api.graph.http, 'getJSON');
       api.graph.get(endpoint, {a: 1});
       requestStub.should.have.been.calledWith(requestUrl);

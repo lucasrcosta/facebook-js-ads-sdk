@@ -18,7 +18,7 @@ gulp.task('jshint', function () {
 
 gulp.task('test', function () {
   return gulp.src('test/**/*.js', {read: false})
-    .pipe($.mocha({reporter: 'nyan'}));
+    .pipe($.mocha({reporter: 'min'}));
 });
 
 gulp.task('watch', function () {
@@ -31,4 +31,21 @@ gulp.task('default', function () {
 
 gulp.task('all', function () {
   gulp.start(['jscs', 'jshint','test']);
+});
+
+////////////////
+// Live Tests //
+////////////////
+
+gulp.task('live-test', function () {
+  return gulp.src('live_tests/**/*.js', {read: false})
+    .pipe($.mocha({reporter: 'min'}));
+});
+
+gulp.task('live-watch', function () {
+  gulp.watch(['src/**/*.js','live_tests/**/*.js'], ['live-test']);
+});
+
+gulp.task('live', function () {
+  gulp.start(['live-watch']);
 });

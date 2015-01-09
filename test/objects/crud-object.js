@@ -1,16 +1,18 @@
 if (typeof require === 'function') {
-  var path = require('path');
-  var FacebookAdsApi = require(path.join(__dirname, '../../src/api.js'));
+  var FacebookAdsApi = require('./../../src/api.js');
+  var CrudObject = require('./../../src/objects/crud-object.js');
+  var Promise = require('promise');
   var chai = require('chai');
   var sinon = require('sinon');
   chai.should();
+} else {
+  var CrudObject = FbApiAssets.coreObjects.CrudObject;
 }
 
 describe('CrudObject', function() {
   'use strict';
 
   var token = 'a1b2c3d4e5';
-  var CrudObject = FacebookAdsApi.objects.CrudObject;
 
   describe('constructor', function() {
 
@@ -21,8 +23,7 @@ describe('CrudObject', function() {
   });
 
   it('throws an error if it can\'t get the id', function() {
-    var api = new FacebookAdsApi(token);
-    var crudObj = new CrudObject(api, 'endpoint');
+    var crudObj = new CrudObject({}, 'endpoint');
     crudObj.getId.should.throw(Error);
   });
 
@@ -37,7 +38,7 @@ describe('CrudObject', function() {
         object: {a: 1, b: [1, 2, 3]},
         string: 'string'
       };
-      var request = sinon.stub(api.graph, 'get').returns(new Promise(function(resolve) { resolve(readData); }));
+      sinon.stub(api.graph, 'get').returns(new Promise(function(resolve) { resolve(readData); }));
       var crudObj = new CrudObject(api, 'endpoint', ['id', 'int', 'object', 'string'], objId);
       crudObj.read()
         .then(function(obj) {

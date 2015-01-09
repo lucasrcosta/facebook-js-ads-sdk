@@ -11,5 +11,6 @@
   "noarg": true,
   "strict": true,
   "validthis": true,
-  "unused": true
+  "unused": true,
+  "predef": [ "-Promise" ]
 }

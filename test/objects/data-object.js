@@ -1,13 +1,12 @@
 if (typeof require === 'function') {
-  var path = require('path');
-  var FacebookAdsApi = require(path.join(__dirname, '../../src/api.js'));
+  var DataObject = require('./../../src/objects/data-object.js');
   require('chai').should();
+} else {
+  var DataObject = FbApiAssets.coreObjects.DataObject;
 }
 
 describe('DataObject', function() {
   'use strict';
-
-  var DataObject = FacebookAdsApi.objects.DataObject;
 
   var warn = console.warn;
   before(function() { console.warn = function() {}; });
@@ -15,8 +14,8 @@ describe('DataObject', function() {
 
   describe('constructor', function() {
 
-    it('exists', function() {
-      DataObject.should.be.a('function');
+    it('can be instantiated', function() {
+      (new DataObject(['a', 'b'])).should.be.an('object');
     });
 
   });

@@ -5,12 +5,16 @@
     define(['http', 'graph', 'ad-account'], factory);
   } else if (typeof exports === 'object') {
     module.exports = factory(
-      require('./http/graph.js')
+      require('./http/graph.js'),
+      require('./objects/objects.js')
     );
   } else {
-    root.FacebookAdsApi = factory(root.FbApiAssets.http.Graph);
+    root.FacebookAdsApi = factory(
+      root.FbApiAssets.http.Graph,
+      root.FbApiAssets.objects
+    );
   }
-}(this, function(Graph) {
+}(this, function(Graph, objects) {
   'use strict';
 
   /**
@@ -28,14 +32,12 @@
     _this.graph = new Graph(_this);
 
     // Facebook Objects constructors
-    // var objects = ['AdAccount'];
-    // for (var i = 0; i < objects.length; i++) {
-    //   var object = objects[i];
-    //   _this[object] = function() {
-    //     var params = [_this].concat(Array.prototype.slice.call(arguments));
-    //     return FacebookAdsApi.objects[object].apply({}, params);
-    //   };
-    // }
+    for (var object in objects) {
+      _this[object] = function() {
+        var params = [_this].concat(Array.prototype.slice.call(arguments));
+        return objects[object].apply({}, params);
+      };
+    }
 
     /**
      * Get API Version

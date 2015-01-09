@@ -1,7 +1,15 @@
-(function(root) {
+(function(root, factory) {
   'use strict';
 
-  var FacebookAdsApi;
+  if (typeof define === 'function' && define.amd) {
+    define(['crud-object'], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory(require('./crud-object.js'));
+  } else {
+    root.FbApiAssets.objects.AdAccount = factory(root.FbApiAssets.coreObjects.CrudObject);
+  }
+}(this, function(CrudObject) {
+  'use strict';
 
   /**
    * Crud Object
@@ -50,17 +58,10 @@
       'users',
       'tax_id_status'
     ];
-    var _this = new FacebookAdsApi.objects.CrudObject(api, endpoint, fields, initData, parentId);
+    var _this = new CrudObject(api, endpoint, fields, initData, parentId);
 
     return _this;
   }
 
-  // Module
-  if (typeof module !== 'undefined') {
-    FacebookAdsApi = module.parent.exports;
-    module.exports = AdAccount;
-  } else {
-    root.FacebookAdsApi.objects.AdAccount = AdAccount;
-    FacebookAdsApi = root.FacebookAdsApi;
-  }
-})(this);
+  return AdAccount;
+}));

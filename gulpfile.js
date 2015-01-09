@@ -38,12 +38,12 @@ gulp.task('all', function () {
 ////////////////
 
 gulp.task('live-test', function () {
-  return gulp.src('live_tests/**/*.js', {read: false})
+  return gulp.src('test_live/**/*.js', {read: false})
     .pipe($.mocha({reporter: 'min'}));
 });
 
 gulp.task('live-watch', function () {
-  gulp.watch(['src/**/*.js','live_tests/**/*.js'], ['live-test']);
+  gulp.watch(['src/**/*.js','test_live/**/*.js'], ['live-test']);
 });
 
 gulp.task('live', function () {

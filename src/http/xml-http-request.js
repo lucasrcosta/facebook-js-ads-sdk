@@ -1,27 +1,25 @@
 (function(root, factory) {
   'use strict';
-
   if (typeof define === 'function' && define.amd) {
-    define([], factory);
+    define(['fb-error'], factory);
   } else {
-    root.FbApiAssets.http.Http = factory();
+    root.FbApiAssets.http.Http = factory(root.FbApiAssets.http.FbError);
   }
-}(this, function() {
+}(this, function(FbError) {
   'use strict';
 
   /**
    * Promise-based XmlHttpRequest
-   * @type {Object}
-   * @see {@link} http://www.html5rocks.com/en/tutorials/es6/promises/
+   * @type {object}
+   * @see {@link} http://www.html5rocks.com/en/tutorials/es6/promises/ by Jake Archibald
    */
   function XmlHttpRequest() {
     var _this = {};
 
     /**
      * Get Request
-     * @author Jake Archibald
-     * @param  {string} url
-     * @return {Promise}
+     * @param {string} url
+     * @return {promise}
      */
     _this.get = function(url) {
       return new Promise(function(resolve, reject) {
@@ -31,7 +29,12 @@
           if (req.status == 200) {
             resolve(req.response);
           } else {
-            reject(Error(req.statusText));
+            try {
+              var response = JSON.parse(req.response);
+              reject(new FbError(response.error, req));
+            } catch (e) {
+              reject(Error(req.statusText));
+            }
           }
         };
         req.onerror = function() {
@@ -43,9 +46,8 @@
 
     /**
      * Get JSON Request
-     * @author Jake Archibald
-     * @param  {string} url
-     * @return {Promise}
+     * @param {string} url
+     * @return {promise}
      */
     _this.getJSON = function(url) {
       return _this.get(url).then(JSON.parse);

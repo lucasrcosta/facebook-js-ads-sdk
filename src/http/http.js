@@ -2,12 +2,13 @@
   'use strict';
 
   var Promise = require('promise');
+  var FbError = require('./fb-error.js')
   var request = require('request-json');
   var client = request.newClient('http://localhost:8888/');
 
   /**
    * Promise-based Http wrapper
-   * @type {Object}
+   * @type {object}
    */
   function Http() {
     var _this = {};
@@ -15,13 +16,18 @@
     /**
      * Get request
      * @param {string} url
-     * @return {Promise}
+     * @return {promise}
      */
     _this.get = function(url) {
       return new Promise(function(resolve, reject) {
         client.get(url, function(err, res, body) {
           if (err) reject(err);
-          else resolve(body);
+          else {
+            if(body.error)
+              reject(new FbError(body.error));
+            else
+              resolve(body);
+          }
         });
       });
     };
@@ -29,7 +35,7 @@
     /**
      * Get JSON request alias
      * @param {string} url
-     * @return {Promise}
+     * @return {promise}
      */
     _this.getJSON = function(url) {
       return _this.get(url);

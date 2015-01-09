@@ -11,15 +11,15 @@
   'use strict';
 
   /**
-   * Crud Object
-   * Basic Facebook Object properties operations
+   * Account object for managing ads
+   * @see {@link} https://developers.facebook.com/docs/reference/ads-api/adcampaign
    * @param {FacebookAdsApi} api
    * @param {mixed} [initData]
    * @param {int} [parentId]
    * @extends CrudObject
    * @class
    */
-  function AdAccount(api, initData, parentId) {
+  function AdAccount(api, initData) {
     var endpoint = 'adaccounts';
     var fields = [
       'account_groups',
@@ -57,7 +57,7 @@
       'users',
       'tax_id_status'
     ];
-    var _this = new CrudObject(api, endpoint, fields, initData, parentId);
+    var _this = new CrudObject(api, endpoint, fields, initData);
 
     return _this;
   }

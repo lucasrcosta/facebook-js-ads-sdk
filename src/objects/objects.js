@@ -4,13 +4,15 @@
     define(['ad-account'], factory);
   } else if (typeof exports === 'object') {
     module.exports = factory(
-      require('./ad-account.js')
+      require('./ad-account.js'),
+      require('./ad-campaign.js')
     );
   }
-}(this, function(AdAccount) {
+}(this, function(AdAccount, AdCampaign) {
   'use strict';
 
   return {
-    AdAccount: AdAccount
+    AdAccount: AdAccount,
+    AdCampaign: AdCampaign
   };
 }));

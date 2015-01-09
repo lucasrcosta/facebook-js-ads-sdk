@@ -3,7 +3,6 @@ if (typeof require === 'function')
 
 (function(root, factory) {
   'use strict';
-
   if (typeof define === 'function' && define.amd) {
     define(['data-object'], factory);
   } else if (typeof exports === 'object') {
@@ -38,7 +37,7 @@ if (typeof require === 'function')
     var _this = new DataObject(fields, initData);
 
     /**
-     * @return {FacebookAdsApi}
+     * @return {facebookadsapi}
      */
     _this.getApi = function() {
       return api;
@@ -68,7 +67,7 @@ if (typeof require === 'function')
     };
 
     /**
-     * @throws {Error} if object has no id
+     * @throws {error} if object has no id
      * @return {mixed]}
      */
     _this.getId = function() {
@@ -86,9 +85,9 @@ if (typeof require === 'function')
 
     /**
      * Read object data from the graph
-     * @param  {array} [filter] selected fields
-     * @param  {Object} [params] additional params
-     * @throws {Error} if graph promise is rejected
+     * @param {array} [filter] selected fields
+     * @param {object} [params] additional params
+     * @throws {error} if graph promise is rejected
      * @return _this
      */
     _this.read = function(filter, params) {

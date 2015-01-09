@@ -1,6 +1,5 @@
 (function(root, factory) {
   'use strict';
-
   if (typeof define === 'function' && define.amd) {
     define(['http'], factory);
   } else if (typeof exports === 'object') {
@@ -14,7 +13,7 @@
   /**
    * Facebook Graph requests
    * @param {FacebookAdsApi} api
-   * @type {Object}
+   * @type {object}
    */
   function Graph(api) {
     var _this = {};
@@ -23,9 +22,9 @@
 
     /**
      * Get Graph Request
-     * @param  {string} path
-     * @param  {Object} params
-     * @return {Promise}
+     * @param {string} path
+     * @param {object} params
+     * @return {promise}
      */
     _this.get = function(path, params) {
       var requestUrl = _this.getRequestUrl(path);
@@ -37,7 +36,7 @@
 
     /**
      * URL, version and enpoint
-     * @param  {string} path
+     * @param {string} path
      * @return {string}
      */
     _this.getRequestUrl = function(path) {
@@ -54,7 +53,7 @@
 
     /**
      * Encode parameter object as querystring
-     * @param  {Object} params
+     * @param {object} params
      * @return {string} querystring
      */
     function encodeParams(params) {

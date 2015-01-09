@@ -1,12 +1,12 @@
 (function(root, factory) {
   'use strict';
-
-  if (typeof define === 'function' && define.amd)
+  if (typeof define === 'function' && define.amd) {
     define([], factory);
-  else if (typeof exports === 'object')
+  } else if (typeof exports === 'object') {
     module.exports = factory();
-  else
-  root.FbApiAssets.coreObjects.DataObject = factory();
+  } else {
+    root.FbApiAssets.coreObjects.DataObject = factory();
+  }
 }(this, function() {
   'use strict';
 
@@ -14,7 +14,7 @@
    * Data Object
    * Manages object data fields and provides matching properties
    * @param {array} fields
-   * @param {Object} [initData]
+   * @param {object} [initData]
    * @class
    */
   function DataObject(fields, initData) {
@@ -48,7 +48,7 @@
     };
 
     /**
-     * @param {Object} newData
+     * @param {object} newData
      * @return _this
      */
     _this.setData = function(newData) {
@@ -60,7 +60,7 @@
 
     /**
      * Get current object data
-     * @return {Object}
+     * @return {object}
      */
     _this.getData = function() {
       var data = {};
@@ -72,7 +72,7 @@
     };
 
     /**
-     * @return {Object}
+     * @return {object}
      */
     _this.getPersistedData = function() {
       return persistedData;
@@ -80,7 +80,7 @@
 
     /**
      * Shallow comparisson between persisted data and current data
-     * @return {Object}
+     * @return {object}
      */
     _this.getChangedData = function() {
       var changedData = {};
@@ -93,7 +93,7 @@
 
     /**
      * Persist current data
-     * @return {Object} this
+     * @return {object} this
      */
     _this.persistData = function() {
       for (var i = fields.length - 1; i >= 0; i--) {
@@ -104,7 +104,7 @@
 
     /**
      * Reset data to persisted state
-     * @return {Object} this
+     * @return {object} this
      */
     _this.resetData = function() {
       for (var i = fields.length - 1; i >= 0; i--) {
@@ -115,8 +115,8 @@
 
     /**
      * Create object with fields as properties
-     * @param  {array} fields
-     * @return {Object}
+     * @param {array} fields
+     * @return {object}
      */
     function createObjectFromFields(fields) {
       var obj = {};
@@ -128,8 +128,8 @@
 
     /**
      * Create fields object from fields array
-     * @param  {array} fields
-     * @return {Object}
+     * @param {array} fields
+     * @return {object}
      */
     function createFieldsObject(fields) {
       var fieldsObj = {};

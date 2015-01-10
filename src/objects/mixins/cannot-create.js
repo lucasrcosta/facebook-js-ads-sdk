@@ -12,7 +12,7 @@
 
   function CannotCreate() {
     this.create = function() {
-      throw new Error('Object cannot be created on the graph');
+      throw new Error('Object cannot be created');
     };
   }
 

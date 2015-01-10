@@ -105,16 +105,15 @@ if (typeof require === 'function')
     };
 
     /**
-     * Create an object on the graph
+     * Create or Update object
      * @param {object} params additional params
-     * @throws {error} if graph promise is rejected
      * @return {promise} resolves to {object} _this
      */
-    _this.create = function(params) {
+    _this.save = function(params) {
+      var path;
       if (_this.id)
-        throw new Error('Object already has an ID. Try updating.');
-
-      var path = _this.getParentId() + '/' + _this.getEndpoint();
+        path = getNodePath();
+      path = _this.getParentId() + '/' + _this.getEndpoint();
       var data = _this.getData();
       return new Promise(function(resolve, reject) {
         api.graph.post(path, params, data)
@@ -126,14 +125,27 @@ if (typeof require === 'function')
     };
 
     /**
-     * Update or Create object
+     * Create alias for save
      * @param {object} params additional params
+     * @throws {error} if object already has an ID
      * @return {promise} resolves to {object} _this
      */
-    _this.save = function(params) {
+    _this.create = function(params) {
       if (_this.id)
-        return _this.update(params);
-      return _this.create(params);
+        throw new Error('Object already has an ID. Try updating.');
+      return _this.save(params);
+    };
+
+    /**
+     * Update alias for save
+     * @param {object} params additional params
+     * @throws {error} if object has no ID
+     * @return {promise} resolves to {object} _this
+     */
+    _this.update = function(params) {
+      if (!_this.id)
+        throw new Error('Object has no ID. Try creating.');
+      return _this.save(params);
     };
 
     return _this;

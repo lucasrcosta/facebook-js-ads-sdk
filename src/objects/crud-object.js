@@ -105,6 +105,41 @@ if (typeof require === 'function')
     };
 
     /**
+     * Create alias for save
+     * @param {object} params additional params
+     * @throws {error} if object already has an ID
+     * @return {promise} resolves to {object} _this
+     */
+    _this.create = function(params) {
+      if (_this.id)
+        throw new Error('Object already has an ID. Try updating.');
+      return upsert(params);
+    };
+
+    /**
+     * Update alias for save
+     * @param {object} params additional params
+     * @throws {error} if object has no ID
+     * @return {promise} resolves to {object} _this
+     */
+    _this.update = function(params) {
+      if (!_this.id)
+        throw new Error('Object has no ID. Try creating.');
+      return upsert(params);
+    };
+
+    /**
+     * Create or Update alias
+     * @param {object} params additional params
+     * @return {promise} resolves to {object} _this
+     */
+    _this.save = function(params) {
+      if (_this.id)
+        return _this.update(params);
+      return _this.create(params);
+    };
+
+    /**
      * Resolve save promise
      * @param  {object} data
      * @param  {function} resolve save resolve function
@@ -118,12 +153,14 @@ if (typeof require === 'function')
      * @param {object} params additional params
      * @return {promise} resolves to {object} _this
      */
-    _this.save = function(params) {
+    function upsert(params) {
       var path;
-      if (_this.id)
-        path = getNodePath();
-      path = _this.getParentId() + '/' + _this.getEndpoint();
       var data = _this.getData();
+
+      if (_this.id)
+        path = getNodePath(); // Update
+      path = _this.getParentId() + '/' + _this.getEndpoint(); // Create
+
       return new Promise(function(resolve, reject) {
         api.graph.post(path, params, data)
           .then(function(data) {
@@ -131,31 +168,7 @@ if (typeof require === 'function')
           })
           .catch(function(err) { reject(err); });
       });
-    };
-
-    /**
-     * Create alias for save
-     * @param {object} params additional params
-     * @throws {error} if object already has an ID
-     * @return {promise} resolves to {object} _this
-     */
-    _this.create = function(params) {
-      if (_this.id)
-        throw new Error('Object already has an ID. Try updating.');
-      return _this.save(params);
-    };
-
-    /**
-     * Update alias for save
-     * @param {object} params additional params
-     * @throws {error} if object has no ID
-     * @return {promise} resolves to {object} _this
-     */
-    _this.update = function(params) {
-      if (!_this.id)
-        throw new Error('Object has no ID. Try creating.');
-      return _this.save(params);
-    };
+    }
 
     return _this;
   }

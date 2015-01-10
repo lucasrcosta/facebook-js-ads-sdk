@@ -100,7 +100,7 @@ if (typeof require === 'function')
           .then(function(data) {
             resolve(_this.setData(data, true));
           })
-          .catch(function(err) { reject(err); });
+          .catch(reject);
       });
     };
 
@@ -161,7 +161,7 @@ if (typeof require === 'function')
             else
               resolve(_this.setData(data, true));
           })
-          .catch(function(err) { reject(err); });
+          .catch(reject);
       });
     }
 

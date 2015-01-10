@@ -24,7 +24,7 @@ describe('AdCampaign', function() {
         adCampaign.name.should.be.ok;
         done();
       })
-      .catch(function(err) { done(err); });
+      .catch(done);
   };
 
   function createsTest(done) {
@@ -36,7 +36,7 @@ describe('AdCampaign', function() {
         adCampaign.id.should.be.ok;
         done();
       })
-      .catch(function(err) { done(err); });
+      .catch(done);
   };
 
   function validatesTest(done) {
@@ -47,7 +47,7 @@ describe('AdCampaign', function() {
         data.success.should.be.true;
         done();
       })
-      .catch(function(err) { done(err); });
+      .catch(done);
   };
 
   function updatesTest(done) {
@@ -61,7 +61,7 @@ describe('AdCampaign', function() {
         data.success.should.be.true;
         done();
       })
-      .catch(function(err) { done(err); });
+      .catch(done);
   };
 
   function deletesTest(done) {
@@ -72,7 +72,7 @@ describe('AdCampaign', function() {
         adCampaign.getData().id.should.be.ok;
         done();
       })
-      .catch(function(err) { done(err); });
+      .catch(done);
   };
 
 });

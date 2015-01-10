@@ -45,7 +45,7 @@ describe('CrudObject', function() {
           obj.getData().should.be.eql(readData);
           done();
         })
-        .catch(function(err) { done(err); });
+        .catch(done);
     });
 
   });

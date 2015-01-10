@@ -20,7 +20,7 @@ describe('AdAccount', function() {
         adAccount.getData().name.should.be.ok;
         done();
       })
-      .catch(function(err) { done(err); });
+      .catch(done);
   };
 
 });

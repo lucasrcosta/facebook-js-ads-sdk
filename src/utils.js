@@ -17,6 +17,8 @@
    */
   function encodeParams(params) {
     return Object.keys(params).map(function(param) {
+      if (params[param] instanceof Array)
+        params[param] = '["' + params[param].toString() + '"]';
       return param + '=' + encodeURIComponent(params[param]);
     }).join('&');
   }

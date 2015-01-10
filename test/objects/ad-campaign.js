@@ -17,8 +17,18 @@ describe('AdCampaign', function() {
 
     it('holds the API instance', function() {
       var api = new FacebookAdsApi(token);
-      var adAccount = new api.AdCampaign();
-      adAccount.getApi().should.be.eql(api);
+      var adCampaign = new api.AdCampaign();
+      adCampaign.getApi().should.be.eql(api);
+    });
+
+  });
+
+  describe('crud', function() {
+
+    it('can be validated', function() {
+      var api = new FacebookAdsApi(token);
+      var adCampaign = new api.AdCampaign();
+      adCampaign.validate.should.be.a('function');
     });
 
   });

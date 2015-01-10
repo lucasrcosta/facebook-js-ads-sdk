@@ -105,6 +105,15 @@ if (typeof require === 'function')
     };
 
     /**
+     * Resolve save promise
+     * @param  {object} data
+     * @param  {function} resolve save resolve function
+     */
+    _this.resolveSave = function(data, resolve) {
+      resolve(_this.setData(data, true));
+    };
+
+    /**
      * Create or Update object
      * @param {object} params additional params
      * @return {promise} resolves to {object} _this
@@ -118,7 +127,7 @@ if (typeof require === 'function')
       return new Promise(function(resolve, reject) {
         api.graph.post(path, params, data)
           .then(function(data) {
-            resolve(_this.setData(data, true));
+            _this.resolveSave(data, resolve);
           })
           .catch(function(err) { reject(err); });
       });

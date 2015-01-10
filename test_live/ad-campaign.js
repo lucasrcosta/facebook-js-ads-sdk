@@ -9,8 +9,9 @@ if (typeof require === 'function') {
 describe('AdCampaign', function() {
   'use strict';
 
-  it('reads', readTest);
-  it('creates', createsTest);
+  // it('reads', readTest);
+  // it('creates', createsTest);
+  it('validates', validateTest);
 
   function readTest(done) {
     var api = FacebookAdsApi(testData.token);
@@ -26,11 +27,22 @@ describe('AdCampaign', function() {
 
   function createsTest(done) {
     var api = FacebookAdsApi(testData.token);
-    var adCampaign = new api.AdCampaign({name: 'sdk\'s ad campaign'}, testData.account_id);
+    var adCampaign = new api.AdCampaign({name: 'sdk\'s test ad campaign'}, testData.account_id);
     adCampaign.create()
       .then(function() {
         // console.log('created ad campaign', adCampaign.getData());
         adCampaign.getData().id.should.be.ok;
+        done();
+      })
+      .catch(function(err) { done(err); });
+  };
+
+  function validateTest(done) {
+    var api = FacebookAdsApi(testData.token);
+    var adCampaign = new api.AdCampaign({name: 'sdk\'s validation test ad campaign'}, testData.account_id);
+    adCampaign.validate()
+      .then(function(data) {
+        data.success.should.be.true;
         done();
       })
       .catch(function(err) { done(err); });

@@ -9,7 +9,7 @@ if (typeof require === 'function') {
 describe('AdAccount', function() {
   'use strict';
 
-  it('reads', readsTest);
+  // it('reads', readsTest);
 
   function readsTest(done) {
     var api = FacebookAdsApi(testData.token);

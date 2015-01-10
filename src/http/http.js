@@ -90,6 +90,15 @@
       });
     };
 
+    /**
+     * Delete JSON request alias
+     * @param {string} url
+     * @return {promise}
+     */
+    _this.deleteJSON = function(url) {
+      return _this.delete(url);
+    };
+
     return _this;
   }
 

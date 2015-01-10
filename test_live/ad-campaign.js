@@ -9,11 +9,11 @@ if (typeof require === 'function') {
 describe('AdCampaign', function() {
   'use strict';
 
-  // it('reads', readTest);
-  // it('creates', createsTest);
-  // it('validates', validatesTest);
+  it('reads', readTest);
+  it('creates', createsTest);
+  it('validates', validatesTest);
   it('updates', updatesTest);
-  // it('deletes', deletesTest);
+  it('deletes', deletesTest);
 
   function readTest(done) {
     var api = FacebookAdsApi(testData.token);
@@ -69,8 +69,13 @@ describe('AdCampaign', function() {
     var adCampaign = new api.AdCampaign({name: 'sdk\'s test ad campaign'}, testData.account_id);
     adCampaign.create()
       .then(function() {
-        adCampaign.getData().id.should.be.ok;
-        done();
+        adCampaign.delete()
+        .then(function(data) {
+          console.log(data);
+          data.success.should.be.true;
+          done();
+        })
+        .catch(done);
       })
       .catch(done);
   };

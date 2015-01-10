@@ -109,6 +109,15 @@
       return request(url, 'DELETE');
     };
 
+    /**
+     * Delete request with JSON response
+     * @param {string} url
+     * @return {promise}
+     */
+    _this.deleteJSON = function(url) {
+      return _this.delete(url).then(JSON.parse);
+    };
+
     return _this;
   }
 

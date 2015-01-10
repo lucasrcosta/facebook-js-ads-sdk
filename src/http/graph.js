@@ -55,6 +55,17 @@
     };
 
     /**
+     * Delete Graph Request
+     * @param {string} path
+     * @return {promise}
+     */
+    _this.delete = function(path) {
+      var requestUrl = _this.getRequestUrl(path);
+      requestUrl += '?' + Utils.encodeParams(addTokenAndLocale());
+      return _this.http.deleteJSON(requestUrl);
+    };
+
+    /**
      * URL, version and enpoint
      * @param {string} path
      * @return {string}
@@ -79,6 +90,7 @@
       obj = obj || {};
       obj.access_token =  api.getToken();
       obj.locale =  api.getLocale();
+      return obj;
     }
 
     return _this;

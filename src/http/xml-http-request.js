@@ -100,6 +100,15 @@
       return _this.post(url, data).then(JSON.parse);
     };
 
+    /**
+     * Delete request
+     * @param {string} url
+     * @return {promise}
+     */
+    _this.delete = function(url) {
+      return request(url, 'DELETE');
+    };
+
     return _this;
   }
 

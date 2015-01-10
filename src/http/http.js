@@ -71,6 +71,25 @@
       return _this.post(url, data);
     };
 
+    /**
+     * Delete request
+     * @param {string} url
+     * @return {promise}
+     */
+    _this.delete = function(url) {
+      return new Promise(function(resolve, reject) {
+        client.del(url, function(err, res, body) {
+          if (err) reject(err);
+          else {
+            if (body.error)
+              reject(new FbError(body.error));
+            else
+              resolve(body);
+          }
+        });
+      });
+    };
+
     return _this;
   }
 

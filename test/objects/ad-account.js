@@ -23,4 +23,14 @@ describe('AdAccount', function() {
 
   });
 
+  describe('crud', function() {
+
+    it('can\'t create an object', function() {
+      var api = new FacebookAdsApi(token);
+      var adAccount = new api.AdAccount();
+      adAccount.create.should.throw(Error);
+    });
+
+  });
+
 });

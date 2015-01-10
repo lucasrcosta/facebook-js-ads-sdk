@@ -23,7 +23,9 @@
       this.FbApiAssets = {
         utils: {},
         http: {},
-        coreObjects: {},
+        coreObjects: {
+          mixins: {}
+        },
         objects: {}
       }
     </script>
@@ -33,7 +35,9 @@
     <script src="../src/http/graph.js"></script>
     <script src="../src/objects/data-object.js"></script>
     <script src="../src/objects/crud-object.js"></script>
+    <script src="../src/objects/mixins/cannot-create.js"></script>
     <script src="../src/objects/ad-account.js"></script>
+    <script src="../src/objects/ad-campaign.js"></script>
     <script src="../src/api.js"></script>
 
     <!-- include spec files here... -->

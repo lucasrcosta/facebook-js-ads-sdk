@@ -88,7 +88,7 @@ if (typeof require === 'function')
      * @param {array} [filter] selected fields
      * @param {object} [params] additional params
      * @throws {error} if graph promise is rejected
-     * @return _this
+     * @return {promise} resolves to {object} _this
      */
     _this.read = function(filter, params) {
       var path = _this.getNodePath();
@@ -108,7 +108,7 @@ if (typeof require === 'function')
      * Create an object on the graph
      * @param {object} params additional params
      * @throws {error} if graph promise is rejected
-     * @return _this
+     * @return {promise} resolves to {object} _this
      */
     _this.create = function(params) {
       if (_this.id)
@@ -123,6 +123,17 @@ if (typeof require === 'function')
           })
           .catch(function(err) { reject(err); });
       });
+    };
+
+    /**
+     * Update or Create object
+     * @param {object} params additional params
+     * @return {promise} resolves to {object} _this
+     */
+    _this.save = function(params) {
+      if (_this.id)
+        return _this.update(params);
+      return _this.create(params);
     };
 
     return _this;

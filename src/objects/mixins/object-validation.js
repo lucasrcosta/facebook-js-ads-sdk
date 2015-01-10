@@ -23,15 +23,6 @@
       params.execution_options = ['validate_only'];
       return _this.save(params);
     };
-
-    /**
-     * Resolve validation save promise
-     * @param  {object]} data [description]
-     * @param  {function} resolve save resolve function
-     */
-    _this.resolveSave = function(data, resolve) {
-      resolve(data);
-    };
   }
 
   return ObjectValidation;

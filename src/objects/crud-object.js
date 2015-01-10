@@ -140,15 +140,6 @@ if (typeof require === 'function')
     };
 
     /**
-     * Resolve save promise
-     * @param  {object} data
-     * @param  {function} resolve save resolve function
-     */
-    _this.resolveSave = function(data, resolve) {
-      resolve(_this.setData(data, true));
-    };
-
-    /**
      * Create or Update object
      * @param {object} params additional params
      * @return {promise} resolves to {object} _this
@@ -158,13 +149,16 @@ if (typeof require === 'function')
       var data = _this.getData();
 
       if (_this.id)
-        path = getNodePath(); // Update
-      path = _this.getParentId() + '/' + _this.getEndpoint(); // Create
+        path = _this.getNodePath(); // Update
+      else
+        path = _this.getParentId() + '/' + _this.getEndpoint(); // Create
 
       return new Promise(function(resolve, reject) {
         api.graph.post(path, params, data)
           .then(function(data) {
-            _this.resolveSave(data, resolve);
+            if (data.success) // Validation
+              resolve(data);
+            resolve(_this.setData(data, true));
           })
           .catch(function(err) { reject(err); });
       });

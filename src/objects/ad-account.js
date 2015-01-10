@@ -1,19 +1,21 @@
 (function(root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
-    define(['crud-object', 'cannot-create'], factory);
+    define(['crud-object', 'cannot-create', 'cannot-delete'], factory);
   } else if (typeof exports === 'object') {
     module.exports = factory(
       require('./crud-object.js'),
-      require('./mixins/cannot-create.js')
+      require('./mixins/cannot-create.js'),
+      require('./mixins/cannot-delete.js')
     );
   } else {
     root.FbApiAssets.objects.AdAccount = factory(
       root.FbApiAssets.coreObjects.CrudObject,
-      root.FbApiAssets.coreObjects.mixins.CannotCreate
+      root.FbApiAssets.coreObjects.mixins.CannotCreate,
+      root.FbApiAssets.coreObjects.mixins.CannotDelete
     );
   }
-}(this, function(CrudObject, CannotCreate) {
+}(this, function(CrudObject, CannotCreate, CannotDelete) {
   'use strict';
 
   /**
@@ -65,6 +67,7 @@
     ];
     var _this = new CrudObject(api, endpoint, fields, initData);
     CannotCreate.call(_this);
+    CannotDelete.call(_this);
 
     return _this;
   }

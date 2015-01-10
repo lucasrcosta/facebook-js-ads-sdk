@@ -11,7 +11,9 @@ describe('AdCampaign', function() {
 
   // it('reads', readTest);
   // it('creates', createsTest);
-  it('validates', validateTest);
+  // it('validates', validatesTest);
+  it('updates', updatesTest);
+  // it('deletes', deletesTest);
 
   function readTest(done) {
     var api = FacebookAdsApi(testData.token);
@@ -19,7 +21,7 @@ describe('AdCampaign', function() {
     adCampaign.read()
       .then(function() {
         // console.log('read ad campaign', adCampaign.getData());
-        adCampaign.getData().name.should.be.ok;
+        adCampaign.name.should.be.ok;
         done();
       })
       .catch(function(err) { done(err); });
@@ -31,18 +33,43 @@ describe('AdCampaign', function() {
     adCampaign.create()
       .then(function() {
         // console.log('created ad campaign', adCampaign.getData());
-        adCampaign.getData().id.should.be.ok;
+        adCampaign.id.should.be.ok;
         done();
       })
       .catch(function(err) { done(err); });
   };
 
-  function validateTest(done) {
+  function validatesTest(done) {
     var api = FacebookAdsApi(testData.token);
     var adCampaign = new api.AdCampaign({name: 'sdk\'s validation test ad campaign'}, testData.account_id);
     adCampaign.validate()
       .then(function(data) {
         data.success.should.be.true;
+        done();
+      })
+      .catch(function(err) { done(err); });
+  };
+
+  function updatesTest(done) {
+    var api = FacebookAdsApi(testData.token);
+    var adCampaign = new api.AdCampaign(testData.campaign_id, testData.account_id);
+    var now = new Date();
+    adCampaign.name = now;
+    adCampaign.update()
+      .then(function(data) {
+        // console.log('updated ad campaign', adCampaign.getData());
+        data.success.should.be.true;
+        done();
+      })
+      .catch(function(err) { done(err); });
+  };
+
+  function deletesTest(done) {
+    var api = FacebookAdsApi(testData.token);
+    var adCampaign = new api.AdCampaign({name: 'sdk\'s test ad campaign'}, testData.account_id);
+    adCampaign.create()
+      .then(function() {
+        adCampaign.getData().id.should.be.ok;
         done();
       })
       .catch(function(err) { done(err); });

@@ -20,14 +20,29 @@
     var _this = {};
 
     /**
-     * Get request
+     * XmlHttpRequest request
      * @param {string} url
+     * @param {string} method
+     * @param {object} [data]
      * @return {promise}
      */
-    _this.get = function(url) {
+    function request(url, method, data) {
       return new Promise(function(resolve, reject) {
+
         var req = new XMLHttpRequest();
-        req.open('GET', url);
+        switch (method) {
+          case 'POST':
+            req.open('POST', url);
+            req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            data = Utils.encodeParams(data);
+            break;
+          case 'GET':
+          case 'PUT':
+          case 'DELETE':
+            req.open(method, url);
+            break;
+        }
+
         req.onload = function() {
           if (req.status == 200) {
             resolve(req.response);
@@ -43,8 +58,17 @@
         req.onerror = function() {
           reject(Error('Network Error'));
         };
-        req.send();
+        req.send(data);
       });
+    }
+
+    /**
+     * Get request
+     * @param {string} url
+     * @return {promise}
+     */
+    _this.get = function(url) {
+      return request(url, 'GET');
     };
 
     /**
@@ -63,28 +87,7 @@
      * @return {promise}
      */
     _this.post = function(url, data) {
-      return new Promise(function(resolve, reject) {
-        var req = new XMLHttpRequest();
-        req.open('POST', url);
-        req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-        req.onload = function() {
-          if (req.status == 200) {
-            resolve(req.response);
-          } else {
-            try {
-              var response = JSON.parse(req.response);
-              var error = response.error ? response.error : response;
-              reject(new FbError(error, req));
-            } catch (e) {
-              reject(Error(req.statusText));
-            }
-          }
-        };
-        req.onerror = function() {
-          reject(Error('Network Error'));
-        };
-        req.send(Utils.encodeParams(data));
-      });
+      return request(url, 'POST', data);
     };
 
     /**

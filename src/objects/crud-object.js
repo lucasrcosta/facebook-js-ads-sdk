@@ -84,7 +84,7 @@ if (typeof require === 'function')
     };
 
     /**
-     * Read object data from the graph
+     * Read object data
      * @param {array} [filter] selected fields
      * @param {object} [params] additional params
      * @throws {error} if graph promise is rejected
@@ -156,13 +156,23 @@ if (typeof require === 'function')
       return new Promise(function(resolve, reject) {
         api.graph.post(path, params, data)
           .then(function(data) {
-            if (data.success) // Validation
+            if (data.success)
               resolve(data);
-            resolve(_this.setData(data, true));
+            else
+              resolve(_this.setData(data, true));
           })
           .catch(function(err) { reject(err); });
       });
     }
+
+    /**
+     * Delete object
+     * @return {promise} resolves to {object} _this
+     */
+    _this.delete = function() {
+      var path = _this.getNodePath();
+      return api.graph.delete(path);
+    };
 
     return _this;
   }

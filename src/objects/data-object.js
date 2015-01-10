@@ -19,7 +19,7 @@
    */
   function DataObject(fields, initData) {
     if (!fields)
-      throw new Error('a data object needs fields');
+      throw new Error('A data object needs fields');
 
     var _this = createObjectFromFields(fields);
     var persistedData = {};
@@ -49,12 +49,15 @@
 
     /**
      * @param {object} newData
+     * @param {boolean} persist
      * @return _this
      */
-    _this.setData = function(newData) {
+    _this.setData = function(newData, persist) {
       var keys = Object.keys(newData);
       for (var i = keys.length - 1; i >= 0; i--)
         _this.set(keys[i], newData[keys[i]]);
+      if (persist)
+        _this.persistData();
       return _this;
     };
 
@@ -69,6 +72,17 @@
           data[fields[i]] = _this[fields[i]];
       }
       return data;
+    };
+
+    /**
+     * Persist current data
+     * @return {object} this
+     */
+    _this.persistData = function() {
+      for (var i = fields.length - 1; i >= 0; i--) {
+        persistedData[fields[i]] = _this[fields[i]];
+      }
+      return _this;
     };
 
     /**
@@ -89,17 +103,6 @@
           changedData[fields[i]] = _this[fields[i]];
       }
       return changedData;
-    };
-
-    /**
-     * Persist current data
-     * @return {object} this
-     */
-    _this.persistData = function() {
-      for (var i = fields.length - 1; i >= 0; i--) {
-        persistedData[fields[i]] = _this[fields[i]];
-      }
-      return _this;
     };
 
     /**

@@ -27,7 +27,7 @@ if (typeof require === 'function')
   function CrudObject(api, endpoint, fields, initData, parentId) {
 
     if (!endpoint)
-      throw new Error('a crud object needs an endpoint');
+      throw new Error('A crud object needs an endpoint');
 
     fields = fields || ['id'];
     initData = initData || {};
@@ -72,7 +72,7 @@ if (typeof require === 'function')
      */
     _this.getId = function() {
       if (_this.id !== 0 && !_this.id)
-        throw new Error('id not defined');
+        throw new Error('ID not defined');
       return _this.id;
     };
 
@@ -98,7 +98,7 @@ if (typeof require === 'function')
       return new Promise(function(resolve, reject) {
         api.graph.get(path, params)
           .then(function(data) {
-            resolve(_this.setData(data));
+            resolve(_this.setData(data, true));
           })
           .catch(function(err) { reject(err); });
       });
@@ -111,12 +111,15 @@ if (typeof require === 'function')
      * @return _this
      */
     _this.create = function(params) {
+      if (_this.id)
+        throw new Error('Object already has an ID. Try updating.');
+
       var path = _this.getParentId() + '/' + _this.getEndpoint();
       var data = _this.getData();
       return new Promise(function(resolve, reject) {
         api.graph.post(path, params, data)
           .then(function(data) {
-            resolve(_this.setData(data));
+            resolve(_this.setData(data, true));
           })
           .catch(function(err) { reject(err); });
       });

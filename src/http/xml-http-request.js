@@ -1,11 +1,14 @@
 (function(root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
-    define(['fb-error'], factory);
+    define(['fb-error', 'utils'], factory);
   } else {
-    root.FbApiAssets.http.Http = factory(root.FbApiAssets.http.FbError);
+    root.FbApiAssets.http.Http = factory(
+      root.FbApiAssets.http.FbError,
+      root.FbApiAssets.Utils
+    );
   }
-}(this, function(FbError) {
+}(this, function(FbError, Utils) {
   'use strict';
 
   /**
@@ -45,7 +48,7 @@
     };
 
     /**
-     * Get JSON Request
+     * Get request with JSON response
      * @param {string} url
      * @return {promise}
      */
@@ -63,6 +66,7 @@
       return new Promise(function(resolve, reject) {
         var req = new XMLHttpRequest();
         req.open('POST', url);
+        req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         req.onload = function() {
           if (req.status == 200) {
             resolve(req.response);
@@ -79,8 +83,18 @@
         req.onerror = function() {
           reject(Error('Network Error'));
         };
-        req.send(encodeParams(data));
+        req.send(Utils.encodeParams(data));
       });
+    };
+
+    /**
+     * Post request with JSON response
+     * @param {string} url
+     * @param {object} data
+     * @return {promise}
+     */
+    _this.postJSON = function(url, data) {
+      return _this.post(url, data).then(JSON.parse);
     };
 
     return _this;

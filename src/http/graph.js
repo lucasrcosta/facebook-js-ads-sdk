@@ -1,13 +1,19 @@
 (function(root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
-    define(['http'], factory);
+    define(['http', 'utils'], factory);
   } else if (typeof exports === 'object') {
-    module.exports = factory(require('./http.js'));
+    module.exports = factory(
+      require('./http.js'),
+      require('./../utils.js')
+    );
   } else {
-    root.FbApiAssets.http.Graph = factory(root.FbApiAssets.http.Http);
+    root.FbApiAssets.http.Graph = factory(
+      root.FbApiAssets.http.Http,
+      root.FbApiAssets.Utils
+    );
   }
-}(this, function(Http) {
+}(this, function(Http, Utils) {
   'use strict';
 
   /**
@@ -28,11 +34,24 @@
      */
     _this.get = function(path, params) {
       var requestUrl = _this.getRequestUrl(path);
-      params = params || {};
-      params.access_token =  api.getToken();
-      params.locale =  api.getLocale();
-      requestUrl += '?' + encodeParams(params);
+      addTokenAndLocale(params);
+      requestUrl += '?' + Utils.encodeParams(params);
       return _this.http.getJSON(requestUrl);
+    };
+
+    /**
+     * Post Graph Request
+     * @param {string} path
+     * @param {object} params
+     * @param {object} data
+     * @return {promise}
+     */
+    _this.post = function(path, params, data) {
+      var requestUrl = _this.getRequestUrl(path);
+      params = params || {};
+      addTokenAndLocale(params);
+      requestUrl += '?' + Utils.encodeParams(params);
+      return _this.http.postJSON(requestUrl, data);
     };
 
     /**
@@ -53,14 +72,13 @@
     };
 
     /**
-     * Encode parameter object as querystring
-     * @param {object} params
-     * @return {string} querystring
+     * @param {object} obj
+     * @augments obj
      */
-    function encodeParams(params) {
-      return Object.keys(params).map(function(param) {
-        return param + '=' + params[param];
-      }).join('&');
+    function addTokenAndLocale(obj) {
+      obj = obj || {};
+      obj.access_token =  api.getToken();
+      obj.locale =  api.getLocale();
     }
 
     return _this;

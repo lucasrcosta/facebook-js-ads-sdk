@@ -91,15 +91,34 @@ if (typeof require === 'function')
      * @return _this
      */
     _this.read = function(filter, params) {
+      var path = _this.getNodePath();
       filter = filter || fields;
       params = params || {};
       params.fields = filter;
       return new Promise(function(resolve, reject) {
-        api.graph.get(_this.getNodePath(), params)
-        .then(function(data) {
-          resolve(_this.setData(data));
-        })
-        .catch(function(err) { reject(err); });
+        api.graph.get(path, params)
+          .then(function(data) {
+            resolve(_this.setData(data));
+          })
+          .catch(function(err) { reject(err); });
+      });
+    };
+
+    /**
+     * Create an object on the graph
+     * @param {object} params additional params
+     * @throws {error} if graph promise is rejected
+     * @return _this
+     */
+    _this.create = function(params) {
+      var path = _this.getParentId() + '/' + _this.getEndpoint();
+      var data = _this.getData();
+      return new Promise(function(resolve, reject) {
+        api.graph.post(path, params, data)
+          .then(function(data) {
+            resolve(_this.setData(data));
+          })
+          .catch(function(err) { reject(err); });
       });
     };
 

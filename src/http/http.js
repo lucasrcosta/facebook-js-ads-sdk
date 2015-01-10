@@ -61,6 +61,16 @@
       });
     };
 
+    /**
+     * Post JSON request alias
+     * @param {string} url
+     * @param {object} data
+     * @return {promise}
+     */
+    _this.postJSON = function(url, data) {
+      return _this.post(url, data);
+    };
+
     return _this;
   }
 

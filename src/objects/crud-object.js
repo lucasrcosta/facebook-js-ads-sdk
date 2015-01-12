@@ -129,6 +129,15 @@ if (typeof require === 'function')
     };
 
     /**
+     * Delete object
+     * @return {promise} resolves to {object} _this
+     */
+    _this.delete = function() {
+      var path = _this.getNodePath();
+      return api.graph.delete(path);
+    };
+
+    /**
      * Create or Update alias
      * @param {object} params additional params
      * @return {promise} resolves to {object} _this
@@ -164,15 +173,6 @@ if (typeof require === 'function')
           .catch(reject);
       });
     }
-
-    /**
-     * Delete object
-     * @return {promise} resolves to {object} _this
-     */
-    _this.delete = function() {
-      var path = _this.getNodePath();
-      return api.graph.delete(path);
-    };
 
     return _this;
   }

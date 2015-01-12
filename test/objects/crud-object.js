@@ -22,14 +22,63 @@ describe('CrudObject', function() {
 
   });
 
-  it('throws an error if it can\'t get the ID', function() {
+  it('throws an error if it can\'t get the ID when needed', function() {
     var crudObj = new CrudObject({}, 'endpoint', ['id']);
     crudObj.getId.should.throw(Error);
+  });
+
+  it('throws an error if it can\'t get the parentId when needed', function() {
+    var crudObj = new CrudObject({}, 'endpoint', ['id']);
+    crudObj.getParentId.should.throw(Error);
   });
 
   describe('crud operations', function() {
 
     describe('read', function() {
+
+      it('uses node path as path', function() {
+        var api = new FacebookAdsApi(token);
+        var crudObj = new CrudObject(api, 'endpoint', ['id'], 123);
+        var graphGet = sinon.stub(api.graph, 'get');
+        crudObj.read();
+        graphGet.should.have.been.calledWith(crudObj.getNodePath());
+      });
+
+      it('can filter fields', function() {
+        var api = new FacebookAdsApi(token);
+        var fields = ['id', 'field1', 'field2'];
+        var crudObj = new CrudObject(api, 'endpoint', fields, 123);
+        var graphGet = sinon.stub(api.graph, 'get');
+        var filter = ['field1', 'field2'];
+        crudObj.read(filter);
+        graphGet.should.have.been.calledWith(crudObj.getNodePath(), {fields: filter});
+      });
+
+      it('throws an error creating filtering fields that are not from the object', function() {
+        var api = new FacebookAdsApi(token);
+        var fields = ['id', 'field1', 'field2'];
+        var crudObj = new CrudObject(api, 'endpoint', fields, 123);
+        var filter = ['field3'];
+        crudObj.read.bind(crudObj, filter).should.throw(Error);
+      });
+
+      it('uses the default fields if none are given', function() {
+        var api = new FacebookAdsApi(token);
+        var fields = ['id', 'field1', 'field2'];
+        var crudObj = new CrudObject(api, 'endpoint', fields, 123);
+        var graphGet = sinon.stub(api.graph, 'get');
+        crudObj.read();
+        graphGet.should.have.been.calledWith(crudObj.getNodePath(), {fields: fields});
+      });
+
+      it('can receive extra params', function() {
+        var api = new FacebookAdsApi(token);
+        var fields = ['id', 'field1', 'field2'];
+        var crudObj = new CrudObject(api, 'endpoint', fields, 123);
+        var graphGet = sinon.stub(api.graph, 'get');
+        crudObj.read(null, {param: 1});
+        graphGet.should.have.been.calledWith(crudObj.getNodePath(), {fields: fields, param: 1});
+      });
 
       it('reads an object from the graph and stores it\'s data', function(done) {
         var api = new FacebookAdsApi(token);
@@ -50,66 +99,79 @@ describe('CrudObject', function() {
           .catch(done);
       });
 
-      it('uses node path', function() {
-        var api = new FacebookAdsApi(token);
-        var crudObj = new CrudObject(api, 'endpoint', ['id']);
-        crudObj.id = 123;
-        var graphGet = sinon.stub(api.graph, 'get');
-        crudObj.read();
-        graphGet.should.have.been.calledWith(crudObj.getNodePath());
+    });
+
+    describe('create', function() {
+
+      it('throws an error if the object that has an ID', function() {
+        var crudObj = new CrudObject({}, 'endpoint', ['id'], 123);
+        crudObj.create.should.throw(Error);
       });
 
-      it('can filter fields', function() {
+      it('uses parentId/endpoint as path', function() {
         var api = new FacebookAdsApi(token);
-        var fields = ['id', 'field1', 'field2'];
-        var crudObj = new CrudObject(api, 'endpoint', fields);
-        crudObj.id = 123;
-        var graphGet = sinon.stub(api.graph, 'get');
-        var filter = ['field1', 'field2'];
-        crudObj.read(filter);
-        graphGet.should.have.been.calledWith(crudObj.getNodePath(), {fields: filter});
-      });
-
-      it('throws an error creating filtering fields that are not from the object', function() {
-        var api = new FacebookAdsApi(token);
-        var fields = ['id', 'field1', 'field2'];
-        var crudObj = new CrudObject(api, 'endpoint', fields);
-        crudObj.id = 123;
-        var filter = ['field3'];
-        crudObj.read.bind(crudObj, filter).should.throw(Error);
-      });
-
-      it('uses the default fields if none are given', function() {
-        var api = new FacebookAdsApi(token);
-        var fields = ['id', 'field1', 'field2'];
-        var crudObj = new CrudObject(api, 'endpoint', fields);
-        crudObj.id = 123;
-        var graphGet = sinon.stub(api.graph, 'get');
-        crudObj.read();
-        graphGet.should.have.been.calledWith(crudObj.getNodePath(), {fields: fields});
-      });
-
-      it('can receive extra params', function() {
-        var api = new FacebookAdsApi(token);
-        var fields = ['id', 'field1', 'field2'];
-        var crudObj = new CrudObject(api, 'endpoint', fields);
-        crudObj.id = 123;
-        var graphGet = sinon.stub(api.graph, 'get');
-        crudObj.read(null, {param: 1});
-        graphGet.should.have.been.calledWith(crudObj.getNodePath(), {fields: fields, param: 1});
+        var crudObj = new CrudObject(api, 'endpoint', ['id'], null, 321);
+        var graphPost = sinon.stub(api.graph, 'post');
+        crudObj.create();
+        graphPost.should.have.been.calledWith(crudObj.getParentId() + '/' + crudObj.getEndpoint());
       });
 
     });
 
-    it('throws an error creating an object that has an ID', function() {
-      var crudObj = new CrudObject({}, 'endpoint', ['id']);
-      crudObj.id = 123;
-      crudObj.create.should.throw(Error);
+    describe('update', function() {
+
+      it('throws an error if the object that has no ID', function() {
+        var crudObj = new CrudObject({}, 'endpoint', ['id']);
+        crudObj.update.should.throw(Error);
+      });
+
+      it('uses node path as path', function() {
+        var api = new FacebookAdsApi(token);
+        var crudObj = new CrudObject(api, 'endpoint', ['id'], 123, 321);
+        var graphPost = sinon.stub(api.graph, 'post');
+        crudObj.update();
+        graphPost.should.have.been.calledWith(crudObj.getNodePath());
+      });
+
     });
 
-    it('throws an error updating an object that has no ID', function() {
-      var crudObj = new CrudObject({}, 'endpoint', ['id']);
-      crudObj.update.should.throw(Error);
+    describe('save', function() {
+
+      it('creates when object has no ID', function() {
+        var crudObj = new CrudObject({}, 'endpoint', ['id']);
+        var create = sinon.stub(crudObj, 'create');
+        crudObj.save();
+        create.should.have.been.called;
+      });
+
+      it('updates when object has ID', function() {
+        var crudObj = new CrudObject({}, 'endpoint', ['id'], 123);
+        var update = sinon.stub(crudObj, 'update');
+        crudObj.save();
+        update.should.have.been.called;
+      });
+
+    });
+
+    describe('upsert', function() {
+
+      it('accepts params', function() {
+        var api = new FacebookAdsApi(token);
+        var crudObj = new CrudObject(api, 'endpoint', ['id'], 123);
+        var graphPost = sinon.stub(api.graph, 'post');
+        var params = {param: 1};
+        crudObj.update(params);
+        graphPost.should.have.been.calledWith(crudObj.getNodePath(), params);
+      });
+
+      it('sends object data', function() {
+        var api = new FacebookAdsApi(token);
+        var crudObj = new CrudObject(api, 'endpoint', ['id'], 123);
+        var graphPost = sinon.stub(api.graph, 'post');
+        crudObj.update();
+        graphPost.should.have.been.calledWith(crudObj.getNodePath(), undefined, crudObj.getData());
+      });
+
     });
 
   });

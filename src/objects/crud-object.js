@@ -52,6 +52,8 @@ if (typeof require === 'function')
      * @return {mixed}
      */
     _this.getParentId = function() {
+      if (parentId !== 0 && !parentId)
+        throw new Error('parentId not defined');
       return parentId;
     };
 

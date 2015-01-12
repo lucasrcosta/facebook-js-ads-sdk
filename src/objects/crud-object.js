@@ -25,11 +25,9 @@ if (typeof require === 'function')
    * @class
    */
   function CrudObject(api, endpoint, fields, initData, parentId) {
-
     if (!endpoint)
       throw new Error('A crud object needs an endpoint');
 
-    fields = fields || ['id'];
     initData = initData || {};
     if (initData && typeof initData != 'object')
       initData = {id: initData};
@@ -92,7 +90,14 @@ if (typeof require === 'function')
      */
     _this.read = function(filter, params) {
       var path = _this.getNodePath();
-      filter = filter || fields;
+      if (filter) {
+        for (var field in filter) {
+          if (fields.indexOf(filter[field]) < 0)
+            throw new Error('"' + filter[field] + '"" is not a field of this object');
+        }
+      } else {
+        filter = fields;
+      }
       params = params || {};
       params.fields = filter;
       return new Promise(function(resolve, reject) {

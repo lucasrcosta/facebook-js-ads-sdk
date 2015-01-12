@@ -174,6 +174,18 @@ describe('CrudObject', function() {
 
     });
 
+    describe('delete', function() {
+
+      it('uses node path as path', function() {
+        var api = new FacebookAdsApi(token);
+        var crudObj = new CrudObject(api, 'endpoint', ['id'], 123, 321);
+        var graphDelete = sinon.stub(api.graph, 'delete');
+        crudObj.delete();
+        graphDelete.should.have.been.calledWith(crudObj.getNodePath());
+      });
+
+    });
+
   });
 
 });

@@ -24,18 +24,48 @@ describe('Graph', function() {
 
   });
 
-  describe('requests', function() {
+  describe('request url', function() {
 
-    it('calls a GET facebook ajax request with parameters and the token', function() {
+    it('returns graphurl/version/path, the token, locale and parameters', function() {
       var api = new FacebookAdsApi(token);
       var url = api.graph.getGraphUrl();
       var version = api.getVersion();
       var locale = api.getLocale();
-      var endpoint = 'endpoint';
-      var requestUrl = url + 'v' + version + '/' + endpoint + '?a=1&access_token=' + token + '&locale=' + locale;
-      var requestStub = sinon.stub(api.graph.http, 'getJSON');
-      api.graph.get(endpoint, {a: 1});
-      requestStub.should.have.been.calledWith(requestUrl);
+      var params = {a: 1};
+      var path = 'path';
+      api.graph.getRequestUrl(path, params).should.be.equal(url + 'v' + version + '/' + path + '?a=1&access_token=' + token + '&locale=' + locale);
+    });
+
+  });
+
+  describe('requests', function() {
+
+    it('calls a GET graph request', function() {
+      var api = new FacebookAdsApi(token);
+      var path = 'path';
+      var requestUrl = api.graph.getRequestUrl(path);
+      var graphGetJSON = sinon.stub(api.graph.http, 'getJSON');
+      api.graph.get(path);
+      graphGetJSON.should.have.been.calledWith(requestUrl);
+    });
+
+    it('calls a POST graph request', function() {
+      var api = new FacebookAdsApi(token);
+      var path = 'path';
+      var requestUrl = api.graph.getRequestUrl(path);
+      var data = {a: 1};
+      var graphPostJSON = sinon.stub(api.graph.http, 'postJSON');
+      api.graph.post(path, null, data);
+      graphPostJSON.should.have.been.calledWith(requestUrl, data);
+    });
+
+    it('calls a DELETE graph request', function() {
+      var api = new FacebookAdsApi(token);
+      var path = 'path';
+      var requestUrl = api.graph.getRequestUrl(path);
+      var graphDeleteJSON = sinon.stub(api.graph.http, 'deleteJSON');
+      api.graph.delete(path);
+      graphDeleteJSON.should.have.been.calledWith(requestUrl);
     });
 
   });

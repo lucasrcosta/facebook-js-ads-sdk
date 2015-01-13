@@ -33,9 +33,7 @@
      * @return {promise}
      */
     _this.get = function(path, params) {
-      var requestUrl = _this.getRequestUrl(path);
-      addTokenAndLocale(params);
-      requestUrl += '?' + Utils.encodeParams(params);
+      var requestUrl = _this.getRequestUrl(path, params);
       return _this.http.getJSON(requestUrl);
     };
 
@@ -47,10 +45,7 @@
      * @return {promise}
      */
     _this.post = function(path, params, data) {
-      var requestUrl = _this.getRequestUrl(path);
-      params = params || {};
-      addTokenAndLocale(params);
-      requestUrl += '?' + Utils.encodeParams(params);
+      var requestUrl = _this.getRequestUrl(path, params);
       return _this.http.postJSON(requestUrl, data);
     };
 
@@ -61,17 +56,18 @@
      */
     _this.delete = function(path) {
       var requestUrl = _this.getRequestUrl(path);
-      requestUrl += '?' + Utils.encodeParams(addTokenAndLocale());
       return _this.http.deleteJSON(requestUrl);
     };
 
     /**
      * URL, version and enpoint
      * @param {string} path
+     * @param {object} params
      * @return {string}
      */
-    _this.getRequestUrl = function(path) {
-      return url + 'v' + api.getVersion() + '/' + path;
+    _this.getRequestUrl = function(path, params) {
+      params = addTokenAndLocale(params);
+      return url + 'v' + api.getVersion() + '/' + path + '?' + Utils.encodeParams(params);
     };
 
     /**

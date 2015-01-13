@@ -5,7 +5,7 @@
   } else if (typeof exports === 'object') {
     module.exports = factory();
   } else {
-    root.FbApiAssets.coreObjects.mixins.CannotDelete = factory();
+    root.FbApiAssets.mixins.CannotDelete = factory();
   }
 }(this, function() {
   'use strict';

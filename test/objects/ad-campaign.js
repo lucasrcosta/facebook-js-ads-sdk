@@ -1,6 +1,11 @@
 if (typeof require === 'function') {
   var FacebookAdsApi = require('./../../src/api.js');
-  require('chai').should();
+  var ObjectValidation = require('./../../src/objects/mixins/object-validation.js');
+  var chai = require('chai');
+  var sinon = require('sinon');
+  chai.should();
+} else {
+  var ObjectValidation = FbApiAssets.mixins.ObjectValidation;
 }
 
 describe('AdCampaign', function() {
@@ -23,13 +28,14 @@ describe('AdCampaign', function() {
 
   });
 
-  describe('crud', function() {
+  describe('mixin', function() {
 
-    it('can be validated', function() {
+    it('ObjectValidation', sinon.test(function() {
+      var objectValidationCall = this.stub(ObjectValidation, 'call');
       var api = new FacebookAdsApi(token);
-      var adCampaign = new api.AdCampaign();
-      adCampaign.validate.should.be.a('function');
-    });
+      new api.AdCampaign();
+      objectValidationCall.should.have.been.called;
+    }));
 
   });
 

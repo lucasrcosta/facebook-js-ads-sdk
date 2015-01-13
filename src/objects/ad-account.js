@@ -11,8 +11,8 @@
   } else {
     root.FbApiAssets.objects.AdAccount = factory(
       root.FbApiAssets.coreObjects.CrudObject,
-      root.FbApiAssets.coreObjects.mixins.CannotCreate,
-      root.FbApiAssets.coreObjects.mixins.CannotDelete
+      root.FbApiAssets.mixins.CannotCreate,
+      root.FbApiAssets.mixins.CannotDelete
     );
   }
 }(this, function(CrudObject, CannotCreate, CannotDelete) {

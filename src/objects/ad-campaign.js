@@ -10,7 +10,7 @@
   } else {
     root.FbApiAssets.objects.AdCampaign = factory(
       root.FbApiAssets.coreObjects.CrudObject,
-      root.FbApiAssets.coreObjects.mixins.ObjectValidation
+      root.FbApiAssets.mixins.ObjectValidation
     );
   }
 }(this, function(CrudObject, ObjectValidation) {

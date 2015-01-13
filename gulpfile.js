@@ -25,6 +25,10 @@ gulp.task('watch', function () {
   gulp.watch(['src/**/*.js','test/**/*.js'], ['jscs', 'jshint','test']);
 });
 
+gulp.task('watch-test', function () {
+  gulp.watch(['src/**/*.js','test/**/*.js'], ['test']);
+});
+
 gulp.task('default', function () {
   gulp.start('watch');
 });

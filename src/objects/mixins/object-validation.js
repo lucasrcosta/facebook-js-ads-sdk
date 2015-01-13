@@ -5,7 +5,7 @@
   } else if (typeof exports === 'object') {
     module.exports = factory();
   } else {
-    root.FbApiAssets.coreObjects.mixins.ObjectValidation = factory();
+    root.FbApiAssets.mixins.ObjectValidation = factory();
   }
 }(this, function() {
   'use strict';

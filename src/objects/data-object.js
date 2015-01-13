@@ -43,7 +43,7 @@
     _this.set = function(field, value) {
       if (fields.indexOf(field) < 0)
         throw Error(field + ' is not one of this object\'s fields');
-      _this[field] = persistedData[field] = value;
+      _this[field] = value;
       return _this;
     };
 

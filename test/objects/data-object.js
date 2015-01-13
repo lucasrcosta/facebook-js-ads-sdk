@@ -41,6 +41,10 @@ describe('DataObject', function() {
       }).should.throw(TypeError);
     });
 
+  });
+
+  describe('setting data', function() {
+
     it('can set a data field value', function() {
       var dataObj = new DataObject(['a', 'b']);
       dataObj.set('a', 1);
@@ -72,29 +76,9 @@ describe('DataObject', function() {
       dataObj.getData().should.be.eql({a: 1, b: 2});
     });
 
-    it('gets current data', function() {
-      var dataObj = new DataObject(['a', 'b']);
-      dataObj.setData({a: 1, b: 2});
-      dataObj.getData().should.be.eql({a: 1, b: 2});
-    });
-
   });
 
-  describe('object data persistence', function() {
-
-    it('data set is stored in a persistence object', function() {
-      var dataObj = new DataObject(['a', 'b']);
-      dataObj.setData({a: 1, b: 2});
-      dataObj.a = 3;
-      dataObj.getPersistedData().should.be.eql({a: 1, b: 2});
-    });
-
-    it('can get diff current and persisted data', function() {
-      var dataObj = new DataObject(['a', 'b']);
-      dataObj.setData({a: 1, b: 2});
-      dataObj.a = 3;
-      dataObj.getChangedData().should.be.eql({a: 3});
-    });
+  describe('persistence', function() {
 
     it('can persist changed data', function() {
       var dataObj = new DataObject(['a', 'b']);
@@ -104,12 +88,43 @@ describe('DataObject', function() {
       dataObj.getPersistedData().should.be.eql({a: 3, b: 2});
     });
 
+    it('setData,false does not persist', function() {
+      var dataObj = new DataObject(['a', 'b']);
+      var data = {a: 1, b: 2};
+      dataObj.setData(data, false);
+      dataObj.getPersistedData().should.be.eql({});
+    });
+
+    it('setData,true persists', function() {
+      var dataObj = new DataObject(['a', 'b']);
+      var data = {a: 1, b: 2};
+      dataObj.setData(data, true);
+      dataObj.getPersistedData().should.be.eql(data);
+    });
+
+    it('can get diff current and persisted data', function() {
+      var dataObj = new DataObject(['a', 'b']);
+      dataObj.setData({a: 1, b: 2}, true);
+      dataObj.a = 3;
+      dataObj.getChangedData().should.be.eql({a: 3});
+    });
+
     it('can reset changed data to persisted data', function() {
       var dataObj = new DataObject(['a', 'b']);
-      dataObj.setData({a: 1, b: 2});
+      dataObj.setData({a: 1, b: 2}, true);
       dataObj.a = 3;
       dataObj.resetData();
       dataObj.a.should.be.eql(1);
+    });
+
+  });
+
+  describe('getting data', function() {
+
+    it('gets current data', function() {
+      var dataObj = new DataObject(['a', 'b']);
+      dataObj.setData({a: 1, b: 2});
+      dataObj.getData().should.be.eql({a: 1, b: 2});
     });
 
   });

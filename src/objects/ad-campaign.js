@@ -5,15 +5,17 @@
   } else if (typeof exports === 'object') {
     module.exports = factory(
       require('./crud-object.js'),
-      require('./mixins/object-validation.js')
+      require('./mixins/object-validation.js'),
+      require('./mixins/archivable.js')
     );
   } else {
     root.FbApiAssets.objects.AdCampaign = factory(
       root.FbApiAssets.coreObjects.CrudObject,
-      root.FbApiAssets.mixins.ObjectValidation
+      root.FbApiAssets.mixins.ObjectValidation,
+      root.FbApiAssets.mixins.Archivable
     );
   }
-}(this, function(CrudObject, ObjectValidation) {
+}(this, function(CrudObject, ObjectValidation, Archivable) {
   'use strict';
 
   /**
@@ -38,6 +40,7 @@
     ];
     var _this = new CrudObject(api, endpoint, fields, initData, parentId);
     ObjectValidation.call(_this);
+    Archivable.call(_this, 'campaign_group_status');
 
     return _this;
   }

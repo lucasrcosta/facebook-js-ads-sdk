@@ -9,18 +9,18 @@ if (typeof require === 'function') {
 describe('AdCampaign', function() {
   'use strict';
 
-  it('reads', readTest);
-  it('creates', createsTest);
-  it('validates', validatesTest);
-  it('updates', updatesTest);
-  it('deletes', deletesTest);
+  // it('reads', readTest);
+  // it('creates', createsTest);
+  // it('validates', validatesTest);
+  // it('updates', updatesTest);
+  // it('deletes', deletesTest);
+  // it('archives', archivesTest);
 
   function readTest(done) {
     var api = FacebookAdsApi(testData.token);
     var adCampaign = new api.AdCampaign(testData.campaign_id);
     adCampaign.read()
       .then(function() {
-        // console.log('read ad campaign', adCampaign.getData());
         adCampaign.name.should.be.ok;
         done();
       })
@@ -32,7 +32,6 @@ describe('AdCampaign', function() {
     var adCampaign = new api.AdCampaign({name: 'sdk\'s test ad campaign'}, testData.account_id);
     adCampaign.create()
       .then(function() {
-        // console.log('created ad campaign', adCampaign.getData());
         adCampaign.id.should.be.ok;
         done();
       })
@@ -57,7 +56,6 @@ describe('AdCampaign', function() {
     adCampaign.name = now;
     adCampaign.update()
       .then(function(data) {
-        // console.log('updated ad campaign', adCampaign.getData());
         data.success.should.be.true;
         done();
       })
@@ -70,12 +68,24 @@ describe('AdCampaign', function() {
     adCampaign.create()
       .then(function() {
         adCampaign.delete()
-        .then(function(data) {
-          console.log(data);
-          data.success.should.be.true;
-          done();
-        })
-        .catch(done);
+          .then(function(data) {
+            data.success.should.be.true;
+            done();
+          });
+      })
+      .catch(done);
+  };
+
+  function archivesTest(done) {
+    var api = FacebookAdsApi(testData.token);
+    var adCampaign = new api.AdCampaign({name: 'sdk\'s test ad campaign'}, testData.account_id);
+    adCampaign.create()
+      .then(function() {
+        adCampaign.archive()
+          .then(function(data) {
+            data.success.should.be.true;
+            done();
+          });
       })
       .catch(done);
   };

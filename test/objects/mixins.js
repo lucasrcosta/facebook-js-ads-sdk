@@ -6,6 +6,7 @@ if (typeof require === 'function') {
   var CannotUpdate = require('./../../src/objects/mixins/cannot-update.js');
   var CannotDelete = require('./../../src/objects/mixins/cannot-delete.js');
   var ObjectValidation = require('./../../src/objects/mixins/object-validation.js');
+  var Archivable = require('./../../src/objects/mixins/archivable.js');
   chai.should();
 } else {
   var CrudObject = FbApiAssets.coreObjects.CrudObject;
@@ -13,6 +14,7 @@ if (typeof require === 'function') {
   var CannotUpdate = FbApiAssets.mixins.CannotUpdate;
   var CannotDelete = FbApiAssets.mixins.CannotDelete;
   var ObjectValidation = FbApiAssets.mixins.ObjectValidation;
+  var Archivable = FbApiAssets.mixins.Archivable;
 }
 
 describe('Mixins', function() {
@@ -56,12 +58,34 @@ describe('Mixins', function() {
       crudObj.validate.should.be.a('function');
     });
 
-    it('augmented object sends execution_options params', function() {
+    it('augmented object validates with execution_options and additional params', function() {
       var crudObj = new CrudObject({}, 'endpoint', ['id']);
       ObjectValidation.call(crudObj);
       var crudSave = sinon.stub(crudObj, 'save');
       crudObj.validate({param: 1});
       crudSave.should.have.been.calledWith({param: 1, execution_options: ['validate_only']});
+    });
+
+  });
+
+  describe('Archivable', function() {
+
+    it('augmented object can be archived', function() {
+      var crudObj = new CrudObject({}, 'endpoint', ['id']);
+      Archivable.call(crudObj);
+      crudObj.archive.should.be.a('function');
+    });
+
+    it('augmented object archives with additional params', function() {
+      var crudObj = new CrudObject({}, 'endpoint', ['id']);
+      var statusFieldName = 'obj_status';
+      Archivable.call(crudObj, statusFieldName);
+      var crudUpdate = sinon.stub(crudObj, 'update');
+      var params = {param: 1};
+      crudObj.update(params);
+      var requestData = params;
+      requestData[statusFieldName] = 'ARCHIVED';
+      crudUpdate.should.have.been.calledWith(requestData);
     });
 
   });

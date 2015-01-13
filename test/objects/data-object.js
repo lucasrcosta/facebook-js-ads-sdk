@@ -8,10 +8,6 @@ if (typeof require === 'function') {
 describe('DataObject', function() {
   'use strict';
 
-  var warn = console.warn;
-  before(function() { console.warn = function() {}; });
-  after(function() { console.warn = warn; });
-
   describe('constructor', function() {
 
     it('can be instantiated', function() {

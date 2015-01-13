@@ -4,6 +4,7 @@ if (typeof require === 'function') {
   var Promise = require('promise');
   var chai = require('chai');
   var sinon = require('sinon');
+  var expect = chai.expect;
   chai.should();
 } else {
   var CrudObject = FbApiAssets.coreObjects.CrudObject;
@@ -116,6 +117,47 @@ describe('CrudObject', function() {
         graphPost.should.have.been.calledWith(crudObj.getParentId() + '/' + crudObj.getEndpoint());
       });
 
+      it('accepts params', function() {
+        var api = new FacebookAdsApi(token);
+        var crudObj = new CrudObject(api, 'endpoint', ['id'], null, 321);
+        var graphPost = sinon.stub(api.graph, 'post');
+        var params = {param: 1};
+        crudObj.create(params);
+        graphPost.should.have.been.calledWith(crudObj.getParentId() + '/' + crudObj.getEndpoint(), params);
+      });
+
+      it('sends object changed data', function() {
+        var api = new FacebookAdsApi(token);
+        var crudObj = new CrudObject(api, 'endpoint', ['id'], null, 321);
+        var graphPost = sinon.stub(api.graph, 'post');
+        crudObj.create();
+        graphPost.should.have.been.calledWith(crudObj.getParentId() + '/' + crudObj.getEndpoint(), undefined, crudObj.getChangedData());
+      });
+
+      it('sets returned data', function(done) {
+        var api = new FacebookAdsApi(token);
+        var crudObj = new CrudObject(api, 'endpoint', ['id'], null, 321);
+        sinon.stub(api.graph, 'post').returns(new Promise(function(resolve) { resolve({id: 123}); }));
+        crudObj.create()
+          .then(function() {
+            crudObj.id.should.be.equal(123);
+            done();
+          })
+          .catch(done);
+      });
+
+      it('can validate data', function(done) {
+        var api = new FacebookAdsApi(token);
+        var crudObj = new CrudObject(api, 'endpoint', ['id'], null, 321);
+        sinon.stub(api.graph, 'post').returns(new Promise(function(resolve) { resolve({success: true}); }));
+        crudObj.create()
+          .then(function() {
+            expect(crudObj.id).to.be.null;
+            done();
+          })
+          .catch(done);
+      });
+
     });
 
     describe('update', function() {
@@ -131,6 +173,47 @@ describe('CrudObject', function() {
         var graphPost = sinon.stub(api.graph, 'post');
         crudObj.update();
         graphPost.should.have.been.calledWith(crudObj.getNodePath());
+      });
+
+      it('accepts params', function() {
+        var api = new FacebookAdsApi(token);
+        var crudObj = new CrudObject(api, 'endpoint', ['id'], 123);
+        var graphPost = sinon.stub(api.graph, 'post');
+        var params = {param: 1};
+        crudObj.update(params);
+        graphPost.should.have.been.calledWith(crudObj.getNodePath(), params);
+      });
+
+      it('sends object changed data', function() {
+        var api = new FacebookAdsApi(token);
+        var crudObj = new CrudObject(api, 'endpoint', ['id'], 123);
+        var graphPost = sinon.stub(api.graph, 'post');
+        crudObj.update();
+        graphPost.should.have.been.calledWith(crudObj.getNodePath(), undefined, crudObj.getChangedData());
+      });
+
+      it('persists data', function(done) {
+        var api = new FacebookAdsApi(token);
+        var crudObj = new CrudObject(api, 'endpoint', ['id'], 123, 321);
+        sinon.stub(api.graph, 'post').returns(new Promise(function(resolve) { resolve({success: true}); }));
+        crudObj.update()
+          .then(function() {
+            crudObj.getPersistedData().id.should.be.equal(123);
+            done();
+          })
+          .catch(done);
+      });
+
+      it('can validate data', function(done) {
+        var api = new FacebookAdsApi(token);
+        var crudObj = new CrudObject(api, 'endpoint', ['id'], 123, 321);
+        sinon.stub(api.graph, 'post').returns(new Promise(function(resolve) { resolve({success: true}); }));
+        crudObj.update({execution_options: ['validate_only']})
+          .then(function() {
+            expect(crudObj.getPersistedData().id).to.be.undefined;
+            done();
+          })
+          .catch(done);
       });
 
     });
@@ -149,27 +232,6 @@ describe('CrudObject', function() {
         var update = sinon.stub(crudObj, 'update');
         crudObj.save();
         update.should.have.been.called;
-      });
-
-    });
-
-    describe('upsert', function() {
-
-      it('accepts params', function() {
-        var api = new FacebookAdsApi(token);
-        var crudObj = new CrudObject(api, 'endpoint', ['id'], 123);
-        var graphPost = sinon.stub(api.graph, 'post');
-        var params = {param: 1};
-        crudObj.update(params);
-        graphPost.should.have.been.calledWith(crudObj.getNodePath(), params);
-      });
-
-      it('sends object data', function() {
-        var api = new FacebookAdsApi(token);
-        var crudObj = new CrudObject(api, 'endpoint', ['id'], 123);
-        var graphPost = sinon.stub(api.graph, 'post');
-        crudObj.update();
-        graphPost.should.have.been.calledWith(crudObj.getNodePath(), undefined, crudObj.getData());
       });
 
     });

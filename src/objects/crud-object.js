@@ -120,7 +120,18 @@ if (typeof require === 'function')
     _this.create = function(params) {
       if (_this.id)
         throw new Error('Object already has an ID. Try updating.');
-      return upsert(params);
+      var path = _this.getParentId() + '/' + _this.getEndpoint();
+      var data = _this.getChangedData();
+      return new Promise(function(resolve, reject) {
+        api.graph.post(path, params, data)
+          .then(function(data) {
+            if (data.success) // Validation
+              resolve(data);
+            else
+              resolve(_this.setData(data, true));
+          })
+          .catch(reject);
+      });
     };
 
     /**
@@ -132,7 +143,18 @@ if (typeof require === 'function')
     _this.update = function(params) {
       if (!_this.id)
         throw new Error('Object has no ID. Try creating.');
-      return upsert(params);
+      var path = _this.getNodePath();
+      var data = _this.getChangedData();
+      return new Promise(function(resolve, reject) {
+        api.graph.post(path, params, data)
+          .then(function(data) {
+            var isValidation = params && params.execution_options && params.execution_options[0] && params.execution_options[0] == 'validate_only';
+            if (!isValidation)
+              _this.persistData();
+            resolve(data);
+          })
+          .catch(reject);
+      });
     };
 
     /**
@@ -154,32 +176,6 @@ if (typeof require === 'function')
         return _this.update(params);
       return _this.create(params);
     };
-
-    /**
-     * Create or Update object
-     * @param {object} params additional params
-     * @return {promise} resolves to {object} _this
-     */
-    function upsert(params) {
-      var path;
-      var data = _this.getData();
-
-      if (_this.id)
-        path = _this.getNodePath(); // Update
-      else
-        path = _this.getParentId() + '/' + _this.getEndpoint(); // Create
-
-      return new Promise(function(resolve, reject) {
-        api.graph.post(path, params, data)
-          .then(function(data) {
-            if (data.success)
-              resolve(data);
-            else
-              resolve(_this.setData(data, true));
-          })
-          .catch(reject);
-      });
-    }
 
     return _this;
   }

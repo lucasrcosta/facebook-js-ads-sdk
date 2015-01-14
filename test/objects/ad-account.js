@@ -6,29 +6,14 @@ if (typeof require === 'function') {
   var sinon = require('sinon');
   chai.should();
 } else {
-  var CannotCreate = FbApiAssets.mixins.CannotCreate;
-  var CannotDelete = FbApiAssets.mixins.CannotDelete;
+  var CannotCreate = FbApiAssets.Mixins.CannotCreate;
+  var CannotDelete = FbApiAssets.Mixins.CannotDelete;
 }
 
 describe('AdAccount', function() {
   'use strict';
 
   var token = 'a1b2c3d4e5';
-
-  describe('constructor', function() {
-
-    it('exists in API instance', function() {
-      var api = new FacebookAdsApi(token);
-      api.AdAccount.should.be.a('function');
-    });
-
-    it('holds the API instance', function() {
-      var api = new FacebookAdsApi(token);
-      var adAccount = new api.AdAccount();
-      adAccount.getApi().should.be.eql(api);
-    });
-
-  });
 
   describe('mixin', function() {
 

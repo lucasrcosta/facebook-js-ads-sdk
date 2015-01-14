@@ -3,8 +3,8 @@
   if (typeof define === 'function' && define.amd) {
     define(['fb-error', 'utils'], factory);
   } else {
-    root.FbApiAssets.http.Http = factory(
-      root.FbApiAssets.http.FbError,
+    root.FbApiAssets.Http.Http = factory(
+      root.FbApiAssets.Http.FbError,
       root.FbApiAssets.Utils
     );
   }

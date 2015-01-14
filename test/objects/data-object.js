@@ -2,7 +2,7 @@ if (typeof require === 'function') {
   var DataObject = require('./../../src/objects/data-object.js');
   require('chai').should();
 } else {
-  var DataObject = FbApiAssets.coreObjects.DataObject;
+  var DataObject = FbApiAssets.CoreObjects.DataObject;
 }
 
 describe('DataObject', function() {

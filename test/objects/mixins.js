@@ -9,12 +9,12 @@ if (typeof require === 'function') {
   var Archivable = require('./../../src/objects/mixins/archivable.js');
   chai.should();
 } else {
-  var CrudObject = FbApiAssets.coreObjects.CrudObject;
-  var CannotCreate = FbApiAssets.mixins.CannotCreate;
-  var CannotUpdate = FbApiAssets.mixins.CannotUpdate;
-  var CannotDelete = FbApiAssets.mixins.CannotDelete;
-  var ObjectValidation = FbApiAssets.mixins.ObjectValidation;
-  var Archivable = FbApiAssets.mixins.Archivable;
+  var CrudObject = FbApiAssets.CoreObjects.CrudObject;
+  var CannotCreate = FbApiAssets.Mixins.CannotCreate;
+  var CannotUpdate = FbApiAssets.Mixins.CannotUpdate;
+  var CannotDelete = FbApiAssets.Mixins.CannotDelete;
+  var ObjectValidation = FbApiAssets.Mixins.ObjectValidation;
+  var Archivable = FbApiAssets.Mixins.Archivable;
 }
 
 describe('Mixins', function() {

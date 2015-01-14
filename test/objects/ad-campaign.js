@@ -5,7 +5,7 @@ if (typeof require === 'function') {
   var sinon = require('sinon');
   chai.should();
 } else {
-  var ObjectValidation = FbApiAssets.mixins.ObjectValidation;
+  var ObjectValidation = FbApiAssets.Mixins.ObjectValidation;
 }
 
 describe('AdCampaign', function() {

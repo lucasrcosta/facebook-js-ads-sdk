@@ -8,7 +8,7 @@ if (typeof require === 'function')
   } else if (typeof exports === 'object') {
     module.exports = factory(require('./data-object.js'));
   } else {
-    root.FbApiAssets.coreObjects.CrudObject = factory(root.FbApiAssets.coreObjects.DataObject);
+    root.FbApiAssets.CoreObjects.CrudObject = factory(root.FbApiAssets.CoreObjects.DataObject);
   }
 }(this, function(DataObject) {
   'use strict';

@@ -9,10 +9,10 @@
       require('./mixins/archivable.js')
     );
   } else {
-    root.FbApiAssets.objects.AdCampaign = factory(
-      root.FbApiAssets.coreObjects.CrudObject,
-      root.FbApiAssets.mixins.ObjectValidation,
-      root.FbApiAssets.mixins.Archivable
+    root.FbApiAssets.Objects.AdCampaign = factory(
+      root.FbApiAssets.CoreObjects.CrudObject,
+      root.FbApiAssets.Mixins.ObjectValidation,
+      root.FbApiAssets.Mixins.Archivable
     );
   }
 }(this, function(CrudObject, ObjectValidation, Archivable) {

@@ -8,7 +8,7 @@ if (typeof require === 'function') {
   chai.use(sinonChai);
   require('chai').should();
 } else {
-  var Graph = FbApiAssets.http.Graph;
+  var Graph = FbApiAssets.Http.Graph;
 }
 
 describe('Graph', function() {

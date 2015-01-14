@@ -8,8 +8,8 @@
       require('./../utils.js')
     );
   } else {
-    root.FbApiAssets.http.Graph = factory(
-      root.FbApiAssets.http.Http,
+    root.FbApiAssets.Http.Graph = factory(
+      root.FbApiAssets.Http.Http,
       root.FbApiAssets.Utils
     );
   }

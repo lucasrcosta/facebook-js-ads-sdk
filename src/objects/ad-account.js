@@ -9,10 +9,10 @@
       require('./mixins/cannot-delete.js')
     );
   } else {
-    root.FbApiAssets.objects.AdAccount = factory(
-      root.FbApiAssets.coreObjects.CrudObject,
-      root.FbApiAssets.mixins.CannotCreate,
-      root.FbApiAssets.mixins.CannotDelete
+    root.FbApiAssets.Objects.AdAccount = factory(
+      root.FbApiAssets.CoreObjects.CrudObject,
+      root.FbApiAssets.Mixins.CannotCreate,
+      root.FbApiAssets.Mixins.CannotDelete
     );
   }
 }(this, function(CrudObject, CannotCreate, CannotDelete) {

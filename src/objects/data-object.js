@@ -5,7 +5,7 @@
   } else if (typeof exports === 'object') {
     module.exports = factory();
   } else {
-    root.FbApiAssets.coreObjects.DataObject = factory();
+    root.FbApiAssets.CoreObjects.DataObject = factory();
   }
 }(this, function() {
   'use strict';

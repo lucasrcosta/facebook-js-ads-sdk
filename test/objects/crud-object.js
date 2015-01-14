@@ -5,7 +5,7 @@ if (typeof require === 'function') {
   var chai = require('chai');
   var sinon = require('sinon');
 } else {
-  var CrudObject = FbApiAssets.coreObjects.CrudObject;
+  var CrudObject = FbApiAssets.CoreObjects.CrudObject;
 }
 var should = chai.should();
 

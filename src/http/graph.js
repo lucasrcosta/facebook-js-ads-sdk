@@ -5,7 +5,7 @@
   } else if (typeof exports === 'object') {
     module.exports = factory(
       require('./http.js'),
-      require('./../utils.js')
+      require('./../utils/utils.js')
     );
   } else {
     root.FbApiAssets.Http.Graph = factory(

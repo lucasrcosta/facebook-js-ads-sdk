@@ -102,19 +102,25 @@ describe('DataObject', function() {
       dataObj.getPersistedData().should.be.eql(data);
     });
 
-    it('can get diff current and persisted data', function() {
-      var dataObj = new DataObject(['a', 'b']);
-      dataObj.setData({a: 1, b: 2}, true);
-      dataObj.a = 3;
-      dataObj.getChangedData().should.be.eql({a: 3});
+    it('can get deep diff current and persisted data', function() {
+      var dataObj = new DataObject(['a', 'b', 'c', 'd', 'e', 'f']);
+      dataObj.setData({a: 1, b: 2, c: [3, 4], d: [5, 6], e: {a: 7, b: 8}, f: {a: 9, b: 10}}, true);
+      dataObj.a = 2;
+      dataObj.c[1] = 8;
+      dataObj.e.b = 16;
+      dataObj.getChangedData().should.be.eql({a: 2, c: [3, 8], e: {a: 7, b: 16}});
     });
 
     it('can reset changed data to persisted data', function() {
-      var dataObj = new DataObject(['a', 'b']);
-      dataObj.setData({a: 1, b: 2}, true);
-      dataObj.a = 3;
+      var dataObj = new DataObject(['a', 'b', 'c', 'd', 'e', 'f']);
+      dataObj.setData({a: 1, b: 2, c: [3, 4], d: [5, 6], e: {a: 7, b: 8}, f: {a: 9, b: 10}}, true);
+      dataObj.a = 2;
+      dataObj.c[1] = 8;
+      dataObj.e.b = 16;
       dataObj.resetData();
-      dataObj.a.should.be.eql(1);
+      dataObj.a.should.be.equal(1);
+      dataObj.c[1].should.be.equal(4);
+      dataObj.e.b.should.be.equal(8);
     });
 
   });

@@ -54,7 +54,7 @@
      */
     _this.setData = function(newData, persist) {
       var keys = Object.keys(newData);
-      for (var i = keys.length - 1; i >= 0; i--)
+      for (var i = 0; i < keys.length; i++)
         _this.set(keys[i], newData[keys[i]]);
       if (persist)
         _this.persistData();
@@ -79,8 +79,31 @@
      * @return {object} this
      */
     _this.persistData = function() {
-      for (var i = fields.length - 1; i >= 0; i--) {
-        persistedData[fields[i]] = _this[fields[i]];
+      for (var i = 0; i < fields.length; i++) {
+        var current = _this[fields[i]];
+        if (current instanceof Array)
+          persistedData[fields[i]] = current.slice();
+        else if (typeof current == 'object' && current)
+          persistedData[fields[i]] = deepExtend({}, current);
+        else
+          persistedData[fields[i]] = current;
+      }
+      return _this;
+    };
+
+    /**
+     * Reset data to persisted state
+     * @return {object} this
+     */
+    _this.resetData = function() {
+      for (var i = 0; i < fields.length; i++) {
+        var persisted = persistedData[fields[i]];
+        if (persisted instanceof Array)
+          _this[fields[i]] = persisted.slice();
+        else if (typeof persisted == 'object' && persisted)
+          _this[fields[i]] = deepExtend({}, persisted);
+        else
+          _this[fields[i]] = persisted;
       }
       return _this;
     };
@@ -98,22 +121,13 @@
      */
     _this.getChangedData = function() {
       var changedData = {};
-      for (var i = fields.length - 1; i >= 0; i--) {
-        if (_this[fields[i]] != persistedData[fields[i]])
-          changedData[fields[i]] = _this[fields[i]];
+      for (var i = 0; i < fields.length; i++) {
+        var current = _this[fields[i]];
+        var persisted = persistedData[fields[i]];
+        if (!isEqual(current, persisted))
+          changedData[fields[i]] = current;
       }
       return changedData;
-    };
-
-    /**
-     * Reset data to persisted state
-     * @return {object} this
-     */
-    _this.resetData = function() {
-      for (var i = fields.length - 1; i >= 0; i--) {
-        _this[fields[i]] = persistedData[fields[i]];
-      }
-      return _this;
     };
 
     /**
@@ -123,7 +137,7 @@
      */
     function createObjectFromFields(fields) {
       var obj = {};
-      for (var i = fields.length - 1; i >= 0; i--) {
+      for (var i = 0; i < fields.length; i++) {
         obj[fields[i]] = null;
       }
       return obj;
@@ -140,6 +154,67 @@
         fieldsObj[fields[i]] = fields[i];
       }
       return Object.freeze(fieldsObj);
+    }
+
+    /**
+     * Deep Extend
+     * @param  {object} out object to be extended
+     * @param  {...object}  list of objects to extended
+     * @return {object}     extended object
+     */
+    function deepExtend(out)  {
+      out = out || {};
+      for (var i = 1; i < arguments.length; i++) {
+        var obj = arguments[i];
+        if (!obj) continue;
+        for (var key in obj) {
+          if (obj.hasOwnProperty(key)) {
+            if (typeof obj[key] === 'object')
+              deepExtend(out[key], obj[key]);
+            else
+              out[key] = obj[key];
+          }
+        }
+      }
+      return out;
+    }
+
+    /**
+     * Compares two mixed objects
+     * @return {Boolean}
+     */
+    function isEqual(a, b) {
+      if (a instanceof Array)
+        return isEqualArray(a, b);
+      else if (a && typeof a == 'object')
+        return isEqualObject(a, b);
+      return a === b;
+    }
+
+    /**
+     * Compares two arrays
+     * @return {Boolean}
+     */
+    function isEqualArray(a, b) {
+      if (a.length !==  b.length) return false;
+      for (var i = 0; i < a.length; i++) {
+        if (a[i] !== b[i])
+          return false;
+      }
+      return true;
+    }
+
+    /**
+     * Compares two objects
+     * @return {Boolean}
+     */
+    function isEqualObject(a, b) {
+      var keys = Object.keys(a);
+      for (var i = 0; i < keys.length; i++) {
+        if (!isEqual(a[keys[i]], b[keys[i]]))
+          return false;
+      }
+      return true;
     }
 
     // Set initial data

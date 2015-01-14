@@ -4,11 +4,10 @@ if (typeof require === 'function') {
   var Promise = require('promise');
   var chai = require('chai');
   var sinon = require('sinon');
-  var expect = chai.expect;
-  chai.should();
 } else {
   var CrudObject = FbApiAssets.coreObjects.CrudObject;
 }
+var should = chai.should();
 
 describe('CrudObject', function() {
   'use strict';
@@ -152,7 +151,7 @@ describe('CrudObject', function() {
         sinon.stub(api.graph, 'post').returns(new Promise(function(resolve) { resolve({success: true}); }));
         crudObj.create()
           .then(function() {
-            expect(crudObj.id).to.be.null;
+            should.not.exist(crudObj.id);
             done();
           })
           .catch(done);
@@ -210,7 +209,7 @@ describe('CrudObject', function() {
         sinon.stub(api.graph, 'post').returns(new Promise(function(resolve) { resolve({success: true}); }));
         crudObj.update({execution_options: ['validate_only']})
           .then(function() {
-            expect(crudObj.getPersistedData().id).to.be.undefined;
+            should.not.exist(crudObj.getPersistedData().id);
             done();
           })
           .catch(done);

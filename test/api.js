@@ -32,7 +32,14 @@ describe('Api', function() {
       });
     });
 
-    it('have the API instance', function() {
+    it('hold their class\' name', function() {
+      var api = new FacebookAdsApi(token);
+      Object.keys(Objects).forEach(function(object) {
+        object.should.be.equal(api[object].classname);
+      });
+    });
+
+    it('are instatiated having the API instance', function() {
       var api = new FacebookAdsApi(token);
       var adAccount = new api.AdAccount();
       adAccount.getApi().should.be.eql(api);

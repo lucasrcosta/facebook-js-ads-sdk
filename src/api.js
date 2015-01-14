@@ -9,11 +9,11 @@
     );
   } else {
     root.FacebookAdsApi = factory(
-      root.FbApiAssets.http.Graph,
-      root.FbApiAssets.objects
+      root.FbApiAssets.Http.Graph,
+      root.FbApiAssets.Objects
     );
   }
-}(this, function(Graph, objects) {
+}(this, function(Graph, Objects) {
   'use strict';
 
   /**
@@ -32,12 +32,13 @@
     _this.graph = new Graph(_this);
 
     // Facebook Objects constructors
-    var objKeys = Object.keys(objects);
+    var objKeys = Object.keys(Objects);
     objKeys.forEach(function(object) {
       _this[object] = function() {
         var params = [_this].concat(Array.prototype.slice.call(arguments));
-        return objects[object].apply({}, params);
+        return Objects[object].apply({}, params);
       };
+      _this[object].classname = Objects[object].name;
     });
 
     /**

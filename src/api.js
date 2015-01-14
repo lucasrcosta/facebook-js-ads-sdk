@@ -1,11 +1,11 @@
 (function(root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
-    define(['graph', 'objects'], factory);
+    define(['./http/graph', './objects/objects'], factory);
   } else if (typeof exports === 'object') {
     module.exports = factory(
-      require('./http/graph.js'),
-      require('./objects/objects.js')
+      require('./http/graph'),
+      require('./objects/objects')
     );
   } else {
     root.FacebookAdsApi = factory(

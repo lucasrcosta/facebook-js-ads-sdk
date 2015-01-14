@@ -1,12 +1,12 @@
 (function(root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
-    define(['crud-object', 'object-validation'], factory);
+    define(['./crud-object', './mixins/object-validation', './mixins/archivable'], factory);
   } else if (typeof exports === 'object') {
     module.exports = factory(
-      require('./crud-object.js'),
-      require('./mixins/object-validation.js'),
-      require('./mixins/archivable.js')
+      require('./crud-object'),
+      require('./mixins/object-validation'),
+      require('./mixins/archivable')
     );
   } else {
     root.FbApiAssets.Objects.AdCampaign = factory(

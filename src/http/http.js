@@ -2,7 +2,7 @@
   'use strict';
 
   var Promise = require('promise');
-  var FbError = require('./fb-error.js');
+  var FbError = require('./fb-error');
   var request = require('request-json');
   var client = request.newClient('http://localhost:8888/');
 

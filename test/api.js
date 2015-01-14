@@ -1,6 +1,6 @@
 if (typeof require === 'function') {
-  var FacebookAdsApi = require('./../src/api.js');
-  var Objects = require('./../src/objects/objects.js');
+  var FacebookAdsApi = require('./../src/api');
+  var Objects = require('./../src/objects/objects');
   require('chai').should();
 } else {
   var Objects = FbApiAssets.Objects;

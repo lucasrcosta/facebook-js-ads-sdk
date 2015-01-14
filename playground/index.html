@@ -6,27 +6,6 @@
     <button onclick="getToken()">Get Token</button>
     <div id="fb-root"></div>
     <div id="token"></div>
-
-    <!-- SDK -->
-    <script src="../src/utils/browser-prepend.js"></script>
-    <script src="../src/utils/utils.js"></script>
-    <script src="../src/http/fb-error.js"></script>
-    <script src="../src/http/xml-http-request.js"></script>
-    <script src="../src/http/graph.js"></script>
-    <script src="../src/objects/data-object.js"></script>
-    <script src="../src/objects/crud-object.js"></script>
-    <script src="../src/objects/mixins/cannot-create.js"></script>
-    <script src="../src/objects/mixins/cannot-update.js"></script>
-    <script src="../src/objects/mixins/cannot-delete.js"></script>
-    <script src="../src/objects/mixins/object-validation.js"></script>
-    <script src="../src/objects/mixins/archivable.js"></script>
-    <script src="../src/objects/ad-account.js"></script>
-    <script src="../src/objects/ad-campaign.js"></script>
-    <script src="../src/api.js"></script>
-
-    <!-- Playground -->
-    <script src="http://connect.facebook.net/en_US/sdk.js"></script>
-    <script src="appid.js"></script>
-    <script src="init.js"></script>
+    <script data-main="init" src="../bower_components/requirejs/require.js"></script>
   </body>
 </html>

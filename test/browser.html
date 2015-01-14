@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+      <title>Facebook JS Ads API Mocha Spec Runner - Browser Globals</title>
+      <link rel="stylesheet" href="../bower_components/mocha/mocha.css">
+  </head>
+  <body>
+    <div id="mocha"></div>
+
+    <script src="../bower_components/mocha/mocha.js"></script>
+    <script src="../bower_components/chai/chai.js"></script>
+    <script src="../bower_components/chai-as-promised/lib/chai-as-promised.js"></script>
+    <script src="../bower_components/sinonjs/sinon.js"></script>
+    <script src="../bower_components/sinon-chai/lib/sinon-chai.js"></script>
+    <script>
+      mocha.setup('bdd');
+      var should = chai.should();
+    </script>
+
+    <!-- include source files here... -->
+    <script src="../src/utils/browser-prepend.js"></script>
+    <script src="../src/utils/utils.js"></script>
+    <script src="../src/http/fb-error.js"></script>
+    <script src="../src/http/xml-http-request.js"></script>
+    <script src="../src/http/graph.js"></script>
+    <script src="../src/objects/data-object.js"></script>
+    <script src="../src/objects/crud-object.js"></script>
+    <script src="../src/objects/mixins/cannot-create.js"></script>
+    <script src="../src/objects/mixins/cannot-update.js"></script>
+    <script src="../src/objects/mixins/cannot-delete.js"></script>
+    <script src="../src/objects/mixins/object-validation.js"></script>
+    <script src="../src/objects/mixins/archivable.js"></script>
+    <script src="../src/objects/ad-account.js"></script>
+    <script src="../src/objects/ad-campaign.js"></script>
+    <script src="../src/api.js"></script>
+
+    <!-- include spec files here... -->
+    <script src="api.js"></script>
+    <script src="http/http.js"></script>
+    <script src="http/graph.js"></script>
+    <script src="objects/data-object.js"></script>
+    <script src="objects/crud-object.js"></script>
+    <script src="objects/ad-account.js"></script>
+    <script src="objects/ad-campaign.js"></script>
+    <script src="objects/mixins.js"></script>
+
+    <!-- <script src="test-data.js"></script> -->
+
+    <script>mocha.run()</script>
+  </body>
+</html>

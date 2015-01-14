@@ -1,6 +1,7 @@
 if (typeof require === 'function') {
-  var FacebookAdsApi = require('./../../src/api.js');
-  var ObjectValidation = require('./../../src/objects/mixins/object-validation.js');
+  var srcPath = (typeof define === 'function' && define.amd) ? './../src/' : './../../src/';
+  var FacebookAdsApi = require(srcPath + 'api');
+  var ObjectValidation = require(srcPath + 'objects/mixins/object-validation');
   var chai = require('chai');
   var sinon = require('sinon');
   chai.should();

@@ -1,8 +1,11 @@
 if (typeof require === 'function') {
-  var Http = require('./../../src/http/http.js');
+  if (typeof define === 'function' && define.amd)
+    var Http = require('./../src/http/xml-http-request');
+  else
+    var Http = require('./../../src/http/http');
   require('chai').should();
 } else {
-  var Http = FbApiAssets.Http.Http;
+  var Http = FbApiAssets.Http.XmlHttpRequest;
 }
 
 describe('Http', function() {

@@ -1,7 +1,8 @@
 if (typeof require === 'function') {
-  var FacebookAdsApi = require('./../../src/api.js');
-  var CannotCreate = require('./../../src/objects/mixins/cannot-create.js');
-  var CannotDelete = require('./../../src/objects/mixins/cannot-delete.js');
+  var srcPath = (typeof define === 'function' && define.amd) ? './../src/' : './../../src/';
+  var FacebookAdsApi = require(srcPath + 'api');
+  var CannotCreate = require(srcPath + 'objects/mixins/cannot-create');
+  var CannotDelete = require(srcPath + 'objects/mixins/cannot-delete');
   var chai = require('chai');
   var sinon = require('sinon');
   chai.should();

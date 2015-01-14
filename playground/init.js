@@ -1,25 +1,36 @@
+
+
 // Log wrapper for development
 window.log = console.log.bind(console);
 
-/**
- * Initializes FB and the API
- */
-window.fbAsyncInit = function() {
-  if (!window.APPID) {
-    console.error('No window.APPID, how about putting it in appid.js?');
+requirejs.config({
+    paths: {
+      'appid': './appid',
+    },
+    shim: {
+        'appid': {
+        init: function() { return APPID; }
+      }
+    }
+});
+
+define(['http://connect.facebook.net/en_US/sdk.js', './../src/api', 'appid'], function(sdk, FacebookAdsApi, appId) {
+  window.FacebookAdsApi = FacebookAdsApi;
+  if (!appId) {
+    console.error('No APPID. Put it in appid.js like "APPID = \'XXXXXXXXXXXXXX\'".');
     return;
   }
   FB.init({
-    appId: window.APPID,
+    appId: appId,
     xfbml: true,
-    version: 'v2.1'
+    version: 'v2.2'
   });
   if (token = getLocalToken()) {
     initApi(token);
   } else {
     console.error('Whoops, no token! How about that button up there?');
   }
-};
+});
 
 /**
  * Create a new global api Object

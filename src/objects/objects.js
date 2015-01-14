@@ -1,11 +1,11 @@
 (function(root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
-    define(['ad-account'], factory);
+    define(['./ad-account', './ad-campaign'], factory);
   } else if (typeof exports === 'object') {
     module.exports = factory(
-      require('./ad-account.js'),
-      require('./ad-campaign.js')
+      require('./ad-account'),
+      require('./ad-campaign')
     );
   }
 }(this, function(AdAccount, AdCampaign) {

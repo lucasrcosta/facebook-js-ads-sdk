@@ -1,12 +1,13 @@
 if (typeof require === 'function') {
+  var srcPath = (typeof define === 'function' && define.amd) ? './../src/' : './../../src/';
+  var CrudObject = require(srcPath + 'objects/crud-object');
+  var CannotCreate = require(srcPath + 'objects/mixins/cannot-create');
+  var CannotUpdate = require(srcPath + 'objects/mixins/cannot-update');
+  var CannotDelete = require(srcPath + 'objects/mixins/cannot-delete');
+  var ObjectValidation = require(srcPath + 'objects/mixins/object-validation');
+  var Archivable = require(srcPath + 'objects/mixins/archivable');
   var chai = require('chai');
   var sinon = require('sinon');
-  var CrudObject = require('./../../src/objects/crud-object.js');
-  var CannotCreate = require('./../../src/objects/mixins/cannot-create.js');
-  var CannotUpdate = require('./../../src/objects/mixins/cannot-update.js');
-  var CannotDelete = require('./../../src/objects/mixins/cannot-delete.js');
-  var ObjectValidation = require('./../../src/objects/mixins/object-validation.js');
-  var Archivable = require('./../../src/objects/mixins/archivable.js');
   chai.should();
 } else {
   var CrudObject = FbApiAssets.CoreObjects.CrudObject;

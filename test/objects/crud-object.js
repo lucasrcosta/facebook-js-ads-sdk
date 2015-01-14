@@ -1,7 +1,10 @@
-if (typeof require === 'function') {
-  var FacebookAdsApi = require('./../../src/api.js');
-  var CrudObject = require('./../../src/objects/crud-object.js');
+if (typeof exports === 'object')
   var Promise = require('promise');
+
+if (typeof require === 'function') {
+  var srcPath = (typeof define === 'function' && define.amd) ? './../src/' : './../../src/';
+  var FacebookAdsApi = require(srcPath + 'api');
+  var CrudObject = require(srcPath + 'objects/crud-object');
   var chai = require('chai');
   var sinon = require('sinon');
   var should = chai.should();

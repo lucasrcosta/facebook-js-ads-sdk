@@ -1,12 +1,12 @@
 (function(root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
-    define(['crud-object', 'cannot-create', 'cannot-delete'], factory);
+    define(['./crud-object', './mixins/cannot-create', './mixins/cannot-delete'], factory);
   } else if (typeof exports === 'object') {
     module.exports = factory(
-      require('./crud-object.js'),
-      require('./mixins/cannot-create.js'),
-      require('./mixins/cannot-delete.js')
+      require('./crud-object'),
+      require('./mixins/cannot-create'),
+      require('./mixins/cannot-delete')
     );
   } else {
     root.FbApiAssets.Objects.AdAccount = factory(

@@ -1,6 +1,7 @@
 if (typeof require === 'function') {
-  var FacebookAdsApi = require('./../../src/api.js');
-  var Graph = require('./../../src/http/graph.js');
+  var srcPath = (typeof define === 'function' && define.amd) ? './../src/' : './../../src/';
+  var FacebookAdsApi = require(srcPath + 'api');
+  var Graph = require(srcPath + 'http/graph');
   var chai = require('chai');
   var sinon = require('sinon');
   var sinonChai = require('sinon-chai');

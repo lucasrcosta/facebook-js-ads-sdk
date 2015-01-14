@@ -1,12 +1,12 @@
-if (typeof require === 'function')
+if (typeof exports === 'object')
   var Promise = require('promise');
 
 (function(root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
-    define(['data-object'], factory);
+    define(['./data-object'], factory);
   } else if (typeof exports === 'object') {
-    module.exports = factory(require('./data-object.js'));
+    module.exports = factory(require('./data-object'));
   } else {
     root.FbApiAssets.CoreObjects.CrudObject = factory(root.FbApiAssets.CoreObjects.DataObject);
   }

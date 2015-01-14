@@ -1,5 +1,6 @@
 if (typeof require === 'function') {
-  var DataObject = require('./../../src/objects/data-object.js');
+  var srcPath = (typeof define === 'function' && define.amd) ? './../src/' : './../../src/';
+  var DataObject = require(srcPath + 'objects/data-object');
   require('chai').should();
 } else {
   var DataObject = FbApiAssets.CoreObjects.DataObject;

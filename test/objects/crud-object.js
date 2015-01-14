@@ -4,10 +4,10 @@ if (typeof require === 'function') {
   var Promise = require('promise');
   var chai = require('chai');
   var sinon = require('sinon');
+  var should = chai.should();
 } else {
   var CrudObject = FbApiAssets.CoreObjects.CrudObject;
 }
-var should = chai.should();
 
 describe('CrudObject', function() {
   'use strict';

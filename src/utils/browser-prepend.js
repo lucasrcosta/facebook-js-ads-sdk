@@ -3,5 +3,6 @@ this.FbApiAssets = {
   Http: {},
   CoreObjects: {},
   Mixins: {},
-  Objects: {}
+  Objects: {},
+  tests: {}
 };

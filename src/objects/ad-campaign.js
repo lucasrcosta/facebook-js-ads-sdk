@@ -18,6 +18,17 @@
 }(this, function(CrudObject, ObjectValidation, Archivable) {
   'use strict';
 
+  var endpoint = 'adcampaign_groups';
+  var fields = [
+    'id',
+    'account_id',
+    'objective',
+    'name',
+    'adgroups',
+    'campaign_group_status',
+    'buying_type'
+  ];
+
   /**
    * Group of Ad Sets
    * @see {@link} https://developers.facebook.com/docs/reference/ads-api/adcampaign/
@@ -28,22 +39,15 @@
    * @class
    */
   function AdCampaign(api, initData, parentId) {
-    var endpoint = 'adcampaign_groups';
-    var fields = [
-      'id',
-      'account_id',
-      'objective',
-      'name',
-      'adgroups',
-      'campaign_group_status',
-      'buying_type'
-    ];
     var _this = new CrudObject(api, endpoint, fields, initData, parentId);
     ObjectValidation.call(_this);
     Archivable.call(_this, 'campaign_group_status');
 
     return _this;
   }
+
+  AdCampaign.getEndpoint = function() { return endpoint; };
+  AdCampaign.getFields = function() { return fields; };
 
   return AdCampaign;
 }));

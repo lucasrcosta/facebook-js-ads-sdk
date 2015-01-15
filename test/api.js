@@ -32,10 +32,24 @@ describe('Api', function() {
       });
     });
 
-    it('hold their class\' name', function() {
+    it('can get it\'s class name', function() {
       var api = new FacebookAdsApi(token);
       Object.keys(Objects).forEach(function(object) {
-        object.should.be.equal(api[object].classname);
+        object.should.be.equal(api[object].getClassname());
+      });
+    });
+
+    it('can get it\'s endpoint', function() {
+      var api = new FacebookAdsApi(token);
+      Object.keys(Objects).forEach(function(object) {
+        api[object].getEndpoint.should.be.a('function');
+      });
+    });
+
+    it('can get it\'s fields', function() {
+      var api = new FacebookAdsApi(token);
+      Object.keys(Objects).forEach(function(object) {
+        api[object].getFields.should.be.a('function');
       });
     });
 

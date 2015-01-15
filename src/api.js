@@ -38,7 +38,14 @@
         var params = [_this].concat(Array.prototype.slice.call(arguments));
         return Objects[object].apply({}, params);
       };
-      _this[object].classname = Objects[object].name;
+      if (!Objects[object].getEndpoint)
+        throw new Error(object + ' should implement getEndpoint');
+      _this[object].getEndpoint =  Objects[object].getEndpoint;
+      if (!Objects[object].getFields)
+        throw new Error(object + ' should implement getFields');
+      _this[object].getFields =  Objects[object].getFields;
+
+      _this[object].getClassname = function() { return Objects[object].name; };
     });
 
     /**

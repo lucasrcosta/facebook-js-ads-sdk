@@ -70,6 +70,15 @@
     CannotCreate.call(_this);
     CannotDelete.call(_this);
 
+    /**
+     * @param  {array} fields
+     * @param  {object} params
+     * @return {?}
+     */
+    _this.getAdCampaigns = function(fields, params) {
+      return _this.getManyByConnection(api.AdCampaign, fields, params);
+    };
+
     return _this;
   }
 

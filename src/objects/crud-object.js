@@ -177,6 +177,38 @@ if (typeof exports === 'object')
       return _this.create(params);
     };
 
+    /**
+     * Read objects from connection
+     * @param  {CrudObject} objClass
+     * @param  {array}  filter     fields filter
+     * @param  {object} params
+     * @param  {string} [endpoint]
+     * @return {?}
+     */
+    _this.getManyByConnection = function(objClass, filter, params, endpoint) {
+      var response = _this.fetchConnection(objClass, filter, params, endpoint);
+      return response;
+    };
+
+    /**
+     * Read objects from connection
+     * @param  {CrudObject} objClass
+     * @param  {array}  filter     fields filter
+     * @param  {object} params
+     * @param  {string} [endpoint]
+     * @return {promise}
+     */
+    _this.fetchConnection = function(objClass, filter, params, endpoint) {
+      if (!endpoint && !objClass.getEndpoint)
+        throw new Error('Endpoint must be given or provided by objClass');
+      endpoint = endpoint || objClass.getEndpoint();
+      filter = filter || objClass.getFields();
+      params = params || {};
+      params.fields = filter;
+      var path = _this.getId() + '/' + endpoint;
+      return api.graph.get(path, params);
+    };
+
     return _this;
   }
 

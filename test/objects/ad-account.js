@@ -34,4 +34,18 @@ describe('AdAccount', function() {
 
   });
 
+  describe('connection objects', function() {
+
+    it('can get Ad Campaigns', function() {
+      var api = new FacebookAdsApi('CAAJQNz9EKa8BAKKTbGVh0KalcpFBBbTIEeENjhkeeK3oAeWBZBUs96uiXkMJdssu5JhqUnL02PaXHmDruEXaYfR0cPYHwSWNq81QiITmjhlHVfli6PeK3JPFeuWZBf2xOuCUr07PtRETR1FtITWi4TIbYOywU8oJcnzza4JaSarHG0EZCoGKINbIT5Snjp3ZAAkHRbO96H5eVm84RQAK1geZAC4ZC9Le4ZD');
+      var adAccount = new api.AdAccount('act_143757035692004');
+      // adAccount.getAdCampaigns()
+      //   .then(function(data) {
+      //     console.log(data);
+      //   })
+      //   .catch();
+    });
+
+  });
+
 });

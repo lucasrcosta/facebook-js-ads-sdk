@@ -5,7 +5,7 @@
   } else if (typeof exports === 'object') {
     module.exports = factory();
   } else {
-    root.FbApiAssets.Utils = factory();
+    root.FbApiAssets.Utils.Utils = factory();
   }
 }(this, function() {
   'use strict';

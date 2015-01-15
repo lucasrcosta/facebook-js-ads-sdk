@@ -10,7 +10,7 @@
   } else {
     root.FbApiAssets.Http.Graph = factory(
       root.FbApiAssets.Http.XmlHttpRequest,
-      root.FbApiAssets.Utils
+      root.FbApiAssets.Utils.Utils
     );
   }
 }(this, function(Http, Utils) {

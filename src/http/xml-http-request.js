@@ -5,7 +5,7 @@
   } else {
     root.FbApiAssets.Http.XmlHttpRequest = factory(
       root.FbApiAssets.Http.FbError,
-      root.FbApiAssets.Utils
+      root.FbApiAssets.Utils.Utils
     );
   }
 }(this, function(FbError, Utils) {

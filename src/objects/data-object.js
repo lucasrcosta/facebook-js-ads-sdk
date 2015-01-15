@@ -21,7 +21,7 @@
     if (!fields)
       throw new Error('A data object needs fields');
 
-    var _this = createObjectFromFields(fields);
+    var _this = {};
     var persistedData = {};
 
     _this.fields = createFieldsObject(fields);
@@ -129,19 +129,6 @@
       }
       return changedData;
     };
-
-    /**
-     * Create object with fields as properties
-     * @param {array} fields
-     * @return {object}
-     */
-    function createObjectFromFields(fields) {
-      var obj = {};
-      for (var i = 0; i < fields.length; i++) {
-        obj[fields[i]] = null;
-      }
-      return obj;
-    }
 
     /**
      * Create fields object from fields array

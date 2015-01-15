@@ -24,12 +24,6 @@ describe('DataObject', function() {
       dataObj.getFields().should.be.eql(['a', 'b']);
     });
 
-    it('sets object properties from data fields', function() {
-      var dataObj = new DataObject(['a', 'b']);
-      should.not.equal(dataObj.a, undefined);
-      should.not.equal(dataObj.b, undefined);
-    });
-
     it('creates a fields object property', function() {
       var dataObj = new DataObject(['a', 'b']);
       dataObj.fields.should.be.eql({a: 'a', b: 'b'});

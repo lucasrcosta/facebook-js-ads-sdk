@@ -121,5 +121,5 @@
     return _this;
   }
 
-  return XmlHttpRequest;
+  return new XmlHttpRequest();
 }));

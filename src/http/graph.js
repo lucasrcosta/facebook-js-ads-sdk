@@ -24,7 +24,6 @@
   function Graph(api) {
     var _this = {};
     var url = 'https://graph.facebook.com/';
-    _this.http = new Http();
 
     /**
      * Get Graph Request
@@ -34,7 +33,7 @@
      */
     _this.get = function(path, params) {
       var requestUrl = _this.getRequestUrl(path, params);
-      return _this.http.getJSON(requestUrl);
+      return Http.getJSON(requestUrl);
     };
 
     /**
@@ -46,7 +45,7 @@
      */
     _this.post = function(path, params, data) {
       var requestUrl = _this.getRequestUrl(path, params);
-      return _this.http.postJSON(requestUrl, data);
+      return Http.postJSON(requestUrl, data);
     };
 
     /**
@@ -56,7 +55,7 @@
      */
     _this.delete = function(path) {
       var requestUrl = _this.getRequestUrl(path);
-      return _this.http.deleteJSON(requestUrl);
+      return Http.deleteJSON(requestUrl);
     };
 
     /**

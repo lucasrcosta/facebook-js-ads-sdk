@@ -13,8 +13,8 @@ describe('Http', function() {
 
   describe('constructor', function() {
 
-    it('can be instantiated', function() {
-      (new Http()).should.be.an('object');
+    it('is an object', function() {
+      Http.should.be.an('object');
     });
 
   });

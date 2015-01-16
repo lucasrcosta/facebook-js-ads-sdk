@@ -102,5 +102,5 @@
     return _this;
   }
 
-  module.exports = Http;
+  module.exports = new Http();
 })();

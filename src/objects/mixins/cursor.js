@@ -19,8 +19,6 @@ if (typeof exports === 'object')
 }(this, function(Http) {
   'use strict';
 
-  Http = new Http(); //temp
-
   /**
    * Array mixin
    * @param {[type]} paging [description]

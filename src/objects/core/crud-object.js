@@ -1,19 +1,14 @@
 if (typeof exports === 'object')
     var Promise = require('promise');
-
 (function(root, factory) {
   'use strict';
-  if (typeof define === 'function' && define.amd) {
-    define([
-      './data-object',
-      './collection',
-    ], factory);
-  } else if (typeof exports === 'object') {
-    module.exports = factory(
-      require('./data-object'),
-      require('./collection')
-    );
-  } else {
+  var dependencies = [
+    './data-object',
+    './collection',
+  ];
+  if (typeof define === 'function' && define.amd) define(dependencies, factory);
+  else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
+  else {
     root.FbApiAssets.Objects.Core.CrudObject = factory(
       root.FbApiAssets.Objects.Core.DataObject,
       root.FbApiAssets.Objects.Core.Collection

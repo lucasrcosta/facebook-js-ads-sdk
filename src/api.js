@@ -1,13 +1,12 @@
 (function(root, factory) {
   'use strict';
-  if (typeof define === 'function' && define.amd) {
-    define(['./http/graph', './objects/objects'], factory);
-  } else if (typeof exports === 'object') {
-    module.exports = factory(
-      require('./http/graph'),
-      require('./objects/objects')
-    );
-  } else {
+  var dependencies = [
+    './http/graph',
+    './objects/objects'
+  ];
+  if (typeof define === 'function' && define.amd) define(dependencies, factory);
+  else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
+  else {
     root.FacebookAdsApi = factory(
       root.FbApiAssets.Http.Graph,
       root.FbApiAssets.Objects.Objects

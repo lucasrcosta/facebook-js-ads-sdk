@@ -1,10 +1,9 @@
 (function(root, factory) {
   'use strict';
-  if (typeof define === 'function' && define.amd) {
-    define([], factory);
-  } else if (typeof exports === 'object') {
-    module.exports = factory();
-  } else {
+  var dependencies = [];
+  if (typeof define === 'function' && define.amd) define(dependencies, factory);
+  else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
+  else {
     root.FbApiAssets.Objects.Core.DataObject = factory();
   }
 }(this, function() {

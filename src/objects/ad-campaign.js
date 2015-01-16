@@ -1,14 +1,13 @@
 (function(root, factory) {
   'use strict';
-  if (typeof define === 'function' && define.amd) {
-    define(['./core/crud-object', './mixins/object-validation', './mixins/archivable'], factory);
-  } else if (typeof exports === 'object') {
-    module.exports = factory(
-      require('./core/crud-object'),
-      require('./mixins/object-validation'),
-      require('./mixins/archivable')
-    );
-  } else {
+  var dependencies = [
+    './core/crud-object',
+    './mixins/object-validation',
+    './mixins/archivable'
+  ];
+  if (typeof define === 'function' && define.amd) define(dependencies, factory);
+  else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
+  else {
     root.FbApiAssets.Objects.AdCampaign = factory(
       root.FbApiAssets.Objects.Core.CrudObject,
       root.FbApiAssets.Objects.Mixins.ObjectValidation,

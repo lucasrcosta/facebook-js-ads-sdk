@@ -1,6 +1,5 @@
 if (typeof exports === 'object')
   var Promise = require('promise');
-
 if (typeof require === 'function') {
   var srcPath = (typeof define === 'function' && define.amd) ? './../src/' : './../../../src/';
   var FacebookAdsApi = require(srcPath + 'api');

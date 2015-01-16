@@ -1,13 +1,16 @@
 (function(root, factory) {
   'use strict';
-  if (typeof define === 'function' && define.amd) {
-    define(['./xml-http-request', './../utils/utils'], factory);
-  } else if (typeof exports === 'object') {
+  if (typeof define === 'function' && define.amd)
+    define([
+      './xml-http-request',
+      './../utils/utils'
+    ], factory);
+  else if (typeof exports === 'object')
     module.exports = factory(
       require('./http'),
       require('./../utils/utils')
     );
-  } else {
+  else {
     root.FbApiAssets.Http.Graph = factory(
       root.FbApiAssets.Http.XmlHttpRequest,
       root.FbApiAssets.Utils.Utils

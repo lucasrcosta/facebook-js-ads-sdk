@@ -1,15 +1,14 @@
 (function(root, factory) {
   'use strict';
-  if (typeof define === 'function' && define.amd)
-    define([
-      './xml-http-request',
-      './../utils/utils'
-    ], factory);
-  else if (typeof exports === 'object')
-    module.exports = factory(
-      require('./http'),
-      require('./../utils/utils')
-    );
+  var dependencies = [
+    './xml-http-request',
+    './../utils/utils'
+  ];
+  if (typeof define === 'function' && define.amd) define(dependencies, factory);
+  else if (typeof exports === 'object') {
+    dependencies[0] = './http';
+    module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
+  }
   else {
     root.FbApiAssets.Http.Graph = factory(
       root.FbApiAssets.Http.XmlHttpRequest,

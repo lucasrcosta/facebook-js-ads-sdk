@@ -1,10 +1,10 @@
 (function(root, factory) {
   'use strict';
-  if (typeof define === 'function' && define.amd)
-    define([
-      './fb-error',
-      '../utils/utils'
-    ], factory);
+  var dependencies = [
+    './fb-error',
+    '../utils/utils'
+  ];
+  if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else {
     root.FbApiAssets.Http.XmlHttpRequest = factory(
       root.FbApiAssets.Http.FbError,

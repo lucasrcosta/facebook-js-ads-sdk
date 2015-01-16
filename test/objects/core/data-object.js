@@ -1,9 +1,9 @@
 if (typeof require === 'function') {
-  var srcPath = (typeof define === 'function' && define.amd) ? './../src/' : './../../src/';
-  var DataObject = require(srcPath + 'objects/data-object');
+  var srcPath = (typeof define === 'function' && define.amd) ? './../src/' : './../../../src/';
+  var DataObject = require(srcPath + 'objects/core/data-object');
   require('chai').should();
 } else {
-  var DataObject = FbApiAssets.CoreObjects.DataObject;
+  var DataObject = FbApiAssets.Objects.Core.DataObject;
 }
 
 describe('DataObject', function() {

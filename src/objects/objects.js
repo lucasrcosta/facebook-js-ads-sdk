@@ -7,6 +7,11 @@
       require('./ad-account'),
       require('./ad-campaign')
     );
+  } else {
+    root.FbApiAssets.Objects.Objects = factory(
+      root.FbApiAssets.Objects.AdAccount,
+      root.FbApiAssets.Objects.AdCampaign
+    );
   }
 }(this, function(AdAccount, AdCampaign) {
   'use strict';

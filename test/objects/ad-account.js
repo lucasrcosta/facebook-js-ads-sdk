@@ -7,8 +7,8 @@ if (typeof require === 'function') {
   var sinon = require('sinon');
   chai.should();
 } else {
-  var CannotCreate = FbApiAssets.Mixins.CannotCreate;
-  var CannotDelete = FbApiAssets.Mixins.CannotDelete;
+  var CannotCreate = FbApiAssets.Objects.Mixins.CannotCreate;
+  var CannotDelete = FbApiAssets.Objects.Mixins.CannotDelete;
 }
 
 describe('AdAccount', function() {

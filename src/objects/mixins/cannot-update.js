@@ -5,7 +5,7 @@
   } else if (typeof exports === 'object') {
     module.exports = factory();
   } else {
-    root.FbApiAssets.Mixins.CannotUpdate = factory();
+    root.FbApiAssets.Objects.Mixins.CannotUpdate = factory();
   }
 }(this, function() {
   'use strict';

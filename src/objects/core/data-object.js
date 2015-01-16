@@ -5,7 +5,7 @@
   } else if (typeof exports === 'object') {
     module.exports = factory();
   } else {
-    root.FbApiAssets.CoreObjects.DataObject = factory();
+    root.FbApiAssets.Objects.Core.DataObject = factory();
   }
 }(this, function() {
   'use strict';
@@ -149,7 +149,7 @@
      * @param  {...object}  list of objects to extended
      * @return {object}     extended object
      */
-    function deepExtend(out)  {
+    function deepExtend(out) {
       out = out || {};
       for (var i = 1; i < arguments.length; i++) {
         var obj = arguments[i];

@@ -6,20 +6,20 @@ if (typeof exports === 'object')
   if (typeof define === 'function' && define.amd) {
     define([
       './data-object',
-      './crud-collection',
+      './collection',
     ], factory);
   } else if (typeof exports === 'object') {
     module.exports = factory(
       require('./data-object'),
-      require('./crud-collection')
+      require('./collection')
     );
   } else {
-    root.FbApiAssets.CoreObjects.CrudObject = factory(
-      root.FbApiAssets.CoreObjects.DataObject,
-      root.FbApiAssets.Utils.CrudCollection
+    root.FbApiAssets.Objects.Core.CrudObject = factory(
+      root.FbApiAssets.Objects.Core.DataObject,
+      root.FbApiAssets.Objects.Core.Collection
     );
   }
-}(this, function(DataObject, CrudCollection) {
+}(this, function(DataObject, Collection) {
   'use strict';
 
   /**
@@ -202,7 +202,7 @@ if (typeof exports === 'object')
               resolve(false);
               return;
             }
-            var collection = new CrudCollection(ObjClass, response);
+            var collection = new Collection(ObjClass, response);
             resolve(collection);
           })
         .catch(reject);

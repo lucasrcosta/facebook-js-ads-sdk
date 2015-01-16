@@ -1,18 +1,18 @@
 (function(root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
-    define(['./crud-object', './mixins/object-validation', './mixins/archivable'], factory);
+    define(['./core/crud-object', './mixins/object-validation', './mixins/archivable'], factory);
   } else if (typeof exports === 'object') {
     module.exports = factory(
-      require('./crud-object'),
+      require('./core/crud-object'),
       require('./mixins/object-validation'),
       require('./mixins/archivable')
     );
   } else {
     root.FbApiAssets.Objects.AdCampaign = factory(
-      root.FbApiAssets.CoreObjects.CrudObject,
-      root.FbApiAssets.Mixins.ObjectValidation,
-      root.FbApiAssets.Mixins.Archivable
+      root.FbApiAssets.Objects.Core.CrudObject,
+      root.FbApiAssets.Objects.Mixins.ObjectValidation,
+      root.FbApiAssets.Objects.Mixins.Archivable
     );
   }
 }(this, function(CrudObject, ObjectValidation, Archivable) {

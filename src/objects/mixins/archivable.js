@@ -5,7 +5,7 @@
   } else if (typeof exports === 'object') {
     module.exports = factory();
   } else {
-    root.FbApiAssets.Mixins.Archivable = factory();
+    root.FbApiAssets.Objects.Mixins.Archivable = factory();
   }
 }(this, function() {
   'use strict';

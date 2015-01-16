@@ -2,14 +2,14 @@ if (typeof exports === 'object')
   var Promise = require('promise');
 
 if (typeof require === 'function') {
-  var srcPath = (typeof define === 'function' && define.amd) ? './../src/' : './../../src/';
+  var srcPath = (typeof define === 'function' && define.amd) ? './../src/' : './../../../src/';
   var FacebookAdsApi = require(srcPath + 'api');
-  var CrudObject = require(srcPath + 'objects/crud-object');
+  var CrudObject = require(srcPath + 'objects/core/crud-object');
   var chai = require('chai');
   var sinon = require('sinon');
   var should = chai.should();
 } else {
-  var CrudObject = FbApiAssets.CoreObjects.CrudObject;
+  var CrudObject = FbApiAssets.Objects.Core.CrudObject;
 }
 
 describe('CrudObject', function() {

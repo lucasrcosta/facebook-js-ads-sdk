@@ -10,7 +10,7 @@
   } else {
     root.FacebookAdsApi = factory(
       root.FbApiAssets.Http.Graph,
-      root.FbApiAssets.Objects
+      root.FbApiAssets.Objects.Objects
     );
   }
 }(this, function(Graph, Objects) {

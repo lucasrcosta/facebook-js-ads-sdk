@@ -1,6 +1,6 @@
 if (typeof require === 'function') {
   var srcPath = (typeof define === 'function' && define.amd) ? './../src/' : './../../src/';
-  var CrudObject = require(srcPath + 'objects/crud-object');
+  var CrudObject = require(srcPath + 'objects/core/crud-object');
   var CannotCreate = require(srcPath + 'objects/mixins/cannot-create');
   var CannotUpdate = require(srcPath + 'objects/mixins/cannot-update');
   var CannotDelete = require(srcPath + 'objects/mixins/cannot-delete');
@@ -10,12 +10,12 @@ if (typeof require === 'function') {
   var sinon = require('sinon');
   chai.should();
 } else {
-  var CrudObject = FbApiAssets.CoreObjects.CrudObject;
-  var CannotCreate = FbApiAssets.Mixins.CannotCreate;
-  var CannotUpdate = FbApiAssets.Mixins.CannotUpdate;
-  var CannotDelete = FbApiAssets.Mixins.CannotDelete;
-  var ObjectValidation = FbApiAssets.Mixins.ObjectValidation;
-  var Archivable = FbApiAssets.Mixins.Archivable;
+  var CrudObject = FbApiAssets.Objects.Core.CrudObject;
+  var CannotCreate = FbApiAssets.Objects.Mixins.CannotCreate;
+  var CannotUpdate = FbApiAssets.Objects.Mixins.CannotUpdate;
+  var CannotDelete = FbApiAssets.Objects.Mixins.CannotDelete;
+  var ObjectValidation = FbApiAssets.Objects.Mixins.ObjectValidation;
+  var Archivable = FbApiAssets.Objects.Mixins.Archivable;
 }
 
 describe('Mixins', function() {

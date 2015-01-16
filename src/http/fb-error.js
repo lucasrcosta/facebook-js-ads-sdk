@@ -3,9 +3,7 @@
   var dependencies = [];
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
-  else {
-    root.FbApiAssets.Http.FbError = factory();
-  }
+  else root.FbApiAssets.define('Http.FbError', dependencies, factory);
 }(this, function() {
   'use strict';
 

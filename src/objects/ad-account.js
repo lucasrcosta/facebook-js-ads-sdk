@@ -8,14 +8,7 @@
   ];
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
-  else {
-    root.FbApiAssets.Objects.AdAccount = factory(
-      root.FbApiAssets.Objects.Core.CrudObject,
-      root.FbApiAssets.Objects.Mixins.CannotCreate,
-      root.FbApiAssets.Objects.Mixins.CannotDelete,
-      root.FbApiAssets.Objects.Core.Collection
-    );
-  }
+  else root.FbApiAssets.define('Objects.AdAccount', dependencies, factory);
 }(this, function(CrudObject, CannotCreate, CannotDelete, Collection) {
   'use strict';
 

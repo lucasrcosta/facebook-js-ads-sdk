@@ -7,13 +7,7 @@
   ];
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
-  else {
-    root.FbApiAssets.Objects.AdCampaign = factory(
-      root.FbApiAssets.Objects.Core.CrudObject,
-      root.FbApiAssets.Objects.Mixins.ObjectValidation,
-      root.FbApiAssets.Objects.Mixins.Archivable
-    );
-  }
+  else root.FbApiAssets.define('Objects.AdCampaign', dependencies, factory);
 }(this, function(CrudObject, ObjectValidation, Archivable) {
   'use strict';
 

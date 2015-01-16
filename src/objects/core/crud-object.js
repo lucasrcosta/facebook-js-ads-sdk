@@ -8,12 +8,7 @@ if (typeof exports === 'object')
   ];
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
-  else {
-    root.FbApiAssets.Objects.Core.CrudObject = factory(
-      root.FbApiAssets.Objects.Core.DataObject,
-      root.FbApiAssets.Objects.Core.Collection
-    );
-  }
+  else root.FbApiAssets.define('Objects.Core.CrudObject', dependencies, factory);
 }(this, function(DataObject, Collection) {
   'use strict';
 

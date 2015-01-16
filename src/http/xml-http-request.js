@@ -5,12 +5,7 @@
     '../utils/utils'
   ];
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
-  else {
-    root.FbApiAssets.Http.XmlHttpRequest = factory(
-      root.FbApiAssets.Http.FbError,
-      root.FbApiAssets.Utils.Utils
-    );
-  }
+  else root.FbApiAssets.define('Http.XmlHttpRequest', dependencies, factory);
 }(this, function(FbError, Utils) {
   'use strict';
 

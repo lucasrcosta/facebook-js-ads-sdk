@@ -7,10 +7,8 @@
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
   else {
-    root.FacebookAdsApi = factory(
-      root.FbApiAssets.Http.Graph,
-      root.FbApiAssets.Objects.Objects
-    );
+    root.FbApiAssets.define('FacebookAdsApi', dependencies, factory);
+    root.FacebookAdsApi = FbApiAssets.FacebookAdsApi;
   }
 }(this, function(Graph, Objects) {
   'use strict';

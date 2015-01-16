@@ -1,16 +1,25 @@
 if (typeof exports === 'object')
-  var Promise = require('promise');
+    var Promise = require('promise');
 
 (function(root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
-    define(['./data-object'], factory);
+    define([
+      './data-object',
+      './crud-collection',
+    ], factory);
   } else if (typeof exports === 'object') {
-    module.exports = factory(require('./data-object'));
+    module.exports = factory(
+      require('./data-object'),
+      require('./crud-collection')
+    );
   } else {
-    root.FbApiAssets.CoreObjects.CrudObject = factory(root.FbApiAssets.CoreObjects.DataObject);
+    root.FbApiAssets.CoreObjects.CrudObject = factory(
+      root.FbApiAssets.CoreObjects.DataObject,
+      root.FbApiAssets.Utils.CrudCollection
+    );
   }
-}(this, function(DataObject) {
+}(this, function(DataObject, CrudCollection) {
   'use strict';
 
   /**
@@ -179,30 +188,40 @@ if (typeof exports === 'object')
 
     /**
      * Read objects from connection
-     * @param  {CrudObject} objClass
+     * @param  {CrudObject} ObjClass
      * @param  {array}  filter     fields filter
      * @param  {object} params
      * @param  {string} [endpoint]
      * @return {?}
      */
-    _this.getManyByConnection = function(objClass, filter, params, endpoint) {
-      var response = _this.fetchConnection(objClass, filter, params, endpoint);
-      return response;
+    _this.getManyByConnection = function(ObjClass, filter, params, endpoint) {
+      return new Promise(function(resolve, reject) {
+        _this.fetchConnection(ObjClass, filter, params, endpoint)
+          .then(function(response) {
+            if (!response.data) {
+              resolve(false);
+              return;
+            }
+            var collection = new CrudCollection(ObjClass, response);
+            resolve(collection);
+          })
+        .catch(reject);
+      });
     };
 
     /**
      * Read objects from connection
-     * @param  {CrudObject} objClass
+     * @param  {CrudObject} ObjClass
      * @param  {array}  filter     fields filter
      * @param  {object} params
      * @param  {string} [endpoint]
      * @return {promise}
      */
-    _this.fetchConnection = function(objClass, filter, params, endpoint) {
-      if (!endpoint && !objClass.getEndpoint)
-        throw new Error('Endpoint must be given or provided by objClass');
-      endpoint = endpoint || objClass.getEndpoint();
-      filter = filter || objClass.getFields();
+    _this.fetchConnection = function(ObjClass, filter, params, endpoint) {
+      if (!endpoint && !ObjClass.getEndpoint)
+        throw new Error('Endpoint must be given or provided by ObjClass');
+      endpoint = endpoint || ObjClass.getEndpoint();
+      filter = filter || ObjClass.getFields();
       params = params || {};
       params.fields = filter;
       var path = _this.getId() + '/' + endpoint;

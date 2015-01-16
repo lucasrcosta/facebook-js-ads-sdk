@@ -76,7 +76,9 @@
      * @return {?}
      */
     _this.getAdCampaigns = function(fields, params) {
-      return _this.getManyByConnection(api.AdCampaign, fields, params);
+      var campaigns = _this.getManyByConnection(api.AdCampaign, fields, params);
+      // make adgroups objects
+      return campaigns;
     };
 
     return _this;

@@ -10,20 +10,27 @@
 }(this, function() {
   'use strict';
 
+  var _this = {};
   /**
    * Encode parameter object as querystring
    * @param {object} params
    * @return {string} querystring
    */
-  function encodeParams(params) {
+  _this.encodeParams = function(params) {
     return Object.keys(params).map(function(param) {
       if (params[param] instanceof Array)
         params[param] = '["' + params[param].toString() + '"]';
       return param + '=' + encodeURIComponent(params[param]);
     }).join('&');
-  }
-
-  return {
-    encodeParams: encodeParams
   };
+
+  _this.makeOjectsArray = function(ObjClass, data) {
+    var objArray = [];
+    for (var i = data.length - 1; i >= 0; i--) {
+      objArray.push(new ObjClass(data[i]));
+    }
+    return objArray;
+  };
+
+  return _this;
 }));

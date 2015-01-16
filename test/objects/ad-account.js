@@ -37,13 +37,27 @@ describe('AdAccount', function() {
   describe('connection objects', function() {
 
     it('can get Ad Campaigns', function() {
-      var api = new FacebookAdsApi('CAAJQNz9EKa8BAKKTbGVh0KalcpFBBbTIEeENjhkeeK3oAeWBZBUs96uiXkMJdssu5JhqUnL02PaXHmDruEXaYfR0cPYHwSWNq81QiITmjhlHVfli6PeK3JPFeuWZBf2xOuCUr07PtRETR1FtITWi4TIbYOywU8oJcnzza4JaSarHG0EZCoGKINbIT5Snjp3ZAAkHRbO96H5eVm84RQAK1geZAC4ZC9Le4ZD');
+      var api = new FacebookAdsApi('CAAJQNz9EKa8BADKPRZAVYONxgIoCM3MzGnPBwPI8i9mZChxjAb0Nbf9Ypq4UKO3OtNmGM6jarksLnjLmeHIqewm9qUuJiZCRGWR7kpQ1UfGvwxsFZArYqtP7N1UwIHHLV2yZBTXHA4WzUEgdOTZBFvnNLLI3LWDR7JXTTGtoP2uhTQR5M4EYHtEGrBUVJAb1t9ymyal3OrptkOTHKGxrDIEJTFGQpb3toZD');
       var adAccount = new api.AdAccount('act_143757035692004');
       // adAccount.getAdCampaigns()
-      //   .then(function(data) {
-      //     console.log(data);
-      //   })
-      //   .catch();
+      //   .then(function(campaigns) {
+      //     campaigns.previousPage().then(function() {
+      //         console.log(campaigns.map(function(campaign) { return campaign.id; }));
+      //       });
+      //     console.log(campaigns.map(function(campaign) { return campaign.id; }));
+      //     campaigns.nextPage().then(function() {
+      //       console.log(campaigns.map(function(campaign) { return campaign.id; }));
+      //       campaigns.previousPage().then(function() {
+      //         console.log(campaigns.map(function(campaign) { return campaign.id; }));
+      //         campaigns.previousPage().then(function() {
+      //           console.log(campaigns.map(function(campaign) { return campaign.id; }));
+      //         });
+      //       });
+      //     });
+      //   }, function(e) {
+      //     console.log('can get Ad Campaigns', e);
+      //     throw e;
+      //   });
     });
 
   });

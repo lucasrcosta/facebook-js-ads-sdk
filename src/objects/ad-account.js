@@ -1,21 +1,28 @@
 (function(root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
-    define(['./crud-object', './mixins/cannot-create', './mixins/cannot-delete'], factory);
+    define([
+      './crud-object',
+      './mixins/cannot-create',
+      './mixins/cannot-delete',
+      './crud-collection'
+    ], factory);
   } else if (typeof exports === 'object') {
     module.exports = factory(
       require('./crud-object'),
       require('./mixins/cannot-create'),
-      require('./mixins/cannot-delete')
+      require('./mixins/cannot-delete'),
+      require('./crud-collection')
     );
   } else {
     root.FbApiAssets.Objects.AdAccount = factory(
       root.FbApiAssets.CoreObjects.CrudObject,
       root.FbApiAssets.Mixins.CannotCreate,
-      root.FbApiAssets.Mixins.CannotDelete
+      root.FbApiAssets.Mixins.CannotDelete,
+      root.FbApiAssets.CoreObjects.CrudCollection
     );
   }
-}(this, function(CrudObject, CannotCreate, CannotDelete) {
+}(this, function(CrudObject, CannotCreate, CannotDelete, CrudCollection) {
   'use strict';
 
   var endpoint = 'adaccounts';
@@ -76,9 +83,18 @@
      * @return {?}
      */
     _this.getAdCampaigns = function(fields, params) {
-      var campaigns = _this.getManyByConnection(api.AdCampaign, fields, params);
-      // make adgroups objects
-      return campaigns;
+      return new Promise(function(resolve, reject) {
+        _this.getManyByConnection(api.AdCampaign, fields, params)
+          .then(function(campaigns) {
+            campaigns.forEach(function(campaign) {
+              if(campaign.adgroups) {
+                // campaign.adgroups = new CrudCollection(api.AdGroup, campaign.adgroups);
+              }
+            });
+            resolve(campaigns);
+          })
+          .catch(reject);
+      });
     };
 
     return _this;

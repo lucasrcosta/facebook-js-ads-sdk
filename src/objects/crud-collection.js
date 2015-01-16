@@ -20,13 +20,27 @@
   'use strict';
 
   function CrudCollection(ObjClass, response) {
-    var _this = Utils.makeOjectsArray(ObjClass, response.data);
+    var _this = dataToObjects(ObjClass, response.data);
     Cursor.call(_this, ObjClass, response.paging);
 
     _this.setCollection = function(data) {
       _this.length = 0;
-      _this.push.apply(_this, Utils.makeOjectsArray(ObjClass, data));
+      _this.push.apply(_this, dataToObjects(ObjClass, data));
     };
+
+  /**
+   * Turn response data into objects
+   * @param  {class} ObjClass
+   * @param  {array} data
+   * @return {array}
+   */
+  function dataToObjects(ObjClass, data) {
+    var objArray = [];
+    for (var i = 0; i < data.length; i++) {
+      objArray.push(new ObjClass(data[i]));
+    }
+    return objArray;
+  }
 
     return _this;
   }

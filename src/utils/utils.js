@@ -24,13 +24,5 @@
     }).join('&');
   };
 
-  _this.makeOjectsArray = function(ObjClass, data) {
-    var objArray = [];
-    for (var i = data.length - 1; i >= 0; i--) {
-      objArray.push(new ObjClass(data[i]));
-    }
-    return objArray;
-  };
-
   return _this;
 }));

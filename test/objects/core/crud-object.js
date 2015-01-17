@@ -8,7 +8,7 @@ if (typeof require === 'function') {
   var sinon = require('sinon');
   var should = chai.should();
 } else {
-  var CrudObject = FbApiAssets.Objects.Core.CrudObject;
+  var CrudObject = FacebookAdsApi.Objects.Core.CrudObject;
 }
 
 describe('CrudObject', function() {

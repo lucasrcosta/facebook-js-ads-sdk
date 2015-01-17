@@ -10,12 +10,12 @@ if (typeof require === 'function') {
   var sinon = require('sinon');
   chai.should();
 } else {
-  var CrudObject = FbApiAssets.Objects.Core.CrudObject;
-  var CannotCreate = FbApiAssets.Objects.Mixins.CannotCreate;
-  var CannotUpdate = FbApiAssets.Objects.Mixins.CannotUpdate;
-  var CannotDelete = FbApiAssets.Objects.Mixins.CannotDelete;
-  var ObjectValidation = FbApiAssets.Objects.Mixins.ObjectValidation;
-  var Archivable = FbApiAssets.Objects.Mixins.Archivable;
+  var CrudObject = FacebookAdsApi.Objects.Core.CrudObject;
+  var CannotCreate = FacebookAdsApi.Objects.Mixins.CannotCreate;
+  var CannotUpdate = FacebookAdsApi.Objects.Mixins.CannotUpdate;
+  var CannotDelete = FacebookAdsApi.Objects.Mixins.CannotDelete;
+  var ObjectValidation = FacebookAdsApi.Objects.Mixins.ObjectValidation;
+  var Archivable = FacebookAdsApi.Objects.Mixins.Archivable;
 }
 
 describe('Mixins', function() {

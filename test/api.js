@@ -3,7 +3,7 @@ if (typeof require === 'function') {
   var Objects = require('./../src/objects/objects');
   require('chai').should();
 } else {
-  var Objects = FbApiAssets.Objects.Objects;
+  var Objects = FacebookAdsApi.Objects.Objects;
 }
 
 describe('Api', function() {

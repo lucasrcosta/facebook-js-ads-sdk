@@ -5,7 +5,7 @@ if (typeof require === 'function') {
     var Http = require('./../../src/http/http');
   require('chai').should();
 } else {
-  var Http = FbApiAssets.Http.XmlHttpRequest;
+  var Http = FacebookAdsApi.Http.XmlHttpRequest;
 }
 
 describe('Http', function() {

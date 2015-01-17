@@ -5,7 +5,7 @@
     '../utils/utils'
   ];
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
-  else root.FbApiAssets.define('Http.XmlHttpRequest', dependencies, factory);
+  else root.FacebookAdsApi.define('Http.XmlHttpRequest', dependencies, factory);
 }(this, function(FbError, Utils) {
   'use strict';
 

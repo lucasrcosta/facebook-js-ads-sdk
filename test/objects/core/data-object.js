@@ -3,7 +3,7 @@ if (typeof require === 'function') {
   var DataObject = require(srcPath + 'objects/core/data-object');
   require('chai').should();
 } else {
-  var DataObject = FbApiAssets.Objects.Core.DataObject;
+  var DataObject = FacebookAdsApi.Objects.Core.DataObject;
 }
 
 describe('DataObject', function() {

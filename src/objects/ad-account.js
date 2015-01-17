@@ -8,7 +8,7 @@
   ];
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
-  else root.FbApiAssets.define('Objects.AdAccount', dependencies, factory);
+  else root.FacebookAdsApi.define('Objects.AdAccount', dependencies, factory);
 }(this, function(CrudObject, CannotCreate, CannotDelete, Collection) {
   'use strict';
 

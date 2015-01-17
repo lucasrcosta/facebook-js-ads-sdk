@@ -3,7 +3,7 @@ if (typeof require === 'function') {
   var testData = require('./test-data.js');
   require('chai').should();
 } else {
-  var testData = FbApiAssets.tests.testData;
+  var testData = FacebookAdsApi.tests.testData;
 }
 
 describe('AdAccount', function() {

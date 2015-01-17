@@ -11,8 +11,8 @@ if (typeof require === 'function') {
   chai.use(sinonChai);
   require('chai').should();
 } else {
-  var Graph = FbApiAssets.Http.Graph;
-  var Http = FbApiAssets.Http.XmlHttpRequest;
+  var Graph = FacebookAdsApi.Http.Graph;
+  var Http = FacebookAdsApi.Http.XmlHttpRequest;
 }
 
 describe('Graph', function() {

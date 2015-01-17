@@ -9,7 +9,7 @@
     dependencies[0] = './http';
     module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
   }
-  else root.FbApiAssets.define('Http.Graph', dependencies, factory);
+  else root.FacebookAdsApi.define('Http.Graph', dependencies, factory);
 }(this, function(Http, Utils) {
   'use strict';
 

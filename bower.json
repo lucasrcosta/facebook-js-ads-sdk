@@ -6,9 +6,7 @@
     "chai": "~1.10.0",
     "mocha": "~1.14.0",
     "sinonjs": "~1.10.2",
-    "sinon-chai": "~2.6.0"
-  },
-  "dependencies": {
+    "sinon-chai": "~2.6.0",
     "requirejs": "~2.1.15"
   }
 }

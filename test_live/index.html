@@ -4,41 +4,38 @@
       <meta charset="utf-8">
       <title>Live Facebook JS Ads API Mocha Spec Runner</title>
       <link rel="stylesheet" href="../bower_components/mocha/mocha.css">
+      <style>
+      #token-data * {
+        box-sizing: border-box;
+      }
+      #token-data {
+        display: block;
+        height: 20px;
+        margin-bottom: 20px;
+      }
+      #token-data button {
+        float: left;
+        width: 10%;
+        margin-right: 2%;
+      }
+      #token-data button.run {
+        margin: 0 0 0 2%;
+      }
+      #token {
+        float: left;
+        width: 76%;
+      }
+      </style>
   </head>
   <body>
-    <div id="mocha"></div>
-
-    <script src="../bower_components/mocha/mocha.js"></script>
-    <script src="../bower_components/chai/chai.js"></script>
-    <script src="../bower_components/sinonjs/sinon.js"></script>
-    <script src="../bower_components/sinon-chai/lib/sinon-chai.js"></script>
-    <script>
-      mocha.setup('bdd');
-      var should = chai.should();
-    </script>
-
-    <!-- include source files here... -->
-    <script src="../src/utils/browser-prepend.js"></script>
-    <script src="../src/utils/utils.js"></script>
-    <script src="../src/http/fb-error.js"></script>
-    <script src="../src/http/xml-http-request.js"></script>
-    <script src="../src/http/graph.js"></script>
-    <script src="../src/objects/data-object.js"></script>
-    <script src="../src/objects/crud-object.js"></script>
-    <script src="../src/objects/mixins/cannot-create.js"></script>
-    <script src="../src/objects/mixins/cannot-update.js"></script>
-    <script src="../src/objects/mixins/cannot-delete.js"></script>
-    <script src="../src/objects/mixins/object-validation.js"></script>
-    <script src="../src/objects/mixins/archivable.js"></script>
-    <script src="../src/objects/ad-account.js"></script>
-    <script src="../src/objects/ad-campaign.js"></script>
-    <script src="../src/api.js"></script>
-
-    <!-- include spec files here... -->
-    <script src="test-data.js"></script>
-    <script src="ad-account.js"></script>
-    <script src="ad-campaign.js"></script>
-
-    <script>mocha.run()</script>
+    <div id="mocha">
+      <div id="token-data">
+        <button onclick="getNewToken()">Get Token</button>
+        <input id="token" type="text" />
+        <button onclick="runTests()" class="run">Run Tests</button>
+      </div>
+    </div>
+    <div id="fb-root"></div>
+    <script data-main="spec" src="../bower_components/requirejs/require.js"></script>
   </body>
 </html>

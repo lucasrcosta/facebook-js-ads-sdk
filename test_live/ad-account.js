@@ -1,25 +1,21 @@
 if (typeof require === 'function') {
-  var FacebookAdsApi = require('./../src/api.js');
-  var testData = require('./test-data.js');
+  var FacebookAdsApi = require('./../src/api');
+  var testData = require('./test-data');
   require('chai').should();
-} else {
-  var testData = FacebookAdsApi.tests.testData;
 }
 
 describe('AdAccount', function() {
   'use strict';
 
-  // it('reads', readsTest);
-
-  function readsTest(done) {
-    var api = FacebookAdsApi(testData.token);
-    var adAccount = new api.AdAccount(testData.account_id);
+  it('reads', function(done) {
+    var api = FacebookAdsApi(getToken());
+    var adAccount = new api.AdAccount(testData.accountId);
     adAccount.read()
       .then(function() {
         adAccount.getData().name.should.be.ok;
         done();
       })
       .catch(done);
-  };
+  });
 
 });

@@ -23,14 +23,14 @@ if (typeof define === 'function' && define.amd) {
     }
   });
 
-  define([
+  require([
     'mocha',
     'chai',
     'sinon',
     'sinon-chai',
     './../src/api',
     './../src/objects/mixins/cannot-update' //temp
-  ], function(mocha) {
+  ], function() {
     'use strict';
 
     require([

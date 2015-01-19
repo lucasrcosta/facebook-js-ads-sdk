@@ -1,6 +1,6 @@
 if (typeof require === 'function') {
-  var FacebookAdsApi = require('./../src/api.js');
-  var testData = require('./test-data.js');
+  var FacebookAdsApi = require('./../src/api');
+  var testData = require('./test-data');
   require('chai').should();
 } else {
   var testData = FacebookAdsApi.tests.testData;
@@ -9,25 +9,7 @@ if (typeof require === 'function') {
 describe('AdCampaign', function() {
   'use strict';
 
-  // it('reads', readTest);
-  // it('creates', createsTest);
-  // it('validates', validatesTest);
-  // it('updates', updatesTest);
-  // it('deletes', deletesTest);
-  // it('archives', archivesTest);
-
-  function readTest(done) {
-    var api = FacebookAdsApi(testData.token);
-    var adCampaign = new api.AdCampaign(testData.campaign_id);
-    adCampaign.read()
-      .then(function() {
-        adCampaign.name.should.be.ok;
-        done();
-      })
-      .catch(done);
-  };
-
-  function createsTest(done) {
+  it('creates', function(done) {
     var api = FacebookAdsApi(testData.token);
     var adCampaign = new api.AdCampaign({name: 'sdk\'s test ad campaign'}, testData.account_id);
     adCampaign.create()
@@ -36,9 +18,20 @@ describe('AdCampaign', function() {
         done();
       })
       .catch(done);
-  };
+  });
 
-  function validatesTest(done) {
+  it('reads', function(done) {
+    var api = FacebookAdsApi(testData.token);
+    var adCampaign = new api.AdCampaign(testData.campaign_id);
+    adCampaign.read()
+      .then(function() {
+        adCampaign.name.should.be.ok;
+        done();
+      })
+      .catch(done);
+  });
+
+  it('validates', function(done) {
     var api = FacebookAdsApi(testData.token);
     var adCampaign = new api.AdCampaign({name: 'sdk\'s validation test ad campaign'}, testData.account_id);
     adCampaign.validate()
@@ -47,9 +40,9 @@ describe('AdCampaign', function() {
         done();
       })
       .catch(done);
-  };
+  });
 
-  function updatesTest(done) {
+  it('updates', function(done) {
     var api = FacebookAdsApi(testData.token);
     var adCampaign = new api.AdCampaign(testData.campaign_id, testData.account_id);
     var now = new Date();
@@ -60,23 +53,9 @@ describe('AdCampaign', function() {
         done();
       })
       .catch(done);
-  };
+  });
 
-  function deletesTest(done) {
-    var api = FacebookAdsApi(testData.token);
-    var adCampaign = new api.AdCampaign({name: 'sdk\'s test ad campaign'}, testData.account_id);
-    adCampaign.create()
-      .then(function() {
-        adCampaign.delete()
-          .then(function(data) {
-            data.success.should.be.true;
-            done();
-          });
-      })
-      .catch(done);
-  };
-
-  function archivesTest(done) {
+  it('archives', function(done) {
     var api = FacebookAdsApi(testData.token);
     var adCampaign = new api.AdCampaign({name: 'sdk\'s test ad campaign'}, testData.account_id);
     adCampaign.create()
@@ -88,6 +67,20 @@ describe('AdCampaign', function() {
           });
       })
       .catch(done);
-  };
+  });
+
+  it('deletes', function(done) {
+    var api = FacebookAdsApi(testData.token);
+    var adCampaign = new api.AdCampaign({name: 'sdk\'s test ad campaign'}, testData.account_id);
+    adCampaign.create()
+      .then(function() {
+        adCampaign.delete()
+          .then(function(data) {
+            data.success.should.be.true;
+            done();
+          });
+      })
+      .catch(done);
+  });
 
 });

@@ -9,11 +9,12 @@
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
   else root.FacebookAdsApi.define('Objects.AdAccount', dependencies, factory);
-}(this, function(CrudObject, CannotCreate, CannotDelete/*, Collection*/) {
+}(this, function(CrudObject, CannotCreate, CannotDelete, Collection) {
   'use strict';
 
   var endpoint = 'adaccounts';
   var fields = [
+    'id',
     'account_groups',
     'account_id',
     'account_status',
@@ -35,19 +36,19 @@
     'end_advertiser',
     'funding_source',
     'funding_source_details',
-    'id',
     'is_personal',
     'media_agency',
     'name',
     'offsite_pixels_tos_accepted',
     'partner',
     'spend_cap',
+    'spend_cap_action',
+    'tax_id_status',
     'timezone_id',
     'timezone_name',
     'timezone_offset_hours_utc',
     'tos_accepted',
     'users',
-    'tax_id_status'
   ];
 
   /**
@@ -74,9 +75,8 @@
         _this.getManyByConnection(api.AdCampaign, fields, params)
           .then(function(campaigns) {
             // campaigns.forEach(function(campaign) {
-              // if (campaign.adgroups) {
+              // if (campaign.adgroups)
                 // campaign.adgroups = new Collection(api.AdGroup, campaign.adgroups);
-              // }
             // });
             resolve(campaigns);
           })

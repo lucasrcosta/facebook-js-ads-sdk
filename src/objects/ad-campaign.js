@@ -17,7 +17,6 @@
     'account_id',
     'objective',
     'name',
-    'adgroups',
     'campaign_group_status',
     'buying_type'
   ];
@@ -25,9 +24,9 @@
   /**
    * Group of Ad Sets
    * @see {@link} https://developers.facebook.com/docs/reference/ads-api/adcampaign/
-   * @param {FacebookAdsApi} api
-   * @param {mixed} [initData]
-   * @param {int} [parentId]
+   * @param {FacebookAdsApi}  api
+   * @param {mixed}           [initData]
+   * @param {int}             [parentId]
    * @extends CrudObject
    * @class
    */

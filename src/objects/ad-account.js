@@ -3,13 +3,12 @@
   var dependencies = [
     './core/crud-object',
     './mixins/cannot-create',
-    './mixins/cannot-delete',
-    './core/collection'
+    './mixins/cannot-delete'
   ];
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
   else root.FacebookAdsApi.define('Objects.AdAccount', dependencies, factory);
-}(this, function(CrudObject, CannotCreate, CannotDelete, Collection) {
+}(this, function(CrudObject, CannotCreate, CannotDelete) {
   'use strict';
 
   var endpoint = 'adaccounts';
@@ -66,22 +65,12 @@
     CannotDelete.call(_this);
 
     /**
-     * @param  {array}  fields
-     * @param  {object} params
-     * @return {?}
+     * @param  {array}    fields
+     * @param  {object}   params
+     * @return {promise}
      */
     _this.getAdCampaigns = function(fields, params) {
-      return new Promise(function(resolve, reject) {
-        _this.getManyByConnection(api.AdCampaign, fields, params)
-          .then(function(campaigns) {
-            // campaigns.forEach(function(campaign) {
-              // if (campaign.adgroups)
-                // campaign.adgroups = new Collection(api.AdGroup, campaign.adgroups);
-            // });
-            resolve(campaigns);
-          })
-          .catch(reject);
-      });
+      return _this.getManyByConnection(api.AdCampaign, fields, params);
     };
 
     return _this;

@@ -89,6 +89,7 @@ function getToken() {
 function setToken(token) {
   'use strict';
   document.getElementById('token').value = token;
+  window.api = new FacebookAdsApi(token);
 }
 
 /**

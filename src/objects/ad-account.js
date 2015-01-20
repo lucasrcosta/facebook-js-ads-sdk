@@ -9,7 +9,7 @@
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
   else root.FacebookAdsApi.define('Objects.AdAccount', dependencies, factory);
-}(this, function(CrudObject, CannotCreate, CannotDelete, Collection) {
+}(this, function(CrudObject, CannotCreate, CannotDelete/*, Collection*/) {
   'use strict';
 
   var endpoint = 'adaccounts';
@@ -52,10 +52,10 @@
 
   /**
    * Account object for managing ads
-   * @see {@link} https://developers.facebook.com/docs/reference/ads-api/adcampaign
-   * @param {FacebookAdsApi} api
-   * @param {mixed} [initData]
-   * @param {int} [parentId]
+   * @see   {@link}           https://developers.facebook.com/docs/reference/ads-api/adcampaign
+   * @param {FacebookAdsApi}  api
+   * @param {mixed}           [initData]
+   * @param {int}             [parentId]
    * @extends CrudObject
    * @class
    */
@@ -65,7 +65,7 @@
     CannotDelete.call(_this);
 
     /**
-     * @param  {array} fields
+     * @param  {array}  fields
      * @param  {object} params
      * @return {?}
      */

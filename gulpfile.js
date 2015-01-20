@@ -41,13 +41,20 @@ gulp.task('all', function () {
 // Live Tests //
 ////////////////
 
-gulp.task('live-test', function () {
-  return gulp.src('test_live/**/*.js', {read: false})
-    .pipe($.mocha({reporter: 'min'}));
+gulp.task('live-jscs', function () {
+  return gulp.src(['src/**/*.js','test_live/**/*.js'])
+        .pipe($.jscs());
+});
+
+gulp.task('live-jshint', function () {
+  return gulp.src(['src/**/*.js','test_live/**/*.js'])
+    .pipe($.jshint())
+    .pipe($.jshint.reporter('jshint-stylish'))
+    .pipe($.jshint.reporter('fail'));
 });
 
 gulp.task('live-watch', function () {
-  gulp.watch(['src/**/*.js','test_live/**/*.js'], ['live-test']);
+  gulp.watch(['src/**/*.js','test_live/**/*.js'], ['live-jscs', 'live-jshint']);
 });
 
 gulp.task('live', function () {

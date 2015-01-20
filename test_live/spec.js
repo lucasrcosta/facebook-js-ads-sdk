@@ -1,5 +1,7 @@
-// Log wrapper for development
-window.log = console.log.bind(console);
+
+var FacebookAdsApi;
+var testData;
+window.log = console.log.bind(console); // Log wrapper
 
 if (typeof define === 'function' && define.amd) {
   requirejs.config({
@@ -25,21 +27,27 @@ if (typeof define === 'function' && define.amd) {
         }
       },
       'test-data': {
-        init: function() { return TESTDATA; }
+        init: function() {
+          'use strict';
+          return TESTDATA;
+        }
       }
     }
   });
 
   require([
+    './../src/api',
     './test-data',
     'http://connect.facebook.net/en_US/sdk.js',
     'mocha',
     'chai',
     'sinon',
     'sinon-chai',
-    './../src/api',
-  ], function(testData) {
+  ], function(Api, tstData) {
     'use strict';
+
+    FacebookAdsApi = Api;
+    testData = tstData;
 
     FB.init({
       appId: testData.appId,
@@ -56,28 +64,36 @@ if (typeof define === 'function' && define.amd) {
 }
 
 function runTests() {
-  var report =  document.getElementById("mocha-report");
-  if(report) report.parentNode.removeChild(report);
-  var stats =  document.getElementById("mocha-stats");
-  if(stats) stats.parentNode.removeChild(stats);
-  if(!getToken())
+  'use strict';
+
+  var report =  document.getElementById('mocha-report');
+  if (report) report.parentNode.removeChild(report);
+  var stats =  document.getElementById('mocha-stats');
+  if (stats) stats.parentNode.removeChild(stats);
+  if (!getToken())
     console.error('Whoops, no token! How about that button up there?');
   else
     mocha.run();
 }
 
 function getToken() {
-  return document.getElementById("token").value;
+  'use strict';
+
+  return document.getElementById('token').value;
 }
 
 function setToken(token) {
-  return document.getElementById("token").value = token;
+  'use strict';
+
+  document.getElementById('token').value = token;
 }
 
 /**
  * Get new token from Facebook
  */
 function getNewToken() {
+  'use strict';
+
   FB.login(function(response) {
     if (!response.authResponse) {
       console.error('Auth Error', response);
@@ -98,6 +114,8 @@ function getNewToken() {
  * @returns {string} token
  */
 function setLocalToken() {
+  'use strict';
+
   var token;
   if (!(token = JSON.parse(localStorage.getItem('token'))))
     return false;

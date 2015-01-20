@@ -76,11 +76,14 @@ describe('DataObject', function() {
   describe('persistence', function() {
 
     it('can persist changed data', function() {
-      var dataObj = new DataObject(['a', 'b']);
-      dataObj.setData({a: 1, b: 2});
-      dataObj.a = 3;
+      var dataObj = new DataObject(['a', 'b', 'c', 'd', 'e', 'f']);
+      dataObj.setData({a: 1, b: 2, c: [3, 4], d: [5, 6], e: {a: 7, b: 8}, f: null});
+      dataObj.a = 2;
+      dataObj.c[1] = 8;
+      dataObj.e.b = 16;
+      dataObj.f = {'g':[9, 10]};
       dataObj.persistData();
-      dataObj.getPersistedData().should.be.eql({a: 3, b: 2});
+      dataObj.getPersistedData().should.be.eql({a: 2, b: 2, c: [3, 8], d: [5, 6], e: {a: 7, b: 16}, f: {'g':[9, 10]}});
     });
 
     it('setData,false does not persist', function() {

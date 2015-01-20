@@ -14,36 +14,13 @@ describe('AdAccount', function() {
   describe('connection objects', function() {
 
     it('gets Ad Campaigns', function(done) {
-      function returnId(campaign) { return campaign.id; }
-      this.timeout(10000);
       var adAccount = new api.AdAccount(testData.accountId);
       adAccount.getAdCampaigns()
         .then(function(campaigns) {
-          log(campaigns);
-          var allCampaigns = [];
-          var hasNext = true;
-          function getNext() {
-            campaigns.nextPage()
-              .then(function() {
-                allCampaigns = allCampaigns.concat(campaigns.map(returnId));
-                if (campaigns.hasNext())
-                  getNext();
-                else {
-                  log(allCampaigns);
-                  done();
-                }
-              })
-              .catch(function(e) {
-                console.log('can\'t get pagination', e);
-                throw e;
-              });
-          };
-          getNext();
+          campaigns.should.be.an('array');
+          done();
         })
-        .catch(function(e) {
-          console.log('can\'t get Ad Campaigns', e);
-          throw e;
-        });
+        .catch(done);
     });
 
   });

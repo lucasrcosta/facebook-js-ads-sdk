@@ -13,24 +13,35 @@ describe('AdAccount', function() {
 
   describe('connection objects', function() {
 
-    it('gets Ad Campaigns', function() {
+    it('gets Ad Campaigns', function(done) {
+      function returnId(campaign) { return campaign.id; }
+      this.timeout(10000);
       var adAccount = new api.AdAccount(testData.accountId);
       adAccount.getAdCampaigns()
         .then(function(campaigns) {
-          function returnId(campaign) { return campaign.id; }
-          console.log(campaigns.map(returnId));
-          console.log(campaigns);
-          campaigns.nextPage().then(function() {
-            console.log(campaigns.map(returnId));
-            campaigns.previousPage().then(function() {
-              console.log(campaigns.map(returnId));
-              campaigns.previousPage().then(function() {
-                console.log(campaigns.map(returnId));
+          log(campaigns);
+          var allCampaigns = [];
+          var hasNext = true;
+          function getNext() {
+            campaigns.nextPage()
+              .then(function() {
+                allCampaigns = allCampaigns.concat(campaigns.map(returnId));
+                if (campaigns.hasNext())
+                  getNext();
+                else {
+                  log(allCampaigns);
+                  done();
+                }
+              })
+              .catch(function(e) {
+                console.log('can\'t get pagination', e);
+                throw e;
               });
-            });
-          });
-        }, function(e) {
-          console.log('can get Ad Campaigns', e);
+          };
+          getNext();
+        })
+        .catch(function(e) {
+          console.log('can\'t get Ad Campaigns', e);
           throw e;
         });
     });

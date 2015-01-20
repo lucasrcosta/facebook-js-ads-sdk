@@ -1,10 +1,15 @@
 (function(root, factory) {
   'use strict';
-  var dependencies = [];
+  var dependencies = [
+    './../../http/xml-http-request',
+  ];
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
-  else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
+  else if (typeof exports === 'object') {
+    dependencies[0] = './../../http/http';
+    module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
+  }
   else root.FacebookAdsApi.define('Objects.Core.Collection', dependencies, factory);
-}(this, function() {
+}(this, function(Http) {
   'use strict';
 
   function Collection(ObjClass, response) {
@@ -65,6 +70,22 @@
      */
     _this.hasPrevious = function() {
       return !!paging.previous;
+    };
+
+    /**
+     * After cursor
+     * @return {string|false}
+     */
+    _this.getAfter = function() {
+      return (paging.cursor && paging.cursor.after) ? paging.cursor.after : false;
+    };
+
+    /**
+     * Before cursor
+     * @return {string|false}
+     */
+    _this.getBefore = function() {
+      return (paging.cursor && paging.cursor.before) ? paging.cursor.after : false;
     };
 
     /**

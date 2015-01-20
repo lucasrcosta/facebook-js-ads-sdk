@@ -1,6 +1,7 @@
 
-var FacebookAdsApi;
-var testData;
+window.FacebookAdsApi;
+window.api; // global FacebookAdsApi instance
+window.testData;
 window.log = console.log.bind(console); // Log wrapper
 
 if (typeof define === 'function' && define.amd) {
@@ -38,27 +39,29 @@ if (typeof define === 'function' && define.amd) {
   require([
     './../src/api',
     './test-data',
-    'http://connect.facebook.net/en_US/sdk.js',
     'mocha',
     'chai',
     'sinon',
     'sinon-chai',
-  ], function(Api, tstData) {
+    'http://connect.facebook.net/en_US/sdk.js',
+  ], function(Api, tstData, mocha, chai) {
     'use strict';
 
-    FacebookAdsApi = Api;
-    testData = tstData;
+    window.FacebookAdsApi = Api;
+    window.testData = tstData;
+    chai.should();
+
+    setLocalToken();
 
     FB.init({
       appId: testData.appId,
       xfbml: true,
       version: 'v2.2'
     });
-    setLocalToken();
 
     require([
       './ad-account',
-      // './ad-campaign',
+      './ad-campaign',
     ]);
   });
 }
@@ -70,21 +73,21 @@ function runTests() {
   if (report) report.parentNode.removeChild(report);
   var stats =  document.getElementById('mocha-stats');
   if (stats) stats.parentNode.removeChild(stats);
-  if (!getToken())
-    console.error('Whoops, no token! How about that button up there?');
-  else
-    mocha.run();
+  var token = getToken();
+  if (!token)
+    throw new Error('Whoops, no token! How about that button up there?');
+
+  window.api = new FacebookAdsApi(token);
+  mocha.run();
 }
 
 function getToken() {
   'use strict';
-
   return document.getElementById('token').value;
 }
 
 function setToken(token) {
   'use strict';
-
   document.getElementById('token').value = token;
 }
 
@@ -93,7 +96,6 @@ function setToken(token) {
  */
 function getNewToken() {
   'use strict';
-
   FB.login(function(response) {
     if (!response.authResponse) {
       console.error('Auth Error', response);
@@ -115,7 +117,6 @@ function getNewToken() {
  */
 function setLocalToken() {
   'use strict';
-
   var token;
   if (!(token = JSON.parse(localStorage.getItem('token'))))
     return false;

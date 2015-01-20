@@ -34,31 +34,4 @@ describe('AdAccount', function() {
 
   });
 
-  // describe('connection objects', function() {
-//
-    // it('can get Ad Campaigns', function() {
-      // var api = new FacebookAdsApi('CAAJQNz9EKa8BADKPRZAVYONxgIoCM3MzGnPBwPI8i9mZChxjAb0Nbf9Ypq4UKO3OtNmGM6jarksLnjLmeHIqewm9qUuJiZCRGWR7kpQ1UfGvwxsFZArYqtP7N1UwIHHLV2yZBTXHA4WzUEgdOTZBFvnNLLI3LWDR7JXTTGtoP2uhTQR5M4EYHtEGrBUVJAb1t9ymyal3OrptkOTHKGxrDIEJTFGQpb3toZD');
-      // var adAccount = new api.AdAccount('act_143757035692004');
-      // adAccount.getAdCampaigns()
-        // .then(function(campaigns) {
-          // function returnId(campaign) { return campaign.id; }
-          // console.log(campaigns.map(returnId));
-          // console.log(campaigns);
-          // campaigns.nextPage().then(function() {
-          //   console.log(campaigns.map(returnId));
-          //   campaigns.previousPage().then(function() {
-          //     console.log(campaigns.map(returnId));
-          //     campaigns.previousPage().then(function() {
-          //       console.log(campaigns.map(returnId));
-          //     });
-          //   });
-          // });
-        // }, function(e) {
-          // console.log('can get Ad Campaigns', e);
-          // throw e;
-        // });
-    // });
-
-  // });
-
 });

@@ -1,19 +1,11 @@
-if (typeof require === 'function') {
-  var FacebookAdsApi = require('./../src/api');
-  var testData = require('./test-data');
-  require('chai').should();
-} else {
-  var testData = FacebookAdsApi.tests.testData;
-}
-
 describe('AdCampaign', function() {
   'use strict';
 
   var campaignId;
 
   it('creates', function(done) {
-    var api = new FacebookAdsApi(testData.token);
-    var adCampaign = new api.AdCampaign({name: 'sdk\'s test ad campaign'}, testData.account_id);
+    var now = (new Date()).toUTCString();
+    var adCampaign = new api.AdCampaign({name: 'SDK TEST - ' + now}, testData.accountId);
     adCampaign.create()
       .then(function() {
         if (adCampaign.id.should.be.ok)
@@ -24,7 +16,7 @@ describe('AdCampaign', function() {
   });
 
   it('reads', function(done) {
-    var api = new FacebookAdsApi(testData.token);
+    checkCampaignId(done);
     var adCampaign = new api.AdCampaign(campaignId);
     adCampaign.read()
       .then(function() {
@@ -34,56 +26,56 @@ describe('AdCampaign', function() {
       .catch(done);
   });
 
-  // it('validates', function(done) {
-  //   var api = new FacebookAdsApi(testData.token);
-  //   var adCampaign = new api.AdCampaign({name: 'sdk\'s validation test ad campaign'}, testData.account_id);
-  //   adCampaign.validate()
-  //     .then(function(data) {
-  //       data.success.should.be.true;
-  //       done();
-  //     })
-  //     .catch(done);
-  // });
+  it('updates', function(done) {
+    checkCampaignId(done);
+    var adCampaign = new api.AdCampaign(campaignId, testData.accountId);
+    var now = (new Date()).toUTCString();
+    adCampaign.name = 'SDK TEST [UPDATED] - ' + now;
+    adCampaign.update()
+      .then(function(data) {
+        data.success.should.be.true;
+        done();
+      })
+      .catch(done);
+  });
 
-  // it('updates', function(done) {
-  //   var api = new FacebookAdsApi(testData.token);
-  //   var adCampaign = new api.AdCampaign(testData.campaign_id, testData.account_id);
-  //   var now = new Date();
-  //   adCampaign.name = now;
-  //   adCampaign.update()
-  //     .then(function(data) {
-  //       data.success.should.be.true;
-  //       done();
-  //     })
-  //     .catch(done);
-  // });
+  it('archives', function(done) {
+    checkCampaignId(done);
+    var adCampaign = new api.AdCampaign(campaignId, testData.accountId);
+    adCampaign.archive()
+      .then(function(data) {
+        data.success.should.be.true;
+        done();
+      })
+      .catch(done);
+  });
 
-  // it('archives', function(done) {
-  //   var api = new FacebookAdsApi(testData.token);
-  //   var adCampaign = new api.AdCampaign({name: 'sdk\'s test ad campaign'}, testData.account_id);
-  //   adCampaign.create()
-  //     .then(function() {
-  //       adCampaign.archive()
-  //         .then(function(data) {
-  //           data.success.should.be.true;
-  //           done();
-  //         });
-  //     })
-  //     .catch(done);
-  // });
+  it('deletes', function(done) {
+    checkCampaignId(done);
+    var adCampaign = new api.AdCampaign(campaignId, testData.accountId);
+    adCampaign.delete()
+      .then(function(data) {
+        data.success.should.be.true;
+        done();
+      })
+      .catch(done);
+  });
 
-  // it('deletes', function(done) {
-  //   var api = new FacebookAdsApi(testData.token);
-  //   var adCampaign = new api.AdCampaign({name: 'sdk\'s test ad campaign'}, testData.account_id);
-  //   adCampaign.create()
-  //     .then(function() {
-  //       adCampaign.delete()
-  //         .then(function(data) {
-  //           data.success.should.be.true;
-  //           done();
-  //         });
-  //     })
-  //     .catch(done);
-  // });
+  it('validates', function(done) {
+    var adCampaign = new api.AdCampaign({name: 'SDK TEST'}, testData.accountId);
+    adCampaign.validate()
+      .then(function(data) {
+        data.success.should.be.true;
+        done();
+      })
+      .catch(done);
+  });
+
+  function checkCampaignId(done) {
+    if (!campaignId) {
+      done(new Error('No campaignId'));
+      return;
+    }
+  }
 
 });

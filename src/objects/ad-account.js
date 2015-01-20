@@ -41,7 +41,6 @@
     'offsite_pixels_tos_accepted',
     'partner',
     'spend_cap',
-    'spend_cap_action',
     'tax_id_status',
     'timezone_id',
     'timezone_name',

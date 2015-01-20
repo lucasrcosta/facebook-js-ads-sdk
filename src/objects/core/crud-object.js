@@ -15,11 +15,11 @@ if (typeof exports === 'object')
   /**
    * Crud Object
    * Basic Facebook Object properties operations
-   * @param {FacebookAdsApi} api
-   * @param {string} endpoint
-   * @param {array} fields
-   * @param {mixed} [initData]
-   * @param {int} [parentId] for new object creation
+   * @param {FacebookAdsApi}  api
+   * @param {string}          endpoint
+   * @param {array}           fields
+   * @param {mixed}           [initData]
+   * @param {int}             [parentId] for new object creation
    * @extends DataObject
    * @class
    */
@@ -84,10 +84,10 @@ if (typeof exports === 'object')
 
     /**
      * Read object data
-     * @param {array} [filter] selected fields
-     * @param {object} [params] additional params
-     * @throws {error} if graph promise is rejected
-     * @return {promise} resolves to {object} _this
+     * @param   {array}   [filter] selected fields
+     * @param   {object}  [params] additional params
+     * @throws  {error}   if graph promise is rejected
+     * @return  {promise} resolves to {object} _this
      */
     _this.read = function(filter, params) {
       var path = _this.getNodePath();
@@ -112,9 +112,9 @@ if (typeof exports === 'object')
 
     /**
      * Create alias for save
-     * @param {object} params additional params
-     * @throws {error} if object already has an ID
-     * @return {promise} resolves to {object} _this
+     * @param   {object}  params additional params
+     * @throws  {error}   if object already has an ID
+     * @return  {promise} resolves to {object} _this
      */
     _this.create = function(params) {
       if (_this.id)
@@ -135,9 +135,9 @@ if (typeof exports === 'object')
 
     /**
      * Update alias for save
-     * @param {object} params additional params
-     * @throws {error} if object has no ID
-     * @return {promise} resolves to {object} _this
+     * @param   {object}  params additional params
+     * @throws  {error}   if object has no ID
+     * @return  {promise} resolves to {object} _this
      */
     _this.update = function(params) {
       if (!_this.id)
@@ -167,8 +167,8 @@ if (typeof exports === 'object')
 
     /**
      * Create or Update alias
-     * @param {object} params additional params
-     * @return {promise} resolves to {object} _this
+     * @param   {object}  params additional params
+     * @return  {promise} resolves to {object} _this
      */
     _this.save = function(params) {
       if (_this.id)
@@ -177,16 +177,17 @@ if (typeof exports === 'object')
     };
 
     /**
-     * Read objects from connection
-     * @param  {CrudObject} ObjClass
-     * @param  {array}  filter     fields filter
-     * @param  {object} params
-     * @param  {string} [endpoint]
-     * @return {?}
+     * Read connected objects
+     * @param   {CrudObject}  ObjClass
+     * @param   {array}       filter     fields filter
+     * @param   {object}      params
+     * @param   {string}      [endpoint]
+     * @return  {promise}
+     * @resolve {Collection}
      */
     _this.getManyByConnection = function(ObjClass, filter, params, endpoint) {
       return new Promise(function(resolve, reject) {
-        _this.fetchConnection(ObjClass, filter, params, endpoint)
+        fetchConnection(ObjClass, filter, params, endpoint)
           .then(function(response) {
             if (!response.data) {
               resolve(false);
@@ -200,6 +201,30 @@ if (typeof exports === 'object')
     };
 
     /**
+     * Read connected object
+     * @param   {CrudObject}  ObjClass
+     * @param   {array}       filter     fields filter
+     * @param   {object}      params
+     * @param   {string}      [endpoint]
+     * @return  {promise}
+     * @resolve {object}
+     */
+    _this.getOneByConnection = function(ObjClass, filter, params, endpoint) {
+      return new Promise(function(resolve, reject) {
+        fetchConnection(ObjClass, filter, params, endpoint)
+          .then(function(response) {
+            if (!response.data) {
+              resolve(false);
+              return;
+            }
+            var connectedObj = new ObjClass(response);
+            resolve(connectedObj);
+          })
+        .catch(reject);
+      });
+    };
+
+    /**
      * Read objects from connection
      * @param  {CrudObject} ObjClass
      * @param  {array}  filter     fields filter
@@ -207,7 +232,7 @@ if (typeof exports === 'object')
      * @param  {string} [endpoint]
      * @return {promise}
      */
-    _this.fetchConnection = function(ObjClass, filter, params, endpoint) {
+    function fetchConnection(ObjClass, filter, params, endpoint) {
       if (!endpoint && !ObjClass.getEndpoint)
         throw new Error('Endpoint must be given or provided by ObjClass');
       endpoint = endpoint || ObjClass.getEndpoint();
@@ -216,7 +241,7 @@ if (typeof exports === 'object')
       params.fields = filter;
       var path = _this.getId() + '/' + endpoint;
       return api.graph.get(path, params);
-    };
+    }
 
     return _this;
   }

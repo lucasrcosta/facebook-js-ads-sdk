@@ -23,6 +23,16 @@ describe('AdAccount', function() {
         .catch(done);
     });
 
+    it('gets Ad Statistics', function(done) {
+      var adAccount = new api.AdAccount(testData.accountId);
+      adAccount.getAdStatistics()
+        .then(function(stats) {
+          stats.should.be.an('object');
+          done();
+        })
+        .catch(done);
+    });
+
   });
 
 });

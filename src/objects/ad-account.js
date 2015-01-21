@@ -72,6 +72,14 @@
       return _this.getManyByConnection(api.AdCampaign, fields, params);
     };
 
+    /**
+     * @param  {object}   params
+     * @return {promise}
+     */
+    _this.getAdStatistics = function(params) {
+      return _this.getOneByConnection(api.AdStatistics, null, params);
+    };
+
     return _this;
   }
 

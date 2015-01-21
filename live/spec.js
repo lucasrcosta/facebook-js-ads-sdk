@@ -6,7 +6,7 @@ window.log = console.log.bind(console); // Log wrapper
 
 var tests = [
   './ad-account',
-  // './ad-campaign',
+  './ad-campaign',
 ];
 
 requirejs.config({

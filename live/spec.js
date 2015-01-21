@@ -4,67 +4,67 @@ window.api; // global FacebookAdsApi instance
 window.testData;
 window.log = console.log.bind(console); // Log wrapper
 
-if (typeof define === 'function' && define.amd) {
-  requirejs.config({
-    paths: {
-      'mocha': './../bower_components/mocha/mocha',
-      'chai': './../bower_components/chai/chai',
-      'sinon': './../bower_components/sinonjs/sinon',
-      'sinon-chai': './../bower_components/sinon-chai/lib/sinon-chai',
-      'appid': './appid',
+var tests = [
+  './ad-account',
+  // './ad-campaign',
+];
+
+requirejs.config({
+  paths: {
+    'mocha': './../bower_components/mocha/mocha',
+    'chai': './../bower_components/chai/chai',
+    'sinon': './../bower_components/sinonjs/sinon',
+    'sinon-chai': './../bower_components/sinon-chai/lib/sinon-chai',
+    'appid': './appid',
+  },
+  shim: {
+    'mocha': {
+      init: function() {
+        'use strict';
+        this.mocha.setup('bdd');
+        return this.mocha;
+      }
     },
-    shim: {
-      'mocha': {
-        init: function() {
-          'use strict';
-          this.mocha.setup('bdd');
-          return this.mocha;
-        }
-      },
-      'sinon': {
-        init: function() {
-          'use strict';
-          return this.sinon;
-        }
-      },
-      'test-data': {
-        init: function() {
-          'use strict';
-          return TESTDATA;
-        }
+    'sinon': {
+      init: function() {
+        'use strict';
+        return this.sinon;
+      }
+    },
+    'test-data': {
+      init: function() {
+        'use strict';
+        return TESTDATA;
       }
     }
+  }
+});
+
+require([
+  './../src/api',
+  './test-data',
+  'mocha',
+  'chai',
+  'sinon',
+  'sinon-chai',
+  'http://connect.facebook.net/en_US/sdk.js',
+], function(Api, tstData, mocha, chai) {
+  'use strict';
+
+  window.FacebookAdsApi = Api;
+  window.testData = tstData;
+  chai.should();
+
+  setLocalToken();
+
+  FB.init({
+    appId: testData.appId,
+    xfbml: true,
+    version: 'v2.2'
   });
 
-  require([
-    './../src/api',
-    './test-data',
-    'mocha',
-    'chai',
-    'sinon',
-    'sinon-chai',
-    'http://connect.facebook.net/en_US/sdk.js',
-  ], function(Api, tstData, mocha, chai) {
-    'use strict';
-
-    window.FacebookAdsApi = Api;
-    window.testData = tstData;
-    chai.should();
-
-    setLocalToken();
-
-    FB.init({
-      appId: testData.appId,
-      xfbml: true,
-      version: 'v2.2'
-    });
-
-    require([
-      './ad-account',
-      './ad-campaign',
-    ]);
-  });
-}
+  require(tests);
+});
 
 function runTests() {
   'use strict';

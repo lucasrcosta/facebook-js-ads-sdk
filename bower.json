@@ -14,7 +14,7 @@
   "keywords": [ "facebook", "ads", "sdk", "api", "javascript", "nodejs", "amd", "requirejs", "umd", "promises" ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/lucascosta/facebook-js-ads-sdk.git"
+    "url": "git://github.com/lucascosta/facebook-js-ads-sdk.git"
   },
   "devDependencies": {
     "chai": "~1.10.0",

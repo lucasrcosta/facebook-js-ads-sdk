@@ -11,14 +11,25 @@
   ],
   "homepage": "https://github.com/lucascosta/facebook-js-ads-sdk",
   "bugs": "https://github.com/lucascosta/facebook-js-ads-sdk/issues",
-  "keywords": [ "facebook", "ads", "sdk", "api", "javascript", "nodejs", "amd", "requirejs", "umd", "promises" ],
+  "keywords": [
+    "facebook",
+    "ads",
+    "sdk",
+    "api",
+    "javascript",
+    "nodejs",
+    "amd",
+    "requirejs",
+    "umd",
+    "promises"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/lucascosta/facebook-js-ads-sdk.git"
   },
   "devDependencies": {
     "chai": "~1.10.0",
-    "gulp": "^3.6.0",
+    "gulp": "^3.8.11",
     "gulp-jscs": "^1.3.1",
     "gulp-jshint": "^1.5.3",
     "gulp-load-plugins": "^0.7.1",

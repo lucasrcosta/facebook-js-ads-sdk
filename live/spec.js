@@ -5,8 +5,8 @@ window.testData;
 window.log = console.log.bind(console); // Log wrapper
 
 var tests = [
-  './ad-account',
-  './ad-campaign',
+  './objects/ad-account',
+  './objects/ad-campaign'
 ];
 
 requirejs.config({

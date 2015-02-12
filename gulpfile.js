@@ -42,21 +42,33 @@ gulp.task('all', function () {
 ////////////////
 
 gulp.task('live-jscs', function () {
-  return gulp.src(['src/**/*.js','test_live/**/*.js'])
-        .pipe($.jscs());
+  return gulp.src(['src/**/*.js','live/**/*.js'])
+    .pipe($.jscs());
 });
 
 gulp.task('live-jshint', function () {
-  return gulp.src(['src/**/*.js','test_live/**/*.js'])
+  return gulp.src(['src/**/*.js','live/**/*.js'])
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
     .pipe($.jshint.reporter('fail'));
 });
 
 gulp.task('live-watch', function () {
-  gulp.watch(['src/**/*.js','test_live/**/*.js'], ['live-jscs', 'live-jshint']);
+  gulp.watch(['src/**/*.js','live/**/*.js'], ['live-jscs', 'live-jshint']);
 });
 
-gulp.task('live', function () {
-  gulp.start(['live-watch']);
+gulp.task('live-connect', function () {
+  var port = 8080;
+  $.connect.server({
+    root: ['./live/', '.'],
+    port: port
+  });
+  gulp.src('./test/index.html')
+  .pipe($.open('', {
+    url: 'http://localhost:'+port
+  }));
+});
+
+gulp.task('live', function(){
+  gulp.start(['live-watch','live-connect'])
 });

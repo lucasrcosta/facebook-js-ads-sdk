@@ -3,17 +3,19 @@
   var dependencies = [
     './ad-account',
     './ad-campaign',
+    './ad-set',
     './ad-statistics',
   ];
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
   else root.FacebookAdsApi.define('Objects.Objects', dependencies, factory);
-}(this, function(AdAccount, AdCampaign, AdStatistics) {
+}(this, function(AdAccount, AdCampaign, AdSet, AdStatistics) {
   'use strict';
 
   return {
     AdAccount: AdAccount,
     AdCampaign: AdCampaign,
-    AdStatistics: AdStatistics
+    AdSet: AdSet,
+    AdStatistics: AdStatistics,
   };
 }));

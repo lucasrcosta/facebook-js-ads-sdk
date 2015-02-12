@@ -41,6 +41,7 @@ if (typeof define === 'function' && define.amd) {
       './objects/core/crud-object',
       './objects/ad-account',
       './objects/ad-campaign',
+      './objects/ad-set',
       './objects/mixins',
     ], function() {
       mocha.run();

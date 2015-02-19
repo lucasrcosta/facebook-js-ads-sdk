@@ -13,25 +13,25 @@
 
   var endpoint = 'adcampaigns';
   var fields = [
-   'account_id',
-   'bid_type',
-   'bid_info',
-   'budget_remaining',
-   'campaign_group_id',
-   'campaign_schedule',
-   'campaign_status',
-   'created_time',
-   'daily_budget',
-   'end_time',
-   'id',
-   'lifetime_budget',
-   'name',
-   'pacing_type',
-   'start_time',
-   'rf_prediction_id',
-   'updated_time',
-   'targeting',
-   'promoted_object',
+    'account_id',
+    'bid_type',
+    'bid_info',
+    'budget_remaining',
+    'campaign_group_id',
+    'campaign_schedule',
+    'campaign_status',
+    'created_time',
+    'daily_budget',
+    'end_time',
+    'id',
+    'lifetime_budget',
+    'name',
+    'pacing_type',
+    'start_time',
+    'rf_prediction_id',
+    'updated_time',
+    'targeting',
+    'promoted_object',
   ];
 
   /**
@@ -39,7 +39,7 @@
    * @see {@link} https://developers.facebook.com/docs/marketing-api/adset/
    * @param {FacebookAdsApi}  api
    * @param {mixed}           [initData]
-   * @param {int}             [parentId]
+   * @param {int}             [parentId]  ACCOUNT ID (for legacy naming reasons)
    * @extends CrudObject
    * @class
    */

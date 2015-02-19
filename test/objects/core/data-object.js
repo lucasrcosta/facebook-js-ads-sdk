@@ -101,12 +101,14 @@ describe('DataObject', function() {
     });
 
     it('can get deep diff current and persisted data', function() {
-      var dataObj = new DataObject(['a', 'b', 'c', 'd', 'e', 'f']);
+      var dataObj = new DataObject(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']);
       dataObj.setData({a: 1, b: 2, c: [3, 4], d: [5, 6], e: {a: 7, b: 8}, f: {a: 9, b: 10}}, true);
       dataObj.a = 2;
       dataObj.c[1] = 8;
       dataObj.e.b = 16;
-      dataObj.getChangedData().should.be.eql({a: 2, c: [3, 8], e: {a: 7, b: 16}});
+      dataObj.g = [11, 12];
+      dataObj.h = {a: 26};
+      dataObj.getChangedData().should.be.eql({a: 2, c: [3, 8], e: {a: 7, b: 16}, g: [11, 12], h: {a: 26}});
     });
 
     it('can reset changed data to persisted data', function() {

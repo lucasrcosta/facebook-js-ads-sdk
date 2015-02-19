@@ -169,9 +169,9 @@
      */
     function isEqual(a, b) {
       if (a instanceof Array)
-        return isEqualArray(a, b);
+        return b instanceof Array && isEqualArray(a, b);
       else if (a && typeof a == 'object')
-        return isEqualObject(a, b);
+        return b && typeof b == 'object' && isEqualObjects(a, b);
       return a === b;
     }
 
@@ -192,7 +192,7 @@
      * Compares two objects
      * @return {Boolean}
      */
-    function isEqualObject(a, b) {
+    function isEqualObjects(a, b) {
       var keys = Object.keys(a);
       for (var i = 0; i < keys.length; i++) {
         if (!isEqual(a[keys[i]], b[keys[i]]))

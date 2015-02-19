@@ -15,8 +15,8 @@
    */
   _this.encodeParams = function(params) {
     return Object.keys(params).map(function(param) {
-      if (params[param] instanceof Array)
-        params[param] = '["' + params[param].toString() + '"]';
+      if (typeof params[param] == 'object')
+        params[param] = !params[param] ? '' : JSON.stringify(params[param]);
       return param + '=' + encodeURIComponent(params[param]);
     }).join('&');
   };

@@ -72,6 +72,21 @@ describe('AdCampaign', function() {
       .catch(done);
   });
 
+  describe('connection objects', function() {
+
+    it('gets Ad Sets', function(done) {
+      checkCampaignId(done);
+      var adCampaign = new api.AdCampaign(campaignId, testData.accountId);
+      adCampaign.getAdSets()
+        .then(function(sets) {
+          sets.should.be.an('array');
+          done();
+        })
+        .catch(done);
+    });
+
+  });
+
   function checkCampaignId(done) {
     if (!campaignId) {
       done(new Error('No campaignId'));

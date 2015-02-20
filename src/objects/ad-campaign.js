@@ -35,6 +35,15 @@
     ObjectValidation.call(_this);
     Archivable.call(_this, 'campaign_group_status');
 
+    /**
+     * @param  {array}    fields
+     * @param  {object}   params
+     * @return {promise}
+     */
+    _this.getAdSets = function(fields, params) {
+      return _this.getManyByConnection(api.AdSet, fields, params);
+    };
+
     return _this;
   }
 

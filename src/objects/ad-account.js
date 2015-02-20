@@ -73,6 +73,15 @@
     };
 
     /**
+     * @param  {array}    fields
+     * @param  {object}   params
+     * @return {promise}
+     */
+    _this.getAdSets = function(fields, params) {
+      return _this.getManyByConnection(api.AdSet, fields, params);
+    };
+
+    /**
      * @param  {object}   params
      * @return {promise}
      */

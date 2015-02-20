@@ -2,10 +2,21 @@ describe('AdCampaign', function() {
   'use strict';
 
   var campaignId;
+  var now = (new Date()).toUTCString();
+  var campaignData = {name: 'SDK TEST - ' + now};
+
+  it('validates', function(done) {
+    var adCampaign = new api.AdCampaign(campaignData, testData.accountId);
+    adCampaign.validate()
+      .then(function(data) {
+        data.success.should.be.true;
+        done();
+      })
+      .catch(done);
+  });
 
   it('creates', function(done) {
-    var now = (new Date()).toUTCString();
-    var adCampaign = new api.AdCampaign({name: 'SDK TEST - ' + now}, testData.accountId);
+    var adCampaign = new api.AdCampaign(campaignData, testData.accountId);
     adCampaign.create()
       .then(function() {
         if (adCampaign.id.should.be.ok)
@@ -54,16 +65,6 @@ describe('AdCampaign', function() {
     checkCampaignId(done);
     var adCampaign = new api.AdCampaign(campaignId, testData.accountId);
     adCampaign.delete()
-      .then(function(data) {
-        data.success.should.be.true;
-        done();
-      })
-      .catch(done);
-  });
-
-  it('validates', function(done) {
-    var adCampaign = new api.AdCampaign({name: 'SDK TEST'}, testData.accountId);
-    adCampaign.validate()
       .then(function(data) {
         data.success.should.be.true;
         done();

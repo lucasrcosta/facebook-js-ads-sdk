@@ -28,7 +28,7 @@
     'name',
     'pacing_type',
     'start_time',
-    'rf_prediction_id',
+    // 'rf_prediction_id',
     'updated_time',
     'targeting',
     'promoted_object',
@@ -46,7 +46,7 @@
   function AdSet(api, initData, parentId) {
     var _this = new CrudObject(api, endpoint, fields, initData, parentId);
     ObjectValidation.call(_this);
-    Archivable.call(_this, 'campaign_group_status');
+    Archivable.call(_this, 'campaign_status');
 
     return _this;
   }

@@ -42,6 +42,7 @@ if (typeof define === 'function' && define.amd) {
       './objects/ad-account',
       './objects/ad-campaign',
       './objects/ad-set',
+      './objects/ad-group',
       './objects/mixins',
     ], function() {
       mocha.run();

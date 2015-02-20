@@ -28,10 +28,10 @@
     'name',
     'pacing_type',
     'start_time',
-    // 'rf_prediction_id',
     'updated_time',
     'targeting',
     'promoted_object',
+    // 'rf_prediction_id',
   ];
 
   /**
@@ -39,7 +39,7 @@
    * @see {@link} https://developers.facebook.com/docs/marketing-api/adset/
    * @param {FacebookAdsApi}  api
    * @param {mixed}           [initData]
-   * @param {int}             [parentId]  ACCOUNT ID (for legacy naming reasons)
+   * @param {int}             [parentId]  Account Id
    * @extends CrudObject
    * @class
    */

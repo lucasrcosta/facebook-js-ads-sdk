@@ -8,6 +8,7 @@ var tests = [
   './objects/ad-account',
   './objects/ad-campaign',
   './objects/ad-set',
+  './objects/ad-group',
 ];
 
 requirejs.config({

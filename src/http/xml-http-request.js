@@ -12,7 +12,7 @@
   /**
    * Promise-based XmlHttpRequest
    * @type {object}
-   * @see {@link} http://www.html5rocks.com/en/tutorials/es6/promises/ by Jake Archibald
+   * @see {@link} http://www.html5rocks.com/en/tutorials/es6/promises by Jake Archibald
    */
   function XmlHttpRequest() {
     var _this = {};

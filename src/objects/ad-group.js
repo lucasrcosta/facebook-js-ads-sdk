@@ -37,7 +37,7 @@
 
   /**
    * Contains the data necessary for an ad, such as creative elements and campaign information.
-   * @see {@link} https://developers.facebook.com/docs/marketing-api/adgroup/
+   * @see {@link} https://developers.facebook.com/docs/marketing-api/adgroup
    * @param {FacebookAdsApi}  api
    * @param {mixed}           [initData]
    * @param {int}             [parentId]  Account Id

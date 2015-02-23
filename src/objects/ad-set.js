@@ -36,7 +36,7 @@
 
   /**
    * Group of ads that share the same daily or lifetime budget, schedule, bid type, bid info, and targeting data.
-   * @see {@link} https://developers.facebook.com/docs/marketing-api/adset/
+   * @see {@link} https://developers.facebook.com/docs/marketing-api/adset
    * @param {FacebookAdsApi}  api
    * @param {mixed}           [initData]
    * @param {int}             [parentId]  Account Id

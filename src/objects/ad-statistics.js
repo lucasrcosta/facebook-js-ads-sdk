@@ -14,7 +14,7 @@
 
   /**
    * Group of Ad Sets
-   * @see {@link}         https://developers.facebook.com/docs/marketing-api/adstatistics/
+   * @see {@link}         https://developers.facebook.com/docs/marketing-api/adstatistics
    * @param {FacebookAdsApi}  api
    * @param {mixed}       initData
    * @extends DataObject

@@ -1,4 +1,4 @@
-describe('AdSet', function() {
+describe('AdGroup', function() {
   'use strict';
 
   var adCampaign;

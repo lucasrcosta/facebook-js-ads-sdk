@@ -48,6 +48,15 @@
     ObjectValidation.call(_this);
     Archivable.call(_this, 'campaign_status');
 
+    /**
+     * @param  {array}    fields
+     * @param  {object}   params
+     * @return {promise}
+     */
+    _this.getAdCreatives = function(fields, params) {
+      return _this.getManyByConnection(api.AdCreative, fields, params);
+    };
+
     return _this;
   }
 

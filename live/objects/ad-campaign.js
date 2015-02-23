@@ -78,8 +78,8 @@ describe('AdCampaign', function() {
       checkCampaignId(done);
       var adCampaign = new api.AdCampaign(campaignId, testData.accountId);
       adCampaign.getAdSets()
-        .then(function(sets) {
-          sets.should.be.an('array');
+        .then(function(data) {
+          data.should.be.an('array');
           done();
         })
         .catch(done);

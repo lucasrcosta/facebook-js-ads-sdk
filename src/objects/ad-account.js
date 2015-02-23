@@ -85,6 +85,14 @@
      * @param  {object}   params
      * @return {promise}
      */
+    _this.getAdCreatives = function(params) {
+      return _this.getManyByConnection(api.AdCreative, null, params);
+    };
+
+    /**
+     * @param  {object}   params
+     * @return {promise}
+     */
     _this.getAdStatistics = function(params) {
       return _this.getOneByConnection(api.AdStatistics, null, params);
     };

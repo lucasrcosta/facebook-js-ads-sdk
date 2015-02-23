@@ -100,6 +100,21 @@ describe('AdSet', function() {
       .catch(done);
   });
 
+  describe('connection objects', function() {
+
+    it('gets Ad Creatives', function(done) {
+      checkSetId(done);
+      var adSet = new api.AdSet(setId, testData.accountId);
+      adSet.getAdCreatives()
+        .then(function(data) {
+          data.should.be.an('array');
+          done();
+        })
+        .catch(done);
+    });
+
+  });
+
   function checkSetId(done) {
     if (!setId) {
       done(new Error('No setId'));

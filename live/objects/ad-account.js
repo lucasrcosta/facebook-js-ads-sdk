@@ -16,8 +16,8 @@ describe('AdAccount', function() {
     it('gets Ad Campaigns', function(done) {
       var adAccount = new api.AdAccount(testData.accountId);
       adAccount.getAdCampaigns()
-        .then(function(campaigns) {
-          campaigns.should.be.an('array');
+        .then(function(data) {
+          data.should.be.an('array');
           done();
         })
         .catch(done);
@@ -26,8 +26,18 @@ describe('AdAccount', function() {
     it('gets Ad Sets', function(done) {
       var adAccount = new api.AdAccount(testData.accountId);
       adAccount.getAdSets()
-        .then(function(sets) {
-          sets.should.be.an('array');
+        .then(function(data) {
+          data.should.be.an('array');
+          done();
+        })
+        .catch(done);
+    });
+
+    it('gets Ad Creatives', function(done) {
+      var adAccount = new api.AdAccount(testData.accountId);
+      adAccount.getAdCreatives()
+        .then(function(data) {
+          data.should.be.an('array');
           done();
         })
         .catch(done);
@@ -36,8 +46,8 @@ describe('AdAccount', function() {
     it('gets Ad Statistics', function(done) {
       var adAccount = new api.AdAccount(testData.accountId);
       adAccount.getAdStatistics()
-        .then(function(stats) {
-          stats.should.be.an('object');
+        .then(function(data) {
+          data.should.be.an('object');
           done();
         })
         .catch(done);

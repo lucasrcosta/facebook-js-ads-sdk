@@ -54,7 +54,6 @@
    * @see   {@link}           https://developers.facebook.com/docs/reference/ads-api/adcampaign
    * @param {FacebookAdsApi}  api
    * @param {mixed}           [initData]
-   * @param {int}             [parentId]
    * @extends CrudObject
    * @class
    */

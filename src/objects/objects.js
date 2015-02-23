@@ -7,13 +7,14 @@
     './ad-set',
     './ad-group',
     './ad-creative',
+    './ad-image',
     './ad-statistics',
   ];
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
   else root.FacebookAdsApi.define('Objects.Objects', dependencies, factory);
 
-}(this, function(AdAccount, AdCampaign, AdSet, AdGroup, AdCreative, AdStatistics) {
+}(this, function(AdAccount, AdCampaign, AdSet, AdGroup, AdCreative, AdImage, AdStatistics) {
   'use strict';
 
   return {
@@ -22,6 +23,7 @@
     AdSet: AdSet,
     AdGroup: AdGroup,
     AdCreative: AdCreative,
+    AdImage: AdImage,
     AdStatistics: AdStatistics,
   };
 }));

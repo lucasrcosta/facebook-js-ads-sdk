@@ -5,20 +5,25 @@ describe('AdSet', function() {
   var campaignId;
   var setId;
   var now = (new Date()).toUTCString();
+
+  var campaignData = {
+    name: 'SDK TEST AD-SET CAMPAIGN - ' + now
+  };
+
   var setData = {
-    bid_info:{'IMPRESSIONS':50},
-    bid_type:'ABSOLUTE_OCPM',
-    campaign_status:'PAUSED',
-    daily_budget:100,
-    name:'SDK TEST AD-SET',
-    start_time:1424363064,
-    targeting:{'geo_locations':{'countries':['BR']}},
+    bid_info: {'IMPRESSIONS': 50},
+    bid_type: 'ABSOLUTE_OCPM',
+    campaign_status: 'PAUSED',
+    daily_budget: 100,
+    name: 'SDK TEST AD-SET',
+    start_time: 1424363064,
+    targeting: {
+      'geo_locations': {'countries': ['BR']}
+    },
   };
 
   before(function(done) {
-    adCampaign = new api.AdCampaign({
-      name: 'SDK TEST AD-SET CAMPAIGN - ' + now
-    }, testData.accountId);
+    adCampaign = new api.AdCampaign(campaignData, testData.accountId);
     adCampaign.create().then(function() {
       setData.campaign_group_id = adCampaign.id;
       done();

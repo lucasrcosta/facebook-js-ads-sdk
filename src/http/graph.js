@@ -56,6 +56,17 @@
     };
 
     /**
+     * Upload to Graph Request
+     * @param {string} path
+     * @param {object} data
+     * @return {promise}
+     */
+    _this.upload = function(path, data) {
+      var requestUrl = _this.getRequestUrl(path);
+      return Http.uploadJSON(requestUrl, data);
+    };
+
+    /**
      * URL, version and enpoint
      * @param {string} path
      * @param {object} params

@@ -34,6 +34,9 @@
             req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
             data = Utils.encodeParams(data);
             break;
+          case 'UPLOAD':
+            req.open('POST', url);
+            break;
           case 'GET':
           case 'PUT':
           case 'DELETE':
@@ -114,6 +117,26 @@
      */
     _this.deleteJSON = function(url) {
       return _this.delete(url).then(JSON.parse);
+    };
+
+    /**
+     * Upload request
+     * @param {string} url
+     * @param {object} data
+     * @return {promise}
+     */
+    _this.upload = function(url, data) {
+      return request(url, 'UPLOAD', data);
+    };
+
+    /**
+     * Upload request with JSON response
+     * @param {string} url
+     * @param {object} data
+     * @return {promise}
+     */
+    _this.uploadJSON = function(url, data) {
+      return _this.upload(url, data).then(JSON.parse);
     };
 
     return _this;

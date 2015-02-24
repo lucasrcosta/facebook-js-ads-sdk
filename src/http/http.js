@@ -99,6 +99,16 @@
       return _this.delete(url);
     };
 
+    /**
+     * Upload JSON request (Post alias)
+     * @param {string} url
+     * @param {object} data
+     * @return {promise}
+     */
+    _this.uploadJSON = function(url, data) {
+      return _this.post(url, data);
+    };
+
     return _this;
   }
 

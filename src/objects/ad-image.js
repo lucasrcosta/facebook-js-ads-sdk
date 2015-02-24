@@ -2,12 +2,13 @@
   'use strict';
   var dependencies = [
     './core/crud-object',
-    './mixins/cannot-update'
+    './mixins/cannot-update',
+    './mixins/can-upload'
   ];
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
   else root.FacebookAdsApi.define('Objects.AdImage', dependencies, factory);
-}(this, function(CrudObject, CannotUpdate) {
+}(this, function(CrudObject, CannotUpdate, CanUpload) {
   'use strict';
 
   var endpoint = 'adimages';
@@ -35,6 +36,7 @@
   function AdImage(api, initData, parentId) {
     var _this = new CrudObject(api, endpoint, fields, initData, parentId);
     CannotUpdate.call(_this);
+    CanUpload.call(_this);
 
     return _this;
   }

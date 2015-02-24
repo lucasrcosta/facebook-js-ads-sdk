@@ -42,6 +42,8 @@ if (typeof define === 'function' && define.amd) {
       './objects/ad-account',
       './objects/ad-campaign',
       './objects/ad-set',
+      './objects/ad-image',
+      './objects/ad-creative',
       './objects/ad-group',
       './objects/mixins',
     ], function() {

@@ -111,7 +111,7 @@ if (typeof exports === 'object')
     };
 
     /**
-     * Create alias for save
+     * Create new object
      * @param   {object}  params additional params
      * @throws  {error}   if object already has an ID
      * @return  {promise} resolves to {object} _this
@@ -134,7 +134,7 @@ if (typeof exports === 'object')
     };
 
     /**
-     * Update alias for save
+     * Update object
      * @param   {object}  params additional params
      * @throws  {error}   if object has no ID
      * @return  {promise} resolves to {object} _this

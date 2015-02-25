@@ -1,16 +1,19 @@
 describe('AdCreative', function() {
   'use strict';
 
-  var  imageId;
+  var  imageHash;
   var now = (new Date()).toUTCString();
 
   it('creates', function(done) {
     if (!FormData)
       throw new Error('AdImage live tests need FormData implementation');
     var formData = new FormData();
-    formData.append('1200x628', b64toBlob(base64Img_1280_628, 'image/gif'), '1200x628.gif');
+    var filename = '1200x628.gif';
+    formData.append(filename, b64toBlob(base64Img_1280_628, 'image/gif'), filename);
+    formData.append('contender.gif', b64toBlob(base64Img_1280_628, 'image/gif'), 'contender.gif');
     var adImage = new api.AdImage(null, testData.accountId);
-    adImage.upload(formData).then(function(data) {
+    adImage.create(formData).then(function(data) {
+      imageHash = adImage.hash;
       done();
     })
     .catch(done);
@@ -51,12 +54,12 @@ describe('AdCreative', function() {
   //     .catch(done);
   // });
 
-  // function checkCreativeId(done) {
-  //   if (!creativeId) {
-  //     done(new Error('No creativeId'));
-  //     return;
-  //   }
-  // }
+  function checkImageHash(done) {
+    if (!imageHash) {
+      done(new Error('No imageHash'));
+      return;
+    }
+  }
 
   /**
    * Convert base64 data to Blob

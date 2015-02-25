@@ -27,18 +27,29 @@
    * Images for use in Ad Creatives
    * @see   {@link}           https://developers.facebook.com/docs/marketing-api/adimage
    * @param {FacebookAdsApi}  api
-   * @param {mixed}           [initData]
+   * @param {mixed}           [initData]  string will be converted to hash property
    * @param {int}             [parentId]  Account Id
    * @extends CrudObject
    * @class
    */
   function AdImage(api, initData, parentId) {
+    if (initData && typeof initData == 'string')
+      initData = {hash: initData};
     var _this = new CrudObject(api, endpoint, fields, initData, parentId);
     CannotUpdate.call(_this);
 
     /**
+     * Override with accountId for read path
+     * @throws {error} if object has no parentId
+     * @return {mixed}
+     */
+    _this.getId = function() {
+      return _this.getParentId();
+    };
+
+    /**
      * Create new AdImage(s)
-     * @data    {object}
+     * @data    {object}  FormData
      * @return  {promise} resolves to {object} _this or an array of them
      */
     _this.create = function(data) {
@@ -53,7 +64,7 @@
               for (var i = keys.length - 1; i >= 0; i--) {
                 imgData = data.images[keys[i]];
                 imgData.filename = keys[i];
-                images.push(api.AdImage(imgData, parentId));
+                images.push(new api.AdImage(imgData, parentId));
               }
               resolve(images);
             } else {
@@ -65,6 +76,29 @@
           .catch(reject);
       });
     };
+
+    /**
+     * Read object
+     * @param   {array}   [filter] selected fields
+     * @param   {object}  [params] additional params
+     * @throws  {error}   if graph promise is rejected
+     * @return  {promise} resolves to {Collection} of AdImages
+     */
+    _this.read = function(filter, params) {
+      if (!_this.hash)
+        throw new Error('Hash not defined');
+      params = params || {};
+      params.hashes = [_this.hash];
+      return new Promise(function(resolve, reject) {
+        _this.getManyByConnection(api.AdImage, filter, params)
+          .then(function(imgCollection) {
+            resolve(_this.setData(imgCollection[0].getData(), true));
+          })
+          .catch(reject);
+      });
+    };
+
+    _this.getImages = function() {};
 
     return _this;
   }

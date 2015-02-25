@@ -1,7 +1,7 @@
-describe('AdCreative', function() {
+describe('AdImage', function() {
   'use strict';
 
-  var  imageHash;
+  var  images;
   var now = (new Date()).toUTCString();
 
   it('creates', function(done) {
@@ -9,44 +9,34 @@ describe('AdCreative', function() {
       throw new Error('AdImage live tests need FormData implementation');
     var formData = new FormData();
     var filename = '1200x628.gif';
-    formData.append(filename, b64toBlob(base64Img_1280_628, 'image/gif'), filename);
-    formData.append('contender.gif', b64toBlob(base64Img_1280_628, 'image/gif'), 'contender.gif');
+    var imgBlob = b64toBlob(base64Img_1280_628, 'image/gif');
+    formData.append(filename, imgBlob, filename);
+    formData.append('_' + filename, imgBlob, '_' + filename);
     var adImage = new api.AdImage(null, testData.accountId);
     adImage.create(formData).then(function(data) {
-      imageHash = adImage.hash;
+      images = data;
+      console.log('images:', images);
       done();
     })
     .catch(done);
   });
 
-  // it('reads', function(done) {
-  //   checkCreativeId(done);
-  //   var adCreative = new api.AdCreative(creativeId);
-  //   adCreative.read(['name', 'title', 'body', 'object_url', 'image_hash'])
-  //     .then(function() {
-  //       adCreative.name.should.be.ok;
-  //       done();
-  //     })
-  //     .catch(done);
-  // });
-
-  // it('updates', function(done) {
-  //   checkCreativeId(done);
-  //   var adCreative = new api.AdCreative(creativeId, testData.accountId);
-  //   var now = (new Date()).toUTCString();
-  //   adCreative.name = 'SDK TEST AD-CREATIVE [UPDATED] - ' + now;
-  //   adCreative.update()
-  //     .then(function(data) {
-  //       data.success.should.be.true;
-  //       done();
-  //     })
-  //     .catch(done);
-  // });
+  it('reads', function(done) {
+    checkImages(done);
+    var adImage = new api.AdImage(images[0].hash, testData.accountId);
+    adImage.read()
+      .then(function() {
+        console.log('adImage:', adImage);
+        adImage.url.should.be.ok;
+        done();
+      })
+      .catch(done);
+  });
 
   // it('deletes', function(done) {
-  //   checkCreativeId(done);
-  //   var adCreative = new api.AdCreative(creativeId, testData.accountId);
-  //   adCreative.delete()
+  //   checkImages(done);
+  //   var adImage = new api.AdImage(imageHash, testData.accountId);
+  //   adImage.delete()
   //     .then(function(data) {
   //       data.success.should.be.true;
   //       done();
@@ -54,9 +44,9 @@ describe('AdCreative', function() {
   //     .catch(done);
   // });
 
-  function checkImageHash(done) {
-    if (!imageHash) {
-      done(new Error('No imageHash'));
+  function checkImages(done) {
+    if (!images.length) {
+      done(new Error('No images'));
       return;
     }
   }

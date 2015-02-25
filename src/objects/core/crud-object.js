@@ -18,7 +18,7 @@ if (typeof exports === 'object')
    * @param {FacebookAdsApi}  api
    * @param {string}          endpoint
    * @param {array}           fields
-   * @param {mixed}           [initData]
+   * @param {mixed}           [initData] string will be converted to id property
    * @param {int}             [parentId] for new object creation
    * @extends DataObject
    * @class
@@ -67,7 +67,7 @@ if (typeof exports === 'object')
 
     /**
      * @throws {error} if object has no id
-     * @return {mixed]}
+     * @return {mixed}
      */
     _this.getId = function() {
       if (_this.id !== 0 && !_this.id)
@@ -80,34 +80,6 @@ if (typeof exports === 'object')
      */
     _this.getNodePath = function() {
       return _this.getId();
-    };
-
-    /**
-     * Read object data
-     * @param   {array}   [filter] selected fields
-     * @param   {object}  [params] additional params
-     * @throws  {error}   if graph promise is rejected
-     * @return  {promise} resolves to {object} _this
-     */
-    _this.read = function(filter, params) {
-      var path = _this.getNodePath();
-      if (filter) {
-        for (var field in filter) {
-          if (fields.indexOf(filter[field]) < 0)
-            throw new Error('"' + filter[field] + '"" is not a field of this object');
-        }
-      } else {
-        filter = fields;
-      }
-      params = params || {};
-      params.fields = filter;
-      return new Promise(function(resolve, reject) {
-        api.graph.get(path, params)
-          .then(function(data) {
-            resolve(_this.setData(data, true));
-          })
-          .catch(reject);
-      });
     };
 
     /**
@@ -128,6 +100,30 @@ if (typeof exports === 'object')
               resolve(data);
             else
               resolve(_this.setData(data, true));
+          })
+          .catch(reject);
+      });
+    };
+
+    /**
+     * Read object data
+     * @param   {array}   [filter] selected fields
+     * @param   {object}  [params] additional params
+     * @throws  {error}   if graph promise is rejected
+     * @return  {promise} resolves to {object} _this
+     */
+    _this.read = function(filter, params) {
+      var path = _this.getNodePath();
+      if (filter)
+        checkFilter(filter, fields);
+      else
+        filter = fields;
+      params = params || {};
+      params.fields = filter;
+      return new Promise(function(resolve, reject) {
+        api.graph.get(path, params)
+          .then(function(data) {
+            resolve(_this.setData(data, true));
           })
           .catch(reject);
       });
@@ -186,6 +182,11 @@ if (typeof exports === 'object')
      * @resolve {Collection}
      */
     _this.getManyByConnection = function(ObjClass, filter, params, endpoint) {
+      var fields = ObjClass.getFields();
+      if (filter)
+        checkFilter(filter, fields);
+      else
+        filter = fields;
       return new Promise(function(resolve, reject) {
         fetchConnection(ObjClass, filter, params, endpoint)
           .then(function(response) {
@@ -206,6 +207,11 @@ if (typeof exports === 'object')
      * @resolve {object}
      */
     _this.getOneByConnection = function(ObjClass, filter, params, endpoint) {
+      var fields = ObjClass.getFields();
+      if (filter)
+        checkFilter(filter, fields);
+      else
+        filter = fields;
       return new Promise(function(resolve, reject) {
         fetchConnection(ObjClass, filter, params, endpoint)
           .then(function(response) {
@@ -233,6 +239,19 @@ if (typeof exports === 'object')
       params.fields = filter;
       var path = _this.getId() + '/' + endpoint;
       return api.graph.get(path, params);
+    }
+
+    /**
+     * Check if filter fields are in the fields array
+     * @param  {array}  filter
+     * @param  {array}  fields
+     * @throws {error}  if a field is not found
+     */
+    function checkFilter(filter, fields) {
+      for (var field in filter) {
+        if (fields.indexOf(filter[field]) < 0)
+          throw new Error('"' + filter[field] + '"" is not a field of this object');
+      }
     }
 
     return _this;

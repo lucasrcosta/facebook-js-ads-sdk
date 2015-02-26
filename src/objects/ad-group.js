@@ -31,7 +31,6 @@
     'creative',
     'social_prefs',
     'failed_delivery_checks',
-    'redownload',
     'objective',
   ];
 

@@ -97,57 +97,57 @@ describe('AdGroup', function() {
     .catch(done);
   });
 
-  // it('reads', function(done) {
-  //   checkGroupId(done);
-  //   var adGroup = new api.AdGroup(groupId);
-  //   adGroup.read()
-  //     .then(function() {
-  //       adGroup.name.should.be.ok;
-  //       done();
-  //     })
-  //     .catch(done);
-  // });
+  it('reads', function(done) {
+    checkGroupId(done);
+    var adGroup = new api.AdGroup(groupId);
+    adGroup.read()
+      .then(function() {
+        adGroup.name.should.be.ok;
+        done();
+      })
+      .catch(done);
+  });
 
-  // it('updates', function(done) {
-  //   checkGroupId(done);
-  //   var adGroup = new api.AdGroup(groupId, testData.accountId);
-  //   var now = (new Date()).toUTCString();
-  //   adGroup.name = 'SDK TEST [UPDATED] - ' + now;
-  //   adGroup.update()
-  //     .then(function(data) {
-  //       data.success.should.be.true;
-  //       done();
-  //     })
-  //     .catch(done);
-  // });
+  it('updates', function(done) {
+    checkGroupId(done);
+    var adGroup = new api.AdGroup(groupId, testData.accountId);
+    var now = (new Date()).toUTCString();
+    adGroup.name = 'SDK TEST AD-CREATIVE [UPDATED] - ' + now;
+    adGroup.update()
+      .then(function(data) {
+        data.success.should.be.true;
+        done();
+      })
+      .catch(done);
+  });
 
-  // it('archives', function(done) {
-  //   checkGroupId(done);
-  //   var adGroup = new api.AdGroup(groupId, testData.accountId);
-  //   adGroup.archive()
-  //     .then(function(data) {
-  //       data.success.should.be.true;
-  //       done();
-  //     })
-  //     .catch(done);
-  // });
+  it('archives', function(done) {
+    checkGroupId(done);
+    var adGroup = new api.AdGroup(groupId, testData.accountId);
+    adGroup.archive()
+      .then(function(data) {
+        data.success.should.be.true;
+        done();
+      })
+      .catch(done);
+  });
 
-  // it('deletes', function(done) {
-  //   checkGroupId(done);
-  //   var adGroup = new api.AdGroup(groupId, testData.accountId);
-  //   adGroup.delete()
-  //     .then(function(data) {
-  //       data.success.should.be.true;
-  //       done();
-  //     })
-  //     .catch(done);
-  // });
+  it('deletes', function(done) {
+    checkGroupId(done);
+    var adGroup = new api.AdGroup(groupId, testData.accountId);
+    adGroup.delete()
+      .then(function(data) {
+        data.success.should.be.true;
+        done();
+      })
+      .catch(done);
+  });
 
-  // function checkGroupId(done) {
-  //   if (!GroupId) {
-  //     done(new Error('No GroupId'));
-  //     return;
-  //   }
-  // }
+  function checkGroupId(done) {
+    if (!groupId) {
+      done(new Error('No groupId'));
+      return;
+    }
+  }
 
 });

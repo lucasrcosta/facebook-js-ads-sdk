@@ -43,6 +43,16 @@ describe('AdAccount', function() {
         .catch(done);
     });
 
+    it('gets Ad Images', function(done) {
+      var adAccount = new api.AdAccount(testData.accountId);
+      adAccount.getAdImages()
+        .then(function(data) {
+          data.should.be.an('array');
+          done();
+        })
+        .catch(done);
+    });
+
     it('gets Ad Statistics', function(done) {
       var adAccount = new api.AdAccount(testData.accountId);
       adAccount.getAdStatistics()

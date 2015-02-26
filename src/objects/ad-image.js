@@ -80,15 +80,13 @@
     /**
      * Read object
      * @param   {array}   [filter] selected fields
-     * @param   {object}  [params] additional params
      * @throws  {error}   if graph promise is rejected
      * @return  {promise} resolves to {Collection} of AdImages
      */
-    _this.read = function(filter, params) {
+    _this.read = function(filter) {
       if (!_this.hash)
         throw new Error('Hash not defined');
-      params = params || {};
-      params.hashes = [_this.hash];
+      var params = {hashes: [_this.hash]};
       return new Promise(function(resolve, reject) {
         _this.getManyByConnection(api.AdImage, filter, params)
           .then(function(imgCollection) {
@@ -98,7 +96,16 @@
       });
     };
 
-    _this.getImages = function() {};
+    /**
+     * Get images
+     * @param   {array}   hashes
+     * @param   {array}   [filter] selected fields
+     * @return  {promise} resolves to {Collection} of AdImages
+     */
+    _this.getImages = function(hashes, filter) {
+      var params = {hashes: hashes};
+      return _this.getManyByConnection(api.AdImage, filter, params);
+    };
 
     return _this;
   }

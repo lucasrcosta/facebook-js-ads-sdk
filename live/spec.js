@@ -8,6 +8,7 @@ var tests = [
   './objects/ad-account',
   './objects/ad-campaign',
   './objects/ad-set',
+  './objects/ad-image',
   './objects/ad-creative',
   './objects/ad-group',
 ];
@@ -18,7 +19,6 @@ requirejs.config({
     'chai': './../bower_components/chai/chai',
     'sinon': './../bower_components/sinonjs/sinon',
     'sinon-chai': './../bower_components/sinon-chai/lib/sinon-chai',
-    'appid': './appid',
   },
   shim: {
     'mocha': {
@@ -39,6 +39,12 @@ requirejs.config({
         'use strict';
         return TESTDATA;
       }
+    },
+    'images': {
+      init: function() {
+        'use strict';
+        return images;
+      }
     }
   }
 });
@@ -46,16 +52,18 @@ requirejs.config({
 require([
   './../src/api',
   './test-data',
+  './images',
   'mocha',
   'chai',
   'sinon',
   'sinon-chai',
   'http://connect.facebook.net/en_US/sdk.js',
-], function(Api, tstData, mocha, chai) {
+], function(Api, testData, images, mocha, chai) {
   'use strict';
 
   window.FacebookAdsApi = Api;
-  window.testData = tstData;
+  window.testData = testData;
+  window.testImages = images;
   chai.should();
 
   setLocalToken();

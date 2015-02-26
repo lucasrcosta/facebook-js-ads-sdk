@@ -92,6 +92,14 @@
      * @param  {object}   params
      * @return {promise}
      */
+    _this.getAdImages = function(params) {
+      return _this.getManyByConnection(api.AdImage, null, params);
+    };
+
+    /**
+     * @param  {object}   params
+     * @return {promise}
+     */
     _this.getAdStatistics = function(params) {
       return _this.getOneByConnection(api.AdStatistics, null, params);
     };

@@ -84,8 +84,7 @@
      * @return  {promise} resolves to {Collection} of AdImages
      */
     _this.read = function(filter) {
-      if (!_this.hash)
-        throw new Error('Hash not defined');
+      checkHash();
       var params = {hashes: [_this.hash]};
       return new Promise(function(resolve, reject) {
         _this.getManyByConnection(api.AdImage, filter, params)
@@ -94,6 +93,17 @@
           })
           .catch(reject);
       });
+    };
+
+    /**
+     * Delete object
+     * @return {promise} resolves to {object} _this
+     */
+    _this.delete = function() {
+      checkHash();
+      var path = _this.getParentId() + '/' + _this.getEndpoint();
+      var params = {hash: _this.hash};
+      return api.graph.delete(path, params);
     };
 
     /**
@@ -106,6 +116,11 @@
       var params = {hashes: hashes};
       return _this.getManyByConnection(api.AdImage, filter, params);
     };
+
+    function checkHash() {
+      if (!_this.hash)
+        throw new Error('Image Hash not defined');
+    }
 
     return _this;
   }

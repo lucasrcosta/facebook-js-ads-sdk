@@ -42,16 +42,22 @@ describe('AdImage', function() {
       .catch(done);
   });
 
-  // it('deletes', function(done) {
-  //   checkImages(done);
-  //   var adImage = new api.AdImage(imageHash, testData.accountId);
-  //   adImage.delete()
-  //     .then(function(data) {
-  //       data.success.should.be.true;
-  //       done();
-  //     })
-  //     .catch(done);
-  // });
+  it('deletes', function(done) {
+    checkImages(done);
+    var adImage = new api.AdImage(images[0].hash, testData.accountId);
+    var adImage2 = new api.AdImage(images[1].hash, testData.accountId);
+    adImage.delete()
+      .then(function(data) {
+        data.success.should.be.true;
+        adImage2.delete()
+          .then(function(data) {
+            data.success.should.be.true;
+            done();
+          })
+          .catch(done);
+      })
+      .catch(done);
+  });
 
   function checkImages(done) {
     if (!images.length) {

@@ -131,7 +131,7 @@ if (typeof exports === 'object')
 
     /**
      * Update object
-     * @param   {object}  params additional params
+     * @param   {object}  [params] additional params
      * @throws  {error}   if object has no ID
      * @return  {promise} resolves to {object} _this
      */
@@ -154,11 +154,12 @@ if (typeof exports === 'object')
 
     /**
      * Delete object
+     * @param   {object}  [params] additional params
      * @return {promise} resolves to {object} _this
      */
-    _this.delete = function() {
+    _this.delete = function(params) {
       var path = _this.getNodePath();
-      return api.graph.delete(path);
+      return api.graph.delete(path, params);
     };
 
     /**

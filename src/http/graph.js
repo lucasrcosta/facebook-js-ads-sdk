@@ -48,10 +48,11 @@
     /**
      * Delete Graph Request
      * @param {string} path
+     * @param {object} params
      * @return {promise}
      */
-    _this.delete = function(path) {
-      var requestUrl = _this.getRequestUrl(path);
+    _this.delete = function(path, params) {
+      var requestUrl = _this.getRequestUrl(path, params);
       return Http.deleteJSON(requestUrl);
     };
 

@@ -3,6 +3,7 @@ describe('AdGroup', function() {
 
   var adCampaign;
   var setId;
+  var adImage;
   var adCreative;
   var groupId;
   var now = (new Date()).toUTCString();
@@ -11,6 +12,7 @@ describe('AdGroup', function() {
   };
 
   before(function(done) {
+    this.timeout(6000);
     var campaignData = {
       name: 'SDK TEST AD-GROUP CAMPAIGN - ' + now
     };
@@ -32,32 +34,54 @@ describe('AdGroup', function() {
       title: 'Title for Ad Creative',
       body: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
       object_url: 'http://www.facebook.com',
-      image_hash: 'dbce3bf6b57da4ec23359019cb14f8af'
     };
 
-    adCampaign = new api.AdCampaign(campaignData, testData.accountId);
-    adCampaign.create().then(function() {
-      setData.campaign_group_id = adCampaign.id;
-      var adSet = new api.AdSet(setData, testData.accountId);
-      adSet.create().then(function() {
-        groupData.campaign_id = adSet.id;
+    var adSetPromise = new Promise(function(resolve, reject) {
+      // Create Campaign
+      adCampaign = new api.AdCampaign(campaignData, testData.accountId);
+      adCampaign.create().then(function() {
+        setData.campaign_group_id = adCampaign.id;
+        // Create AdSet
+        var adSet = new api.AdSet(setData, testData.accountId);
+        resolve(adSet.create());
+      })
+      .catch(reject);
+    });
+    var adCreativePromise = new Promise(function(resolve, reject) {
+      // Create AdImage
+      if (!FormData)
+        throw new Error('FormData missing');
+      var formData = new FormData();
+      formData.append('1200x628.gif', testImages.gif_1280_628, '1200x628.gif');
+      adImage = new api.AdImage(null, testData.accountId);
+      adImage.create(formData).then(function() {
+        // Create AdCreative
+        creativeData.image_hash = adImage.hash;
         adCreative = new api.AdCreative(creativeData, testData.accountId);
-        adCreative.create().then(function() {
-          groupData.creative = {'creative_id': adCreative.id};
-          done();
-        });
-      });
-    })
-    .catch(done);
+        resolve(adCreative.create());
+      })
+      .catch(reject);
+    });
+
+    Promise.all([adSetPromise, adCreativePromise])
+      .then(function(data) {
+        groupData.campaign_id = data[0].id;
+        groupData.creative = {'creative_id': data[1].id};
+        done();
+      })
+      .catch(done);
   });
 
   after(function(done) {
+    this.timeout(6000);
     adCampaign.delete()
       .then(function(data) {
         adCreative.delete()
           .then(function(data) {
-            data.success.should.be.true;
-            done();
+            adImage.delete()
+              .then(function(data) {
+                done();
+              });
           });
       })
       .catch(done);

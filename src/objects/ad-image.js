@@ -28,18 +28,18 @@
    * @see   {@link}           https://developers.facebook.com/docs/marketing-api/adimage
    * @param {FacebookAdsApi}  api
    * @param {mixed}           [initData]  string will be converted to hash property
-   * @param {int}             [parentId]  Account Id
+   * @param {int}             [accountId]
    * @extends CrudObject
    * @class
    */
-  function AdImage(api, initData, parentId) {
+  function AdImage(api, initData, accountId) {
     if (initData && typeof initData == 'string')
       initData = {hash: initData};
-    var _this = new CrudObject(api, endpoint, fields, initData, parentId);
+    var _this = new CrudObject(api, endpoint, fields, initData, accountId);
     CannotUpdate.call(_this);
 
     /**
-     * Override with accountId for read path
+     * Override with parent id for read path
      * @throws {error} if object has no parentId
      * @return {mixed}
      */
@@ -64,7 +64,7 @@
               for (var i = keys.length - 1; i >= 0; i--) {
                 imgData = data.images[keys[i]];
                 imgData.filename = keys[i];
-                images.push(new api.AdImage(imgData, parentId));
+                images.push(new api.AdImage(imgData, accountId));
               }
               resolve(images);
             } else {

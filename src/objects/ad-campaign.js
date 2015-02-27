@@ -26,12 +26,12 @@
    * @see {@link} https://developers.facebook.com/docs/reference/ads-api/adcampaign
    * @param {FacebookAdsApi}  api
    * @param {mixed}           [initData]
-   * @param {int}             [parentId]
+   * @param {int}             [accountId]
    * @extends CrudObject
    * @class
    */
-  function AdCampaign(api, initData, parentId) {
-    var _this = new CrudObject(api, endpoint, fields, initData, parentId);
+  function AdCampaign(api, initData, accountId) {
+    var _this = new CrudObject(api, endpoint, fields, initData, accountId);
     ObjectValidation.call(_this);
     Archivable.call(_this, 'campaign_group_status');
 

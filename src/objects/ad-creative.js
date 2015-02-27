@@ -45,12 +45,12 @@
    * @see {@link} https://developers.facebook.com/docs/marketing-api/adcreative
    * @param {FacebookAdsApi}  api
    * @param {mixed}           [initData]
-   * @param {int}             [parentId]  Account Id
+   * @param {int}             [accountId]
    * @extends CrudObject
    * @class
    */
-  function AdCreative(api, initData, parentId) {
-    var _this = new CrudObject(api, endpoint, fields, initData, parentId);
+  function AdCreative(api, initData, accountId) {
+    var _this = new CrudObject(api, endpoint, fields, initData, accountId);
     Archivable.call(_this, 'campaign_status');
 
     return _this;

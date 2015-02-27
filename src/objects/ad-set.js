@@ -39,12 +39,12 @@
    * @see {@link} https://developers.facebook.com/docs/marketing-api/adset
    * @param {FacebookAdsApi}  api
    * @param {mixed}           [initData]
-   * @param {int}             [parentId]  Account Id
+   * @param {int}             [accountId]
    * @extends CrudObject
    * @class
    */
-  function AdSet(api, initData, parentId) {
-    var _this = new CrudObject(api, endpoint, fields, initData, parentId);
+  function AdSet(api, initData, accountId) {
+    var _this = new CrudObject(api, endpoint, fields, initData, accountId);
     ObjectValidation.call(_this);
     Archivable.call(_this, 'campaign_status');
 

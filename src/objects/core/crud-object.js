@@ -190,8 +190,8 @@ if (typeof exports === 'object')
         filter = fields;
       return new Promise(function(resolve, reject) {
         fetchConnection(ObjClass, filter, params, endpoint)
-          .then(function(data) {
-            var collection = new Collection(ObjClass, _this.getParentId(), data);
+          .then(function(response) {
+            var collection = new Collection(ObjClass, _this.getParentId(), response);
             resolve(collection);
           })
         .catch(reject);

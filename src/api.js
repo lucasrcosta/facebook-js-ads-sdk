@@ -76,6 +76,38 @@
       return token;
     };
 
+    /**
+     * Read multiple Ids
+     * @param   {CrudObject}  ObjClass
+     * @param   {array}       ids
+     * @param   {array}       filter     fields filter
+     * @param   {object}      params
+     * @return  {promise}
+     * @resolve {Collection}
+     */
+    _this.readIds = function(ObjClass, ids, filter, params) {
+      var fields = ObjClass.getFields();
+      if (filter)
+        checkFilter(filter, fields);
+      else
+        filter = fields;
+      params = params || {};
+      params.fields = filter;
+      params.ids = ids.join();
+      return new Promise(function(resolve, reject) {
+        api.graph.get('/', params)
+          .then(function(data) {
+            var objects = [];
+            var keys = Object.keys(data);
+            Object.keys(data).map(function(id) {
+              objects.push(new ObjClass(data[id]));
+            });
+            resolve(objects);
+          })
+        .catch(reject);
+      });
+    };
+
     return _this;
   }
 

@@ -55,7 +55,7 @@
     _this.create = function(data) {
       var path = _this.getParentId() + '/' + _this.getEndpoint();
       return new Promise(function(resolve, reject) {
-        api.graph.upload(path, data)
+        api.graph.post(path, data, null, false)
           .then(function(data) {
             var imgData;
             var keys = Object.keys(data.images);

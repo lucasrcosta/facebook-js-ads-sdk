@@ -1,12 +1,11 @@
 (function(root, factory) {
   'use strict';
   var dependencies = [
-    './fb-error',
-    '../utils/utils'
+    './fb-error'
   ];
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else root.FacebookAdsApi.define('Http.XmlHttpRequest', dependencies, factory);
-}(this, function(FbError, Utils) {
+}(this, function(FbError) {
   'use strict';
 
   /**
@@ -26,24 +25,8 @@
      */
     function request(url, method, data) {
       return new Promise(function(resolve, reject) {
-
         var req = new XMLHttpRequest();
-        switch (method) {
-          case 'POST':
-            req.open('POST', url);
-            req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-            data = Utils.encodeParams(data);
-            break;
-          case 'UPLOAD':
-            req.open('POST', url);
-            break;
-          case 'GET':
-          case 'PUT':
-          case 'DELETE':
-            req.open(method, url);
-            break;
-        }
-
+        req.open(method, url);
         req.onload = function() {
           if (req.status == 200) {
             resolve(req.response);
@@ -69,36 +52,17 @@
      * @return {promise}
      */
     _this.get = function(url) {
-      return request(url, 'GET');
-    };
-
-    /**
-     * Get request with JSON response
-     * @param {string} url
-     * @return {promise}
-     */
-    _this.getJSON = function(url) {
-      return _this.get(url).then(JSON.parse);
+      return request(url, 'GET').then(JSON.parse);
     };
 
     /**
      * Post request
-     * @param {string} url
-     * @param {object} data
+     * @param {string}  url
+     * @param {object}  data
      * @return {promise}
      */
     _this.post = function(url, data) {
-      return request(url, 'POST', data);
-    };
-
-    /**
-     * Post request with JSON response
-     * @param {string} url
-     * @param {object} data
-     * @return {promise}
-     */
-    _this.postJSON = function(url, data) {
-      return _this.post(url, data).then(JSON.parse);
+      return request(url, 'POST', data).then(JSON.parse);
     };
 
     /**
@@ -107,36 +71,7 @@
      * @return {promise}
      */
     _this.delete = function(url) {
-      return request(url, 'DELETE');
-    };
-
-    /**
-     * Delete request with JSON response
-     * @param {string} url
-     * @return {promise}
-     */
-    _this.deleteJSON = function(url) {
-      return _this.delete(url).then(JSON.parse);
-    };
-
-    /**
-     * Upload request
-     * @param {string} url
-     * @param {object} data
-     * @return {promise}
-     */
-    _this.upload = function(url, data) {
-      return request(url, 'UPLOAD', data);
-    };
-
-    /**
-     * Upload request with JSON response
-     * @param {string} url
-     * @param {object} data
-     * @return {promise}
-     */
-    _this.uploadJSON = function(url, data) {
-      return _this.upload(url, data).then(JSON.parse);
+      return request(url, 'DELETE').then(JSON.parse);
     };
 
     return _this;

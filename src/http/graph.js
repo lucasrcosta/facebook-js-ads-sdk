@@ -1,8 +1,7 @@
 (function(root, factory) {
   'use strict';
   var dependencies = [
-    './xml-http-request',
-    './../utils/utils'
+    './xml-http-request'
   ];
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else if (typeof exports === 'object') {
@@ -10,7 +9,7 @@
     module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
   }
   else root.FacebookAdsApi.define('Http.Graph', dependencies, factory);
-}(this, function(Http, Utils) {
+}(this, function(Http) {
   'use strict';
 
   /**
@@ -30,31 +29,22 @@
      */
     _this.get = function(path, params) {
       var requestUrl = _this.getRequestUrl(path, params);
-      return Http.getJSON(requestUrl);
+      return Http.get(requestUrl);
     };
 
     /**
      * Post Graph Request
-     * @param {string} path
-     * @param {object} data
-     * @param {object} params
+     * @param {string}  path
+     * @param {object}  data
+     * @param {object}  params
+     * @param {bool}    [encodeData] default true
      * @return {promise}
      */
-    _this.post = function(path, data, params) {
+    _this.post = function(path, data, params, encodeData) {
+      if (encodeData !== false)
+        data = encodeParams(data);
       var requestUrl = _this.getRequestUrl(path, params);
-      return Http.postJSON(requestUrl, data);
-    };
-
-    /**
-     * Upload to Graph Request
-     * @param {string} path
-     * @param {object} data
-     * @param {object} params
-     * @return {promise}
-     */
-    _this.upload = function(path, data, params) {
-      var requestUrl = _this.getRequestUrl(path, params);
-      return Http.uploadJSON(requestUrl, data);
+      return Http.post(requestUrl, data);
     };
 
     /**
@@ -65,7 +55,7 @@
      */
     _this.delete = function(path, params) {
       var requestUrl = _this.getRequestUrl(path, params);
-      return Http.deleteJSON(requestUrl);
+      return Http.delete(requestUrl);
     };
 
     /**
@@ -75,8 +65,10 @@
      * @return {string}
      */
     _this.getRequestUrl = function(path, params) {
-      params = addTokenAndLocale(params);
-      return url + 'v' + api.getVersion() + '/' + path + '?' + Utils.encodeParams(params);
+      params = params || {};
+      params.access_token =  api.getToken();
+      params.locale =  api.getLocale();
+      return url + 'v' + api.getVersion() + '/' + path + '?' + encodeParams(params);
     };
 
     /**
@@ -88,14 +80,16 @@
     };
 
     /**
-     * @param {object} obj
-     * @augments obj
+     * Encode parameter object as querystring
+     * @param {object} params
+     * @return {string} querystring
      */
-    function addTokenAndLocale(obj) {
-      obj = obj || {};
-      obj.access_token =  api.getToken();
-      obj.locale =  api.getLocale();
-      return obj;
+    function encodeParams(params) {
+      return Object.keys(params).map(function(param) {
+        if (typeof params[param] == 'object')
+          params[param] = !params[param] ? '' : JSON.stringify(params[param]);
+        return param + '=' + encodeURIComponent(params[param]);
+      }).join('&');
     }
 
     return _this;

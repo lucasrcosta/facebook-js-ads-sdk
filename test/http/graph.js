@@ -48,28 +48,38 @@ describe('Graph', function() {
       var api = new FacebookAdsApi(token);
       var path = 'path';
       var requestUrl = api.graph.getRequestUrl(path);
-      var httpGetJSON = this.stub(Http, 'getJSON');
+      var httpGet = this.stub(Http, 'get');
       api.graph.get(path);
-      httpGetJSON.should.have.been.calledWith(requestUrl);
+      httpGet.should.have.been.calledWith(requestUrl);
     }));
 
-    it('calls a POST graph request', sinon.test(function() {
+    it('calls an encoded POST graph request', sinon.test(function() {
       var api = new FacebookAdsApi(token);
       var path = 'path';
       var requestUrl = api.graph.getRequestUrl(path);
       var data = {a: 1};
-      var httpPostJSON = this.stub(Http, 'postJSON');
+      var httpPost = this.stub(Http, 'post');
       api.graph.post(path, data);
-      httpPostJSON.should.have.been.calledWith(requestUrl, data);
+      httpPost.should.have.been.calledWith(requestUrl, 'a=1');
+    }));
+
+    it('calls a non-encoded POST graph request', sinon.test(function() {
+      var api = new FacebookAdsApi(token);
+      var path = 'path';
+      var requestUrl = api.graph.getRequestUrl(path);
+      var data = {a: 1};
+      var httpPost = this.stub(Http, 'post');
+      api.graph.post(path, data, null, false);
+      httpPost.should.have.been.calledWith(requestUrl, {a: 1});
     }));
 
     it('calls a DELETE graph request', sinon.test(function() {
       var api = new FacebookAdsApi(token);
       var path = 'path';
       var requestUrl = api.graph.getRequestUrl(path);
-      var httpDeleteJSON = this.stub(Http, 'deleteJSON');
+      var httpDelete = this.stub(Http, 'delete');
       api.graph.delete(path);
-      httpDeleteJSON.should.have.been.calledWith(requestUrl);
+      httpDelete.should.have.been.calledWith(requestUrl);
     }));
 
   });

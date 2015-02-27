@@ -47,6 +47,7 @@ describe('AdGroup', function() {
       })
       .catch(reject);
     });
+
     var adCreativePromise = new Promise(function(resolve, reject) {
       // Create AdImage
       if (!FormData)

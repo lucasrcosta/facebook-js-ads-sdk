@@ -190,8 +190,8 @@ if (typeof exports === 'object')
         filter = fields;
       return new Promise(function(resolve, reject) {
         fetchConnection(ObjClass, filter, params, endpoint)
-          .then(function(response) {
-            var collection = new Collection(ObjClass, _this.getParentId(), response);
+          .then(function(data) {
+            var collection = new Collection(ObjClass, _this.getParentId(), data);
             resolve(collection);
           })
         .catch(reject);
@@ -215,8 +215,8 @@ if (typeof exports === 'object')
         filter = fields;
       return new Promise(function(resolve, reject) {
         fetchConnection(ObjClass, filter, params, endpoint)
-          .then(function(response) {
-            var connectedObj = new ObjClass(response, _this.getParentId());
+          .then(function(data) {
+            var connectedObj = new ObjClass(data, _this.getParentId());
             resolve(connectedObj);
           })
         .catch(reject);

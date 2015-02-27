@@ -124,7 +124,7 @@ describe('CrudObject', function() {
         var graphPost = sinon.stub(api.graph, 'post');
         var params = {param: 1};
         crudObj.create(params);
-        graphPost.should.have.been.calledWith(crudObj.getParentId() + '/' + crudObj.getEndpoint(), params);
+        graphPost.should.have.been.calledWith(crudObj.getParentId() + '/' + crudObj.getEndpoint(), {}, params);
       });
 
       it('sends object changed data', function() {
@@ -132,7 +132,7 @@ describe('CrudObject', function() {
         var crudObj = new CrudObject(api, 'endpoint', ['id'], null, 321);
         var graphPost = sinon.stub(api.graph, 'post');
         crudObj.create();
-        graphPost.should.have.been.calledWith(crudObj.getParentId() + '/' + crudObj.getEndpoint(), undefined, crudObj.getChangedData());
+        graphPost.should.have.been.calledWith(crudObj.getParentId() + '/' + crudObj.getEndpoint(), crudObj.getChangedData());
       });
 
       it('sets returned data', function(done) {
@@ -182,7 +182,7 @@ describe('CrudObject', function() {
         var graphPost = sinon.stub(api.graph, 'post');
         var params = {param: 1};
         crudObj.update(params);
-        graphPost.should.have.been.calledWith(crudObj.getNodePath(), params);
+        graphPost.should.have.been.calledWith(crudObj.getNodePath(), {id: 123}, params);
       });
 
       it('sends object changed data', function() {
@@ -190,7 +190,7 @@ describe('CrudObject', function() {
         var crudObj = new CrudObject(api, 'endpoint', ['id'], 123);
         var graphPost = sinon.stub(api.graph, 'post');
         crudObj.update();
-        graphPost.should.have.been.calledWith(crudObj.getNodePath(), undefined, crudObj.getChangedData());
+        graphPost.should.have.been.calledWith(crudObj.getNodePath(), crudObj.getChangedData());
       });
 
       it('persists data', function(done) {

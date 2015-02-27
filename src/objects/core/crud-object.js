@@ -94,7 +94,7 @@ if (typeof exports === 'object')
       var path = _this.getParentId() + '/' + _this.getEndpoint();
       var data = _this.getChangedData();
       return new Promise(function(resolve, reject) {
-        api.graph.post(path, params, data)
+        api.graph.post(path, data, params)
           .then(function(data) {
             if (data.success) // Validation
               resolve(data);
@@ -141,7 +141,7 @@ if (typeof exports === 'object')
       var path = _this.getNodePath();
       var data = _this.getChangedData();
       return new Promise(function(resolve, reject) {
-        api.graph.post(path, params, data)
+        api.graph.post(path, data, params)
           .then(function(data) {
             var isValidation = params && params.execution_options && params.execution_options[0] && params.execution_options[0] == 'validate_only';
             if (!isValidation)

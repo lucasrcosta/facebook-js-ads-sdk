@@ -36,13 +36,25 @@
     /**
      * Post Graph Request
      * @param {string} path
-     * @param {object} params
      * @param {object} data
+     * @param {object} params
      * @return {promise}
      */
-    _this.post = function(path, params, data) {
+    _this.post = function(path, data, params) {
       var requestUrl = _this.getRequestUrl(path, params);
       return Http.postJSON(requestUrl, data);
+    };
+
+    /**
+     * Upload to Graph Request
+     * @param {string} path
+     * @param {object} data
+     * @param {object} params
+     * @return {promise}
+     */
+    _this.upload = function(path, data, params) {
+      var requestUrl = _this.getRequestUrl(path, params);
+      return Http.uploadJSON(requestUrl, data);
     };
 
     /**
@@ -54,17 +66,6 @@
     _this.delete = function(path, params) {
       var requestUrl = _this.getRequestUrl(path, params);
       return Http.deleteJSON(requestUrl);
-    };
-
-    /**
-     * Upload to Graph Request
-     * @param {string} path
-     * @param {object} data
-     * @return {promise}
-     */
-    _this.upload = function(path, data) {
-      var requestUrl = _this.getRequestUrl(path);
-      return Http.uploadJSON(requestUrl, data);
     };
 
     /**

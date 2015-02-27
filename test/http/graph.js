@@ -59,7 +59,7 @@ describe('Graph', function() {
       var requestUrl = api.graph.getRequestUrl(path);
       var data = {a: 1};
       var httpPostJSON = this.stub(Http, 'postJSON');
-      api.graph.post(path, null, data);
+      api.graph.post(path, data);
       httpPostJSON.should.have.been.calledWith(requestUrl, data);
     }));
 

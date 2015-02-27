@@ -33,6 +33,16 @@ describe('AdAccount', function() {
         .catch(done);
     });
 
+    it('gets Ad Groups', function(done) {
+      var adAccount = new api.AdAccount(testData.accountId);
+      adAccount.getAdGroups()
+        .then(function(data) {
+          data.should.be.an('array');
+          done();
+        })
+        .catch(done);
+    });
+
     it('gets Ad Creatives', function(done) {
       var adAccount = new api.AdAccount(testData.accountId);
       adAccount.getAdCreatives()

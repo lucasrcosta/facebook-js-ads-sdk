@@ -107,6 +107,17 @@ describe('AdSet', function() {
 
   describe('connection objects', function() {
 
+    it('gets Ad Groups', function(done) {
+      checkSetId(done);
+      var adSet = new api.AdSet(setId, testData.accountId);
+      adSet.getAdGroups()
+        .then(function(data) {
+          data.should.be.an('array');
+          done();
+        })
+        .catch(done);
+    });
+
     it('gets Ad Creatives', function(done) {
       checkSetId(done);
       var adSet = new api.AdSet(setId, testData.accountId);

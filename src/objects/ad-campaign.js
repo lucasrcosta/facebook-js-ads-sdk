@@ -44,6 +44,15 @@
       return _this.getManyByConnection(api.AdSet, fields, params);
     };
 
+    /**
+     * @param  {array}    fields
+     * @param  {object}   params
+     * @return {promise}
+     */
+    _this.getAdGroups = function(fields, params) {
+      return _this.getManyByConnection(api.AdGroup, fields, params);
+    };
+
     return _this;
   }
 

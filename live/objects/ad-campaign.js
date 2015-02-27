@@ -85,6 +85,17 @@ describe('AdCampaign', function() {
         .catch(done);
     });
 
+    it('gets Ad Groups', function(done) {
+      checkCampaignId(done);
+      var adCampaign = new api.AdCampaign(campaignId, testData.accountId);
+      adCampaign.getAdGroups()
+        .then(function(data) {
+          data.should.be.an('array');
+          done();
+        })
+        .catch(done);
+    });
+
   });
 
   function checkCampaignId(done) {

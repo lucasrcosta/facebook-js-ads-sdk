@@ -53,6 +53,15 @@
      * @param  {object}   params
      * @return {promise}
      */
+    _this.getAdGroups = function(fields, params) {
+      return _this.getManyByConnection(api.AdGroup, fields, params);
+    };
+
+    /**
+     * @param  {array}    fields
+     * @param  {object}   params
+     * @return {promise}
+     */
     _this.getAdCreatives = function(fields, params) {
       return _this.getManyByConnection(api.AdCreative, fields, params);
     };

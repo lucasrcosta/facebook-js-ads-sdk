@@ -81,6 +81,15 @@
     };
 
     /**
+     * @param  {array}    fields
+     * @param  {object}   params
+     * @return {promise}
+     */
+    _this.getAdGroups = function(fields, params) {
+      return _this.getManyByConnection(api.AdGroup, fields, params);
+    };
+
+    /**
      * @param  {object}   params
      * @return {promise}
      */

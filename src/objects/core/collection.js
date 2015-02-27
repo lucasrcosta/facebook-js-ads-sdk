@@ -12,8 +12,14 @@
 }(this, function(Http) {
   'use strict';
 
-  function Collection(ObjClass, response) {
-    var _this = dataToObjects(ObjClass, response.data);
+  /**
+   * Collection of graph objects
+   * @param {class} ObjClass
+   * @param {string} parentId
+   * @param {object} response request response
+   */
+  function Collection(ObjClass, parentId, response) {
+    var _this = dataToObjects(ObjClass, response.data, parentId);
     var paging = response.paging;
 
     /**
@@ -28,7 +34,7 @@
         }
         Http.getJSON(paging.next)
           .then(function(response) {
-            setCollection(response.data);
+            setCollection(response.data, parentId);
             paging = response.paging;
             resolve(_this);
           })
@@ -56,7 +62,7 @@
         }
         Http.getJSON(paging.previous)
           .then(function(response) {
-            setCollection(response.data);
+            setCollection(response.data, parentId);
             paging = response.paging;
             resolve(_this);
           })
@@ -90,25 +96,27 @@
 
     /**
      * Turn response data into objects
-     * @param  {class} ObjClass
-     * @param  {array} data
+     * @param  {class}  ObjClass
+     * @param  {array}  data
+     * @param  {string} parentId
      * @return {array}
      */
-    function dataToObjects(ObjClass, data) {
+    function dataToObjects(ObjClass, data, parentId) {
       var objArray = [];
       for (var i = 0; i < data.length; i++) {
-        objArray.push(new ObjClass(data[i]));
+        objArray.push(new ObjClass(data[i], parentId));
       }
       return objArray;
     }
 
     /**
      * Set new collection data
-     * @param {array} data
+     * @param {array}   data
+     * @param {string}  parentId
      */
-    function setCollection(data) {
+    function setCollection(data, parentId) {
       _this.length = 0;
-      _this.push.apply(_this, dataToObjects(ObjClass, data));
+      _this.push.apply(_this, dataToObjects(ObjClass, data, parentId));
     }
 
     return _this;

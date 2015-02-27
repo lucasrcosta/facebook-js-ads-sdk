@@ -19,7 +19,7 @@ if (typeof exports === 'object')
    * @param {string}          endpoint
    * @param {array}           fields
    * @param {mixed}           [initData] string will be converted to id property
-   * @param {int}             [parentId] for new object creation
+   * @param {string}          [parentId] for new object creation
    * @extends DataObject
    * @class
    */
@@ -67,7 +67,7 @@ if (typeof exports === 'object')
 
     /**
      * @throws {error} if object has no id
-     * @return {mixed}
+     * @return {string}
      */
     _this.getId = function() {
       if (_this.id !== 0 && !_this.id)
@@ -191,7 +191,7 @@ if (typeof exports === 'object')
       return new Promise(function(resolve, reject) {
         fetchConnection(ObjClass, filter, params, endpoint)
           .then(function(response) {
-            var collection = new Collection(ObjClass, response);
+            var collection = new Collection(ObjClass, _this.getParentId(), response);
             resolve(collection);
           })
         .catch(reject);
@@ -216,7 +216,7 @@ if (typeof exports === 'object')
       return new Promise(function(resolve, reject) {
         fetchConnection(ObjClass, filter, params, endpoint)
           .then(function(response) {
-            var connectedObj = new ObjClass(response);
+            var connectedObj = new ObjClass(response, _this.getParentId());
             resolve(connectedObj);
           })
         .catch(reject);

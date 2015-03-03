@@ -98,7 +98,6 @@
         api.graph.get('/', params)
           .then(function(data) {
             var objects = [];
-            var keys = Object.keys(data);
             Object.keys(data).map(function(id) {
               objects.push(new ObjClass(data[id]));
             });

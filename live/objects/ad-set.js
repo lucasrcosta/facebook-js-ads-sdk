@@ -129,6 +129,16 @@ describe('AdSet', function() {
         .catch(done);
     });
 
+    it('gets Ad Statistics', function(done) {
+      var adSet = new api.AdSet(setId, testData.accountId);
+      adSet.getAdStatistics()
+        .then(function(data) {
+          data.should.be.an('object');
+          done();
+        })
+        .catch(done);
+    });
+
   });
 
   function checkSetId(done) {

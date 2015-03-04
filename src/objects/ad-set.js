@@ -66,6 +66,15 @@
       return _this.getManyByConnection(api.AdCreative, fields, params);
     };
 
+    /**
+     * @param  {array}    fields
+     * @param  {object}   params
+     * @return {promise}
+     */
+    _this.getAdStatistics = function(fields, params) {
+      return _this.getOneByConnection(api.AdStatistics, fields, params);
+    };
+
     return _this;
   }
 

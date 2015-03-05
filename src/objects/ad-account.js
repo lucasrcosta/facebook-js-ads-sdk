@@ -122,6 +122,16 @@
       return _this.getOneByConnection(api.AdStatistics, fields, params);
     };
 
+    /**
+     * @param  {array} adGroupIds
+     * @param  {object}   params
+     * @return {promise}
+     */
+    _this.getAdGroupsStats = function(adGroupIds, params) {
+      var path = _this.getId() + '/adgroupstats';
+      return api.graph.get(path, params);
+    };
+
     return _this;
   }
 

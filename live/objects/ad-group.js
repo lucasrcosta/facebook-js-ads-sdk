@@ -144,6 +144,20 @@ describe('AdGroup', function() {
       .catch(done);
   });
 
+  describe('connection objects', function() {
+
+    it('gets Ad Statistics', function(done) {
+      var adGroup = new api.AdGroup(groupId, testData.accountId);
+      adGroup.getAdStatistics()
+        .then(function(data) {
+          data.should.be.an('object');
+          done();
+        })
+        .catch(done);
+    });
+
+  });
+
   function checkGroupId(done) {
     if (!groupId) {
       done(new Error('No groupId'));

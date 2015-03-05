@@ -47,6 +47,15 @@
     var _this = new CrudObject(api, endpoint, fields, initData, accountId);
     Archivable.call(_this, 'campaign_status');
 
+    /**
+     * @param  {array}    fields
+     * @param  {object}   params
+     * @return {promise}
+     */
+    _this.getAdStatistics = function(fields, params) {
+      return _this.getOneByConnection(api.AdStatistics, fields, params);
+    };
+
     return _this;
   }
 

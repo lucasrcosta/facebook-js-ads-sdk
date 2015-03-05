@@ -73,6 +73,16 @@ describe('AdAccount', function() {
         .catch(done);
     });
 
+    it('gets Ad Group Statistics', function(done) {
+      var adAccount = new api.AdAccount(testData.accountId);
+      adAccount.getAdGroupsStats()
+        .then(function(data) {
+          data.should.be.an('object');
+          done();
+        })
+        .catch(done);
+    });
+
   });
 
 });

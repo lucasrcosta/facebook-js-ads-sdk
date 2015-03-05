@@ -127,7 +127,7 @@
      * @param  {object}   params
      * @return {promise}
      */
-    _this.getAdGroupsStats = function(adGroupIds, params) {
+    _this.getAdGroupStats = function(adGroupIds, params) {
       return _this.getManyByConnection(api.AdStatistics, null, params, 'adgroupstats');
     };
 

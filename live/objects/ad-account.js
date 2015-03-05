@@ -75,7 +75,7 @@ describe('AdAccount', function() {
 
     it('gets Ad Group Statistics', function(done) {
       var adAccount = new api.AdAccount(testData.accountId);
-      adAccount.getAdGroupsStats()
+      adAccount.getAdGroupStats()
         .then(function(data) {
           data.should.be.an('array');
           done();

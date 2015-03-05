@@ -128,8 +128,7 @@
      * @return {promise}
      */
     _this.getAdGroupsStats = function(adGroupIds, params) {
-      var path = _this.getId() + '/adgroupstats';
-      return api.graph.get(path, params);
+      return _this.getManyByConnection(api.AdStatistics, null, params, 'adgroupstats');
     };
 
     return _this;

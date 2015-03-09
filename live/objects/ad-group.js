@@ -146,6 +146,16 @@ describe('AdGroup', function() {
 
   describe('connection objects', function() {
 
+    it('gets Ad Preview', function(done) {
+      var adGroup = new api.AdGroup(groupId, testData.accountId);
+      adGroup.getAdPreviews({ad_format: 'RIGHT_COLUMN_STANDARD'})
+        .then(function(data) {
+          data[0].body.should.be.ok;
+          done();
+        })
+        .catch(done);
+    });
+
     it('gets Ad Statistics', function(done) {
       var adGroup = new api.AdGroup(groupId, testData.accountId);
       adGroup.getAdStatistics()

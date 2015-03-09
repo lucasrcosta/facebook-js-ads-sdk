@@ -1,6 +1,28 @@
 describe('AdAccount', function() {
   'use strict';
 
+  var adImage;
+
+  before(function(done) {
+    if (!FormData)
+      throw new Error('FormData missing');
+    var formData = new FormData();
+    formData.append('1200x628.gif', testImages.gif_1280_628, '1200x628.gif');
+    adImage = new api.AdImage(null, testData.accountId);
+    adImage.create(formData).then(function() {
+      done();
+    })
+    .catch(done);
+  });
+
+  after(function(done) {
+    adImage.delete()
+      .then(function(data) {
+        done();
+      })
+      .catch(done);
+  });
+
   it('reads', function(done) {
     var adAccount = new api.AdAccount(testData.accountId);
     adAccount.read()
@@ -58,6 +80,26 @@ describe('AdAccount', function() {
       adAccount.getAdImages()
         .then(function(data) {
           data.should.be.an('array');
+          done();
+        })
+        .catch(done);
+    });
+
+    it('gets Ad Previews', function(done) {
+      var adAccount = new api.AdAccount(testData.accountId);
+      var creativeData = {
+        name: 'SDK TEST AD-PREVIEW',
+        title: 'Title for Ad Creative',
+        body: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
+        object_url: 'http://www.facebook.com',
+        image_hash: adImage.hash
+      };
+      adAccount.getAdPreviews({
+        ad_format: 'RIGHT_COLUMN_STANDARD',
+        creative: creativeData
+      })
+        .then(function(data) {
+          data[0].body.should.be.ok;
           done();
         })
         .catch(done);

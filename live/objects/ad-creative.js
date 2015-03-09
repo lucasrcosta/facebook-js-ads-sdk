@@ -77,6 +77,20 @@ describe('AdCreative', function() {
       .catch(done);
   });
 
+  describe('connection objects', function() {
+
+    it('gets Ad Preview', function(done) {
+      var adCreative = new api.AdCreative(creativeId, testData.accountId);
+      adCreative.getAdPreviews({ad_format: 'RIGHT_COLUMN_STANDARD'})
+        .then(function(data) {
+          data[0].body.should.be.ok;
+          done();
+        })
+        .catch(done);
+    });
+
+  });
+
   function checkCreativeId(done) {
     if (!creativeId) {
       done(new Error('No creativeId'));

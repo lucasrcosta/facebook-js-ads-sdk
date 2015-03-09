@@ -48,6 +48,14 @@
     Archivable.call(_this, 'campaign_status');
 
     /**
+     * @param  {object}   params
+     * @return {promise}
+     */
+    _this.getAdPreviews = function(params) {
+      return _this.getManyByConnection(api.AdPreview, null, params);
+    };
+
+    /**
      * @param  {array}    fields
      * @param  {object}   params
      * @return {promise}

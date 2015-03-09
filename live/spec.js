@@ -5,6 +5,7 @@ window.testData;
 window.log = console.log.bind(console); // Log wrapper
 
 var tests = [
+  './objects/ad-user',
   './objects/ad-account',
   './objects/ad-campaign',
   './objects/ad-set',

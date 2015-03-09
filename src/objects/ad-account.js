@@ -73,6 +73,15 @@
      * @param  {object}   params
      * @return {promise}
      */
+    _this.getAdUsers = function(fields, params) {
+      return _this.getManyByConnection(api.AdUser, fields, params);
+    };
+
+    /**
+     * @param  {array}    fields
+     * @param  {object}   params
+     * @return {promise}
+     */
     _this.getAdCampaigns = function(fields, params) {
       return _this.getManyByConnection(api.AdCampaign, fields, params);
     };

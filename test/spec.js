@@ -39,6 +39,7 @@ if (typeof define === 'function' && define.amd) {
       './http/graph',
       './objects/core/data-object',
       './objects/core/crud-object',
+      './objects/ad-user',
       './objects/ad-account',
       './objects/ad-campaign',
       './objects/ad-set',

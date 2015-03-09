@@ -35,6 +35,16 @@ describe('AdAccount', function() {
 
   describe('connection objects', function() {
 
+    it('gets Ad Users', function(done) {
+      var adAccount = new api.AdAccount(testData.accountId);
+      adAccount.getAdUsers()
+        .then(function(data) {
+          data.should.be.an('array');
+          done();
+        })
+        .catch(done);
+    });
+
     it('gets Ad Campaigns', function(done) {
       var adAccount = new api.AdAccount(testData.accountId);
       adAccount.getAdCampaigns()

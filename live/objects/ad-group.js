@@ -170,7 +170,6 @@ describe('AdGroup', function() {
       var adGroup = new api.AdGroup(groupId, testData.accountId);
       adGroup.getReachEstimate()
         .then(function(data) {
-          console.log('data:', data);
           data.should.be.an('object');
           done();
         })

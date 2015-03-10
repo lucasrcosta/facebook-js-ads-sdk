@@ -164,8 +164,8 @@
      * @param  {object}   params
      * @return {promise}
      */
-    _this.getReachEstimate = function(fields, params) {
-      return _this.getOneByConnection(api.ReachEstimate, fields, params);
+    _this.getReachEstimate = function(params) {
+      return _this.getOneByConnection(api.ReachEstimate, null, params);
     };
 
     return _this;

@@ -145,6 +145,17 @@ describe('AdAccount', function() {
         .catch(done);
     });
 
+    it('gets Reach Estimate', function(done) {
+      var adAccount = new api.AdAccount(testData.accountId);
+      var targetingSpec = {geo_locations: {countries: ['BR']}};
+      adAccount.getReachEstimate(null, {targeting_spec: targetingSpec})
+        .then(function(data) {
+          data.should.be.an('object');
+          done();
+        })
+        .catch(done);
+    });
+
   });
 
 });

@@ -12,12 +12,13 @@
     './ad-preview',
     './ad-statistics',
     './connection-object',
+    './reach-estimate',
   ];
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
   else root.FacebookAdsApi.define('Objects.Objects', dependencies, factory);
 
-}(this, function(AdUser, AdAccount, AdCampaign, AdSet, AdGroup, AdCreative, AdImage, AdPreview, AdStatistics, ConnectionObject) {
+}(this, function(AdUser, AdAccount, AdCampaign, AdSet, AdGroup, AdCreative, AdImage, AdPreview, AdStatistics, ConnectionObject, ReachEstimate) {
   'use strict';
 
   return {
@@ -31,6 +32,7 @@
     AdPreview: AdPreview,
     AdStatistics: AdStatistics,
     ConnectionObject: ConnectionObject,
+    ReachEstimate: ReachEstimate,
   };
 }));
 /* jshint ignore:end */

@@ -64,6 +64,15 @@
       return _this.getOneByConnection(api.AdStatistics, fields, params);
     };
 
+    /**
+     * @param  {array}    fields
+     * @param  {object}   params
+     * @return {promise}
+     */
+    _this.getReachEstimate = function(fields, params) {
+      return _this.getOneByConnection(api.ReachEstimate, fields, params);
+    };
+
     return _this;
   }
 

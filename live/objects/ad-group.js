@@ -166,6 +166,17 @@ describe('AdGroup', function() {
         .catch(done);
     });
 
+    it('gets Reach Estimate', function(done) {
+      var adGroup = new api.AdGroup(groupId, testData.accountId);
+      adGroup.getReachEstimate()
+        .then(function(data) {
+          console.log('data:', data);
+          data.should.be.an('object');
+          done();
+        })
+        .catch(done);
+    });
+
   });
 
   function checkGroupId(done) {

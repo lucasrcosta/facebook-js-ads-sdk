@@ -123,20 +123,20 @@
     };
 
     /**
+     * @param  {object}   params
+     * @return {promise}
+     */
+    _this.getAdPreviews = function(params) {
+      return _this.getManyByConnection(api.AdPreview, null, params, 'generatepreviews');
+    };
+
+    /**
      * @param  {array}    fields
      * @param  {object}   params
      * @return {promise}
      */
     _this.getAdStatistics = function(fields, params) {
       return _this.getOneByConnection(api.AdStatistics, fields, params);
-    };
-
-    /**
-     * @param  {object}   params
-     * @return {promise}
-     */
-    _this.getAdPreviews = function(params) {
-      return _this.getManyByConnection(api.AdPreview, null, params, 'generatepreviews');
     };
 
     /**
@@ -148,6 +148,15 @@
       params = params || {};
       params.adgroup_ids = adGroupIds || [];
       return _this.getManyByConnection(api.AdStatistics, null, params, 'adgroupstats');
+    };
+
+    /**
+     * @param  {array}    fields
+     * @param  {object}   params
+     * @return {promise}
+     */
+    _this.getConnectionObjects = function(fields, params) {
+      return _this.getManyByConnection(api.ConnectionObject, fields, params);
     };
 
     return _this;

@@ -11,12 +11,13 @@
     './ad-image',
     './ad-preview',
     './ad-statistics',
+    './connection-object',
   ];
   if (typeof define === 'function' && define.amd) define(dependencies, factory);
   else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
   else root.FacebookAdsApi.define('Objects.Objects', dependencies, factory);
 
-}(this, function(AdUser, AdAccount, AdCampaign, AdSet, AdGroup, AdCreative, AdImage, AdPreview, AdStatistics) {
+}(this, function(AdUser, AdAccount, AdCampaign, AdSet, AdGroup, AdCreative, AdImage, AdPreview, AdStatistics, ConnectionObject) {
   'use strict';
 
   return {
@@ -29,6 +30,7 @@
     AdImage: AdImage,
     AdPreview: AdPreview,
     AdStatistics: AdStatistics,
+    ConnectionObject: ConnectionObject,
   };
 }));
 /* jshint ignore:end */

@@ -31,6 +31,7 @@
     'updated_time',
     'targeting',
     'promoted_object',
+    'is_autobid',
     // 'rf_prediction_id',
   ];
 

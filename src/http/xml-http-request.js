@@ -42,6 +42,8 @@
         req.onerror = function() {
           reject(Error('Network Error'));
         };
+        if (!FormData || !(data instanceof FormData))
+          req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         req.send(data);
       });
     }

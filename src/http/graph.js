@@ -59,6 +59,20 @@
     };
 
     /**
+     * Search the Graph
+     * @param {string} query
+     * @param {object} type
+     * @return {promise}
+     */
+    _this.search = function(query, type) {
+      var params = {q: query};
+      if (type)
+        params.type = type;
+      var requestUrl = _this.getRequestUrl('search', params);
+      return Http.get(requestUrl);
+    };
+
+    /**
      * URL, version and enpoint
      * @param {string} path
      * @param {object} params

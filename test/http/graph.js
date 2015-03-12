@@ -82,6 +82,20 @@ describe('Graph', function() {
       httpDelete.should.have.been.calledWith(requestUrl);
     }));
 
+    it('can search the graph', sinon.test(function() {
+      var api = new FacebookAdsApi(token);
+      var query = 'Mark';
+      var type = 'user';
+      var params = {
+        q: query,
+        type: type
+      };
+      var requestUrl = api.graph.getRequestUrl('search', params);
+      var httpGet = this.stub(Http, 'get');
+      api.graph.search(query, type);
+      httpGet.should.have.been.calledWith(requestUrl);
+    }));
+
   });
 
 });

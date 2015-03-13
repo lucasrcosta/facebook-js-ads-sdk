@@ -155,6 +155,15 @@
      * @param  {object}   params
      * @return {promise}
      */
+    _this.getConversionPixels = function(fields, params) {
+      return _this.getManyByConnection(api.AdConversionPixel, fields, params);
+    };
+
+    /**
+     * @param  {array}    fields
+     * @param  {object}   params
+     * @return {promise}
+     */
     _this.getConnectionObjects = function(fields, params) {
       return _this.getManyByConnection(api.ConnectionObject, fields, params);
     };

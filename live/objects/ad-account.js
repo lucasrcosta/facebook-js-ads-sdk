@@ -135,6 +135,16 @@ describe('AdAccount', function() {
         .catch(done);
     });
 
+    it('gets Conversion Pixels', function(done) {
+      var adAccount = new api.AdAccount(testData.accountId);
+      adAccount.getConversionPixels()
+        .then(function(data) {
+          data.should.be.an('array');
+          done();
+        })
+        .catch(done);
+    });
+
     it('gets Connection Objects', function(done) {
       var adAccount = new api.AdAccount(testData.accountId);
       adAccount.getConnectionObjects()

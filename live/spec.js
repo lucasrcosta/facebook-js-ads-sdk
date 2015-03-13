@@ -12,6 +12,7 @@ var tests = [
   './objects/ad-image',
   './objects/ad-creative',
   './objects/ad-group',
+  './objects/ad-conversion-pixel',
   './api',
 ];
 

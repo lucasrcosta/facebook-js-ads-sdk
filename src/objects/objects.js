@@ -11,6 +11,7 @@
     './ad-image',
     './ad-preview',
     './ad-statistics',
+    './ad-conversion-pixel',
     './connection-object',
     './reach-estimate',
   ];
@@ -18,7 +19,7 @@
   else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
   else root.FacebookAdsApi.define('Objects.Objects', dependencies, factory);
 
-}(this, function(AdUser, AdAccount, AdCampaign, AdSet, AdGroup, AdCreative, AdImage, AdPreview, AdStatistics, ConnectionObject, ReachEstimate) {
+}(this, function(AdUser, AdAccount, AdCampaign, AdSet, AdGroup, AdCreative, AdImage, AdPreview, AdStatistics, AdConversionPixel, ConnectionObject, ReachEstimate) {
   'use strict';
 
   return {
@@ -31,6 +32,7 @@
     AdImage: AdImage,
     AdPreview: AdPreview,
     AdStatistics: AdStatistics,
+    AdConversionPixel: AdConversionPixel,
     ConnectionObject: ConnectionObject,
     ReachEstimate: ReachEstimate,
   };

@@ -15,6 +15,7 @@ describe('CrudObject', function() {
   'use strict';
 
   var token = 'a1b2c3d4e5';
+  var emptyPromise = new Promise(function(resolve) { resolve({}); });
 
   describe('constructor', function() {
 
@@ -41,7 +42,7 @@ describe('CrudObject', function() {
       it('uses node path as path', function() {
         var api = new FacebookAdsApi(token);
         var crudObj = new CrudObject(api, 'endpoint', ['id'], 123);
-        var graphGet = sinon.stub(api.graph, 'get');
+        var graphGet = sinon.stub(api.graph, 'get').returns(emptyPromise);
         crudObj.read();
         graphGet.should.have.been.calledWith(crudObj.getNodePath());
       });
@@ -50,7 +51,7 @@ describe('CrudObject', function() {
         var api = new FacebookAdsApi(token);
         var fields = ['id', 'field1', 'field2'];
         var crudObj = new CrudObject(api, 'endpoint', fields, 123);
-        var graphGet = sinon.stub(api.graph, 'get');
+        var graphGet = sinon.stub(api.graph, 'get').returns(emptyPromise);
         var filter = ['field1', 'field2'];
         crudObj.read(filter);
         graphGet.should.have.been.calledWith(crudObj.getNodePath(), {fields: filter});
@@ -68,7 +69,7 @@ describe('CrudObject', function() {
         var api = new FacebookAdsApi(token);
         var fields = ['id', 'field1', 'field2'];
         var crudObj = new CrudObject(api, 'endpoint', fields, 123);
-        var graphGet = sinon.stub(api.graph, 'get');
+        var graphGet = sinon.stub(api.graph, 'get').returns(emptyPromise);
         crudObj.read();
         graphGet.should.have.been.calledWith(crudObj.getNodePath(), {fields: fields});
       });
@@ -77,7 +78,7 @@ describe('CrudObject', function() {
         var api = new FacebookAdsApi(token);
         var fields = ['id', 'field1', 'field2'];
         var crudObj = new CrudObject(api, 'endpoint', fields, 123);
-        var graphGet = sinon.stub(api.graph, 'get');
+        var graphGet = sinon.stub(api.graph, 'get').returns(emptyPromise);
         crudObj.read(null, {param: 1});
         graphGet.should.have.been.calledWith(crudObj.getNodePath(), {fields: fields, param: 1});
       });
@@ -113,7 +114,7 @@ describe('CrudObject', function() {
       it('uses parentId/endpoint as path', function() {
         var api = new FacebookAdsApi(token);
         var crudObj = new CrudObject(api, 'endpoint', ['id'], null, 321);
-        var graphPost = sinon.stub(api.graph, 'post');
+        var graphPost = sinon.stub(api.graph, 'post').returns(emptyPromise);
         crudObj.create();
         graphPost.should.have.been.calledWith(crudObj.getParentId() + '/' + crudObj.getEndpoint());
       });
@@ -121,7 +122,7 @@ describe('CrudObject', function() {
       it('accepts params', function() {
         var api = new FacebookAdsApi(token);
         var crudObj = new CrudObject(api, 'endpoint', ['id'], null, 321);
-        var graphPost = sinon.stub(api.graph, 'post');
+        var graphPost = sinon.stub(api.graph, 'post').returns(emptyPromise);
         var params = {param: 1};
         crudObj.create(params);
         graphPost.should.have.been.calledWith(crudObj.getParentId() + '/' + crudObj.getEndpoint(), {}, params);
@@ -130,7 +131,7 @@ describe('CrudObject', function() {
       it('sends object changed data', function() {
         var api = new FacebookAdsApi(token);
         var crudObj = new CrudObject(api, 'endpoint', ['id'], null, 321);
-        var graphPost = sinon.stub(api.graph, 'post');
+        var graphPost = sinon.stub(api.graph, 'post').returns(emptyPromise);
         crudObj.create();
         graphPost.should.have.been.calledWith(crudObj.getParentId() + '/' + crudObj.getEndpoint(), crudObj.getChangedData());
       });
@@ -171,7 +172,7 @@ describe('CrudObject', function() {
       it('uses node path as path', function() {
         var api = new FacebookAdsApi(token);
         var crudObj = new CrudObject(api, 'endpoint', ['id'], 123, 321);
-        var graphPost = sinon.stub(api.graph, 'post');
+        var graphPost = sinon.stub(api.graph, 'post').returns(emptyPromise);
         crudObj.update();
         graphPost.should.have.been.calledWith(crudObj.getNodePath());
       });
@@ -179,7 +180,7 @@ describe('CrudObject', function() {
       it('accepts params', function() {
         var api = new FacebookAdsApi(token);
         var crudObj = new CrudObject(api, 'endpoint', ['id'], 123);
-        var graphPost = sinon.stub(api.graph, 'post');
+        var graphPost = sinon.stub(api.graph, 'post').returns(emptyPromise);
         var params = {param: 1};
         crudObj.update(params);
         graphPost.should.have.been.calledWith(crudObj.getNodePath(), {id: 123}, params);
@@ -188,7 +189,7 @@ describe('CrudObject', function() {
       it('sends object changed data', function() {
         var api = new FacebookAdsApi(token);
         var crudObj = new CrudObject(api, 'endpoint', ['id'], 123);
-        var graphPost = sinon.stub(api.graph, 'post');
+        var graphPost = sinon.stub(api.graph, 'post').returns(emptyPromise);
         crudObj.update();
         graphPost.should.have.been.calledWith(crudObj.getNodePath(), crudObj.getChangedData());
       });

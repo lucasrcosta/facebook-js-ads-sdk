@@ -61,7 +61,7 @@
             var keys = Object.keys(data.images);
             if (keys.length > 1) {
               var images = [];
-              for (var i = keys.length - 1; i >= 0; i--) {
+              for (var i = 0; i < keys.length; i++) {
                 imgData = data.images[keys[i]];
                 imgData.filename = keys[i];
                 images.push(new api.AdImage(imgData, accountId));

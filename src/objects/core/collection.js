@@ -1,3 +1,5 @@
+if (typeof exports === 'object')
+    var Promise = require('promise');
 (function(root, factory) {
   'use strict';
   var dependencies = [
@@ -32,7 +34,7 @@
           resolve(false);
           return;
         }
-        Http.getJSON(paging.next)
+        Http.get(paging.next)
           .then(function(response) {
             setCollection(response.data, parentId);
             paging = response.paging;
@@ -60,7 +62,7 @@
           resolve(false);
           return;
         }
-        Http.getJSON(paging.previous)
+        Http.get(paging.previous)
           .then(function(response) {
             setCollection(response.data, parentId);
             paging = response.paging;

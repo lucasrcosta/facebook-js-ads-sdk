@@ -54,7 +54,6 @@ describe('AdConversionPixel', function() {
       .catch(done);
   });
 
-
   function checkPixelId(done) {
     if (!pixelId) {
       done(new Error('No pixelId'));

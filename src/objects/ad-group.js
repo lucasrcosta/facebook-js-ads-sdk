@@ -20,18 +20,15 @@
     'campaign_group_id',
     'conversion_specs',
     'created_time',
-    'creative_ids',
     'adgroup_review_feedback',
     'id',
     'name',
     'targeting',
     'tracking_specs',
     'updated_time',
-    'view_tags',
     'creative',
     'social_prefs',
     'failed_delivery_checks',
-    'objective',
   ];
 
   /**

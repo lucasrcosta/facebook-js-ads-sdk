@@ -135,8 +135,8 @@
      * @param  {object}   params
      * @return {promise}
      */
-    _this.getAdStatistics = function(fields, params) {
-      return _this.getOneByConnection(api.AdStatistics, fields, params);
+    _this.getInsights = function(fields, params) {
+      return _this.getOneByConnection(api.Insights, fields, params);
     };
 
     /**

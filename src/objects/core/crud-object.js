@@ -107,19 +107,18 @@ if (typeof exports === 'object')
 
     /**
      * Read object data
-     * @param   {array}   [filter] selected fields
+     * @param   {array}   [fields]
      * @param   {object}  [params] additional params
      * @throws  {error}   if graph promise is rejected
      * @return  {promise} resolves to {object} _this
      */
-    _this.read = function(filter, params) {
+    _this.read = function(fields, params) {
       var path = _this.getNodePath();
-      if (filter)
-        checkFilter(filter, fields);
-      else
-        filter = fields;
       params = params || {};
-      params.fields = filter;
+      if (fields) {
+        checkFilter(_this, fields);
+        params.fields = fields;
+      }
       return new Promise(function(resolve, reject) {
         api.graph.get(path, params)
           .then(function(data) {
@@ -176,20 +175,15 @@ if (typeof exports === 'object')
     /**
      * Read connected objects
      * @param   {CrudObject}  ObjClass
-     * @param   {array}       filter     fields filter
+     * @param   {array}       fields     fields
      * @param   {object}      params
      * @param   {string}      [endpoint]
      * @return  {promise}
      * @resolve {Collection}
      */
-    _this.getManyByConnection = function(ObjClass, filter, params, endpoint) {
-      var fields = ObjClass.getFields();
-      if (filter)
-        checkFilter(filter, fields);
-      else
-        filter = fields;
+    _this.getManyByConnection = function(ObjClass, fields, params, endpoint) {
       return new Promise(function(resolve, reject) {
-        fetchConnection(ObjClass, filter, params, endpoint)
+        fetchConnection(ObjClass, fields, params, endpoint)
           .then(function(response) {
             var collection = new Collection(ObjClass, _this.getParentId(), response);
             resolve(collection);
@@ -201,20 +195,15 @@ if (typeof exports === 'object')
     /**
      * Read connected object
      * @param   {CrudObject}  ObjClass
-     * @param   {array}       filter     fields filter
+     * @param   {array}       fields     fields
      * @param   {object}      params
      * @param   {string}      [endpoint]
      * @return  {promise}
      * @resolve {object}
      */
-    _this.getOneByConnection = function(ObjClass, filter, params, endpoint) {
-      var fields = ObjClass.getFields();
-      if (filter)
-        checkFilter(filter, fields);
-      else
-        filter = fields;
+    _this.getOneByConnection = function(ObjClass, fields, params, endpoint) {
       return new Promise(function(resolve, reject) {
-        fetchConnection(ObjClass, filter, params, endpoint)
+        fetchConnection(ObjClass, fields, params, endpoint)
           .then(function(data) {
             var connectedObj = new ObjClass(data, _this.getParentId());
             resolve(connectedObj);
@@ -226,32 +215,35 @@ if (typeof exports === 'object')
     /**
      * Read objects from connection
      * @param  {CrudObject} ObjClass
-     * @param  {array}  filter     fields filter
+     * @param  {array}  fields     fields
      * @param  {object} params
      * @param  {string} [endpoint]
      * @return {promise}
      */
-    function fetchConnection(ObjClass, filter, params, endpoint) {
+    function fetchConnection(ObjClass, fields, params, endpoint) {
       if (!endpoint && !ObjClass.getEndpoint)
         throw new Error('Endpoint must be given or provided by ObjClass');
       endpoint = endpoint || ObjClass.getEndpoint();
-      filter = filter || ObjClass.getFields();
       params = params || {};
-      params.fields = filter;
+      if (fields) {
+        checkFilter(ObjClass, fields);
+        params.fields = fields;
+      }
       var path = _this.getId() + '/' + endpoint;
       return api.graph.get(path, params);
     }
 
     /**
      * Check if filter fields are in the fields array
-     * @param  {array}  filter
+     * @param  {object} ObjClass
      * @param  {array}  fields
      * @throws {error}  if a field is not found
      */
-    function checkFilter(filter, fields) {
-      for (var field in filter) {
-        if (fields.indexOf(filter[field]) < 0)
-          throw new Error('"' + filter[field] + '"" is not a field of this object');
+    function checkFilter(ObjClass, fields) {
+      var default_fields = ObjClass.getFields();
+      for (var field in fields) {
+        if (default_fields.indexOf(fields[field]) < 0)
+          throw new Error('"' + fields[field] + '"" is not a field of this object');
       }
     }
 

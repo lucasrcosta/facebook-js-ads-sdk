@@ -13,22 +13,24 @@
   var endpoint = 'adgroups';
   var fields = [
     'account_id',
-    'adgroup_status',
-    'bid_type',
+    'adgroup_review_feedback',
+    'adlabels',
+    'bid_amount',
     'bid_info',
-    'campaign_id',
     'campaign_group_id',
+    'campaign_id',
     'conversion_specs',
     'created_time',
-    'adgroup_review_feedback',
+    'creative',
+    'failed_delivery_checks',
     'id',
     'name',
-    'targeting',
+    'redownload',
+    'social_prefs',
+    'adgroup_status',
     'tracking_specs',
     'updated_time',
-    'creative',
-    'social_prefs',
-    'failed_delivery_checks',
+    'view_tags',
   ];
 
   /**

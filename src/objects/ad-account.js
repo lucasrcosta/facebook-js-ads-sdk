@@ -140,17 +140,6 @@
     };
 
     /**
-     * @param  {array} adGroupIds
-     * @param  {object}   params
-     * @return {promise}
-     */
-    _this.getAdGroupStats = function(adGroupIds, params) {
-      params = params || {};
-      params.adgroup_ids = adGroupIds || [];
-      return _this.getManyByConnection(api.AdStatistics, null, params, 'adgroupstats');
-    };
-
-    /**
      * @param  {array}    fields
      * @param  {object}   params
      * @return {promise}

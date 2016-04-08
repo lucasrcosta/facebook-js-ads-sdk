@@ -135,19 +135,8 @@
      * @param  {object}   params
      * @return {promise}
      */
-    _this.getAdStatistics = function(fields, params) {
-      return _this.getOneByConnection(api.AdStatistics, fields, params);
-    };
-
-    /**
-     * @param  {array} adGroupIds
-     * @param  {object}   params
-     * @return {promise}
-     */
-    _this.getAdGroupStats = function(adGroupIds, params) {
-      params = params || {};
-      params.adgroup_ids = adGroupIds || [];
-      return _this.getManyByConnection(api.AdStatistics, null, params, 'adgroupstats');
+    _this.getInsights = function(fields, params) {
+      return _this.getOneByConnection(api.Insights, fields, params);
     };
 
     /**

@@ -15,6 +15,7 @@
   var endpoint = 'users';
   var fields = [
     'id',
+    'name',
     'permissions',
     'role',
   ];

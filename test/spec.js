@@ -8,48 +8,30 @@ if (typeof define === 'function' && define.amd) {
     },
     shim: {
       'mocha': {
-        init: function() {
-          'use strict';
-          this.mocha.setup('bdd');
-          return this.mocha;
+        init: function () {
+          this.mocha.setup('bdd')
+          return this.mocha
         }
       },
       'sinon': {
-        init: function() {
-          'use strict';
-          return this.sinon;
+        init: function () {
+          return this.sinon
         }
       }
     }
-  });
+  })
 
   require([
     'mocha',
     'chai',
     'sinon',
-    'sinon-chai',
-    './../src/api',
-    './../src/objects/mixins/cannot-update' //temp
-  ], function() {
-    'use strict';
-
+    'sinon-chai'
+  ], function () {
     require([
-      './api',
-      './http/xml-http-request',
-      './http/graph',
-      './objects/core/data-object',
-      './objects/core/crud-object',
-      './objects/core/collection',
-      './objects/ad-user',
-      './objects/ad-account',
-      './objects/ad-campaign',
-      './objects/ad-set',
-      './objects/ad-image',
-      './objects/ad-creative',
-      './objects/ad-group',
-      './objects/mixins',
-    ], function() {
-      mocha.run();
-    });
-  });
+      './suite'
+    ], function () {
+      mocha.ui('bdd')
+      mocha.run()
+    })
+  })
 }

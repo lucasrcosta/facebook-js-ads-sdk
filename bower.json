@@ -11,7 +11,18 @@
   ],
   "homepage": "https://github.com/lucascosta/facebook-js-ads-sdk",
   "bugs": "https://github.com/lucascosta/facebook-js-ads-sdk/issues",
-  "keywords": [ "facebook", "ads", "sdk", "api", "javascript", "nodejs", "amd", "requirejs", "umd", "promises" ],
+  "keywords": [
+    "facebook",
+    "ads",
+    "sdk",
+    "api",
+    "javascript",
+    "nodejs",
+    "amd",
+    "requirejs",
+    "umd",
+    "promises"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/lucascosta/facebook-js-ads-sdk.git"

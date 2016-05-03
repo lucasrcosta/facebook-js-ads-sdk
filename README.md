@@ -1,6 +1,10 @@
 # Facebook Ads API SDK for JS [![Build Status](https://travis-ci.org/lucascosta/facebook-js-ads-sdk.svg?branch=master)](https://travis-ci.org/lucascosta/facebook-js-ads-sdk)
 A **Promise-based** SDK built to facilitate application development for [**Facebook Ads API**](https://developers.facebook.com/docs/ads-api).
 
+## Notice
+
+I'm currently moving this project to ES2015 and updating it to the 2.6 version of the API. I can follow the progress on [this branch](https://github.com/lucascosta/facebook-js-ads-sdk/tree/2.6).
+
 ## Installation
 
 The SDK is is served as a [**UMD module**](https://github.com/umdjs/umd) that works in **Node**, **AMD (RequireJS)** and as a **browser global variable**.

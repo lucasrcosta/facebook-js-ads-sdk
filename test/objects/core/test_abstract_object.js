@@ -4,14 +4,14 @@ should()
 
 describe('AbstractObject', () => {
   class ConcreteObject extends AbstractObject {
-    constructor (data = {}) {
-      super(ConcreteObject.fields, data)
-    }
     static get fields () {
       return Object.freeze({
         field: 'field',
         field2: 'field2'
       })
+    }
+    constructor (data = {}) {
+      super(ConcreteObject.fields, data)
     }
   }
 

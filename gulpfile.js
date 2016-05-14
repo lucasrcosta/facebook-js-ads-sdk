@@ -17,7 +17,7 @@ gulp.task('test', function () {
 })
 
 gulp.task('watch', function () {
-  gulp.watch(['src/**/*.js', 'test/**/*.js'], ['standard', 'test'])
+  gulp.watch(['src/**/*.js', 'test/**/*.js', '!test/suite.js'], ['standard', 'test'])
 })
 
 gulp.task('default', function () {
@@ -27,7 +27,7 @@ gulp.task('default', function () {
 gulp.task('bundle-tests', function () {
   gulp.src('test/suite.es6', {read: false})
     .pipe($.rollup({
-      format: 'cjs',
+      format: 'amd',
       plugins: [ babel({
         babelrc: false,
         presets: [ 'es2015-rollup' ]
@@ -35,6 +35,10 @@ gulp.task('bundle-tests', function () {
     }))
     .pipe($.rename('suite.js'))
     .pipe(gulp.dest('./test'))
+})
+
+gulp.task('watch-bundle', function () {
+  gulp.watch(['src/**/*.js', 'test/**/*.*'], ['bundle-tests'])
 })
 
 gulp.task('test-phantom', ['bundle-tests'], function () {

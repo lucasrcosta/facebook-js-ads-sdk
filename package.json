@@ -41,6 +41,7 @@
     "gulp-open": "^1.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-rollup": "^1.8.0",
+    "gulp-sourcemaps": "^1.6.0",
     "gulp-standard": "^6.0.5",
     "mocha": "^2.4.5",
     "mocha-phantomjs": "^4.0.2",
@@ -51,8 +52,7 @@
     "standard": "^6.0.8"
   },
   "dependencies": {
-    "promise": "^7.1.1",
-    "request-json": "^0.5.5"
+    "request-promise": "^3.0.0"
   },
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register",

@@ -17,18 +17,16 @@ export default class AbstractCrudObject extends AbstractObject {
   }
 
   /**
-   * Define data getter and setter for every field recording changes
+   * Define data getter and setter recording changes
    */
-  _defineProperties () {
-    this._fields.forEach((field) => {
-      Object.defineProperty(this, field, {
-        get: () => this._data[field],
-        set: (value) => {
-          this._changes[field] = value
-          this._data[field] = value
-        },
-        enumerable: true
-      })
+  _defineProperty (field) {
+    Object.defineProperty(this, field, {
+      get: () => this._data[field],
+      set: (value) => {
+        this._changes[field] = value
+        this._data[field] = value
+      },
+      enumerable: true
     })
   }
 

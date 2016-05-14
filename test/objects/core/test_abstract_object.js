@@ -5,10 +5,7 @@ should()
 describe('AbstractObject', () => {
   class ConcreteObject extends AbstractObject {
     static get fields () {
-      return Object.freeze({
-        field: 'field',
-        field2: 'field2'
-      })
+      return Object.freeze({ field: 'field' })
     }
     constructor (data = {}) {
       super(ConcreteObject.fields, data)
@@ -29,40 +26,39 @@ describe('AbstractObject', () => {
     object._data.field.should.be.equal(1)
   })
 
-  it('set method should be chainable', () => {
+  it('should set an extra data field value', () => {
+    const object = new ConcreteObject()
+    object.set('field', 1)
+    object._data.field.should.be.equal(1)
+  })
+
+  it('should chain the set method', () => {
     const object = new ConcreteObject()
     object.set('field', 1).should.be.equal(object)
   })
 
-  it('should throw an error when setting an unregistered field', () => {
-    (() => {
-      const object = new ConcreteObject()
-      object.set('c', 1)
-    }).should.throw(Error)
-  })
-
-  it('should set multiple data fields values', () => {
+  it('should set multiple data fields', () => {
     const object = new ConcreteObject()
-    object.setData({field: 1, field2: 2})
+    object.setData({field: 1, extrafield: 2})
     object.field.should.be.equal(1)
-    object.field2.should.be.equal(2)
+    object.extrafield.should.be.equal(2)
   })
 
-  it('setData method should be chainable', () => {
+  it('should chain the setData method', () => {
     const object = new ConcreteObject()
-    object.setData({field: 1, field2: 2}).should.be.equal(object)
-  })
-
-  it('should export data', () => {
-    const data = {field: 1, field2: 2}
-    const object = new ConcreteObject()
-    object.setData(data)
-    object.exportData().should.be.eql(data)
+    object.setData({field: 1}).should.be.equal(object)
   })
 
   it('should set initial data', () => {
-    const data = {field: 1, field2: 2}
+    const data = {field: 1, extrafield: 2}
     const object = new ConcreteObject(data)
+    object.exportData().should.be.eql(data)
+  })
+
+  it('should export data', () => {
+    const data = {field: 1, extrafield: 2}
+    const object = new ConcreteObject()
+    object.setData(data)
     object.exportData().should.be.eql(data)
   })
 })

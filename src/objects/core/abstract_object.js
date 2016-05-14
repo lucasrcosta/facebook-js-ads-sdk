@@ -11,20 +11,20 @@ export default class AbstractObject {
   constructor (fields, data = {}) {
     this._data = {}
     this._fields = Object.keys(fields)
-    this._defineProperties()
+    this._fields.forEach((field) => {
+      this._defineProperty(field)
+    })
     if (data) this.setData(data)
   }
 
   /**
-   * Define data getter and setter for every field
+   * Define data getter and setter field
    */
-  _defineProperties () {
-    this._fields.forEach((field) => {
-      Object.defineProperty(this, field, {
-        get: () => this._data[field],
-        set: (value) => { console.log(value); this._data[field] = value },
-        enumerable: true
-      })
+  _defineProperty (field) {
+    Object.defineProperty(this, field, {
+      get: () => this._data[field],
+      set: (value) => { this._data[field] = value },
+      enumerable: true
     })
   }
 
@@ -36,9 +36,9 @@ export default class AbstractObject {
    */
   set (field, value) {
     if (this._fields.indexOf(field) < 0) {
-      throw Error(field + ' is not one of this object\'s fields')
+      this._defineProperty(field)
     }
-    this._data[field] = value
+    this[field] = value
     return this
   }
 

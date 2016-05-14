@@ -1,5 +1,6 @@
-test/suite.js
+test/suite.js*
 node_modules
 bower_components
 desktop.ini
 npm-debug.log
+

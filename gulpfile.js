@@ -31,9 +31,11 @@ gulp.task('bundle-tests', function () {
       plugins: [ babel({
         babelrc: false,
         presets: [ 'es2015-rollup' ]
-      })]
+      })],
+      sourceMap: true
     }))
     .pipe($.rename('suite.js'))
+    .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('./test'))
 })
 

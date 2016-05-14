@@ -12,11 +12,22 @@ export default class Http {
    * @param {object} [data]
    * @return {Promise}
    */
-  static request (method, url, data) {
+  static request (method, url, params) {
+    if (method === 'GET' || method === 'DELETE') {
+      url += '?' + this._encode_params(params)
+    } else {
+      var data = params
+    }
     if (typeof window !== 'undefined' && window.XMLHttpRequest) {
       return Http.xmlHttpRequest(method, url, data)
     }
     return Http.request_promise(method, url, data)
+  }
+
+  static _encode_params (params) {
+    return Object.keys(params)
+      .filter((k) => params[k])
+      .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`).join('&')
   }
 
   /**

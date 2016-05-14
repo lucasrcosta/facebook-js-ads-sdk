@@ -1,4 +1,5 @@
 import AbstractObject from './abstract_object'
+import FacebookAdsApi from './../../api'
 
   /**
    * Abstract Crud Object
@@ -8,18 +9,24 @@ import AbstractObject from './abstract_object'
 export default class AbstractCrudObject extends AbstractObject {
 
   /**
-   * @param {array} fields
-   * @param {object} data Initial data
+   * @param  {array} fields
+   * @param  {object} data Initial data
+   * @param  {string} parent_id
+   * @param  {FacebookAdApi} api
    */
-  constructor (fields, data = {}) {
-    super(fields, data)
-    this._changes = {}
+  constructor (data = {}, parent_id, api) {
+    super(data)
+    this._parent_id = parent_id
+    this._api = api || FacebookAdsApi.get_default_api()
   }
 
   /**
    * Define data getter and setter recording changes
    */
   _defineProperty (field) {
+    if (this._changes === undefined) {
+      this._changes = {}
+    }
     Object.defineProperty(this, field, {
       get: () => this._data[field],
       set: (value) => {
@@ -37,11 +44,9 @@ export default class AbstractCrudObject extends AbstractObject {
    */
   setData (data) {
     super.setData(data)
-    if (this._changes) {
-      Object.keys(data).forEach((key) => {
-        delete this._changes[key]
-      })
-    }
+    Object.keys(data).forEach((key) => {
+      delete this._changes[key]
+    })
     return this
   }
 

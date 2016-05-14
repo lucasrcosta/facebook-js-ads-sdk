@@ -7,9 +7,6 @@ describe('AbstractObject', () => {
     static get fields () {
       return Object.freeze({ field: 'field' })
     }
-    constructor (data = {}) {
-      super(ConcreteObject.fields, data)
-    }
   }
 
   it('should create a data object with getters and setters for fields', () => {

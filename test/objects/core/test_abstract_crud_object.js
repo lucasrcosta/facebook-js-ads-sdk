@@ -7,9 +7,6 @@ describe('AbstractCrudObject', () => {
     static get fields () {
       return Object.freeze({ field: 'field' })
     }
-    constructor (data = {}) {
-      super(ConcreteCrudObject.fields, data)
-    }
   }
 
   it('should store changes for field properties', () => {

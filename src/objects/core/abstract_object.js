@@ -8,9 +8,12 @@ export default class AbstractObject {
    * @param {array} fields
    * @param {object} data Initial data
    */
-  constructor (fields, data = {}) {
+  constructor (data = {}) {
     this._data = {}
-    this._fields = Object.keys(fields)
+    if (this.constructor.fields === undefined) {
+      throw new Error('A "fields" static getter returning a frozen object must be defined in the  object class')
+    }
+    this._fields = Object.keys(this.constructor.fields)
     this._fields.forEach((field) => {
       this._defineProperty(field)
     })

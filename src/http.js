@@ -42,13 +42,13 @@ export default class Http {
       const request = new window.XMLHttpRequest()
       request.open(method, url)
       request.onload = function () {
-        if (request.status === 200) {
-          resolve(request.response)
-          return
-        }
         try {
-          const error = JSON.parse(request.response)
-          reject(error)
+          const response = JSON.parse(request.response)
+          if (request.status === 200) {
+            resolve(response)
+          } else {
+            reject(response)
+          }
         } catch (e) {
           reject(request.responseText)
         }

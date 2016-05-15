@@ -1,4 +1,4 @@
-import AbstractObject from './../../../src/objects/core/abstract_object'
+import { AbstractObject, AbstractCrudObject } from './../../src/core'
 import { should } from 'chai'
 should()
 
@@ -57,3 +57,36 @@ describe('AbstractObject', () => {
     object.exportData().should.be.eql(data)
   })
 })
+
+describe('AbstractCrudObject', () => {
+  class ConcreteCrudObject extends AbstractCrudObject {
+  }
+  ConcreteCrudObject.fields = Object.freeze({ field: 'field' })
+
+  it('should store changes for field properties', () => {
+    const object = new ConcreteCrudObject()
+    object.field = 3
+    object._changes.field.should.be.equal(3)
+  })
+
+  it('should set data wiping change history', () => {
+    const object = new ConcreteCrudObject()
+    object.field = 3
+    object.setData({'field': 3})
+    object.exportData().should.be.eql({})
+  })
+
+  it('should export changed data', () => {
+    const object = new ConcreteCrudObject()
+    object.field = 3
+    object.exportData().should.be.eql({'field': 3})
+  })
+
+  it('should clear change history', () => {
+    const object = new ConcreteCrudObject()
+    object.field = 3
+    object.clearHistory()
+    object.exportData().should.be.eql({})
+  })
+})
+

@@ -1,11 +1,11 @@
 import AbstractObject from './abstract_object'
 import FacebookAdsApi from './../../api'
 
-  /**
-   * Abstract Crud Object
-   * Facebook Object basic persistence functions
-   * @extends AbstractObject
-   */
+/**
+ * Abstract Crud Object
+ * Facebook Object basic persistence functions
+ * @extends AbstractObject
+ */
 export default class AbstractCrudObject extends AbstractObject {
 
   /**
@@ -81,19 +81,20 @@ export default class AbstractCrudObject extends AbstractObject {
     params['ids'] = ids.join(',')
     return new Promise((resolve, reject) => {
       return api.call(
-          'GET',
-          [''],
-          params
+        'GET',
+        [''],
+        params
       )
-        .then((response) => {
-          var result = []
-          for (let id in response) {
-            let data = response[id]
-            let object = new this(data)
-            result.push(object)
-          }
-          resolve(result)
-        })
+      .then((response) => {
+        var result = []
+        for (let id in response) {
+          let data = response[id]
+          let object = new this(data)
+          result.push(object)
+        }
+        resolve(result)
+      })
+      .catch(reject)
     })
   }
 }

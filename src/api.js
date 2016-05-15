@@ -42,7 +42,7 @@ export default class FacebookAdsApi {
 
   call (method, path, params) {
     params.access_token = this.access_token
-    if (path instanceof String === false) {
+    if (typeof path !== 'string' && !(path instanceof String)) {
       path = [FacebookAdsApi.GRAPH, FacebookAdsApi.VERSION, ...path].join('/')
     }
     return Http.request(method, path, params)

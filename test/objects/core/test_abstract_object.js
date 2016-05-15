@@ -4,10 +4,8 @@ should()
 
 describe('AbstractObject', () => {
   class ConcreteObject extends AbstractObject {
-    static get fields () {
-      return Object.freeze({ field: 'field' })
-    }
   }
+  ConcreteObject.fields = Object.freeze({ field: 'field' })
 
   it('should create a data object with getters and setters for fields', () => {
     const object = new ConcreteObject()

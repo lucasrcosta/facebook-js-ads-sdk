@@ -11,7 +11,7 @@ export default class AbstractObject {
   constructor (data = {}) {
     this._data = {}
     if (this.constructor.fields === undefined) {
-      throw new Error('A "fields" static getter returning a frozen object must be defined in the  object class')
+      throw new Error('A "fields" frozen object must be defined in the object class')
     }
     this._fields = Object.keys(this.constructor.fields)
     this._fields.forEach((field) => {

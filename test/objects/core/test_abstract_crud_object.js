@@ -4,10 +4,8 @@ should()
 
 describe('AbstractCrudObject', () => {
   class ConcreteCrudObject extends AbstractCrudObject {
-    static get fields () {
-      return Object.freeze({ field: 'field' })
-    }
   }
+  ConcreteCrudObject.fields = Object.freeze({ field: 'field' })
 
   it('should store changes for field properties', () => {
     const object = new ConcreteCrudObject()

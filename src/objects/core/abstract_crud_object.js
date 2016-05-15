@@ -66,4 +66,34 @@ export default class AbstractCrudObject extends AbstractObject {
     this._changes = {}
     return this
   }
+
+  /**
+   * Read Objecs by Ids
+   * @param  {array} ids
+   * @param  {Object} params
+   * @param  {Array}  fields
+   * @param  {FacebookAdsApi} [api]
+   * @return {Promise}
+   */
+  static getByIds (ids, params = {}, fields = [], api) {
+    api = api || FacebookAdsApi.get_default_api()
+    params['fields'] = fields.join(',')
+    params['ids'] = ids.join(',')
+    return new Promise((resolve, reject) => {
+      return api.call(
+          'GET',
+          [''],
+          params
+      )
+        .then((response) => {
+          var result = []
+          for (let id in response) {
+            let data = response[id]
+            let object = new this(data)
+            result.push(object)
+          }
+          resolve(result)
+        })
+    })
+  }
 }

@@ -68,6 +68,62 @@ export default class AbstractCrudObject extends AbstractObject {
   }
 
   /**
+   * @throws {error} if object has no id
+   * @return {string}
+   */
+  getId () {
+    if (!this.id) {
+      throw new Error(`${this.constructor.name} Id not defined`)
+    }
+    return this.id
+  }
+
+  /**
+   * @return {string}
+   */
+  getNodePath () {
+    return this.getId()
+  }
+
+  /**
+   * Return object API instance
+   * @throws {Error} if object doesn't hold an API
+   * @return {FacebookAdsApi}
+   */
+  getApi () {
+    const api = this._api
+    if (!api) {
+      throw new Error(`${this.constructor.name} does not yet have an associated api object.\n
+        Did you forget to instantiate an API session with: "FacebookAdsApi.init"?`
+      )
+    }
+    return api
+  }
+
+  /**
+   * Read object data
+   * @param   {array}   [fields]
+   * @param   {object}  [params]
+   * @throws  {error}   if graph promise is rejected
+   * @return  {promise} resolves to {object} _this
+   */
+  read (fields = [], params = {}) {
+    const api = this.getApi()
+    const path = this.getNodePath()
+    return new Promise((resolve, reject) => {
+      api.call(
+        'GET',
+        [path],
+        params
+      )
+      .then((data) => {
+        resolve(this.setData(data, true))
+      })
+      .catch(reject)
+    })
+  }
+
+  /**
    * Read Objecs by Ids
    * @param  {array} ids
    * @param  {Object} params

@@ -1,6 +1,8 @@
-import { AbstractObject, AbstractCrudObject } from './../../src/core'
-import { should } from 'chai'
-should()
+import { AbstractObject, AbstractCrudObject, Cursor } from './../../src/core'
+import chai from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+chai.use(chaiAsPromised)
+chai.should()
 
 describe('AbstractObject', () => {
   class ConcreteObject extends AbstractObject {
@@ -90,3 +92,79 @@ describe('AbstractCrudObject', () => {
   })
 })
 
+describe('Cursor', () => {
+  const callStub = (method, url) => {
+    return new Promise((resolve, reject) => {
+      if (url === '[nextUrl]') {
+        resolve({
+          data: [4, 5, 6],
+          paging: {
+            cursors: {
+              before: '[beforeCursor]',
+              after: '[afterCursor]'
+            },
+            previous: '[previousUrl]'
+          },
+          summary: { total_count: 6 }
+        })
+      } else {
+        resolve({
+          data: [1, 2, 3],
+          paging: {
+            cursors: {
+              before: '[beforeCursor]',
+              after: '[afterCursor]'
+            },
+            next: '[nextUrl]'
+          },
+          summary: { total_count: 6 }
+        })
+      }
+    })
+  }
+  const sourceObject = { getId: () => 'id', getApi: () => ({call: callStub}) }
+  const targetClass = { getEndpoint: () => 'endpoint' }
+
+  it('should clear data', () => {
+    const cursor = new Cursor(sourceObject, targetClass)
+    cursor.push(1, 2, 3)
+    cursor.clear()
+    cursor.length.should.be.equal(0)
+  })
+
+  it('should set data', () => {
+    const cursor = new Cursor(sourceObject, targetClass)
+    const data = [1, 2, 3]
+    cursor.set(data)
+    cursor.length.should.be.equal(3)
+    ;[...cursor].should.be.eql(data)
+  })
+
+  it('should load next and previous pages', (done) => {
+    const cursor = new Cursor(sourceObject, targetClass)
+    cursor.hasNext().should.be.true
+    cursor.next()
+    .then(() => {
+      ;[...cursor].should.be.eql([1, 2, 3])
+      cursor.hasNext().should.be.true
+      cursor.hasPrevious().should.be.false
+      cursor.paging.next.should.be.eql('[nextUrl]')
+      return cursor.next()
+    })
+    .then(() => {
+      [...cursor].should.be.eql([4, 5, 6])
+      cursor.hasNext().should.be.false
+      cursor.hasPrevious().should.be.true
+      cursor.next().should.be.rejectedWith(RangeError)
+      return cursor.previous()
+    })
+    .then(() => {
+      [...cursor].should.be.eql([1, 2, 3])
+      cursor.hasNext().should.be.true
+      cursor.hasPrevious().should.be.false
+      cursor.previous().should.be.rejectedWith(RangeError)
+      done()
+    })
+    .catch(done)
+  })
+})

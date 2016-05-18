@@ -191,7 +191,25 @@ export class AbstractCrudObject extends AbstractObject {
   }
 
   /**
-   * Read Objecs by Ids
+   * Initialize Cursor to paginate on edges
+   * @param  {Object}  targetClass
+   * @param  {Array}   fields
+   * @param  {Object}  params
+   * @param  {Boolean} fetchFirstPage
+   * @return {Cursor}
+   */
+  getEdge (targetClass, fields, params = {}, fetchFirstPage = true) {
+    if (fields) params['fields'] = fields.join(',')
+    const sourceObject = this
+    const cursor = new Cursor(sourceObject, targetClass, params)
+    if (fetchFirstPage) {
+      return cursor.next()
+    }
+    return cursor
+  }
+
+  /**
+   * Read Objects by Ids
    * @param  {array} ids
    * @param  {Object} params
    * @param  {Array}  fields
@@ -219,5 +237,74 @@ export class AbstractCrudObject extends AbstractObject {
       })
       .catch(reject)
     })
+  }
+}
+
+/**
+ * Cursor
+ * Iterates over edge objects and controls pagination
+ */
+export class Cursor extends Array {
+
+  /**
+   * @param  {Object} sourceObject
+   * @param  {Object} targetClass
+   * @param  {Object}  params
+   */
+  constructor (sourceObject, targetClass, params) {
+    super(0)
+    const next = [
+      sourceObject.getId(),
+      targetClass.getEndpoint()
+    ]
+    this._api = sourceObject.getApi()
+    this.paging = {next: next}
+    this.summary
+
+    this.clear = () => {
+      this.length = 0
+    }
+
+    this.set = (array) => {
+      this.clear()
+      this.push(...array)
+    }
+
+    this.next = () => {
+      if (!this.hasNext()) {
+        return Promise.reject(new RangeError('end of pagination'))
+      }
+      return this._loadPage(this.paging.next)
+    }
+
+    this.hasNext = () => {
+      return Boolean(this.paging) && Boolean(this.paging.next)
+    }
+
+    this.previous = () => {
+      if (!this.hasPrevious()) {
+        return Promise.reject(new RangeError('start of pagination'))
+      }
+      return this._loadPage(this.paging.previous)
+    }
+
+    this.hasPrevious = () => {
+      return Boolean(this.paging) && Boolean(this.paging.previous)
+    }
+
+    this._loadPage = (path) => {
+      const promise = new Promise((resolve, reject) => {
+        this._api.call('GET', path, params)
+        .then((response) => {
+          this.set(response.data)
+          this.paging = response.paging
+          this.summary = response.summary
+          resolve(this)
+        })
+        .catch(reject)
+      })
+      if (params) params = undefined
+      return promise
+    }
   }
 }

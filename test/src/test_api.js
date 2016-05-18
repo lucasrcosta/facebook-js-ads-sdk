@@ -5,6 +5,6 @@ should()
 describe('FacebookAdsApi', () => {
   it('should hold a a default instance', () => {
     const api = FacebookAdsApi.init('token')
-    FacebookAdsApi.get_default_api().should.be.equal(api)
+    FacebookAdsApi.getDefaultApi().should.be.equal(api)
   })
 })

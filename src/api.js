@@ -9,39 +9,39 @@ export default class FacebookAdsApi {
   static get GRAPH () { return 'https://graph.facebook.com' }
 
   /**
-   * @param {string} access_token
+   * @param {string} accessToken
    * @param {string} locale
    */
-  constructor (access_token, locale = 'en_US') {
-    if (!access_token) {
+  constructor (accessToken, locale = 'en_US') {
+    if (!accessToken) {
       throw new Error('Access token required')
     }
-    this.access_token = access_token
+    this.accessToken = accessToken
     this.locale = locale
   }
 
   /**
    * Instantiate an API and store it as the default
-   * @param  {string} access_token
+   * @param  {string} accessToken
    * @param  {string} locale
    * @return {FacebookAdsApi}
    */
-  static init (access_token, locale) {
-    const api = new this(access_token, locale)
-    this.set_default_api(api)
+  static init (accessToken, locale) {
+    const api = new this(accessToken, locale)
+    this.setDefaultApi(api)
     return api
   }
 
-  static set_default_api (api) {
-    this._default_api = api
+  static setDefaultApi (api) {
+    this._defaultApi = api
   }
 
-  static get_default_api () {
-    return this._default_api
+  static getDefaultApi () {
+    return this._defaultApi
   }
 
   call (method, path, params) {
-    params.access_token = this.access_token
+    params.accessToken = this.accessToken
     if (typeof path !== 'string' && !(path instanceof String)) {
       path = [FacebookAdsApi.GRAPH, FacebookAdsApi.VERSION, ...path].join('/')
     }

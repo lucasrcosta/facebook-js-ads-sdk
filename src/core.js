@@ -10,7 +10,7 @@ export class AbstractObject {
    * @param {array} fields
    * @param {object} data Initial data
    */
-  constructor (data = {}) {
+  constructor (data) {
     this._data = {}
     if (this.constructor.fields === undefined) {
       throw new Error('A "fields" frozen object must be defined in the object class')
@@ -19,7 +19,9 @@ export class AbstractObject {
     this._fields.forEach((field) => {
       this._defineProperty(field)
     })
-    if (data) this.setData(data)
+    if (data) {
+      this.setData(data)
+    }
   }
 
   /**
@@ -78,13 +80,13 @@ export class AbstractCrudObject extends AbstractObject {
   /**
    * @param  {array} fields
    * @param  {object} data Initial data
-   * @param  {string} parent_id
+   * @param  {string} parentId
    * @param  {FacebookAdApi} api
    */
-  constructor (data = {}, parent_id, api) {
+  constructor (data, parentId, api) {
     super(data)
-    this._parent_id = parent_id
-    this._api = api || FacebookAdsApi.get_default_api()
+    this._parentId = parentId
+    this._api = api || FacebookAdsApi.getDefaultApi()
   }
 
   /**
@@ -169,20 +171,16 @@ export class AbstractCrudObject extends AbstractObject {
 
   /**
    * Read object data
-   * @param   {array}   [fields]
-   * @param   {object}  [params]
-   * @throws  {error}   if graph promise is rejected
-   * @return  {promise} resolves to {object} _this
+   * @param   {Array}   [fields]
+   * @param   {Object}  [params]
+   * @return  {Promise}
    */
-  read (fields = [], params = {}) {
+  read (fields, params) {
     const api = this.getApi()
     const path = this.getNodePath()
+    if (fields) params['fields'] = fields.join(',')
     return new Promise((resolve, reject) => {
-      api.call(
-        'GET',
-        [path],
-        params
-      )
+      api.call('GET', [path], params)
       .then((data) => {
         resolve(this.setData(data, true))
       })
@@ -211,21 +209,17 @@ export class AbstractCrudObject extends AbstractObject {
   /**
    * Read Objects by Ids
    * @param  {array} ids
-   * @param  {Object} params
    * @param  {Array}  fields
+   * @param  {Object} params
    * @param  {FacebookAdsApi} [api]
    * @return {Promise}
    */
-  static getByIds (ids, params = {}, fields = [], api) {
-    api = api || FacebookAdsApi.get_default_api()
-    params['fields'] = fields.join(',')
+  static getByIds (ids, fields, params = {}, api) {
+    api = api || FacebookAdsApi.getDefaultApi()
+    if (fields) params['fields'] = fields.join(',')
     params['ids'] = ids.join(',')
     return new Promise((resolve, reject) => {
-      return api.call(
-        'GET',
-        [''],
-        params
-      )
+      return api.call('GET', [''], params)
       .then((response) => {
         var result = []
         for (let id in response) {

@@ -14,7 +14,8 @@ export default class Http {
    */
   static request (method, url, params) {
     if (method === 'GET' || method === 'DELETE') {
-      url += '?' + this._encode_params(params)
+      const prefix = url.indexOf('?') < 0 ? '?' : '&'
+      url += prefix + this._encode_params(params)
     } else {
       var data = params
     }

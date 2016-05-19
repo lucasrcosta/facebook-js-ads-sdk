@@ -27,7 +27,7 @@ var rollupAmd = $.rollup({
 })
 
 gulp.task('standard', function () {
-  return gulp.src(['src/**/*.js', 'test/*/*.js', '!dist/**/*.js'])
+  return gulp.src(['src/**/*.js', 'test/**/*.js*', '!test/**/suite.js*', '!dist/**/*.js', '!**/*'])
     .pipe($.standard())
     .pipe($.standard.reporter('default', {breakOnError: true}))
 })
@@ -39,7 +39,7 @@ gulp.task('test', function () {
 })
 
 gulp.task('watch', function () {
-  gulp.watch(['src/**/*.js', 'test/**/*.js', '!test/suite.js*'], ['standard', 'test'])
+  gulp.watch(['src/**/*.js', 'test/**/*.js', '!test/**/suite.js*'], ['standard', 'test'])
 })
 
 gulp.task('default', function () {
@@ -55,7 +55,7 @@ gulp.task('test-bundle', function () {
 })
 
 gulp.task('watch-bundle', function () {
-  gulp.watch(['src/**/*.js', 'test/**/*.*', '!test/suite.js*'], ['test-bundle'])
+  gulp.watch(['src/**/*.js', 'test/**/*.*', '!test/**/suite.js*'], ['test-bundle'])
 })
 
 gulp.task('test-phantom', ['bundle-tests'], function () {
@@ -74,10 +74,6 @@ gulp.task('integration', function () {
   require('babel-core/register')
   return gulp.src(['test/integration/integration.js'], {read: false})
     .pipe($.mocha({reporter: 'min'}))
-})
-
-gulp.task('watch-integration', function () {
-  gulp.watch(['test/integration/integration.js'], ['integration'])
 })
 
 gulp.task('integration-bundle', function () {

@@ -1,5 +1,6 @@
+import { ExtendableBuiltin } from './mixins'
 
-export class FacebookError extends Error {
+export class FacebookError extends ExtendableBuiltin(Error) {
   constructor (error) {
     super(error.message)
     this.name = 'FacebookError'
@@ -7,13 +8,15 @@ export class FacebookError extends Error {
 }
 
 export class FacebookRequestError extends FacebookError {
-  constructor (error) {
+  constructor (response, method, url, data) {
+    let error = response.body.error
     super(error.message)
     this.name = 'FacebookRequestError'
     this.message = error.message
-    this.type = error.type
-    this.code = error.code
-    this.fbtrace_id = error.fbtrace_id
+    this.status = response.status
+    this.response = response.body
+    this.method = method
+    this.url = url
+    if (data) this.data = data
   }
 }
-

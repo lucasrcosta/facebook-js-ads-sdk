@@ -12,23 +12,11 @@ export default class Http {
    * @param {object} [data]
    * @return {Promise}
    */
-  static request (method, url, params) {
-    if (method === 'GET' || method === 'DELETE') {
-      const prefix = url.indexOf('?') < 0 ? '?' : '&'
-      url += prefix + this._encode_params(params)
-    } else {
-      var data = params
-    }
+  static request (method, url, data) {
     if (typeof window !== 'undefined' && window.XMLHttpRequest) {
       return Http.xmlHttpRequest(method, url, data)
     }
     return Http.request_promise(method, url, data)
-  }
-
-  static _encode_params (params) {
-    return Object.keys(params)
-      .filter((k) => params[k])
-      .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`).join('&')
   }
 
   /**
@@ -45,13 +33,20 @@ export default class Http {
       request.onload = function () {
         try {
           const response = JSON.parse(request.response)
+
           if (request.status === 200) {
             resolve(response)
           } else {
-            reject(response)
+            reject({
+              body: response,
+              status: request.status
+            })
           }
         } catch (e) {
-          reject(request.responseText)
+          reject({
+            body: request.responseText,
+            status: request.status
+          })
         }
       }
       request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
@@ -79,7 +74,13 @@ export default class Http {
     if (data) {
       options.body = data
     }
-    return rp(options).catch((response) => { throw response.error ? response.error : response })
+    return rp(options).catch((response) => {
+      response = {
+        body: response.error ? response.error : response,
+        status: response.statusCode
+      }
+      throw response
+    })
   }
 
 }

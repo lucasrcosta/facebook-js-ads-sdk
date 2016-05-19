@@ -41,12 +41,25 @@ export default class FacebookAdsApi {
     return this._defaultApi
   }
 
-  call (method, path, params) {
-    params['access_token'] = this.accessToken
-    if (typeof path !== 'string' && !(path instanceof String)) {
-      path = [FacebookAdsApi.GRAPH, FacebookAdsApi.VERSION, ...path].join('/')
+  call (method, path, params = {}) {
+    var url
+    if (method === 'POST' || method === 'PUT') {
+      var data = params
     }
-    return Http.request(method, path, params)
-    .catch((error) => Promise.reject(new FacebookRequestError(error.error)))
+    if (typeof path !== 'string' && !(path instanceof String)) {
+      url = [FacebookAdsApi.GRAPH, FacebookAdsApi.VERSION, ...path].join('/')
+      params['access_token'] = this.accessToken
+      url += '?' + FacebookAdsApi._encode_params(params)
+    } else {
+      url = path
+    }
+    return Http.request(method, url, data)
+    .catch((response) => Promise.reject(new FacebookRequestError(response, method, url, data)))
+  }
+
+  static _encode_params (params) {
+    return Object.keys(params)
+      .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
+      .join('&')
   }
 }

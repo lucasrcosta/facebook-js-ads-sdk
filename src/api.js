@@ -1,4 +1,5 @@
 import Http from './http'
+import { FacebookRequestError } from './exceptions'
 
 /**
  * Facebook Ads API
@@ -41,10 +42,11 @@ export default class FacebookAdsApi {
   }
 
   call (method, path, params) {
-    params.accessToken = this.accessToken
+    params['access_token'] = this.accessToken
     if (typeof path !== 'string' && !(path instanceof String)) {
       path = [FacebookAdsApi.GRAPH, FacebookAdsApi.VERSION, ...path].join('/')
     }
     return Http.request(method, path, params)
+    .catch((error) => Promise.reject(new FacebookRequestError(error.error)))
   }
 }

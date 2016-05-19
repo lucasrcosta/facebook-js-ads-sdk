@@ -1,7 +1,5 @@
 import { AbstractObject, AbstractCrudObject, Cursor } from './../../src/core'
 import chai from 'chai'
-import chaiAsPromised from 'chai-as-promised'
-chai.use(chaiAsPromised)
 chai.should()
 
 describe('AbstractObject', () => {
@@ -152,17 +150,25 @@ describe('Cursor', () => {
       return cursor.next()
     })
     .then(() => {
-      [...cursor].should.be.eql([4, 5, 6])
+      ;[...cursor].should.be.eql([4, 5, 6])
       cursor.hasNext().should.be.false
       cursor.hasPrevious().should.be.true
-      cursor.next().should.be.rejectedWith(RangeError)
+      return cursor.next()
+    })
+    .catch((error) => {
+      if (error instanceof chai.AssertionError) throw error
+      error.should.be.an.instanceof(RangeError)
       return cursor.previous()
     })
     .then(() => {
-      [...cursor].should.be.eql([1, 2, 3])
+      ;[...cursor].should.be.eql([1, 2, 3])
       cursor.hasNext().should.be.true
       cursor.hasPrevious().should.be.false
-      cursor.previous().should.be.rejectedWith(RangeError)
+      return cursor.previous()
+    })
+    .catch((error) => {
+      if (error instanceof chai.AssertionError) throw error
+      error.should.be.an.instanceof(RangeError)
       done()
     })
     .catch(done)

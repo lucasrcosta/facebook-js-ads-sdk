@@ -1,4 +1,5 @@
-test/suite.js*
+test/**/suite.js*
+test/**/*.json
 node_modules
 bower_components
 desktop.ini

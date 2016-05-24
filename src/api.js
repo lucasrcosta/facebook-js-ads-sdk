@@ -19,6 +19,7 @@ export default class FacebookAdsApi {
     }
     this.accessToken = accessToken
     this.locale = locale
+    this._debug = false
   }
 
   /**
@@ -41,6 +42,11 @@ export default class FacebookAdsApi {
     return this._defaultApi
   }
 
+  setDebug (flag) {
+    this._debug = flag
+    return this
+  }
+
   call (method, path, params = {}) {
     var url
     if (method === 'POST' || method === 'PUT') {
@@ -53,8 +59,16 @@ export default class FacebookAdsApi {
     } else {
       url = path
     }
+
     return Http.request(method, url, data)
-    .catch((response) => Promise.reject(new FacebookRequestError(response, method, url, data)))
+    .then((response) => {
+      if (this._debug) console.log(200, method, url)
+      return Promise.resolve(response)
+    })
+    .catch((response) => {
+      if (this._debug) console.log(response.status, method, url)
+      throw new FacebookRequestError(response, method, url, data)
+    })
   }
 
   static _encode_params (params) {

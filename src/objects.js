@@ -5,7 +5,7 @@ import { AbstractCrudObject } from './core'
  * @extends AbstractCrudObject
  */
 export class Business extends AbstractCrudObject {
-  static get fields () {
+  static get Fields () {
     return Object.freeze({
       id: 'id',
       name: 'name',
@@ -19,7 +19,7 @@ export class Business extends AbstractCrudObject {
  * @extends AbstractCrudObject
  */
 export class User extends AbstractCrudObject {
-  static get fields () {
+  static get Fields () {
     return Object.freeze({
       about: 'about',
       admin_notes: 'admin_notes',

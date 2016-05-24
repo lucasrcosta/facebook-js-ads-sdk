@@ -7,15 +7,14 @@ import FacebookAdsApi from './api'
 export class AbstractObject {
 
   /**
-   * @param {array} fields
    * @param {object} data Initial data
    */
   constructor (data) {
     this._data = {}
-    if (this.constructor.fields === undefined) {
-      throw new Error('A "fields" frozen object must be defined in the object class')
+    if (this.constructor.Fields === undefined) {
+      throw new Error('A "Fields" frozen object must be defined in the object class')
     }
-    this._fields = Object.keys(this.constructor.fields)
+    this._fields = Object.keys(this.constructor.Fields)
     this._fields.forEach((field) => {
       this._defineProperty(field)
     })
@@ -175,15 +174,13 @@ export class AbstractCrudObject extends AbstractObject {
    * @param   {Object}  [params]
    * @return  {Promise}
    */
-  read (fields, params) {
+  read (fields, params = {}) {
     const api = this.getApi()
     const path = this.getNodePath()
     if (fields) params['fields'] = fields.join(',')
     return new Promise((resolve, reject) => {
       api.call('GET', [path], params)
-      .then((data) => {
-        resolve(this.setData(data, true))
-      })
+      .then((data) => resolve(this.setData(data)))
       .catch(reject)
     })
   }

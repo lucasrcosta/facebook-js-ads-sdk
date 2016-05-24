@@ -4,14 +4,14 @@ chai.should()
 
 describe('AbstractObject', () => {
   class ConcreteObject extends AbstractObject {
-    static get fields () { return Object.freeze({ field: 'field' }) }
+    static get Fields () { return Object.freeze({ field: 'field' }) }
   }
 
-  it('should possess fields enum', () => {
+  it('should possess a Fields enum', () => {
     ;() => (new AbstractObject()).should.throw(Error)
-    ;() => (ConcreteObject.fields = {}).should.throw(TypeError)
-    ;() => (ConcreteObject.fields.field = '').should.throw(TypeError)
-    ConcreteObject.fields.field.should.be.equal('field')
+    ;() => (ConcreteObject.Fields = {}).should.throw(TypeError)
+    ;() => (ConcreteObject.Fields.field = '').should.throw(TypeError)
+    ConcreteObject.Fields.field.should.be.equal('field')
   })
 
   it('should create a data object with getters and setters for fields', () => {
@@ -67,7 +67,7 @@ describe('AbstractObject', () => {
 
 describe('AbstractCrudObject', () => {
   class ConcreteCrudObject extends AbstractCrudObject {
-    static get fields () { return Object.freeze({ field: 'field' }) }
+    static get Fields () { return Object.freeze({ field: 'field' }) }
   }
 
   it('should store changes for field properties', () => {

@@ -10,9 +10,12 @@ export class FacebookError extends ExtendableBuiltin(Error) {
 export class FacebookRequestError extends FacebookError {
   constructor (response, method, url, data) {
     let error = response.body.error
-    super(error.message)
+    let message = error.error_user_msg
+      ? `${error.error_user_title}: ${error.error_user_msg}`
+      : error.message
+    super(message)
     this.name = 'FacebookRequestError'
-    this.message = error.message
+    this.message = message
     this.status = response.status
     this.response = response.body
     this.method = method

@@ -51,22 +51,25 @@ export default class FacebookAdsApi {
     var url
     if (method === 'POST' || method === 'PUT') {
       var data = params
+      params = {}
     }
     if (typeof path !== 'string' && !(path instanceof String)) {
       url = [FacebookAdsApi.GRAPH, FacebookAdsApi.VERSION, ...path].join('/')
       params['access_token'] = this.accessToken
-      url += '?' + FacebookAdsApi._encode_params(params)
+      url += `?${FacebookAdsApi._encode_params(params)}`
     } else {
       url = path
     }
 
     return Http.request(method, url, data)
     .then((response) => {
-      if (this._debug) console.log(200, method, url)
+      if (this._debug) console.log(`200 ${method} ${url} ${data ? JSON.stringify(data) : ''}`)
       return Promise.resolve(response)
     })
     .catch((response) => {
-      if (this._debug) console.log(response.status, method, url)
+      if (this._debug) {
+        console.log(`${response.status} ${method} ${url} ${data ? JSON.stringify(data) : ''}`)
+      }
       throw new FacebookRequestError(response, method, url, data)
     })
   }

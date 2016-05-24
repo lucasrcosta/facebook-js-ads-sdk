@@ -43,4 +43,17 @@ describe('Graph Objects', () => {
     })
     .catch(done)
   })
+
+  it('should create an object on the graph', (done) => {
+    const data = {
+      [obj.Campaign.Fields.name]: 'Facebook-JS-Ads-SDK-Test',
+      [obj.Campaign.Fields.status]: obj.Campaign.Status.paused
+    }
+    new obj.Campaign(data, accountId).create()
+    .then((account) => {
+      account.id.should.be.ok
+      done()
+    })
+    .catch(done)
+  })
 })

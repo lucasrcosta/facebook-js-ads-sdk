@@ -6,10 +6,7 @@ import FacebookAdsApi from './api'
  */
 export class AbstractObject {
 
-  /**
-   * @param {object} data Initial data
-   */
-  constructor (data) {
+  constructor () {
     this._data = {}
     if (this.constructor.Fields === undefined) {
       throw new Error('A "Fields" frozen object must be defined in the object class')
@@ -147,6 +144,17 @@ export class AbstractCrudObject extends AbstractObject {
   }
 
   /**
+   * @throws {error} if object has no parent id
+   * @return {string}
+   */
+  getParentId () {
+    if (!this._parentId) {
+      throw new Error(`${this.constructor.name} parentId not defined`)
+    }
+    return this._parentId
+  }
+
+  /**
    * @return {string}
    */
   getNodePath () {
@@ -176,10 +184,27 @@ export class AbstractCrudObject extends AbstractObject {
    */
   read (fields, params = {}) {
     const api = this.getApi()
-    const path = this.getNodePath()
+    const path = [this.getNodePath()]
     if (fields) params['fields'] = fields.join(',')
     return new Promise((resolve, reject) => {
-      api.call('GET', [path], params)
+      api.call('GET', path, params)
+      .then((data) => resolve(this.setData(data)))
+      .catch(reject)
+    })
+  }
+
+  /**
+   * Create object on the graph
+   * @param   {Array}   [fields]
+   * @param   {Object}  [params]
+   * @return  {Promise}
+   */
+  create (fields, params = {}) {
+    const api = this.getApi()
+    const path = [this.getParentId(), this.constructor.getEndpoint()]
+    params = Object.assign(params, this.exportData())
+    return new Promise((resolve, reject) => {
+      api.call('POST', path, params)
       .then((data) => resolve(this.setData(data)))
       .catch(reject)
     })

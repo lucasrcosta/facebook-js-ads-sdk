@@ -46,15 +46,15 @@ describe('AbstractObject', () => {
     object.extrafield.should.be.equal(2)
   })
 
+  it('should set data', () => {
+    const data = {field: 1, extrafield: 2}
+    const object = new ConcreteObject().setData(data)
+    object.exportData().should.be.eql(data)
+  })
+
   it('should chain the setData method', () => {
     const object = new ConcreteObject()
     object.setData({field: 1}).should.be.equal(object)
-  })
-
-  it('should set initial data', () => {
-    const data = {field: 1, extrafield: 2}
-    const object = new ConcreteObject(data)
-    object.exportData().should.be.eql(data)
   })
 
   it('should export data', () => {
@@ -71,9 +71,9 @@ describe('AbstractCrudObject', () => {
   }
 
   it('should store changes for field properties', () => {
-    const object = new ConcreteCrudObject()
-    object.field = 3
-    object._changes.field.should.be.equal(3)
+    const object = new ConcreteCrudObject({'field': 3})
+    object.set('extraField', 4)
+    object._changes.should.be.eql({field: 3, extraField: 4})
   })
 
   it('should set data wiping change history', () => {

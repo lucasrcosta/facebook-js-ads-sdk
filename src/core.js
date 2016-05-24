@@ -18,9 +18,6 @@ export class AbstractObject {
     this._fields.forEach((field) => {
       this._defineProperty(field)
     })
-    if (data) {
-      this.setData(data)
-    }
   }
 
   /**
@@ -86,6 +83,9 @@ export class AbstractCrudObject extends AbstractObject {
     super(data)
     this._parentId = parentId
     this._api = api || FacebookAdsApi.getDefaultApi()
+    if (data) {
+      super.setData(data)
+    }
   }
 
   /**

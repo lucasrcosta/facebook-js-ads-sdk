@@ -7,6 +7,13 @@ describe('AbstractObject', () => {
     static get fields () { return Object.freeze({ field: 'field' }) }
   }
 
+  it('should possess fields enum', () => {
+    ;() => (new AbstractObject()).should.throw(Error)
+    ;() => (ConcreteObject.fields = {}).should.throw(TypeError)
+    ;() => (ConcreteObject.fields.field = '').should.throw(TypeError)
+    ConcreteObject.fields.field.should.be.equal('field')
+  })
+
   it('should create a data object with getters and setters for fields', () => {
     const object = new ConcreteObject()
     const descriptor = Object.getOwnPropertyDescriptor(object, 'field')

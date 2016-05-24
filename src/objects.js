@@ -1,21 +1,6 @@
 import { AbstractCrudObject } from './core'
 
 /**
- * Business
- * @extends AbstractCrudObject
- */
-export class Business extends AbstractCrudObject {
-  static get Fields () {
-    return Object.freeze({
-      id: 'id',
-      name: 'name',
-      payment_account_id: 'payment_account_id',
-      primary_page: 'primary_page'
-    })
-  }
-}
-
-/**
  * AdAccount
  * @extends AbstractCrudObject
  */
@@ -75,6 +60,77 @@ export class AdAccount extends AbstractCrudObject {
       tos_accepted: 'tos_accepted',
       user_role: 'user_role'
     })
+  }
+
+  static getEndpoint () {
+    return 'adaccounts'
+  }
+}
+
+/**
+ * Business
+ * @extends AbstractCrudObject
+ */
+export class Business extends AbstractCrudObject {
+  static get Fields () {
+    return Object.freeze({
+      id: 'id',
+      name: 'name',
+      payment_account_id: 'payment_account_id',
+      primary_page: 'primary_page'
+    })
+  }
+
+  static getEndpoint () {
+    return 'businesses'
+  }
+}
+
+/**
+ * Campaign
+ * @extends AbstractCrudObject
+ */
+export class Campaign extends AbstractCrudObject {
+  static get Fields () {
+    return Object.freeze({
+      account_id: 'account_id',
+      adlabels: 'adlabels',
+      buying_type: 'buying_type',
+      can_use_spend_cap: 'can_use_spend_cap',
+      configured_status: 'configured_status',
+      created_time: 'created_time',
+      effective_status: 'effective_status',
+      id: 'id',
+      name: 'name',
+      objective: 'objective',
+      recommendations: 'recommendations',
+      spend_cap: 'spend_cap',
+      start_time: 'start_time',
+      status: 'status',
+      stop_time: 'stop_time',
+      updated_time: 'updated_time',
+      execution_options: 'execution_options',
+      promoted_object: 'promoted_object'
+    })
+  }
+
+  static get Status () {
+    return Object.freeze({
+      active: 'ACTIVE',
+      adset_paused: 'ADSET_PAUSED',
+      archived: 'ARCHIVED',
+      campaign_paused: 'CAMPAIGN_PAUSED',
+      deleted: 'DELETED',
+      disapproved: 'DISAPPROVED',
+      paused: 'PAUSED',
+      pending_billing_info: 'PENDING_BILLING_INFO',
+      pending_review: 'PENDING_REVIEW',
+      preapproved: 'PREAPPROVED'
+    })
+  }
+
+  static getEndpoint () {
+    return 'campaigns'
   }
 }
 

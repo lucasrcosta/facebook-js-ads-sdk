@@ -72,12 +72,12 @@ gulp.task('test-browser', ['bundle-tests'], function () {
 
 gulp.task('integration', function () {
   require('babel-core/register')
-  return gulp.src(['test/integration/integration.js'], {read: false})
+  return gulp.src(['test/integration/test_integration.js'], {read: false})
     .pipe($.mocha({reporter: 'min'}))
 })
 
 gulp.task('integration-bundle', function () {
-  gulp.src('test/integration/integration.js', {read: false})
+  gulp.src('test/integration/test_integration.js', {read: false})
     .pipe(rollupAmd)
     .pipe($.rename('suite.js'))
     .pipe($.sourcemaps.write('.'))

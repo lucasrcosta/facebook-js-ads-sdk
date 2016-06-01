@@ -1,6 +1,8 @@
 if (typeof define === 'function' && define.amd) {
+  var Promise
   requirejs.config({
     paths: {
+      'bluebird': './../bower_components/bluebird/js/browser/bluebird',
       'mocha': './../bower_components/mocha/mocha',
       'chai': './../bower_components/chai/chai'
     },
@@ -15,9 +17,11 @@ if (typeof define === 'function' && define.amd) {
   })
 
   require([
+    'bluebird',
     'mocha',
     'chai'
-  ], function () {
+  ], function (bluebird) {
+    Promise = bluebird
     require([
       './suite'
     ], function () {

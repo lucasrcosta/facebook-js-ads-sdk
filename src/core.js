@@ -194,12 +194,11 @@ export class AbstractCrudObject extends AbstractObject {
   }
 
   /**
-   * Create object on the graph
-   * @param   {Array}   [fields]
+   * Create object
    * @param   {Object}  [params]
    * @return  {Promise}
    */
-  create (fields, params = {}) {
+  create (params = {}) {
     const api = this.getApi()
     const path = [this.getParentId(), this.constructor.getEndpoint()]
     params = Object.assign(params, this.exportData())
@@ -211,7 +210,7 @@ export class AbstractCrudObject extends AbstractObject {
   }
 
   /**
-   * Create object on the graph
+   * Update object
    * @param   {Object}  [params]
    * @return  {Promise}
    */
@@ -227,7 +226,7 @@ export class AbstractCrudObject extends AbstractObject {
   }
 
   /**
-   * Create object on the graph
+   * Delete object
    * @param   {Object}  [params]
    * @return  {Promise}
    */
@@ -240,6 +239,16 @@ export class AbstractCrudObject extends AbstractObject {
       .then((data) => resolve(data))
       .catch(reject)
     })
+  }
+
+  /**
+   * Create or Update object
+   * @param   {Object}  [params]
+   * @return  {Promise}
+   */
+  save (params) {
+    if (this.id) return this.update(params)
+    return this.create(params)
   }
 
   /**
@@ -306,6 +315,7 @@ export class Cursor extends Array {
       targetClass.getEndpoint()
     ]
     this._api = sourceObject.getApi()
+    this._targetClass = targetClass
     this.paging = {next: next}
     this.summary
 
@@ -344,7 +354,8 @@ export class Cursor extends Array {
       const promise = new Promise((resolve, reject) => {
         this._api.call('GET', path, params)
         .then((response) => {
-          this.set(response.data)
+          const objects = this._buildObjectsFromResponse(response)
+          this.set(objects)
           this.paging = response.paging
           this.summary = response.summary
           resolve(this)
@@ -353,6 +364,10 @@ export class Cursor extends Array {
       })
       if (params) params = undefined
       return promise
+    }
+
+    this._buildObjectsFromResponse = (response) => {
+      return response.data.map((item) => new this._targetClass(item, undefined, this._api))
     }
   }
 }

@@ -1,10 +1,12 @@
 import { accessToken, accountId } from './config.json'
 import FacebookAdsApi from './../../src/api'
-import * as exc from './../../src/exceptions'
-import * as obj from './../../src/objects'
+import { FacebookRequestError } from './../../src/exceptions'
+import { AdAccount, Campaign } from './../../src/objects'
 import chai from 'chai'
 chai.should()
+
 var api
+var account
 var campaign
 
 before(() => {
@@ -17,7 +19,7 @@ describe('Api', () => {
     api.call('GET', [''])
     .then(() => { throw new Error('Promise should have been rejected') })
     .catch((error) => {
-      error.should.be.an.instanceof(exc.FacebookRequestError)
+      error.should.be.an.instanceof(FacebookRequestError)
       done()
     })
     .catch(done)
@@ -27,19 +29,19 @@ describe('Api', () => {
 describe('Graph Objects', function () {
   this.timeout(5000)
 
-  it('should read by ids', (done) => {
-    obj.AdAccount.getByIds([accountId])
+  it('should be read by ids', (done) => {
+    AdAccount.getByIds([accountId])
     .then((objects) => {
       objects.should.be.a('array').and.have.lengthOf(1)
-      objects[0].should.be.an.instanceof(obj.AdAccount)
+      objects[0].should.be.an.instanceof(AdAccount)
       done()
     })
     .catch(done)
   })
 
-  it('should read an object from the graph', (done) => {
-    const account = new obj.AdAccount({'id': accountId})
-    account.read([obj.AdAccount.Fields.id, obj.AdAccount.Fields.name])
+  it('should be read', (done) => {
+    account = new AdAccount({'id': accountId})
+    account.read([AdAccount.Fields.id, AdAccount.Fields.name])
     .then(() => {
       account.name.should.be.ok
       done()
@@ -47,12 +49,12 @@ describe('Graph Objects', function () {
     .catch(done)
   })
 
-  it('should create an object on the graph', (done) => {
+  it('should be created', (done) => {
     const data = {
-      [obj.Campaign.Fields.name]: 'Facebook JS Ads SDK Test',
-      [obj.Campaign.Fields.status]: obj.Campaign.Status.paused
+      [Campaign.Fields.name]: 'Facebook JS Ads SDK Test',
+      [Campaign.Fields.status]: Campaign.Status.paused
     }
-    new obj.Campaign(data, accountId).create()
+    new Campaign(data, accountId).save()
     .then((result) => {
       campaign = result
       campaign.id.should.be.ok
@@ -61,9 +63,9 @@ describe('Graph Objects', function () {
     .catch(done)
   })
 
-  it('should update an object from the graph', (done) => {
+  it('should be updated', (done) => {
     campaign.name = 'Facebook JS Ads SDK Test Updated'
-    campaign.update()
+    campaign.save()
     .then((result) => {
       result.success.should.be.true
       done()
@@ -71,7 +73,18 @@ describe('Graph Objects', function () {
     .catch(done)
   })
 
-  it('should delete an object from the graph', (done) => {
+  it('should read their related objects', (done) => {
+    account.getCampaigns(['name'])
+    .then((campaigns) => {
+      campaigns.should.be.a('array').and.have.length.above(0)
+      campaigns[0].should.be.an.instanceof(Campaign)
+      campaigns[0].name.should.be.ok
+      done()
+    })
+    .catch(done)
+  })
+
+  it('should be deleted', (done) => {
     campaign.delete()
     .then((result) => {
       result.success.should.be.true

@@ -65,6 +65,10 @@ export class AdAccount extends AbstractCrudObject {
   static getEndpoint () {
     return 'adaccounts'
   }
+
+  getCampaigns (fields, params, fetchFirstPage) {
+    return this.getEdge(Campaign, fields, params, fetchFirstPage)
+  }
 }
 
 /**

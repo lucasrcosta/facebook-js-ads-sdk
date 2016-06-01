@@ -58,14 +58,14 @@ gulp.task('watch-bundle', function () {
   gulp.watch(['src/**/*.js', 'test/**/*.*', '!test/**/suite.js*'], ['test-bundle'])
 })
 
-gulp.task('test-phantom', ['bundle-tests'], function () {
+gulp.task('test-phantom', ['test-bundle'], function () {
   gulp.src('test/index.html')
     .pipe($.mochaPhantomjs({
       phantomjs: { useColors: true }
     }))
 })
 
-gulp.task('test-browser', ['bundle-tests'], function () {
+gulp.task('test-browser', ['test-bundle'], function () {
   gulp.src('test/index.html')
     .pipe($.open())
 })

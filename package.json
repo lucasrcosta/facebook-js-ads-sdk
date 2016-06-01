@@ -61,7 +61,7 @@
     "request-promise": "^3.0.0"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register",
+    "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/src/",
     "test-phantom": "./node_modules/mocha-phantomjs/bin/mocha-phantomjs test/index.html"
   },
   "main": "./src/api.js",

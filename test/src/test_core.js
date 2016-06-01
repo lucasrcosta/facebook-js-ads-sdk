@@ -128,7 +128,11 @@ describe('Cursor', () => {
     })
   }
   const sourceObject = { getId: () => 'id', getApi: () => ({call: callStub}) }
-  const targetClass = { getEndpoint: () => 'endpoint' }
+  class targetClass {
+    constructor (num) { this.v = num }
+    static get Fields () {}
+    static getEndpoint () { 'endpoint' }
+  }
 
   it('should clear data', () => {
     const cursor = new Cursor(sourceObject, targetClass)
@@ -150,14 +154,14 @@ describe('Cursor', () => {
     cursor.hasNext().should.be.true
     cursor.next()
     .then(() => {
-      ;[...cursor].should.be.eql([1, 2, 3])
+      ;[...cursor].should.be.eql([{v: 1}, {v: 2}, {v: 3}])
       cursor.hasNext().should.be.true
       cursor.hasPrevious().should.be.false
       cursor.paging.next.should.be.eql('[nextUrl]')
       return cursor.next()
     })
     .then(() => {
-      ;[...cursor].should.be.eql([4, 5, 6])
+      ;[...cursor].should.be.eql([{v: 4}, {v: 5}, {v: 6}])
       cursor.hasNext().should.be.false
       cursor.hasPrevious().should.be.true
       return cursor.next()
@@ -168,7 +172,7 @@ describe('Cursor', () => {
       return cursor.previous()
     })
     .then(() => {
-      ;[...cursor].should.be.eql([1, 2, 3])
+      ;[...cursor].should.be.eql([{v: 1}, {v: 2}, {v: 3}])
       cursor.hasNext().should.be.true
       cursor.hasPrevious().should.be.false
       return cursor.previous()

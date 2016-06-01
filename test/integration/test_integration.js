@@ -5,6 +5,7 @@ import * as obj from './../../src/objects'
 import chai from 'chai'
 chai.should()
 var api
+var campaign
 
 before(() => {
   api = FacebookAdsApi.init(accessToken).setDebug(true)
@@ -23,7 +24,9 @@ describe('Api', () => {
   })
 })
 
-describe('Graph Objects', () => {
+describe('Graph Objects', function () {
+  this.timeout(5000)
+
   it('should read by ids', (done) => {
     obj.AdAccount.getByIds([accountId])
     .then((objects) => {
@@ -46,12 +49,32 @@ describe('Graph Objects', () => {
 
   it('should create an object on the graph', (done) => {
     const data = {
-      [obj.Campaign.Fields.name]: 'Facebook-JS-Ads-SDK-Test',
+      [obj.Campaign.Fields.name]: 'Facebook JS Ads SDK Test',
       [obj.Campaign.Fields.status]: obj.Campaign.Status.paused
     }
     new obj.Campaign(data, accountId).create()
-    .then((account) => {
-      account.id.should.be.ok
+    .then((result) => {
+      campaign = result
+      campaign.id.should.be.ok
+      done()
+    })
+    .catch(done)
+  })
+
+  it('should update an object from the graph', (done) => {
+    campaign.name = 'Facebook JS Ads SDK Test Updated'
+    campaign.update()
+    .then((result) => {
+      result.success.should.be.true
+      done()
+    })
+    .catch(done)
+  })
+
+  it('should delete an object from the graph', (done) => {
+    campaign.delete()
+    .then((result) => {
+      result.success.should.be.true
       done()
     })
     .catch(done)

@@ -211,6 +211,38 @@ export class AbstractCrudObject extends AbstractObject {
   }
 
   /**
+   * Create object on the graph
+   * @param   {Object}  [params]
+   * @return  {Promise}
+   */
+  update (params = {}) {
+    const api = this.getApi()
+    const path = [this.getNodePath()]
+    params = Object.assign(params, this.exportData())
+    return new Promise((resolve, reject) => {
+      api.call('POST', path, params)
+      .then((data) => resolve(data))
+      .catch(reject)
+    })
+  }
+
+  /**
+   * Create object on the graph
+   * @param   {Object}  [params]
+   * @return  {Promise}
+   */
+  delete (params = {}) {
+    const api = this.getApi()
+    const path = [this.getNodePath()]
+    params = Object.assign(params, this.exportData())
+    return new Promise((resolve, reject) => {
+      api.call('DELETE', path, params)
+      .then((data) => resolve(data))
+      .catch(reject)
+    })
+  }
+
+  /**
    * Initialize Cursor to paginate on edges
    * @param  {Object}  targetClass
    * @param  {Array}   fields

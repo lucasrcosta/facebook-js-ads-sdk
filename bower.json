@@ -31,8 +31,6 @@
     "bluebird": "^3.4.0",
     "chai": "^3.5.0",
     "mocha": "^2.4.5",
-    "sinonjs": "^1.17.1",
-    "sinon-chai": "^2.8.0",
     "requirejs": "^2.2.0"
   },
   "main": "./src/api.js",

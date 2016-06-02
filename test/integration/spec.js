@@ -1,28 +1,26 @@
-if (typeof define === 'function' && define.amd) {
-  requirejs.config({
-    paths: {
-      'mocha': './../../bower_components/mocha/mocha',
-      'chai': './../../bower_components/chai/chai'
-    },
-    shim: {
-      'mocha': {
-        init: function () {
-          this.mocha.setup('bdd')
-          return this.mocha
-        }
+requirejs.config({
+  paths: {
+    'mocha': './../../bower_components/mocha/mocha',
+    'chai': './../../bower_components/chai/chai'
+  },
+  shim: {
+    'mocha': {
+      init: function () {
+        this.mocha.setup('bdd')
+        return this.mocha
       }
     }
-  })
+  }
+})
 
+require([
+  'mocha',
+  'chai'
+], function () {
   require([
-    'mocha',
-    'chai'
+    './suite'
   ], function () {
-    require([
-      './suite'
-    ], function () {
-      mocha.ui('bdd')
-      mocha.run()
-    })
+    mocha.ui('bdd')
+    mocha.run()
   })
-}
+})

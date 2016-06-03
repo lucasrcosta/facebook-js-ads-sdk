@@ -84,3 +84,8 @@ gulp.task('integration-bundle', function () {
     .pipe(gulp.dest('./test/integration'))
 })
 
+gulp.task('integration-browser', ['test-bundle'], function () {
+  gulp.src('test/integration/index.html')
+    .pipe($.open())
+})
+

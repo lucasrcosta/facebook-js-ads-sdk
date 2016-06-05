@@ -1,13 +1,14 @@
-import { accessToken, accountId } from './config.json'
+import chai from 'chai'
 import FacebookAdsApi from './../../src/api'
+import { accessToken, accountId } from './config.json'
 import { FacebookRequestError } from './../../src/exceptions'
 import { AdAccount, Campaign } from './../../src/objects'
-import chai from 'chai'
-chai.should()
 
 var api
 var account
 var campaign
+
+chai.should()
 
 before(() => {
   api = FacebookAdsApi.init(accessToken).setDebug(true)
@@ -28,16 +29,6 @@ describe('Api', () => {
 
 describe('Graph Objects', function () {
   this.timeout(5000)
-
-  it('should be read by ids', (done) => {
-    AdAccount.getByIds([accountId])
-    .then((objects) => {
-      objects.should.be.a('array').and.have.lengthOf(1)
-      objects[0].should.be.an.instanceof(AdAccount)
-      done()
-    })
-    .catch(done)
-  })
 
   it('should be read', (done) => {
     account = new AdAccount({'id': accountId})
@@ -74,7 +65,7 @@ describe('Graph Objects', function () {
   })
 
   it('should read their related objects', (done) => {
-    account.getCampaigns(['name'])
+    account.getCampaigns([Campaign.Fields.name])
     .then((campaigns) => {
       campaigns.should.be.a('array').and.have.length.above(0)
       campaigns[0].should.be.an.instanceof(Campaign)
@@ -88,6 +79,16 @@ describe('Graph Objects', function () {
     campaign.delete()
     .then((result) => {
       result.success.should.be.true
+      done()
+    })
+    .catch(done)
+  })
+
+  it('should be read by ids', (done) => {
+    AdAccount.getByIds([accountId])
+    .then((objects) => {
+      objects.should.be.a('array').and.have.lengthOf(1)
+      objects[0].should.be.an.instanceof(AdAccount)
       done()
     })
     .catch(done)

@@ -27,7 +27,6 @@ function rollup (format, minify) {
         namedExports: { 'mixwith': ['mix'], 'chai-as-promised': ['chaiAsPromised'] }
       }),
       json(),
-      uglify()
     ],
     sourceMap: true
   }
@@ -75,12 +74,12 @@ gulp.task('test-browser', ['test-bundle'], function () {
 
 gulp.task('integration', function () {
   require('babel-core/register')
-  return gulp.src(['test/integration/test_integration.js'], {read: false})
+  return gulp.src(['test/integration/test-integration.js'], {read: false})
     .pipe($.mocha({reporter: 'min'}))
 })
 
 gulp.task('integration-bundle', function () {
-  gulp.src('test/integration/test_integration.js', {read: false})
+  gulp.src('test/integration/test-integration.js', {read: false})
     .pipe(rollup('amd'))
     .pipe($.rename('suite.js'))
     .pipe($.sourcemaps.write('.'))
@@ -93,7 +92,7 @@ gulp.task('integration-browser', ['test-bundle'], function () {
 })
 
 gulp.task('watch-integration', function () {
-  gulp.watch(['test/integration/test_integration.js'], ['integration'])
+  gulp.watch(['test/integration/test-integration.js'], ['integration'])
 })
 
 gulp.task('dist', function () {

@@ -1,4 +1,4 @@
-define(['chai'], function (chai) { 'use strict';
+define(['exports', 'chai'], function (exports, chai) { 'use strict';
 
   var chai__default = 'default' in chai ? chai['default'] : chai;
 

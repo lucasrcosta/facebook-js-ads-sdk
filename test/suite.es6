@@ -1,3 +1,3 @@
-import './src/test_api'
-import './src/test_core'
-import './src/test_exceptions'
+import './src/test-api'
+import './src/test-core'
+import './src/test-exceptions'

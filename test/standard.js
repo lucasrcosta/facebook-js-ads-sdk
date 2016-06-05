@@ -1,3 +1,4 @@
 describe('Standard JS', () => {
-  it('should be respected', require('mocha-standard'))
+  var standard = require('mocha-standard')
+  it('should be respected', standard.files(['src/**/*.js', 'test/**/*.js']))
 })

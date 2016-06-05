@@ -1,6 +1,6 @@
 # Facebook Ads API SDK for Javascript [![Build Status](https://travis-ci.org/lucascosta/facebook-js-ads-sdk.svg?branch=master)](https://travis-ci.org/lucascosta/facebook-js-ads-sdk)
 
-An ES2015 (ES6 Harmony) Javascript SDK for [**Facebook Ads API**](https://developers.facebook.com/docs/ads-api) development in both client and server-side. t is consistent with many concepts from Python and PHP SDKs in a JS fashion, with some tweaks. This is not an official library.
+An ES2015 (ES6 Harmony) Javascript SDK for [**Facebook Ads API**](https://developers.facebook.com/docs/ads-api) development in both client and server-side. ECMAScript 5 bundled minified distribuitions with sourcemaps are also available as AMD and CommonJS modules, as an IIFE (under the `fb` variable), as UMD if you want it all, and even as Browser Globals. Runs "anywhere" thanks to [Babel](https://babeljs.io/) and [Rollup](http://rollupjs.org/). It is consistent with many concepts from Python and PHP SDKs in a JS fashion, with some simplifications and tweaks. This is not an official library.
 
 ## Example
 
@@ -43,7 +43,7 @@ account.read([AdAccount.Fields.name])
   .catch(UIRequestError)
 ```
 
-This snippet reads an account's data and then, in parallel, fetches insights for the account in the last 7 days and the last 10 campaigns. When the acount insights are available it's passed along with the account data to a placeholder UI function. When the campaigns return the insights for those are requested and sent to the UI with the campaing data. It can build a small dashboard, pretty cool huh? Hand me a star if you liked it!
+This snippet reads an account's data and then, in parallel, fetches insights for the account in the last 7 days and the last 10 campaigns. When the acount insights are available it's passed along with the account data to a placeholder UI function. When the campaigns return the insights for those are requested and sent to the UI with the campaing data. It can build a small dashboard, pretty cool huh? <!--- In fact if you have a valid token and an account Id you can see it working right now in this (**LIVE EXAMPLE**)[https://jsfiddle.net/]. Open your console, replace the parameters and click run. You can play with other objects there if you like as well. --> Hand me a star if you liked it!
 
 ## Installation
 

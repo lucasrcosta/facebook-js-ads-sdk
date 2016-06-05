@@ -5,32 +5,35 @@ var $ = require('gulp-load-plugins')()
 var babel = require('rollup-plugin-babel')
 var commonjs = require('rollup-plugin-commonjs')
 var json = require('rollup-plugin-json')
+var uglify = require('rollup-plugin-uglify')
 var nodeResolve = require('rollup-plugin-node-resolve')
-var rollupAmd = $.rollup({
-  format: 'amd',
-  plugins: [
-    babel({
-      babelrc: false,
-      presets: [ 'es2015-rollup' ],
-      exclude: ['**/*.json']
-    }),
-    nodeResolve({
-      skip: [ 'chai' ]
-    }),
-    commonjs({
-      include: [ 'node_modules/mixwith/*', 'node_modules/chai-as-promised/lib/*' ],
-      namedExports: { 'mixwith': ['mix'], 'chai-as-promised': ['chaiAsPromised'] }
-    }),
-    json()
-  ],
-  sourceMap: true
-})
 
-gulp.task('standard', function () {
-  return gulp.src(['src/**/*.js', 'test/**/*.js*', '!test/**/suite.js*', '!dist/**/*.js', '!**/*'])
-    .pipe($.standard())
-    .pipe($.standard.reporter('default', {breakOnError: true}))
-})
+function rollup (format, minify) {
+  var options = {
+    format: format,
+    exports: 'named',
+    moduleName: 'fb',
+    plugins: [
+      babel({
+        babelrc: false,
+        presets: ['es2015-rollup'],
+        exclude: ['**/*.json']
+      }),
+      nodeResolve({
+        skip: [ 'chai' ]
+      }),
+      commonjs({
+        include: [ 'node_modules/mixwith/*', 'node_modules/chai-as-promised/lib/*' ],
+        namedExports: { 'mixwith': ['mix'], 'chai-as-promised': ['chaiAsPromised'] }
+      }),
+      json(),
+      uglify()
+    ],
+    sourceMap: true
+  }
+  if (minify) options.plugins.push(uglify())
+  return $.rollup(options)
+}
 
 gulp.task('test', function () {
   require('babel-core/register')
@@ -48,7 +51,7 @@ gulp.task('default', function () {
 
 gulp.task('test-bundle', function () {
   gulp.src('test/suite.es6', {read: false})
-    .pipe(rollupAmd)
+    .pipe(rollup('amd'))
     .pipe($.rename('suite.js'))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('./test'))
@@ -78,7 +81,7 @@ gulp.task('integration', function () {
 
 gulp.task('integration-bundle', function () {
   gulp.src('test/integration/test_integration.js', {read: false})
-    .pipe(rollupAmd)
+    .pipe(rollup('amd'))
     .pipe($.rename('suite.js'))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('./test/integration'))
@@ -89,3 +92,39 @@ gulp.task('integration-browser', ['test-bundle'], function () {
     .pipe($.open())
 })
 
+gulp.task('watch-integration', function () {
+  gulp.watch(['test/integration/test_integration.js'], ['integration'])
+})
+
+gulp.task('dist', function () {
+  gulp.src('dist/bundle.es6', {read: false})
+    .pipe(rollup('amd', true))
+    .pipe($.rename('amd.js'))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('./dist'))
+  gulp.src('dist/bundle.es6', {read: false})
+    .pipe(rollup('cjs', true))
+    .pipe($.rename('cjs.js'))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('./dist'))
+  gulp.src('dist/bundle.es6', {read: false})
+    .pipe(rollup('umd', true))
+    .pipe($.rename('umd.js'))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('./dist'))
+  gulp.src('dist/bundle.es6', {read: false})
+    .pipe(rollup('iife', true))
+    .pipe($.rename('iife.js'))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('./dist'))
+  gulp.src('dist/bundle.es6', {read: false})
+    .pipe($.rollup({ format: 'es6', exports: 'named', sourceMap: true }))
+    .pipe($.rename('es6.js'))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('./dist'))
+  gulp.src('dist/globals.es6', {read: false})
+    .pipe(rollup('cjs', true))
+    .pipe($.rename('globals.js'))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('./dist'))
+})

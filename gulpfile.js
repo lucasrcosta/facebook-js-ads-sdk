@@ -5,7 +5,6 @@ var $ = require('gulp-load-plugins')()
 var babel = require('rollup-plugin-babel')
 var commonjs = require('rollup-plugin-commonjs')
 var json = require('rollup-plugin-json')
-var uglify = require('rollup-plugin-uglify')
 var nodeResolve = require('rollup-plugin-node-resolve')
 
 function rollup (format) {

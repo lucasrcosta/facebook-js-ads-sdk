@@ -16,15 +16,13 @@ const accountId = '[AD_ACCOUNT_ID]'
 FacebookAdsApi.init(accessToken)
 
 const account = new AdAccount({ 'id': accountId })
-const insightsParams = {
-  date_preset: 'last_7_days',
-  fields: ['impressions', 'frequency', 'unique_clicks', 'actions', 'spend', 'cpc']
-}
+const insightsFields = ['impressions', 'frequency', 'unique_clicks', 'actions', 'spend', 'cpc']
+const insightsParams = { date_preset: Campaign.DatePreset.last_90_days }
 var campaigns
 
 account.read([AdAccount.Fields.name])
   .then((account) => {
-    account.getInsights(insightsParams)
+    account.getInsights(insightsFields, insightsParams)
       .then((actInsights) => UIsetAccountData(account, actInsights))
       .catch(UIRequestError)
     return account.getCampaigns([Campaign.Fields.name], { limit: 10 }) // fields array and params
@@ -34,16 +32,16 @@ account.read([AdAccount.Fields.name])
     const campaign_ids = campaigns.map((campaign) => campaign.id)
     const campaignInsightsParams = Object.assign({
       level: 'campaign',
-      filtering: [{ field: 'campaign.id', operator: 'ANY', value: campaign_ids }]
+      filtering: [{ field: 'campaign.id', operator: 'IN', value: campaign_ids }]
     }, insightsParams)
-    campaignInsightsParams.fields.push('campaign_id')
-    return account.getInsights(campaignInsightsParams)
+    const campaigsInsightsFields = insightsFields.concat('campaign_id')
+    return account.getInsights(campaigsInsightsFields, campaignInsightsParams)
   })
   .then((insights) => UIsetCampaignsData(campaigns, insights))
   .catch(UIRequestError)
 ```
 
-This snippet reads an account's data and then, in parallel, fetches insights for the account in the last 7 days and the last 10 campaigns. When the acount insights are available it's passed along with the account data to a placeholder UI function. When the campaigns return the insights for those are requested and sent to the UI with the campaing data. It can build a small dashboard, pretty cool huh? Hand me a star if you liked it!
+This snippet reads an account's data and then, in parallel, fetches insights for the account in the last 90 days and the last 10 campaigns. When the acount insights are available it's passed along with the account data to a placeholder UI function. When the campaigns return the insights for those are requested and sent to the UI with the campaing data. It can build a small dashboard, pretty cool huh? Hand me a star if you liked it!
 
 ## Installation
 

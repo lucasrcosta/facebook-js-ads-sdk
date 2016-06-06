@@ -12,29 +12,6 @@ export default class AdSet extends AbstractCrudObject {
     return Object.freeze({
       account_id: 'account_id',
       adlabels: 'adlabels',
-      buying_type: 'buying_type',
-      can_use_spend_cap: 'can_use_spend_cap',
-      configured_status: 'configured_status',
-      created_time: 'created_time',
-      effective_status: 'effective_status',
-      id: 'id',
-      name: 'name',
-      objective: 'objective',
-      recommendations: 'recommendations',
-      spend_cap: 'spend_cap',
-      start_time: 'start_time',
-      status: 'status',
-      stop_time: 'stop_time',
-      updated_time: 'updated_time',
-      execution_options: 'execution_options',
-      promoted_object: 'promoted_object'
-    })
-  }
-
-  static get Fields () {
-    return Object.freeze({
-      account_id: 'account_id',
-      adlabels: 'adlabels',
       adset_schedule: 'adset_schedule',
       bid_amount: 'bid_amount',
       bid_info: 'bid_info',

@@ -49,7 +49,6 @@ export default class Http {
           })
         }
       }
-      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
       request.setRequestHeader('Content-Type', 'application/json')
       request.setRequestHeader('Accept', 'application/json')
       request.send(JSON.stringify(data))

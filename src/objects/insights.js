@@ -7,7 +7,7 @@ import { AbstractCrudObject } from './../core'
  * @see {@link https://developers.facebook.com/docs/marketing-api/insights-api}
  */
 export default class Insights extends AbstractCrudObject {
-  static get Field () {
+  static get Fields () {
     return Object.freeze({
       account_id: 'account_id',
       account_name: 'account_name',

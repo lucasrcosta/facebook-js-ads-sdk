@@ -31,7 +31,7 @@ export default class AdSet extends AbstractCrudObject {
     })
   }
 
-  static get Field () {
+  static get Fields () {
     return Object.freeze({
       account_id: 'account_id',
       adlabels: 'adlabels',

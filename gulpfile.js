@@ -41,7 +41,7 @@ gulp.task('test', function () {
 })
 
 gulp.task('watch', function () {
-  gulp.watch(['src/**/*.js', 'test/**/*.js', '!test/**/suite.js*'], ['standard', 'test'])
+  gulp.watch(['src/**/*.js', 'test/**/*.js', '!test/**/suite.js*'], ['test'])
 })
 
 gulp.task('default', function () {

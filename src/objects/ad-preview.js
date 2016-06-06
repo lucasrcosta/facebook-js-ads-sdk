@@ -6,7 +6,7 @@ import { AbstractCrudObject } from './../core'
  * @see {@link https://developers.facebook.com/docs/marketing-api/generatepreview}
  */
 export default class AdPreview extends AbstractCrudObject {
-  static get Field () {
+  static get Fields () {
     return Object.freeze({
       body: 'body'
     })

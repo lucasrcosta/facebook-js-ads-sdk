@@ -7,7 +7,7 @@ import AdPreview from './ad-preview'
  * @see {@link https://developers.facebook.com/docs/marketing-api/reference/ad-creative}
  */
 export default class AdCreative extends AbstractCrudObject {
-  static get Field () {
+  static get Fields () {
     return Object.freeze({
       actor_id: 'actor_id',
       actor_image_hash: 'actor_image_hash',

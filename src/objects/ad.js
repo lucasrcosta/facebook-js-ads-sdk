@@ -8,7 +8,7 @@ import Insights from './insights'
  * @see {@link https://developers.facebook.com/docs/marketing-api/reference/adgroup}
  */
 export default class Ad extends AbstractCrudObject {
-  static get Field () {
+  static get Fields () {
     return Object.freeze({
       account_id: 'account_id',
       ad_review_feedback: 'ad_review_feedback',

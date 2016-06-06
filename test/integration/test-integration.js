@@ -2,7 +2,8 @@ import chai from 'chai'
 import FacebookAdsApi from './../../src/api'
 import { accessToken, accountId } from './config.json'
 import { FacebookRequestError } from './../../src/exceptions'
-import { AdAccount, Campaign } from './../../src/objects'
+import AdAccount from './../../src/objects/ad-account'
+import Campaign from './../../src/objects/campaign'
 
 var api
 var account

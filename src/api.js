@@ -82,8 +82,12 @@ export default class FacebookAdsApi {
   }
 
   static _encode_params (params) {
-    return Object.keys(params)
-      .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
-      .join('&')
+    return Object.keys(params).map((key) => {
+      var param = params[key]
+      if (typeof param === 'object') {
+        param = param ? JSON.stringify(param) : ''
+      }
+      return `${encodeURIComponent(key)}=${encodeURIComponent(param)}`
+    }).join('&')
   }
 }

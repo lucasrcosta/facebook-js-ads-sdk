@@ -8,8 +8,8 @@ var json = require('rollup-plugin-json')
 var uglify = require('rollup-plugin-uglify')
 var nodeResolve = require('rollup-plugin-node-resolve')
 
-function rollup (format, minify) {
-  var options = {
+function rollup (format) {
+  return $.rollup({
     format: format,
     exports: 'named',
     moduleName: 'fb',
@@ -29,9 +29,7 @@ function rollup (format, minify) {
       json(),
     ],
     sourceMap: true
-  }
-  if (minify) options.plugins.push(uglify())
-  return $.rollup(options)
+  })
 }
 
 gulp.task('test', function () {
@@ -97,22 +95,22 @@ gulp.task('watch-integration', function () {
 
 gulp.task('dist', function () {
   gulp.src('dist/bundle.es6', {read: false})
-    .pipe(rollup('amd', true))
+    .pipe(rollup('amd'))
     .pipe($.rename('amd.js'))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('./dist'))
   gulp.src('dist/bundle.es6', {read: false})
-    .pipe(rollup('cjs', true))
+    .pipe(rollup('cjs'))
     .pipe($.rename('cjs.js'))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('./dist'))
   gulp.src('dist/bundle.es6', {read: false})
-    .pipe(rollup('umd', true))
+    .pipe(rollup('umd'))
     .pipe($.rename('umd.js'))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('./dist'))
   gulp.src('dist/bundle.es6', {read: false})
-    .pipe(rollup('iife', true))
+    .pipe(rollup('iife'))
     .pipe($.rename('iife.js'))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('./dist'))
@@ -122,7 +120,7 @@ gulp.task('dist', function () {
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('./dist'))
   gulp.src('dist/globals.es6', {read: false})
-    .pipe(rollup('cjs', true))
+    .pipe(rollup('cjs'))
     .pipe($.rename('globals.js'))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('./dist'))

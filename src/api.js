@@ -10,8 +10,8 @@ export default class FacebookAdsApi {
   static get GRAPH () { return 'https://graph.facebook.com' }
 
   /**
-   * @param {string} accessToken
-   * @param {string} locale
+   * @param {String} accessToken
+   * @param {String} [locale]
    */
   constructor (accessToken, locale = 'en_US') {
     if (!accessToken) {
@@ -24,8 +24,8 @@ export default class FacebookAdsApi {
 
   /**
    * Instantiate an API and store it as the default
-   * @param  {string} accessToken
-   * @param  {string} locale
+   * @param  {String} accessToken
+   * @param  {String} [locale]
    * @return {FacebookAdsApi}
    */
   static init (accessToken, locale) {
@@ -47,6 +47,13 @@ export default class FacebookAdsApi {
     return this
   }
 
+  /**
+   * Http Request
+   * @param  {String} method
+   * @param  {String} path
+   * @param  {Object} [params]
+   * @return {Promise}
+   */
   call (method, path, params = {}) {
     var url
     if (method === 'POST' || method === 'PUT') {

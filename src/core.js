@@ -1,7 +1,7 @@
 import FacebookAdsApi from './api'
 
 /**
- * Abstract Object (may or may not have explicitly be a node of the Graph)
+ * Abstract Object
  * Manages object data fields and provides matching properties
  */
 export class AbstractObject {
@@ -19,6 +19,7 @@ export class AbstractObject {
 
   /**
    * Define data getter and setter field
+   * @param {String} field
    */
   _defineProperty (field) {
     Object.defineProperty(this, field, {
@@ -30,8 +31,8 @@ export class AbstractObject {
 
   /**
    * Set data field
-   * @param {string} field
-   * @param {mixed} value
+   * @param {String} field
+   * @param {Mixed} value
    * @return this
    */
   set (field, value) {
@@ -44,7 +45,7 @@ export class AbstractObject {
 
   /**
    * Set multiple data fields
-   * @param {object} data
+   * @param {Object} data
    * @return this
    */
   setData (data) {
@@ -56,7 +57,7 @@ export class AbstractObject {
 
   /**
    * Export object data
-   * @return {object}
+   * @return {Object}
    */
   exportData () {
     return this._data
@@ -71,10 +72,9 @@ export class AbstractObject {
 export class AbstractCrudObject extends AbstractObject {
 
   /**
-   * @param  {array} fields
-   * @param  {object} data Initial data
-   * @param  {string} parentId
-   * @param  {FacebookAdApi} api
+   * @param  {Object} data Initial data
+   * @param  {String} parentId
+   * @param  {FacebookAdApi} [api]
    */
   constructor (data, parentId, api) {
     super(data)
@@ -87,6 +87,7 @@ export class AbstractCrudObject extends AbstractObject {
 
   /**
    * Define data getter and setter recording changes
+   * @param {String} field
    */
   _defineProperty (field) {
     if (this._changes === undefined) {
@@ -104,7 +105,7 @@ export class AbstractCrudObject extends AbstractObject {
 
   /**
    * Set object data as if it were read from the server. Wipes related changes
-   * @param {object} data
+   * @param {Object} data
    * @return this
    */
   setData (data) {
@@ -117,7 +118,7 @@ export class AbstractCrudObject extends AbstractObject {
 
   /**
    * Export changed object data
-   * @return {object}
+   * @return {Object}
    */
   exportData () {
     return this._changes
@@ -133,8 +134,8 @@ export class AbstractCrudObject extends AbstractObject {
   }
 
   /**
-   * @throws {error} if object has no id
-   * @return {string}
+   * @throws {Error} if object has no id
+   * @return {String}
    */
   getId () {
     if (!this.id) {
@@ -144,8 +145,8 @@ export class AbstractCrudObject extends AbstractObject {
   }
 
   /**
-   * @throws {error} if object has no parent id
-   * @return {string}
+   * @throws {Error} if object has no parent id
+   * @return {String}
    */
   getParentId () {
     if (!this._parentId) {
@@ -155,7 +156,7 @@ export class AbstractCrudObject extends AbstractObject {
   }
 
   /**
-   * @return {string}
+   * @return {String}
    */
   getNodePath () {
     return this.getId()
@@ -254,9 +255,9 @@ export class AbstractCrudObject extends AbstractObject {
   /**
    * Initialize Cursor to paginate on edges
    * @param  {Object}  targetClass
-   * @param  {Array}   fields
-   * @param  {Object}  params
-   * @param  {Boolean} fetchFirstPage
+   * @param  {Array}   [fields]
+   * @param  {Object}  [params]
+   * @param  {Boolean} [fetchFirstPage]
    * @param  {String}  [endpoint]
    * @return {Cursor}
    */
@@ -272,9 +273,9 @@ export class AbstractCrudObject extends AbstractObject {
 
   /**
    * Read Objects by Ids
-   * @param  {array} ids
-   * @param  {Array}  fields
-   * @param  {Object} params
+   * @param  {Array}          ids
+   * @param  {Array}          [fields]
+   * @param  {Object}         [params]
    * @param  {FacebookAdsApi} [api]
    * @return {Promise}
    */
@@ -307,8 +308,8 @@ export class Cursor extends Array {
   /**
    * @param  {Object} sourceObject
    * @param  {Object} targetClass
-   * @param  {Object}  params
-   * @param  {String}  [endpoint]
+   * @param  {Object} [params]
+   * @param  {String} [endpoint]
    */
   constructor (sourceObject, targetClass, params, endpoint) {
     super(0)

@@ -6,7 +6,17 @@ function FacebookError (error) {
 FacebookError.prototype = Object.create(Error.prototype)
 FacebookError.prototype.constructor = FacebookError
 
+/**
+ * Raised when an api request fails.
+ */
 export class FacebookRequestError extends FacebookError {
+
+  /**
+   * @param  {[Object}  response
+   * @param  {String}   method
+   * @param  {String}   url
+   * @param  {Object}   data
+   */
   constructor (response, method, url, data) {
     let error = response.body.error
     let message = error.error_user_msg

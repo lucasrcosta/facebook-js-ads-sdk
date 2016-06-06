@@ -7,10 +7,10 @@ export default class Http {
 
   /**
    * Request
-   * @param {string} method
-   * @param {string} url
-   * @param {object} [data]
-   * @return {Promise}
+   * @param   {String}  method
+   * @param   {String}  url
+   * @param   {Object}  [data]
+   * @return  {Promise}
    */
   static request (method, url, data) {
     if (typeof window !== 'undefined' && window.XMLHttpRequest) {
@@ -21,10 +21,10 @@ export default class Http {
 
   /**
    * XmlHttpRequest request
-   * @param {string} method
-   * @param {string} url
-   * @param {object} [data]
-   * @return {Promise}
+   * @param   {String}  method
+   * @param   {String}  url
+   * @param   {Object}  [data]
+   * @return  {Promise}
    */
   static xmlHttpRequest (method, url, data) {
     return new Promise((resolve, reject) => {
@@ -58,10 +58,10 @@ export default class Http {
 
   /**
    * Request Promise
-   * @param {string} method
-   * @param {string} url
-   * @param {object} [data]
-   * @return {Promise}
+   * @param   {String}  method
+   * @param   {String}  url
+   * @param   {Object}  [data]
+   * @return  {Promise}
    */
   static request_promise (method, url, data) {
     const rp = require('request-promise')

@@ -1,5 +1,7 @@
 # Facebook Ads API SDK for Javascript [![Build Status](https://travis-ci.org/lucascosta/facebook-js-ads-sdk.svg?branch=master)](https://travis-ci.org/lucascosta/facebook-js-ads-sdk)
 
+![Marketing API Banner](https://raw.githubusercontent.com/lucascosta/facebook-js-ads-sdk/master/marketingapi.png)
+
 An ES2015 (ES6 Harmony) Javascript SDK for [**Facebook Ads API**](https://developers.facebook.com/docs/ads-api) development in both client and server-side. ECMAScript 5 bundled minified distribuitions with sourcemaps are also available as AMD and CommonJS modules, as an IIFE (under the `fb` variable), as UMD if you want it all, and even as Browser Globals. Runs "anywhere" thanks to [Babel](https://babeljs.io/) and [Rollup](http://rollupjs.org/). It is consistent with many concepts from Python and PHP SDKs in a JS fashion, with some simplifications and tweaks. This is not an official library.
 
 ## Example

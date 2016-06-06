@@ -43,7 +43,7 @@ account.read([AdAccount.Fields.name])
   .catch(UIRequestError)
 ```
 
-This snippet reads an account's data and then, in parallel, fetches insights for the account in the last 7 days and the last 10 campaigns. When the acount insights are available it's passed along with the account data to a placeholder UI function. When the campaigns return the insights for those are requested and sent to the UI with the campaing data. It can build a small dashboard, pretty cool huh? <!--- In fact if you have a valid token and an account Id you can see it working right now in this (**LIVE EXAMPLE**)[https://jsfiddle.net/]. Open your console, replace the parameters and click run. You can play with other objects there if you like as well. --> Hand me a star if you liked it!
+This snippet reads an account's data and then, in parallel, fetches insights for the account in the last 7 days and the last 10 campaigns. When the acount insights are available it's passed along with the account data to a placeholder UI function. When the campaigns return the insights for those are requested and sent to the UI with the campaing data. It can build a small dashboard, pretty cool huh? Hand me a star if you liked it!
 
 ## Installation
 
@@ -72,9 +72,13 @@ const api = FacebookAdsApi.init(accessToken)
 
 Once instantiated, the Api object be refered by the Graph objects. You can also directly assign an Api instance to an object, which enables using different tokens.
 
+#### Debugging
+
+A `FacebookAdsApi` objedt offers a debbuging mode that will log all requests. To enable it just call `api.setDebug(true)` on an API instance.
+
 ### Facebook Objects
 
-The currently supported objects are located in 'src/objects'. If the one need is not available you may add it and make a Pull Request, or ask for it in the Issues if you can't.
+The currently supported objects are located in 'src/objects'. If the object need is not available or it doesn't posses a method you want you may add it and make a Pull Request, or ask for it in the Issues if you can't.
 
 ```javascript
 // instantiating an object
@@ -188,10 +192,10 @@ This package uses [StandardJS](http://standardjs.com/). Inconsistent code will b
 
 Unit tests run in Node.js, PhatomJS, and in Browsers. Travis CI will run both Node and Phatom tests to ensure isomporphism. 
 
-The default `gulp` task  will watch the files and run the Node tests repeatedly.
-`gulp test` will run the Node tests.
-`gulp test-phantom` will run tests against the PhatomJS headless browser.
-`gulp test-browser` will open your system browser with the tests.
+* The default `gulp` task  will watch the files and run the Node tests repeatedly.
+* `gulp test` will run the Node tests.
+* `gulp test-phantom` will run tests against the PhatomJS headless browser.
+* `gulp test-browser` will open your system browser with the tests.
 
 Front-end tests rely on a bundle processed before the tests. You can use `gulp watch-bundle` to bundle as the code changes.
 
@@ -199,5 +203,5 @@ Front-end tests rely on a bundle processed before the tests. You can use `gulp w
 
 Integration tests run a few basic operations to ensure API connectivity. To run them you'll need to setup a `config.json` file in `tests/integration`. Copy the `config.sample` and fill `accessToken` and `accountId`.
 
-`gulp integration` will run integration tests on Node.
-`gulp integration-browser` will open your system browser with the tests. Useful if you'd like to inspect the requests.
+* `gulp integration` will run integration tests on Node.
+* `gulp integration-browser` will open your system browser with the tests. Useful if you'd like to inspect the requests.

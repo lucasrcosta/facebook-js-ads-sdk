@@ -1,8 +1,7 @@
 requirejs.config({
   paths: {
-    'bluebird': './../bower_components/bluebird/js/browser/bluebird',
-    'mocha': './../bower_components/mocha/mocha',
-    'chai': './../bower_components/chai/chai'
+    'mocha': './../../bower_components/mocha/mocha',
+    'chai': './../../bower_components/chai/chai'
   },
   shim: {
     'mocha': {
@@ -15,11 +14,9 @@ requirejs.config({
 })
 
 require([
-  'bluebird',
   'mocha',
   'chai'
-], function (bluebird) {
-  window.Promise = bluebird
+], function () {
   require([
     './suite'
   ], function () {

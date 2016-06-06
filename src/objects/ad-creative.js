@@ -1,71 +1,142 @@
-(function(root, factory) {
-  'use strict';
-  var dependencies = [
-    './core/crud-object',
-    './mixins/archivable'
-  ];
-  if (typeof define === 'function' && define.amd) define(dependencies, factory);
-  else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
-  else root.FacebookAdsApi.define('Objects.AdCreative', dependencies, factory);
-}(this, function(CrudObject, Archivable) {
-  'use strict';
+import { AbstractCrudObject } from './../core'
+import AdPreview from './ad-preview'
 
-  var endpoint = 'adcreatives';
-  var fields = [
-    'id',
-    'title',
-    'actor_id',
-    'actor_name',
-    'name',
-    'object_id',
-    'object_story_id',
-    'object_story_spec',
-    'product_set_id',
-    'body',
-    'image_hash',
-    'image_file',
-    'image_url',
-    'image_crops',
-    'video_id',
-    'actor_image_hash',
-    'link_url',
-    'object_url',
-    'url_tags',
-    'preview_url',
-    'thumbnail_url',
-    'follow_redirect',
-    'object_store_url',
-    'link_deep_link_url',
-    'call_to_action_type',
-    'object_type',
-  ];
-
-  /**
-   * An instance of a specific creative which is being used to define the creative field of one or more ad groups.
-   * @see {@link} https://developers.facebook.com/docs/marketing-api/adcreative
-   * @param {FacebookAdsApi}  api
-   * @param {mixed}           [initData]
-   * @param {int}             [accountId]
-   * @extends CrudObject
-   * @class
-   */
-  function AdCreative(api, initData, accountId) {
-    var _this = new CrudObject(api, endpoint, fields, initData, accountId);
-    Archivable.call(_this, 'campaign_status');
-
-    /**
-     * @param  {object}   params
-     * @return {promise}
-     */
-    _this.getAdPreviews = function(params) {
-      return _this.getManyByConnection(api.AdPreview, null, params);
-    };
-
-    return _this;
+/**
+ * AdCreative
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/reference/ad-creative}
+ */
+export default class AdCreative extends AbstractCrudObject {
+  static get Fields () {
+    return Object.freeze({
+      actor_id: 'actor_id',
+      actor_image_hash: 'actor_image_hash',
+      actor_image_url: 'actor_image_url',
+      actor_name: 'actor_name',
+      adlabels: 'adlabels',
+      applink_treatment: 'applink_treatment',
+      body: 'body',
+      call_to_action_type: 'call_to_action_type',
+      id: 'id',
+      image_crops: 'image_crops',
+      image_hash: 'image_hash',
+      image_url: 'image_url',
+      instagram_actor_id: 'instagram_actor_id',
+      instagram_permalink_url: 'instagram_permalink_url',
+      instagram_story_id: 'instagram_story_id',
+      link_og_id: 'link_og_id',
+      link_url: 'link_url',
+      name: 'name',
+      object_id: 'object_id',
+      object_story_id: 'object_story_id',
+      object_story_spec: 'object_story_spec',
+      object_type: 'object_type',
+      object_url: 'object_url',
+      platform_customizations: 'platform_customizations',
+      product_set_id: 'product_set_id',
+      run_status: 'run_status',
+      template_url: 'template_url',
+      thumbnail_url: 'thumbnail_url',
+      title: 'title',
+      url_tags: 'url_tags',
+      action_spec: 'action_spec',
+      call_to_action: 'call_to_action',
+      dynamic_ad_voice: 'dynamic_ad_voice',
+      follow_redirect: 'follow_redirect',
+      image_file: 'image_file',
+      object_instagram_id: 'object_instagram_id',
+      place_page_set_id: 'place_page_set_id',
+      video_id: 'video_id'
+    })
   }
 
-  AdCreative.getEndpoint = function() { return endpoint; };
-  AdCreative.getFields = function() { return fields; };
+  static get ApplinkTreatment () {
+    return Object.freeze({
+      deeplink_with_web_fallback: 'deeplink_with_web_fallback',
+      deeplink_with_appstore_fallback: 'deeplink_with_appstore_fallback',
+      web_only: 'web_only'
+    })
+  }
 
-  return AdCreative;
-}));
+  static get CallToActionType () {
+    return Object.freeze({
+      open_link: 'OPEN_LINK',
+      like_page: 'LIKE_PAGE',
+      shop_now: 'SHOP_NOW',
+      play_game: 'PLAY_GAME',
+      install_app: 'INSTALL_APP',
+      use_app: 'USE_APP',
+      install_mobile_app: 'INSTALL_MOBILE_APP',
+      use_mobile_app: 'USE_MOBILE_APP',
+      book_travel: 'BOOK_TRAVEL',
+      listen_music: 'LISTEN_MUSIC',
+      watch_video: 'WATCH_VIDEO',
+      learn_more: 'LEARN_MORE',
+      sign_up: 'SIGN_UP',
+      download: 'DOWNLOAD',
+      watch_more: 'WATCH_MORE',
+      no_button: 'NO_BUTTON',
+      call_now: 'CALL_NOW',
+      buy_now: 'BUY_NOW',
+      get_offer: 'GET_OFFER',
+      get_offer_view: 'GET_OFFER_VIEW',
+      get_directions: 'GET_DIRECTIONS',
+      message_page: 'MESSAGE_PAGE',
+      subscribe: 'SUBSCRIBE',
+      sell_now: 'SELL_NOW',
+      donate_now: 'DONATE_NOW',
+      get_quote: 'GET_QUOTE',
+      contact_us: 'CONTACT_US',
+      record_now: 'RECORD_NOW',
+      vote_now: 'VOTE_NOW',
+      open_movies: 'OPEN_MOVIES'
+    })
+  }
+
+  static get ObjectType () {
+    return Object.freeze({
+      application: 'APPLICATION',
+      domain: 'DOMAIN',
+      event: 'EVENT',
+      offer: 'OFFER',
+      page: 'PAGE',
+      photo: 'PHOTO',
+      share: 'SHARE',
+      status: 'STATUS',
+      store_item: 'STORE_ITEM',
+      video: 'VIDEO',
+      invalid: 'INVALID',
+      action_spec: 'ACTION_SPEC',
+      instagram_media: 'INSTAGRAM_MEDIA'
+    })
+  }
+
+  static get RunStatus () {
+    return Object.freeze({
+      active: 'ACTIVE',
+      deleted: 'DELETED'
+    })
+  }
+
+  static get DynamicAdVoice () {
+    return Object.freeze({
+      dynamic: 'DYNAMIC',
+      story_owner: 'STORY_OWNER'
+    })
+  }
+
+  static get Operator () {
+    return Object.freeze({
+      all: 'ALL',
+      any: 'ANY'
+    })
+  }
+
+  static getEndpoint () {
+    return 'adcreatives'
+  }
+
+  getPreviews (fields, params, fetchFirstPage) {
+    return this.getEdge(AdPreview, fields, params, fetchFirstPage)
+  }
+}

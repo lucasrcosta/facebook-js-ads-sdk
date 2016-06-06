@@ -1,114 +1,93 @@
-(function(root, factory) {
-  'use strict';
-  var dependencies = [
-    './http/graph',
-    './objects/objects'
-  ];
-  if (typeof define === 'function' && define.amd) define(dependencies, factory);
-  else if (typeof exports === 'object') module.exports = factory.apply(factory, dependencies.map(function(d) { return require(d); }));
-  else root.FacebookAdsApi.define('FacebookAdsApi', dependencies, factory);
-}(this, function(Graph, Objects) {
-  'use strict';
+import Http from './http'
+import { FacebookRequestError } from './exceptions'
+
+/**
+ * Facebook Ads API
+ */
+export default class FacebookAdsApi {
+
+  static get VERSION () { return 'v2.6' }
+  static get GRAPH () { return 'https://graph.facebook.com' }
 
   /**
-   * Facebook Ads API
-   * @param {string} token
-   * @throws {Error} if no token is given
+   * @param {String} accessToken
+   * @param {String} [locale]
    */
-  function FacebookAdsApi(token, locale) {
-    var _this = {};
-    var version = '2.4';
-    locale =  locale || 'en_US';
-
-    if (!token)
-      throw new Error('Be a darling and get us a nice token, will you?');
-
-    _this.graph = new Graph(_this);
-
-    // Facebook Objects constructors
-    var objKeys = Object.keys(Objects);
-    objKeys.forEach(function(object) {
-      _this[object] = function() {
-        var params = [_this].concat(Array.prototype.slice.call(arguments));
-        return Objects[object].apply({}, params);
-      };
-      if (!Objects[object].getEndpoint)
-        throw new Error(object + ' should implement getEndpoint');
-      _this[object].getEndpoint =  Objects[object].getEndpoint;
-      if (!Objects[object].getFields)
-        throw new Error(object + ' should implement getFields');
-      _this[object].getFields =  Objects[object].getFields;
-
-      _this[object].getClassname = function() { return Objects[object].name; };
-    });
-
-    /**
-     * Get API Version
-     * @returns {string}
-     */
-    _this.getVersion = function() {
-      return version;
-    };
-
-    /**
-     * Get locale
-     * @returns {string}
-     */
-    _this.getLocale = function() {
-      return locale;
-    };
-
-    /**
-     * Set API Token
-     * @param {string}
-     */
-    function setToken(newToken) {
-      token = newToken;
-      return _this;
+  constructor (accessToken, locale = 'en_US') {
+    if (!accessToken) {
+      throw new Error('Access token required')
     }
-    _this.setToken = setToken;
-
-    /**
-     * Get API Token
-     * @returns {string}
-     */
-    _this.getToken = function() {
-      return token;
-    };
-
-    /**
-     * Read multiple Ids
-     * @param   {CrudObject}  ObjClass
-     * @param   {array}       ids
-     * @param   {array}       filter     fields filter
-     * @param   {object}      params
-     * @return  {promise}
-     * @resolve {Collection}
-     */
-    _this.readIds = function(ObjClass, ids, filter, params) {
-      var fields = ObjClass.getFields();
-      if (filter)
-        checkFilter(filter, fields);
-      else
-        filter = fields;
-      params = params || {};
-      params.fields = filter;
-      params.ids = ids.join();
-      return new Promise(function(resolve, reject) {
-        api.graph.get('/', params)
-          .then(function(data) {
-            var objects = [];
-            Object.keys(data).map(function(id) {
-              objects.push(new ObjClass(data[id]));
-            });
-            resolve(objects);
-          })
-        .catch(reject);
-      });
-    };
-
-    return _this;
+    this.accessToken = accessToken
+    this.locale = locale
+    this._debug = false
   }
 
-  return FacebookAdsApi;
-}));
+  /**
+   * Instantiate an API and store it as the default
+   * @param  {String} accessToken
+   * @param  {String} [locale]
+   * @return {FacebookAdsApi}
+   */
+  static init (accessToken, locale) {
+    const api = new this(accessToken, locale)
+    this.setDefaultApi(api)
+    return api
+  }
+
+  static setDefaultApi (api) {
+    this._defaultApi = api
+  }
+
+  static getDefaultApi () {
+    return this._defaultApi
+  }
+
+  setDebug (flag) {
+    this._debug = flag
+    return this
+  }
+
+  /**
+   * Http Request
+   * @param  {String} method
+   * @param  {String} path
+   * @param  {Object} [params]
+   * @return {Promise}
+   */
+  call (method, path, params = {}) {
+    var url
+    if (method === 'POST' || method === 'PUT') {
+      var data = params
+      params = {}
+    }
+    if (typeof path !== 'string' && !(path instanceof String)) {
+      url = [FacebookAdsApi.GRAPH, FacebookAdsApi.VERSION, ...path].join('/')
+      params['access_token'] = this.accessToken
+      url += `?${FacebookAdsApi._encode_params(params)}`
+    } else {
+      url = path
+    }
+
+    return Http.request(method, url, data)
+    .then((response) => {
+      if (this._debug) console.log(`200 ${method} ${url} ${data ? JSON.stringify(data) : ''}`)
+      return Promise.resolve(response)
+    })
+    .catch((response) => {
+      if (this._debug) {
+        console.log(`${response.status} ${method} ${url} ${data ? JSON.stringify(data) : ''}`)
+      }
+      throw new FacebookRequestError(response, method, url, data)
+    })
+  }
+
+  static _encode_params (params) {
+    return Object.keys(params).map((key) => {
+      var param = params[key]
+      if (typeof param === 'object') {
+        param = param ? JSON.stringify(param) : ''
+      }
+      return `${encodeURIComponent(key)}=${encodeURIComponent(param)}`
+    }).join('&')
+  }
+}

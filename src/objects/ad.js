@@ -1,66 +1,52 @@
 import { AbstractCrudObject } from './../core'
-import Ad from './ad'
+import AdCreative from './ad-creative'
 import Insights from './insights'
 
 /**
- * AdSet
+ * Ad
  * @extends AbstractCrudObject
- * @see {@link https://developers.facebook.com/docs/marketing-api/reference/ad-campaign}
+ * @see {@link https://developers.facebook.com/docs/marketing-api/reference/adgroup}
  */
-export default class AdSet extends AbstractCrudObject {
+export default class Ad extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
       account_id: 'account_id',
+      ad_review_feedback: 'ad_review_feedback',
       adlabels: 'adlabels',
-      adset_schedule: 'adset_schedule',
+      adset: 'adset',
+      adset_id: 'adset_id',
       bid_amount: 'bid_amount',
       bid_info: 'bid_info',
-      billing_event: 'billing_event',
-      budget_remaining: 'budget_remaining',
+      bid_type: 'bid_type',
       campaign: 'campaign',
       campaign_id: 'campaign_id',
       configured_status: 'configured_status',
+      conversion_specs: 'conversion_specs',
       created_time: 'created_time',
-      creative_sequence: 'creative_sequence',
-      daily_budget: 'daily_budget',
+      creative: 'creative',
       effective_status: 'effective_status',
-      end_time: 'end_time',
-      frequency_cap: 'frequency_cap',
-      frequency_cap_reset_period: 'frequency_cap_reset_period',
-      frequency_control_specs: 'frequency_control_specs',
       id: 'id',
-      is_autobid: 'is_autobid',
-      lifetime_budget: 'lifetime_budget',
-      lifetime_frequency_cap: 'lifetime_frequency_cap',
-      lifetime_imps: 'lifetime_imps',
+      last_updated_by_app_id: 'last_updated_by_app_id',
       name: 'name',
-      optimization_goal: 'optimization_goal',
-      pacing_type: 'pacing_type',
-      promoted_object: 'promoted_object',
       recommendations: 'recommendations',
-      rf_prediction_id: 'rf_prediction_id',
-      rtb_flag: 'rtb_flag',
-      start_time: 'start_time',
       status: 'status',
-      targeting: 'targeting',
+      tracking_specs: 'tracking_specs',
       updated_time: 'updated_time',
-      use_new_app_click: 'use_new_app_click',
-      daily_imps: 'daily_imps',
+      date_format: 'date_format',
+      display_sequence: 'display_sequence',
       execution_options: 'execution_options',
-      redownload: 'redownload'
+      redownload: 'redownload',
+      filename: 'filename'
     })
   }
 
-  static get BillingEvent () {
+  static get BidType () {
     return Object.freeze({
-      app_installs: 'APP_INSTALLS',
-      clicks: 'CLICKS',
-      impressions: 'IMPRESSIONS',
-      link_clicks: 'LINK_CLICKS',
-      offer_claims: 'OFFER_CLAIMS',
-      page_likes: 'PAGE_LIKES',
-      post_engagement: 'POST_ENGAGEMENT',
-      video_views: 'VIDEO_VIEWS'
+      cpc: 'CPC',
+      cpm: 'CPM',
+      multi_premium: 'MULTI_PREMIUM',
+      absolute_ocpm: 'ABSOLUTE_OCPM',
+      cpa: 'CPA'
     })
   }
 
@@ -85,29 +71,6 @@ export default class AdSet extends AbstractCrudObject {
       campaign_paused: 'CAMPAIGN_PAUSED',
       archived: 'ARCHIVED',
       adset_paused: 'ADSET_PAUSED'
-    })
-  }
-
-  static get OptimizationGoal () {
-    return Object.freeze({
-      none: 'NONE',
-      app_installs: 'APP_INSTALLS',
-      brand_awareness: 'BRAND_AWARENESS',
-      clicks: 'CLICKS',
-      engaged_users: 'ENGAGED_USERS',
-      external: 'EXTERNAL',
-      event_responses: 'EVENT_RESPONSES',
-      impressions: 'IMPRESSIONS',
-      lead_generation: 'LEAD_GENERATION',
-      link_clicks: 'LINK_CLICKS',
-      offer_claims: 'OFFER_CLAIMS',
-      offsite_conversions: 'OFFSITE_CONVERSIONS',
-      page_engagement: 'PAGE_ENGAGEMENT',
-      page_likes: 'PAGE_LIKES',
-      post_engagement: 'POST_ENGAGEMENT',
-      reach: 'REACH',
-      social_impressions: 'SOCIAL_IMPRESSIONS',
-      video_views: 'VIDEO_VIEWS'
     })
   }
 
@@ -156,11 +119,11 @@ export default class AdSet extends AbstractCrudObject {
   }
 
   static getEndpoint () {
-    return 'adsets'
+    return 'ads'
   }
 
-  getAds (fields, params, fetchFirstPage) {
-    return this.getEdge(Ad, fields, params, fetchFirstPage)
+  getAdCreatives (fields, params, fetchFirstPage) {
+    return this.getEdge(AdCreative, fields, params, fetchFirstPage)
   }
 
   getInsights (fields, params, fetchFirstPage) {

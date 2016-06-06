@@ -1,6 +1,6 @@
 {
   "name": "facebook-ads-sdk",
-  "version": "0.0.1",
+  "version": "2.6.1",
   "description": "SDK for the Facebook Ads API in Javascript and Node.js",
   "author": {
     "name": "Lucas Costa",
@@ -60,7 +60,7 @@
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/src/ test/standard.js && gulp test-bundle && gulp test-phantom"
   },
-  "main": "./src/api.js",
+  "main": "./dist/cjs.js",
   "license": "MIT",
   "standard": {
     "globals": [

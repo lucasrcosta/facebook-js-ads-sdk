@@ -1,6 +1,6 @@
 {
   "name": "facebook-ads-sdk",
-  "version": "2.6.2",
+  "version": "2.7.0",
   "description": "SDK for the Facebook Ads API in Javascript and Node.js",
   "author": {
     "name": "Lucas Costa",
@@ -28,9 +28,9 @@
     "url": "git://github.com/lucascosta/facebook-js-ads-sdk.git"
   },
   "devDependencies": {
-    "bluebird": "^3.4.0",
+    "bluebird": "^3.4.1",
     "chai": "^3.5.0",
-    "mocha": "^2.4.5",
+    "mocha": "^2.5.3",
     "requirejs": "^2.2.0"
   },
   "main": "./dist/iife.js",

@@ -14,7 +14,7 @@ class Http {
     if (typeof window !== 'undefined' && window.XMLHttpRequest) {
       return Http.xmlHttpRequest(method, url, data)
     }
-    return Http.request_promise(method, url, data)
+    return Http.requestPromise(method, url, data)
   }
 
   /**
@@ -60,7 +60,7 @@ class Http {
    * @param   {Object}  [data]
    * @return  {Promise}
    */
-  static request_promise (method, url, data) {
+  static requestPromise (method, url, data) {
     const rp = require('request-promise')
     const options = {
       method: method,
@@ -122,7 +122,7 @@ class FacebookRequestError extends FacebookError {
  */
 class FacebookAdsApi {
 
-  static get VERSION () { return 'v2.6' }
+  static get VERSION () { return 'v2.7' }
   static get GRAPH () { return 'https://graph.facebook.com' }
 
   /**
@@ -179,7 +179,7 @@ class FacebookAdsApi {
     if (typeof path !== 'string' && !(path instanceof String)) {
       url = [FacebookAdsApi.GRAPH, FacebookAdsApi.VERSION, ...path].join('/')
       params['access_token'] = this.accessToken
-      url += `?${FacebookAdsApi._encode_params(params)}`
+      url += `?${FacebookAdsApi._encodeParams(params)}`
     } else {
       url = path
     }
@@ -197,7 +197,7 @@ class FacebookAdsApi {
     })
   }
 
-  static _encode_params (params) {
+  static _encodeParams (params) {
     return Object.keys(params).map((key) => {
       var param = params[key]
       if (typeof param === 'object') {

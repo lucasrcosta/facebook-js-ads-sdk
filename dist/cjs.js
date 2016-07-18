@@ -913,6 +913,7 @@ var AdCreative = function (_AbstractCrudObject) {
     key: 'Fields',
     get: function get() {
       return Object.freeze({
+        id: 'id',
         actor_id: 'actor_id',
         actor_image_hash: 'actor_image_hash',
         actor_image_url: 'actor_image_url',
@@ -921,7 +922,6 @@ var AdCreative = function (_AbstractCrudObject) {
         applink_treatment: 'applink_treatment',
         body: 'body',
         call_to_action_type: 'call_to_action_type',
-        id: 'id',
         image_crops: 'image_crops',
         image_hash: 'image_hash',
         image_url: 'image_url',
@@ -943,14 +943,14 @@ var AdCreative = function (_AbstractCrudObject) {
         thumbnail_url: 'thumbnail_url',
         title: 'title',
         url_tags: 'url_tags',
+        use_page_actor_override: 'use_page_actor_override',
         action_spec: 'action_spec',
         call_to_action: 'call_to_action',
         dynamic_ad_voice: 'dynamic_ad_voice',
         follow_redirect: 'follow_redirect',
         image_file: 'image_file',
         object_instagram_id: 'object_instagram_id',
-        place_page_set_id: 'place_page_set_id',
-        video_id: 'video_id'
+        place_page_set_id: 'place_page_set_id'
       });
     }
   }, {
@@ -1310,6 +1310,7 @@ var Ad = function (_AbstractCrudObject) {
     key: 'Fields',
     get: function get() {
       return Object.freeze({
+        id: 'id',
         account_id: 'account_id',
         ad_review_feedback: 'ad_review_feedback',
         adlabels: 'adlabels',
@@ -1325,7 +1326,6 @@ var Ad = function (_AbstractCrudObject) {
         created_time: 'created_time',
         creative: 'creative',
         effective_status: 'effective_status',
-        id: 'id',
         last_updated_by_app_id: 'last_updated_by_app_id',
         name: 'name',
         recommendations: 'recommendations',
@@ -1335,8 +1335,7 @@ var Ad = function (_AbstractCrudObject) {
         date_format: 'date_format',
         display_sequence: 'display_sequence',
         execution_options: 'execution_options',
-        redownload: 'redownload',
-        filename: 'filename'
+        redownload: 'redownload'
       });
     }
   }, {

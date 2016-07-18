@@ -16,7 +16,7 @@ export default class Http {
     if (typeof window !== 'undefined' && window.XMLHttpRequest) {
       return Http.xmlHttpRequest(method, url, data)
     }
-    return Http.request_promise(method, url, data)
+    return Http.requestPromise(method, url, data)
   }
 
   /**
@@ -62,7 +62,7 @@ export default class Http {
    * @param   {Object}  [data]
    * @return  {Promise}
    */
-  static request_promise (method, url, data) {
+  static requestPromise (method, url, data) {
     const rp = require('request-promise')
     const options = {
       method: method,

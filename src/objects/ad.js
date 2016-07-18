@@ -10,6 +10,7 @@ import Insights from './insights'
 export default class Ad extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
+      id: 'id',
       account_id: 'account_id',
       ad_review_feedback: 'ad_review_feedback',
       adlabels: 'adlabels',
@@ -25,7 +26,6 @@ export default class Ad extends AbstractCrudObject {
       created_time: 'created_time',
       creative: 'creative',
       effective_status: 'effective_status',
-      id: 'id',
       last_updated_by_app_id: 'last_updated_by_app_id',
       name: 'name',
       recommendations: 'recommendations',
@@ -35,8 +35,7 @@ export default class Ad extends AbstractCrudObject {
       date_format: 'date_format',
       display_sequence: 'display_sequence',
       execution_options: 'execution_options',
-      redownload: 'redownload',
-      filename: 'filename'
+      redownload: 'redownload'
     })
   }
 

@@ -1,6 +1,7 @@
 import './../src/api'
 import './../src/objects/ad-account'
 import './../src/objects/ad-creative'
+import './../src/objects/ad-image'
 import './../src/objects/ad-preview'
 import './../src/objects/ad-set'
 import './../src/objects/ad'

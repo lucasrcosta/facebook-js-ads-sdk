@@ -4,20 +4,19 @@
   (factory((global.fb = global.fb || {})));
 }(this, function (exports) { 'use strict';
 
-  var babelHelpers = {};
-  babelHelpers.typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
     return typeof obj;
   } : function (obj) {
     return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
   };
 
-  babelHelpers.classCallCheck = function (instance, Constructor) {
+  var classCallCheck = function (instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
     }
   };
 
-  babelHelpers.createClass = function () {
+  var createClass = function () {
     function defineProperties(target, props) {
       for (var i = 0; i < props.length; i++) {
         var descriptor = props[i];
@@ -35,7 +34,7 @@
     };
   }();
 
-  babelHelpers.get = function get(object, property, receiver) {
+  var get = function get(object, property, receiver) {
     if (object === null) object = Function.prototype;
     var desc = Object.getOwnPropertyDescriptor(object, property);
 
@@ -60,7 +59,7 @@
     }
   };
 
-  babelHelpers.inherits = function (subClass, superClass) {
+  var inherits = function (subClass, superClass) {
     if (typeof superClass !== "function" && superClass !== null) {
       throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
     }
@@ -76,7 +75,7 @@
     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
   };
 
-  babelHelpers.possibleConstructorReturn = function (self, call) {
+  var possibleConstructorReturn = function (self, call) {
     if (!self) {
       throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
     }
@@ -84,7 +83,7 @@
     return call && (typeof call === "object" || typeof call === "function") ? call : self;
   };
 
-  babelHelpers.toConsumableArray = function (arr) {
+  var toConsumableArray = function (arr) {
     if (Array.isArray(arr)) {
       for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
 
@@ -94,18 +93,16 @@
     }
   };
 
-  babelHelpers;
-
   /**
    * Isomorphic Http Promise Requests Class
    */
 
   var Http = function () {
     function Http() {
-      babelHelpers.classCallCheck(this, Http);
+      classCallCheck(this, Http);
     }
 
-    babelHelpers.createClass(Http, null, [{
+    createClass(Http, null, [{
       key: 'request',
 
 
@@ -120,7 +117,7 @@
         if (typeof window !== 'undefined' && window.XMLHttpRequest) {
           return Http.xmlHttpRequest(method, url, data);
         }
-        return Http.request_promise(method, url, data);
+        return Http.requestPromise(method, url, data);
       }
 
       /**
@@ -171,8 +168,8 @@
        */
 
     }, {
-      key: 'request_promise',
-      value: function request_promise(method, url, data) {
+      key: 'requestPromise',
+      value: function requestPromise(method, url, data) {
         var rp = require('request-promise');
         var options = {
           method: method,
@@ -207,7 +204,7 @@
    * Raised when an api request fails.
    */
   var FacebookRequestError = function (_FacebookError) {
-    babelHelpers.inherits(FacebookRequestError, _FacebookError);
+    inherits(FacebookRequestError, _FacebookError);
 
 
     /**
@@ -218,12 +215,12 @@
      */
 
     function FacebookRequestError(response, method, url, data) {
-      babelHelpers.classCallCheck(this, FacebookRequestError);
+      classCallCheck(this, FacebookRequestError);
 
       var error = response.body.error;
       var message = error.error_user_msg ? error.error_user_title + ': ' + error.error_user_msg : error.message;
 
-      var _this = babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(FacebookRequestError).call(this, message));
+      var _this = possibleConstructorReturn(this, Object.getPrototypeOf(FacebookRequestError).call(this, message));
 
       _this.name = 'FacebookRequestError';
       _this.message = message;
@@ -243,10 +240,10 @@
    */
 
   var FacebookAdsApi = function () {
-    babelHelpers.createClass(FacebookAdsApi, null, [{
+    createClass(FacebookAdsApi, null, [{
       key: 'VERSION',
       get: function get() {
-        return 'v2.6';
+        return 'v2.7';
       }
     }, {
       key: 'GRAPH',
@@ -263,7 +260,7 @@
 
     function FacebookAdsApi(accessToken) {
       var locale = arguments.length <= 1 || arguments[1] === undefined ? 'en_US' : arguments[1];
-      babelHelpers.classCallCheck(this, FacebookAdsApi);
+      classCallCheck(this, FacebookAdsApi);
 
       if (!accessToken) {
         throw new Error('Access token required');
@@ -281,7 +278,7 @@
      */
 
 
-    babelHelpers.createClass(FacebookAdsApi, [{
+    createClass(FacebookAdsApi, [{
       key: 'setDebug',
       value: function setDebug(flag) {
         this._debug = flag;
@@ -309,9 +306,9 @@
           params = {};
         }
         if (typeof path !== 'string' && !(path instanceof String)) {
-          url = [FacebookAdsApi.GRAPH, FacebookAdsApi.VERSION].concat(babelHelpers.toConsumableArray(path)).join('/');
+          url = [FacebookAdsApi.GRAPH, FacebookAdsApi.VERSION].concat(toConsumableArray(path)).join('/');
           params['access_token'] = this.accessToken;
-          url += '?' + FacebookAdsApi._encode_params(params);
+          url += '?' + FacebookAdsApi._encodeParams(params);
         } else {
           url = path;
         }
@@ -344,11 +341,11 @@
         return this._defaultApi;
       }
     }, {
-      key: '_encode_params',
-      value: function _encode_params(params) {
+      key: '_encodeParams',
+      value: function _encodeParams(params) {
         return Object.keys(params).map(function (key) {
           var param = params[key];
-          if ((typeof param === 'undefined' ? 'undefined' : babelHelpers.typeof(param)) === 'object') {
+          if ((typeof param === 'undefined' ? 'undefined' : _typeof(param)) === 'object') {
             param = param ? JSON.stringify(param) : '';
           }
           return encodeURIComponent(key) + '=' + encodeURIComponent(param);
@@ -366,7 +363,7 @@
     function AbstractObject() {
       var _this = this;
 
-      babelHelpers.classCallCheck(this, AbstractObject);
+      classCallCheck(this, AbstractObject);
 
       this._data = {};
       if (this.constructor.Fields === undefined) {
@@ -384,7 +381,7 @@
      */
 
 
-    babelHelpers.createClass(AbstractObject, [{
+    createClass(AbstractObject, [{
       key: '_defineProperty',
       value: function _defineProperty(field) {
         var _this2 = this;
@@ -454,7 +451,7 @@
    * @extends AbstractObject
    */
   var AbstractCrudObject = function (_AbstractObject) {
-    babelHelpers.inherits(AbstractCrudObject, _AbstractObject);
+    inherits(AbstractCrudObject, _AbstractObject);
 
 
     /**
@@ -464,14 +461,14 @@
      */
 
     function AbstractCrudObject(data, parentId, api) {
-      babelHelpers.classCallCheck(this, AbstractCrudObject);
+      classCallCheck(this, AbstractCrudObject);
 
-      var _this4 = babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(AbstractCrudObject).call(this, data));
+      var _this4 = possibleConstructorReturn(this, Object.getPrototypeOf(AbstractCrudObject).call(this, data));
 
       _this4._parentId = parentId;
       _this4._api = api || FacebookAdsApi.getDefaultApi();
       if (data) {
-        babelHelpers.get(Object.getPrototypeOf(AbstractCrudObject.prototype), 'setData', _this4).call(_this4, data);
+        get(Object.getPrototypeOf(AbstractCrudObject.prototype), 'setData', _this4).call(_this4, data);
       }
       return _this4;
     }
@@ -482,7 +479,7 @@
      */
 
 
-    babelHelpers.createClass(AbstractCrudObject, [{
+    createClass(AbstractCrudObject, [{
       key: '_defineProperty',
       value: function _defineProperty(field) {
         var _this5 = this;
@@ -513,7 +510,7 @@
       value: function setData(data) {
         var _this6 = this;
 
-        babelHelpers.get(Object.getPrototypeOf(AbstractCrudObject.prototype), 'setData', this).call(this, data);
+        get(Object.getPrototypeOf(AbstractCrudObject.prototype), 'setData', this).call(this, data);
         Object.keys(data).forEach(function (key) {
           delete _this6._changes[key];
         });
@@ -766,7 +763,7 @@
    * Iterates over edge objects and controls pagination
    */
   var Cursor = function (_Array) {
-    babelHelpers.inherits(Cursor, _Array);
+    inherits(Cursor, _Array);
 
 
     /**
@@ -777,9 +774,9 @@
      */
 
     function Cursor(sourceObject, targetClass, params, endpoint) {
-      babelHelpers.classCallCheck(this, Cursor);
+      classCallCheck(this, Cursor);
 
-      var _this10 = babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(Cursor).call(this, 0));
+      var _this10 = possibleConstructorReturn(this, Object.getPrototypeOf(Cursor).call(this, 0));
 
       var next = [sourceObject.getId()];
       next.push(endpoint || targetClass.getEndpoint());
@@ -794,7 +791,7 @@
 
       _this10.set = function (array) {
         _this10.clear();
-        _this10.push.apply(_this10, babelHelpers.toConsumableArray(array));
+        _this10.push.apply(_this10, toConsumableArray(array));
       };
 
       _this10.next = function () {
@@ -851,14 +848,14 @@
    */
 
   var AdPreview = function (_AbstractCrudObject) {
-    babelHelpers.inherits(AdPreview, _AbstractCrudObject);
+    inherits(AdPreview, _AbstractCrudObject);
 
     function AdPreview() {
-      babelHelpers.classCallCheck(this, AdPreview);
-      return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(AdPreview).apply(this, arguments));
+      classCallCheck(this, AdPreview);
+      return possibleConstructorReturn(this, Object.getPrototypeOf(AdPreview).apply(this, arguments));
     }
 
-    babelHelpers.createClass(AdPreview, null, [{
+    createClass(AdPreview, null, [{
       key: 'getEndpoint',
       value: function getEndpoint() {
         return 'previews';
@@ -897,14 +894,14 @@
    */
 
   var AdCreative = function (_AbstractCrudObject) {
-    babelHelpers.inherits(AdCreative, _AbstractCrudObject);
+    inherits(AdCreative, _AbstractCrudObject);
 
     function AdCreative() {
-      babelHelpers.classCallCheck(this, AdCreative);
-      return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(AdCreative).apply(this, arguments));
+      classCallCheck(this, AdCreative);
+      return possibleConstructorReturn(this, Object.getPrototypeOf(AdCreative).apply(this, arguments));
     }
 
-    babelHelpers.createClass(AdCreative, [{
+    createClass(AdCreative, [{
       key: 'getPreviews',
       value: function getPreviews(fields, params, fetchFirstPage) {
         return this.getEdge(AdPreview, fields, params, fetchFirstPage);
@@ -918,6 +915,7 @@
       key: 'Fields',
       get: function get() {
         return Object.freeze({
+          id: 'id',
           actor_id: 'actor_id',
           actor_image_hash: 'actor_image_hash',
           actor_image_url: 'actor_image_url',
@@ -926,7 +924,6 @@
           applink_treatment: 'applink_treatment',
           body: 'body',
           call_to_action_type: 'call_to_action_type',
-          id: 'id',
           image_crops: 'image_crops',
           image_hash: 'image_hash',
           image_url: 'image_url',
@@ -948,14 +945,14 @@
           thumbnail_url: 'thumbnail_url',
           title: 'title',
           url_tags: 'url_tags',
+          use_page_actor_override: 'use_page_actor_override',
           action_spec: 'action_spec',
           call_to_action: 'call_to_action',
           dynamic_ad_voice: 'dynamic_ad_voice',
           follow_redirect: 'follow_redirect',
           image_file: 'image_file',
           object_instagram_id: 'object_instagram_id',
-          place_page_set_id: 'place_page_set_id',
-          video_id: 'video_id'
+          place_page_set_id: 'place_page_set_id'
         });
       }
     }, {
@@ -1058,14 +1055,14 @@
    */
 
   var Insights = function (_AbstractCrudObject) {
-    babelHelpers.inherits(Insights, _AbstractCrudObject);
+    inherits(Insights, _AbstractCrudObject);
 
     function Insights() {
-      babelHelpers.classCallCheck(this, Insights);
-      return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(Insights).apply(this, arguments));
+      classCallCheck(this, Insights);
+      return possibleConstructorReturn(this, Object.getPrototypeOf(Insights).apply(this, arguments));
     }
 
-    babelHelpers.createClass(Insights, null, [{
+    createClass(Insights, null, [{
       key: 'getEndpoint',
       value: function getEndpoint() {
         return 'insights';
@@ -1289,14 +1286,14 @@
    */
 
   var Ad = function (_AbstractCrudObject) {
-    babelHelpers.inherits(Ad, _AbstractCrudObject);
+    inherits(Ad, _AbstractCrudObject);
 
     function Ad() {
-      babelHelpers.classCallCheck(this, Ad);
-      return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(Ad).apply(this, arguments));
+      classCallCheck(this, Ad);
+      return possibleConstructorReturn(this, Object.getPrototypeOf(Ad).apply(this, arguments));
     }
 
-    babelHelpers.createClass(Ad, [{
+    createClass(Ad, [{
       key: 'getAdCreatives',
       value: function getAdCreatives(fields, params, fetchFirstPage) {
         return this.getEdge(AdCreative, fields, params, fetchFirstPage);
@@ -1315,6 +1312,7 @@
       key: 'Fields',
       get: function get() {
         return Object.freeze({
+          id: 'id',
           account_id: 'account_id',
           ad_review_feedback: 'ad_review_feedback',
           adlabels: 'adlabels',
@@ -1330,7 +1328,6 @@
           created_time: 'created_time',
           creative: 'creative',
           effective_status: 'effective_status',
-          id: 'id',
           last_updated_by_app_id: 'last_updated_by_app_id',
           name: 'name',
           recommendations: 'recommendations',
@@ -1340,8 +1337,7 @@
           date_format: 'date_format',
           display_sequence: 'display_sequence',
           execution_options: 'execution_options',
-          redownload: 'redownload',
-          filename: 'filename'
+          redownload: 'redownload'
         });
       }
     }, {
@@ -1440,14 +1436,14 @@
    */
 
   var AdSet = function (_AbstractCrudObject) {
-    babelHelpers.inherits(AdSet, _AbstractCrudObject);
+    inherits(AdSet, _AbstractCrudObject);
 
     function AdSet() {
-      babelHelpers.classCallCheck(this, AdSet);
-      return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(AdSet).apply(this, arguments));
+      classCallCheck(this, AdSet);
+      return possibleConstructorReturn(this, Object.getPrototypeOf(AdSet).apply(this, arguments));
     }
 
-    babelHelpers.createClass(AdSet, [{
+    createClass(AdSet, [{
       key: 'getAds',
       value: function getAds(fields, params, fetchFirstPage) {
         return this.getEdge(Ad, fields, params, fetchFirstPage);
@@ -1629,14 +1625,14 @@
    */
 
   var Campaign = function (_AbstractCrudObject) {
-    babelHelpers.inherits(Campaign, _AbstractCrudObject);
+    inherits(Campaign, _AbstractCrudObject);
 
     function Campaign() {
-      babelHelpers.classCallCheck(this, Campaign);
-      return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(Campaign).apply(this, arguments));
+      classCallCheck(this, Campaign);
+      return possibleConstructorReturn(this, Object.getPrototypeOf(Campaign).apply(this, arguments));
     }
 
-    babelHelpers.createClass(Campaign, [{
+    createClass(Campaign, [{
       key: 'getAds',
       value: function getAds(fields, params, fetchFirstPage) {
         return this.getEdge(Ad, fields, params, fetchFirstPage);
@@ -1796,14 +1792,14 @@
    */
 
   var ProductItem = function (_AbstractCrudObject) {
-    babelHelpers.inherits(ProductItem, _AbstractCrudObject);
+    inherits(ProductItem, _AbstractCrudObject);
 
     function ProductItem() {
-      babelHelpers.classCallCheck(this, ProductItem);
-      return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(ProductItem).apply(this, arguments));
+      classCallCheck(this, ProductItem);
+      return possibleConstructorReturn(this, Object.getPrototypeOf(ProductItem).apply(this, arguments));
     }
 
-    babelHelpers.createClass(ProductItem, [{
+    createClass(ProductItem, [{
       key: 'getProductSets',
       value: function getProductSets(fields, params, fetchFirstPage) {
         return this.getEdge(ProductSet, fields, params, fetchFirstPage);
@@ -1891,14 +1887,14 @@
    */
 
   var ProductSet = function (_AbstractCrudObject) {
-    babelHelpers.inherits(ProductSet, _AbstractCrudObject);
+    inherits(ProductSet, _AbstractCrudObject);
 
     function ProductSet() {
-      babelHelpers.classCallCheck(this, ProductSet);
-      return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(ProductSet).apply(this, arguments));
+      classCallCheck(this, ProductSet);
+      return possibleConstructorReturn(this, Object.getPrototypeOf(ProductSet).apply(this, arguments));
     }
 
-    babelHelpers.createClass(ProductSet, [{
+    createClass(ProductSet, [{
       key: 'getProducts',
       value: function getProducts(fields, params, fetchFirstPage) {
         return this.getEdge(ProductItem, fields, params, fetchFirstPage);
@@ -1930,14 +1926,14 @@
    */
 
   var ProductCatalog = function (_AbstractCrudObject) {
-    babelHelpers.inherits(ProductCatalog, _AbstractCrudObject);
+    inherits(ProductCatalog, _AbstractCrudObject);
 
     function ProductCatalog() {
-      babelHelpers.classCallCheck(this, ProductCatalog);
-      return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(ProductCatalog).apply(this, arguments));
+      classCallCheck(this, ProductCatalog);
+      return possibleConstructorReturn(this, Object.getPrototypeOf(ProductCatalog).apply(this, arguments));
     }
 
-    babelHelpers.createClass(ProductCatalog, [{
+    createClass(ProductCatalog, [{
       key: 'getProductSets',
       value: function getProductSets(fields, params, fetchFirstPage) {
         return this.getEdge(ProductSet, fields, params, fetchFirstPage);
@@ -1974,14 +1970,14 @@
    */
 
   var Business = function (_AbstractCrudObject) {
-    babelHelpers.inherits(Business, _AbstractCrudObject);
+    inherits(Business, _AbstractCrudObject);
 
     function Business() {
-      babelHelpers.classCallCheck(this, Business);
-      return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(Business).apply(this, arguments));
+      classCallCheck(this, Business);
+      return possibleConstructorReturn(this, Object.getPrototypeOf(Business).apply(this, arguments));
     }
 
-    babelHelpers.createClass(Business, [{
+    createClass(Business, [{
       key: 'getProductCatalogs',
       value: function getProductCatalogs(fields, params, fetchFirstPage) {
         return this.getEdge(ProductCatalog, fields, params, fetchFirstPage);
@@ -2012,14 +2008,14 @@
    */
 
   var User = function (_AbstractCrudObject) {
-    babelHelpers.inherits(User, _AbstractCrudObject);
+    inherits(User, _AbstractCrudObject);
 
     function User() {
-      babelHelpers.classCallCheck(this, User);
-      return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(User).apply(this, arguments));
+      classCallCheck(this, User);
+      return possibleConstructorReturn(this, Object.getPrototypeOf(User).apply(this, arguments));
     }
 
-    babelHelpers.createClass(User, [{
+    createClass(User, [{
       key: 'getAdAccounts',
       value: function getAdAccounts(fields, params, fetchFirstPage) {
         return this.getEdge(AdAccount, fields, params, fetchFirstPage);
@@ -2099,14 +2095,14 @@
    */
 
   var AdAccount = function (_AbstractCrudObject) {
-    babelHelpers.inherits(AdAccount, _AbstractCrudObject);
+    inherits(AdAccount, _AbstractCrudObject);
 
     function AdAccount() {
-      babelHelpers.classCallCheck(this, AdAccount);
-      return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(AdAccount).apply(this, arguments));
+      classCallCheck(this, AdAccount);
+      return possibleConstructorReturn(this, Object.getPrototypeOf(AdAccount).apply(this, arguments));
     }
 
-    babelHelpers.createClass(AdAccount, [{
+    createClass(AdAccount, [{
       key: 'getAdCreatives',
       value: function getAdCreatives(fields, params, fetchFirstPage) {
         return this.getEdge(AdCreative, fields, params, fetchFirstPage);
@@ -2241,6 +2237,8 @@
   exports.ProductItem = ProductItem;
   exports.ProductSet = ProductSet;
   exports.User = User;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
 
 }));
 //# sourceMappingURL=umd.js.map

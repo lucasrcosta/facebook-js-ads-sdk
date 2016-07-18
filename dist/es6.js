@@ -14,7 +14,7 @@ class Http {
     if (typeof window !== 'undefined' && window.XMLHttpRequest) {
       return Http.xmlHttpRequest(method, url, data)
     }
-    return Http.request_promise(method, url, data)
+    return Http.requestPromise(method, url, data)
   }
 
   /**
@@ -60,7 +60,7 @@ class Http {
    * @param   {Object}  [data]
    * @return  {Promise}
    */
-  static request_promise (method, url, data) {
+  static requestPromise (method, url, data) {
     const rp = require('request-promise')
     const options = {
       method: method,
@@ -122,7 +122,7 @@ class FacebookRequestError extends FacebookError {
  */
 class FacebookAdsApi {
 
-  static get VERSION () { return 'v2.6' }
+  static get VERSION () { return 'v2.7' }
   static get GRAPH () { return 'https://graph.facebook.com' }
 
   /**
@@ -179,7 +179,7 @@ class FacebookAdsApi {
     if (typeof path !== 'string' && !(path instanceof String)) {
       url = [FacebookAdsApi.GRAPH, FacebookAdsApi.VERSION, ...path].join('/')
       params['access_token'] = this.accessToken
-      url += `?${FacebookAdsApi._encode_params(params)}`
+      url += `?${FacebookAdsApi._encodeParams(params)}`
     } else {
       url = path
     }
@@ -197,7 +197,7 @@ class FacebookAdsApi {
     })
   }
 
-  static _encode_params (params) {
+  static _encodeParams (params) {
     return Object.keys(params).map((key) => {
       var param = params[key]
       if (typeof param === 'object') {
@@ -621,6 +621,7 @@ class AdPreview extends AbstractCrudObject {
 class AdCreative extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
+      id: 'id',
       actor_id: 'actor_id',
       actor_image_hash: 'actor_image_hash',
       actor_image_url: 'actor_image_url',
@@ -629,7 +630,6 @@ class AdCreative extends AbstractCrudObject {
       applink_treatment: 'applink_treatment',
       body: 'body',
       call_to_action_type: 'call_to_action_type',
-      id: 'id',
       image_crops: 'image_crops',
       image_hash: 'image_hash',
       image_url: 'image_url',
@@ -651,14 +651,14 @@ class AdCreative extends AbstractCrudObject {
       thumbnail_url: 'thumbnail_url',
       title: 'title',
       url_tags: 'url_tags',
+      use_page_actor_override: 'use_page_actor_override',
       action_spec: 'action_spec',
       call_to_action: 'call_to_action',
       dynamic_ad_voice: 'dynamic_ad_voice',
       follow_redirect: 'follow_redirect',
       image_file: 'image_file',
       object_instagram_id: 'object_instagram_id',
-      place_page_set_id: 'place_page_set_id',
-      video_id: 'video_id'
+      place_page_set_id: 'place_page_set_id'
     })
   }
 
@@ -972,6 +972,7 @@ class Insights extends AbstractCrudObject {
 class Ad extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
+      id: 'id',
       account_id: 'account_id',
       ad_review_feedback: 'ad_review_feedback',
       adlabels: 'adlabels',
@@ -987,7 +988,6 @@ class Ad extends AbstractCrudObject {
       created_time: 'created_time',
       creative: 'creative',
       effective_status: 'effective_status',
-      id: 'id',
       last_updated_by_app_id: 'last_updated_by_app_id',
       name: 'name',
       recommendations: 'recommendations',
@@ -997,8 +997,7 @@ class Ad extends AbstractCrudObject {
       date_format: 'date_format',
       display_sequence: 'display_sequence',
       execution_options: 'execution_options',
-      redownload: 'redownload',
-      filename: 'filename'
+      redownload: 'redownload'
     })
   }
 

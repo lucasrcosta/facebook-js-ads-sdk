@@ -9,6 +9,7 @@ import AdPreview from './ad-preview'
 export default class AdCreative extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
+      id: 'id',
       actor_id: 'actor_id',
       actor_image_hash: 'actor_image_hash',
       actor_image_url: 'actor_image_url',
@@ -17,7 +18,6 @@ export default class AdCreative extends AbstractCrudObject {
       applink_treatment: 'applink_treatment',
       body: 'body',
       call_to_action_type: 'call_to_action_type',
-      id: 'id',
       image_crops: 'image_crops',
       image_hash: 'image_hash',
       image_url: 'image_url',
@@ -39,14 +39,14 @@ export default class AdCreative extends AbstractCrudObject {
       thumbnail_url: 'thumbnail_url',
       title: 'title',
       url_tags: 'url_tags',
+      use_page_actor_override: 'use_page_actor_override',
       action_spec: 'action_spec',
       call_to_action: 'call_to_action',
       dynamic_ad_voice: 'dynamic_ad_voice',
       follow_redirect: 'follow_redirect',
       image_file: 'image_file',
       object_instagram_id: 'object_instagram_id',
-      place_page_set_id: 'place_page_set_id',
-      video_id: 'video_id'
+      place_page_set_id: 'place_page_set_id'
     })
   }
 

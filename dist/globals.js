@@ -5,8 +5,129 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
 } : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
 };
+
+
+
+
+
+var asyncGenerator = function () {
+  function AwaitValue(value) {
+    this.value = value;
+  }
+
+  function AsyncGenerator(gen) {
+    var front, back;
+
+    function send(key, arg) {
+      return new Promise(function (resolve, reject) {
+        var request = {
+          key: key,
+          arg: arg,
+          resolve: resolve,
+          reject: reject,
+          next: null
+        };
+
+        if (back) {
+          back = back.next = request;
+        } else {
+          front = back = request;
+          resume(key, arg);
+        }
+      });
+    }
+
+    function resume(key, arg) {
+      try {
+        var result = gen[key](arg);
+        var value = result.value;
+
+        if (value instanceof AwaitValue) {
+          Promise.resolve(value.value).then(function (arg) {
+            resume("next", arg);
+          }, function (arg) {
+            resume("throw", arg);
+          });
+        } else {
+          settle(result.done ? "return" : "normal", result.value);
+        }
+      } catch (err) {
+        settle("throw", err);
+      }
+    }
+
+    function settle(type, value) {
+      switch (type) {
+        case "return":
+          front.resolve({
+            value: value,
+            done: true
+          });
+          break;
+
+        case "throw":
+          front.reject(value);
+          break;
+
+        default:
+          front.resolve({
+            value: value,
+            done: false
+          });
+          break;
+      }
+
+      front = front.next;
+
+      if (front) {
+        resume(front.key, front.arg);
+      } else {
+        back = null;
+      }
+    }
+
+    this._invoke = send;
+
+    if (typeof gen.return !== "function") {
+      this.return = undefined;
+    }
+  }
+
+  if (typeof Symbol === "function" && Symbol.asyncIterator) {
+    AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
+      return this;
+    };
+  }
+
+  AsyncGenerator.prototype.next = function (arg) {
+    return this._invoke("next", arg);
+  };
+
+  AsyncGenerator.prototype.throw = function (arg) {
+    return this._invoke("throw", arg);
+  };
+
+  AsyncGenerator.prototype.return = function (arg) {
+    return this._invoke("return", arg);
+  };
+
+  return {
+    wrap: function (fn) {
+      return function () {
+        return new AsyncGenerator(fn.apply(this, arguments));
+      };
+    },
+    await: function (value) {
+      return new AwaitValue(value);
+    }
+  };
+}();
+
+
+
+
 
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -32,7 +153,13 @@ var createClass = function () {
   };
 }();
 
-var get = function get(object, property, receiver) {
+
+
+
+
+
+
+var get$1 = function get$1(object, property, receiver) {
   if (object === null) object = Function.prototype;
   var desc = Object.getOwnPropertyDescriptor(object, property);
 
@@ -42,7 +169,7 @@ var get = function get(object, property, receiver) {
     if (parent === null) {
       return undefined;
     } else {
-      return get(parent, property, receiver);
+      return get$1(parent, property, receiver);
     }
   } else if ("value" in desc) {
     return desc.value;
@@ -73,6 +200,16 @@ var inherits = function (subClass, superClass) {
   if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 };
 
+
+
+
+
+
+
+
+
+
+
 var possibleConstructorReturn = function (self, call) {
   if (!self) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
@@ -80,6 +217,44 @@ var possibleConstructorReturn = function (self, call) {
 
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 };
+
+
+
+var set$1 = function set$1(object, property, value, receiver) {
+  var desc = Object.getOwnPropertyDescriptor(object, property);
+
+  if (desc === undefined) {
+    var parent = Object.getPrototypeOf(object);
+
+    if (parent !== null) {
+      set$1(parent, property, value, receiver);
+    }
+  } else if ("value" in desc && desc.writable) {
+    desc.value = value;
+  } else {
+    var setter = desc.set;
+
+    if (setter !== undefined) {
+      setter.call(receiver, value);
+    }
+  }
+
+  return value;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 var toConsumableArray = function (arr) {
   if (Array.isArray(arr)) {
@@ -204,21 +379,19 @@ FacebookError.prototype.constructor = FacebookError;
 var FacebookRequestError = function (_FacebookError) {
   inherits(FacebookRequestError, _FacebookError);
 
-
   /**
    * @param  {[Object}  response
    * @param  {String}   method
    * @param  {String}   url
    * @param  {Object}   data
    */
-
   function FacebookRequestError(response, method, url, data) {
     classCallCheck(this, FacebookRequestError);
 
     var error = response.body.error;
     var message = error.error_user_msg ? error.error_user_title + ': ' + error.error_user_msg : error.message;
 
-    var _this = possibleConstructorReturn(this, Object.getPrototypeOf(FacebookRequestError).call(this, message));
+    var _this = possibleConstructorReturn(this, (FacebookRequestError.__proto__ || Object.getPrototypeOf(FacebookRequestError)).call(this, message));
 
     _this.name = 'FacebookRequestError';
     _this.message = message;
@@ -257,7 +430,7 @@ var FacebookAdsApi = function () {
   }]);
 
   function FacebookAdsApi(accessToken) {
-    var locale = arguments.length <= 1 || arguments[1] === undefined ? 'en_US' : arguments[1];
+    var locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'en_US';
     classCallCheck(this, FacebookAdsApi);
 
     if (!accessToken) {
@@ -296,7 +469,7 @@ var FacebookAdsApi = function () {
     value: function call(method, path) {
       var _this = this;
 
-      var params = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+      var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
       var url;
       if (method === 'POST' || method === 'PUT') {
@@ -451,22 +624,20 @@ var AbstractObject = function () {
 var AbstractCrudObject = function (_AbstractObject) {
   inherits(AbstractCrudObject, _AbstractObject);
 
-
   /**
    * @param  {Object} data Initial data
    * @param  {String} parentId
    * @param  {FacebookAdApi} [api]
    */
-
   function AbstractCrudObject(data, parentId, api) {
     classCallCheck(this, AbstractCrudObject);
 
-    var _this4 = possibleConstructorReturn(this, Object.getPrototypeOf(AbstractCrudObject).call(this, data));
+    var _this4 = possibleConstructorReturn(this, (AbstractCrudObject.__proto__ || Object.getPrototypeOf(AbstractCrudObject)).call(this, data));
 
     _this4._parentId = parentId;
     _this4._api = api || FacebookAdsApi.getDefaultApi();
     if (data) {
-      get(Object.getPrototypeOf(AbstractCrudObject.prototype), 'setData', _this4).call(_this4, data);
+      get$1(AbstractCrudObject.prototype.__proto__ || Object.getPrototypeOf(AbstractCrudObject.prototype), 'setData', _this4).call(_this4, data);
     }
     return _this4;
   }
@@ -508,7 +679,7 @@ var AbstractCrudObject = function (_AbstractObject) {
     value: function setData(data) {
       var _this6 = this;
 
-      get(Object.getPrototypeOf(AbstractCrudObject.prototype), 'setData', this).call(this, data);
+      get$1(AbstractCrudObject.prototype.__proto__ || Object.getPrototypeOf(AbstractCrudObject.prototype), 'setData', this).call(this, data);
       Object.keys(data).forEach(function (key) {
         delete _this6._changes[key];
       });
@@ -604,7 +775,7 @@ var AbstractCrudObject = function (_AbstractObject) {
     value: function read(fields) {
       var _this7 = this;
 
-      var params = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+      var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
       var api = this.getApi();
       var path = [this.getNodePath()];
@@ -627,7 +798,7 @@ var AbstractCrudObject = function (_AbstractObject) {
     value: function create() {
       var _this8 = this;
 
-      var params = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
       var api = this.getApi();
       var path = [this.getParentId(), this.constructor.getEndpoint()];
@@ -648,7 +819,7 @@ var AbstractCrudObject = function (_AbstractObject) {
   }, {
     key: 'update',
     value: function update() {
-      var params = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
       var api = this.getApi();
       var path = [this.getNodePath()];
@@ -669,7 +840,7 @@ var AbstractCrudObject = function (_AbstractObject) {
   }, {
     key: 'delete',
     value: function _delete() {
-      var params = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
       var api = this.getApi();
       var path = [this.getNodePath()];
@@ -707,8 +878,8 @@ var AbstractCrudObject = function (_AbstractObject) {
   }, {
     key: 'getEdge',
     value: function getEdge(targetClass, fields) {
-      var params = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
-      var fetchFirstPage = arguments.length <= 3 || arguments[3] === undefined ? true : arguments[3];
+      var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      var fetchFirstPage = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
       var enpoint = arguments[4];
 
       if (fields) params['fields'] = fields.join(',');
@@ -734,7 +905,7 @@ var AbstractCrudObject = function (_AbstractObject) {
     value: function getByIds(ids, fields) {
       var _this9 = this;
 
-      var params = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+      var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
       var api = arguments[3];
 
       api = api || FacebookAdsApi.getDefaultApi();
@@ -763,18 +934,16 @@ var AbstractCrudObject = function (_AbstractObject) {
 var Cursor = function (_Array) {
   inherits(Cursor, _Array);
 
-
   /**
    * @param  {Object} sourceObject
    * @param  {Object} targetClass
    * @param  {Object} [params]
    * @param  {String} [endpoint]
    */
-
   function Cursor(sourceObject, targetClass, params, endpoint) {
     classCallCheck(this, Cursor);
 
-    var _this10 = possibleConstructorReturn(this, Object.getPrototypeOf(Cursor).call(this, 0));
+    var _this10 = possibleConstructorReturn(this, (Cursor.__proto__ || Object.getPrototypeOf(Cursor)).call(this, 0));
 
     var next = [sourceObject.getId()];
     next.push(endpoint || targetClass.getEndpoint());
@@ -850,7 +1019,7 @@ var AdPreview = function (_AbstractCrudObject) {
 
   function AdPreview() {
     classCallCheck(this, AdPreview);
-    return possibleConstructorReturn(this, Object.getPrototypeOf(AdPreview).apply(this, arguments));
+    return possibleConstructorReturn(this, (AdPreview.__proto__ || Object.getPrototypeOf(AdPreview)).apply(this, arguments));
   }
 
   createClass(AdPreview, null, [{
@@ -896,7 +1065,7 @@ var AdCreative = function (_AbstractCrudObject) {
 
   function AdCreative() {
     classCallCheck(this, AdCreative);
-    return possibleConstructorReturn(this, Object.getPrototypeOf(AdCreative).apply(this, arguments));
+    return possibleConstructorReturn(this, (AdCreative.__proto__ || Object.getPrototypeOf(AdCreative)).apply(this, arguments));
   }
 
   createClass(AdCreative, [{
@@ -1057,7 +1226,7 @@ var Insights = function (_AbstractCrudObject) {
 
   function Insights() {
     classCallCheck(this, Insights);
-    return possibleConstructorReturn(this, Object.getPrototypeOf(Insights).apply(this, arguments));
+    return possibleConstructorReturn(this, (Insights.__proto__ || Object.getPrototypeOf(Insights)).apply(this, arguments));
   }
 
   createClass(Insights, null, [{
@@ -1288,7 +1457,7 @@ var Ad = function (_AbstractCrudObject) {
 
   function Ad() {
     classCallCheck(this, Ad);
-    return possibleConstructorReturn(this, Object.getPrototypeOf(Ad).apply(this, arguments));
+    return possibleConstructorReturn(this, (Ad.__proto__ || Object.getPrototypeOf(Ad)).apply(this, arguments));
   }
 
   createClass(Ad, [{
@@ -1438,7 +1607,7 @@ var AdSet = function (_AbstractCrudObject) {
 
   function AdSet() {
     classCallCheck(this, AdSet);
-    return possibleConstructorReturn(this, Object.getPrototypeOf(AdSet).apply(this, arguments));
+    return possibleConstructorReturn(this, (AdSet.__proto__ || Object.getPrototypeOf(AdSet)).apply(this, arguments));
   }
 
   createClass(AdSet, [{
@@ -1627,7 +1796,7 @@ var Campaign = function (_AbstractCrudObject) {
 
   function Campaign() {
     classCallCheck(this, Campaign);
-    return possibleConstructorReturn(this, Object.getPrototypeOf(Campaign).apply(this, arguments));
+    return possibleConstructorReturn(this, (Campaign.__proto__ || Object.getPrototypeOf(Campaign)).apply(this, arguments));
   }
 
   createClass(Campaign, [{
@@ -1794,7 +1963,7 @@ var ProductItem = function (_AbstractCrudObject) {
 
   function ProductItem() {
     classCallCheck(this, ProductItem);
-    return possibleConstructorReturn(this, Object.getPrototypeOf(ProductItem).apply(this, arguments));
+    return possibleConstructorReturn(this, (ProductItem.__proto__ || Object.getPrototypeOf(ProductItem)).apply(this, arguments));
   }
 
   createClass(ProductItem, [{
@@ -1889,7 +2058,7 @@ var ProductSet = function (_AbstractCrudObject) {
 
   function ProductSet() {
     classCallCheck(this, ProductSet);
-    return possibleConstructorReturn(this, Object.getPrototypeOf(ProductSet).apply(this, arguments));
+    return possibleConstructorReturn(this, (ProductSet.__proto__ || Object.getPrototypeOf(ProductSet)).apply(this, arguments));
   }
 
   createClass(ProductSet, [{
@@ -1928,7 +2097,7 @@ var ProductCatalog = function (_AbstractCrudObject) {
 
   function ProductCatalog() {
     classCallCheck(this, ProductCatalog);
-    return possibleConstructorReturn(this, Object.getPrototypeOf(ProductCatalog).apply(this, arguments));
+    return possibleConstructorReturn(this, (ProductCatalog.__proto__ || Object.getPrototypeOf(ProductCatalog)).apply(this, arguments));
   }
 
   createClass(ProductCatalog, [{
@@ -1972,7 +2141,7 @@ var Business = function (_AbstractCrudObject) {
 
   function Business() {
     classCallCheck(this, Business);
-    return possibleConstructorReturn(this, Object.getPrototypeOf(Business).apply(this, arguments));
+    return possibleConstructorReturn(this, (Business.__proto__ || Object.getPrototypeOf(Business)).apply(this, arguments));
   }
 
   createClass(Business, [{
@@ -2010,7 +2179,7 @@ var User = function (_AbstractCrudObject) {
 
   function User() {
     classCallCheck(this, User);
-    return possibleConstructorReturn(this, Object.getPrototypeOf(User).apply(this, arguments));
+    return possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).apply(this, arguments));
   }
 
   createClass(User, [{
@@ -2097,7 +2266,7 @@ var AdAccount = function (_AbstractCrudObject) {
 
   function AdAccount() {
     classCallCheck(this, AdAccount);
-    return possibleConstructorReturn(this, Object.getPrototypeOf(AdAccount).apply(this, arguments));
+    return possibleConstructorReturn(this, (AdAccount.__proto__ || Object.getPrototypeOf(AdAccount)).apply(this, arguments));
   }
 
   createClass(AdAccount, [{
@@ -2221,4 +2390,5 @@ var AdAccount = function (_AbstractCrudObject) {
   }]);
   return AdAccount;
 }(AbstractCrudObject);
+
 //# sourceMappingURL=globals.js.map

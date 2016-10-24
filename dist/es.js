@@ -1,7 +1,3 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
   return typeof obj;
 } : function (obj) {
@@ -2391,18 +2387,6 @@ var AdAccount = function (_AbstractCrudObject) {
   return AdAccount;
 }(AbstractCrudObject);
 
-exports.FacebookAdsApi = FacebookAdsApi;
-exports.AdAccount = AdAccount;
-exports.AdCreative = AdCreative;
-exports.AdPreview = AdPreview;
-exports.AdSet = AdSet;
-exports.Ad = Ad;
-exports.Business = Business;
-exports.Campaign = Campaign;
-exports.Insights = Insights;
-exports.ProductCatalog = ProductCatalog;
-exports.ProductItem = ProductItem;
-exports.ProductSet = ProductSet;
-exports.User = User;
+export { FacebookAdsApi, AdAccount, AdCreative, AdPreview, AdSet, Ad, Business, Campaign, Insights, ProductCatalog, ProductItem, ProductSet, User };
 
-//# sourceMappingURL=cjs.js.map
+//# sourceMappingURL=es.js.map

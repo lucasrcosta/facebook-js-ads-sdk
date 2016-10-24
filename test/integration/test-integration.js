@@ -46,6 +46,7 @@ describe('Graph Objects', function () {
   it('should be created', (done) => {
     const data = {
       [Campaign.Fields.name]: 'Facebook JS Ads SDK Test',
+      [Campaign.Fields.objective]: Campaign.Objective.link_clicks,
       [Campaign.Fields.status]: Campaign.Status.paused
     }
     new Campaign(data, accountId).save()
@@ -101,6 +102,7 @@ describe('Graph Objects', function () {
     var campaigns
     const data = {
       [Campaign.Fields.name]: 'Facebook JS Ads SDK Test',
+      [Campaign.Fields.objective]: Campaign.Objective.link_clicks,
       [Campaign.Fields.status]: Campaign.Status.paused
     }
     Promise.all([new Campaign(data, accountId).save(), new Campaign(data, accountId).save()])

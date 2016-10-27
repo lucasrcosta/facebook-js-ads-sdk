@@ -6,7 +6,7 @@ import { FacebookRequestError } from './exceptions'
  */
 export default class FacebookAdsApi {
 
-  static get VERSION () { return 'v2.6' }
+  static get VERSION () { return 'v2.7' }
   static get GRAPH () { return 'https://graph.facebook.com' }
 
   /**
@@ -63,7 +63,7 @@ export default class FacebookAdsApi {
     if (typeof path !== 'string' && !(path instanceof String)) {
       url = [FacebookAdsApi.GRAPH, FacebookAdsApi.VERSION, ...path].join('/')
       params['access_token'] = this.accessToken
-      url += `?${FacebookAdsApi._encode_params(params)}`
+      url += `?${FacebookAdsApi._encodeParams(params)}`
     } else {
       url = path
     }
@@ -81,7 +81,7 @@ export default class FacebookAdsApi {
     })
   }
 
-  static _encode_params (params) {
+  static _encodeParams (params) {
     return Object.keys(params).map((key) => {
       var param = params[key]
       if (typeof param === 'object') {

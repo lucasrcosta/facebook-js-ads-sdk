@@ -16,7 +16,9 @@ before(() => {
   if (!accountId.startsWith('act_')) throw new Error('accountId should start with "act_"')
 })
 
-describe('Api', () => {
+describe('Api', function () {
+  this.timeout(10000)
+
   it('should reject requests with FacebookRequestError', (done) => {
     api.call('GET', [''])
       .then(() => { throw new Error('Promise should have been rejected') })
@@ -29,7 +31,7 @@ describe('Api', () => {
 })
 
 describe('Graph Objects', function () {
-  this.timeout(5000)
+  this.timeout(10000)
 
   it('should be read', (done) => {
     account = new AdAccount({'id': accountId})
@@ -44,6 +46,7 @@ describe('Graph Objects', function () {
   it('should be created', (done) => {
     const data = {
       [Campaign.Fields.name]: 'Facebook JS Ads SDK Test',
+      [Campaign.Fields.objective]: Campaign.Objective.link_clicks,
       [Campaign.Fields.status]: Campaign.Status.paused
     }
     new Campaign(data, accountId).save()
@@ -99,6 +102,7 @@ describe('Graph Objects', function () {
     var campaigns
     const data = {
       [Campaign.Fields.name]: 'Facebook JS Ads SDK Test',
+      [Campaign.Fields.objective]: Campaign.Objective.link_clicks,
       [Campaign.Fields.status]: Campaign.Status.paused
     }
     Promise.all([new Campaign(data, accountId).save(), new Campaign(data, accountId).save()])

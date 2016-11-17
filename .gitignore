@@ -1,7 +1,5 @@
-test/**/suite.js*
-test/**/*.json
-node_modules
-bower_components
+node_modules/
+bower_components/
+.idea/
 desktop.ini
 npm-debug.log
-

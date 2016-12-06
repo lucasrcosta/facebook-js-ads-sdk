@@ -1170,7 +1170,6 @@ var Insights = function (_AbstractCrudObject) {
         newsfeed_impressions: 'newsfeed_impressions',
         objective: 'objective',
         place_page_name: 'place_page_name',
-        product_id: 'product_id',
         reach: 'reach',
         relevance_score: 'relevance_score',
         social_clicks: 'social_clicks',

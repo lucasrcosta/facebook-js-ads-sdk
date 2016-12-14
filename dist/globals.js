@@ -805,7 +805,10 @@ var AbstractCrudObject = function (_AbstractObject) {
       params = Object.assign(params, this.exportData());
       return new Promise(function (resolve, reject) {
         api.call('POST', path, params).then(function (data) {
-          return resolve(_this8.setData(data));
+          if (path.includes('adimages')) {
+            data = data.images[params.name];
+          }
+          resolve(_this8.setData(data));
         }).catch(reject);
       });
     }

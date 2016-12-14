@@ -804,7 +804,10 @@ var AbstractCrudObject = function (_AbstractObject) {
       params = Object.assign(params, this.exportData());
       return new Promise(function (resolve, reject) {
         api.call('POST', path, params).then(function (data) {
-          return resolve(_this8.setData(data));
+          if (path.includes('adimages')) {
+            data = data.images[params.name];
+          }
+          resolve(_this8.setData(data));
         }).catch(reject);
       });
     }
@@ -2390,9 +2393,67 @@ var AdAccount = function (_AbstractCrudObject) {
   return AdAccount;
 }(AbstractCrudObject);
 
+/**
+ * AdImage
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/reference/ad-image}
+ */
+
+var AdImage = function (_AbstractCrudObject) {
+  inherits(AdImage, _AbstractCrudObject);
+
+  function AdImage() {
+    classCallCheck(this, AdImage);
+    return possibleConstructorReturn(this, (AdImage.__proto__ || Object.getPrototypeOf(AdImage)).apply(this, arguments));
+  }
+
+  createClass(AdImage, null, [{
+    key: 'getEndpoint',
+    value: function getEndpoint() {
+      return 'adimages';
+    }
+  }, {
+    key: 'Fields',
+    get: function get() {
+      return Object.freeze({
+        id: 'id',
+        account_id: 'account_id',
+        created_time: 'created_time',
+        creatives: 'creatives',
+        hash: 'hash',
+        height: 'height',
+        last_used_time: 'last_used_time',
+        name: 'name',
+        original_height: 'original_height',
+        original_width: 'original_width',
+        owner_business: 'owner_business',
+        permalink_url: 'permalink_url',
+        status: 'status',
+        updated_time: 'updated_time',
+        url: 'url',
+        url_128: 'url_128',
+        width: 'width',
+        bytes: 'bytes',
+        copy_from: 'copy_from',
+        zipbytes: 'zipbytes'
+      });
+    }
+  }, {
+    key: 'Status',
+    get: function get() {
+      return Object.freeze({
+        active: 'ACTIVE',
+        deleted: 'DELETED'
+      });
+    }
+  }]);
+  return AdImage;
+}(AbstractCrudObject);
+
 exports.FacebookAdsApi = FacebookAdsApi;
 exports.AdAccount = AdAccount;
 exports.AdCreative = AdCreative;
+exports.AdImage = AdImage;
 exports.AdPreview = AdPreview;
 exports.AdSet = AdSet;
 exports.Ad = Ad;

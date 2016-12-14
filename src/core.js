@@ -206,7 +206,7 @@ export class AbstractCrudObject extends AbstractObject {
     return new Promise((resolve, reject) => {
       api.call('POST', path, params)
       .then((data) => {
-        if (path.includes('adimages')) {
+        if (path.indexOf('adimages') > -1) {
           data = data.images[params.name]
         }
         resolve(this.setData(data))

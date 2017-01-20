@@ -123,7 +123,18 @@ export default class Insights extends AbstractCrudObject {
 
   static get Breakdowns() {
     return Object.freeze({
-      placement_merge_rhc: 'placement_merge_rhc',
+      age: 'age',
+      country: 'country',
+      gender: 'gender',
+      frequency_value: 'frequency_value',
+      hourly_stats_aggregated_by_advertiser_time_zone: 'hourly_stats_aggregated_by_advertiser_time_zone',
+      hourly_stats_aggregated_by_audience_time_zone: 'hourly_stats_aggregated_by_audience_time_zone',
+      impression_device: 'impression_device',
+      place_page_id: 'place_page_id',
+      placement: 'placement',
+      publisher_platform: 'publisher_platform',
+      platform_position: 'platform_position',
+      device_platform: 'device_platform',
       product_id: 'product_id',
       region: 'region'
     })

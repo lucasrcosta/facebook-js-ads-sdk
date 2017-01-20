@@ -1,6 +1,6 @@
 {
   "name": "facebook-ads-sdk",
-  "version": "2.8",
+  "version": "2.8.0",
   "description": "SDK for the Facebook Ads API in Javascript and Node.js",
   "author": "Lucas Costa (https://github.com/lucascosta)",
   "maintainers": [

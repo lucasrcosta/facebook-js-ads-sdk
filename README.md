@@ -1,4 +1,4 @@
-# Facebook Ads API SDK for Javascript [![Build Status](https://travis-ci.org/lucascosta/facebook-js-ads-sdk.svg?branch=master)](https://travis-ci.org/lucascosta/facebook-js-ads-sdk) [![Marketing API Version](https://img.shields.io/badge/marketing--api-2.7-brightgreen.svg)](https://developers.facebook.com/docs/marketing-apis)
+# Facebook Ads API SDK for Javascript [![Build Status](https://travis-ci.org/lucascosta/facebook-js-ads-sdk.svg?branch=master)](https://travis-ci.org/lucascosta/facebook-js-ads-sdk) [![Marketing API Version](https://img.shields.io/badge/marketing--api-2.8-brightgreen.svg)](https://developers.facebook.com/docs/marketing-apis)
 
 ![Marketing API Banner](https://raw.githubusercontent.com/lucascosta/facebook-js-ads-sdk/master/marketingapi.png)
 
@@ -190,7 +190,7 @@ This package uses [StandardJS](http://standardjs.com/). Inconsistent code will b
 
 ### Unit Tests
 
-Unit tests run in Node.js, PhatomJS, and in Browsers. Travis CI will run both Node and Phatom tests to ensure isomporphism. 
+Unit tests run in Node.js, PhatomJS, and in Browsers. Travis CI will run both Node and Phatom tests to ensure isomporphism.
 
 * The default `gulp` task  will watch the files and run the Node tests repeatedly.
 * `gulp test` will run the Node tests.

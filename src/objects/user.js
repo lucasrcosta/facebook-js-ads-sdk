@@ -13,7 +13,6 @@ export default class User extends AbstractCrudObject {
       about: 'about',
       admin_notes: 'admin_notes',
       age_range: 'age_range',
-      bio: 'bio',
       birthday: 'birthday',
       context: 'context',
       cover: 'cover',

@@ -55,7 +55,6 @@ export default class AdAccount extends AbstractCrudObject {
       name: 'name',
       offsite_pixels_tos_accepted: 'offsite_pixels_tos_accepted',
       owner: 'owner',
-      owner_business: 'owner_business',
       partner: 'partner',
       rf_spec: 'rf_spec',
       spend_cap: 'spend_cap',

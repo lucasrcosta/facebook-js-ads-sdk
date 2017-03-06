@@ -11,118 +11,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 
 
-var asyncGenerator = function () {
-  function AwaitValue(value) {
-    this.value = value;
-  }
 
-  function AsyncGenerator(gen) {
-    var front, back;
-
-    function send(key, arg) {
-      return new Promise(function (resolve, reject) {
-        var request = {
-          key: key,
-          arg: arg,
-          resolve: resolve,
-          reject: reject,
-          next: null
-        };
-
-        if (back) {
-          back = back.next = request;
-        } else {
-          front = back = request;
-          resume(key, arg);
-        }
-      });
-    }
-
-    function resume(key, arg) {
-      try {
-        var result = gen[key](arg);
-        var value = result.value;
-
-        if (value instanceof AwaitValue) {
-          Promise.resolve(value.value).then(function (arg) {
-            resume("next", arg);
-          }, function (arg) {
-            resume("throw", arg);
-          });
-        } else {
-          settle(result.done ? "return" : "normal", result.value);
-        }
-      } catch (err) {
-        settle("throw", err);
-      }
-    }
-
-    function settle(type, value) {
-      switch (type) {
-        case "return":
-          front.resolve({
-            value: value,
-            done: true
-          });
-          break;
-
-        case "throw":
-          front.reject(value);
-          break;
-
-        default:
-          front.resolve({
-            value: value,
-            done: false
-          });
-          break;
-      }
-
-      front = front.next;
-
-      if (front) {
-        resume(front.key, front.arg);
-      } else {
-        back = null;
-      }
-    }
-
-    this._invoke = send;
-
-    if (typeof gen.return !== "function") {
-      this.return = undefined;
-    }
-  }
-
-  if (typeof Symbol === "function" && Symbol.asyncIterator) {
-    AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
-      return this;
-    };
-  }
-
-  AsyncGenerator.prototype.next = function (arg) {
-    return this._invoke("next", arg);
-  };
-
-  AsyncGenerator.prototype.throw = function (arg) {
-    return this._invoke("throw", arg);
-  };
-
-  AsyncGenerator.prototype.return = function (arg) {
-    return this._invoke("return", arg);
-  };
-
-  return {
-    wrap: function (fn) {
-      return function () {
-        return new AsyncGenerator(fn.apply(this, arguments));
-      };
-    },
-    await: function (value) {
-      return new AwaitValue(value);
-    }
-  };
-}();
 
 
 
@@ -2255,142 +2144,6 @@ var User = function (_AbstractCrudObject) {
 }(AbstractCrudObject);
 
 /**
- * AdAccount
- * @extends AbstractCrudObject
- * @see {@link https://developers.facebook.com/docs/marketing-api/reference/ad-account}
- */
-
-var AdAccount = function (_AbstractCrudObject) {
-  inherits(AdAccount, _AbstractCrudObject);
-
-  function AdAccount() {
-    classCallCheck(this, AdAccount);
-    return possibleConstructorReturn(this, (AdAccount.__proto__ || Object.getPrototypeOf(AdAccount)).apply(this, arguments));
-  }
-
-  createClass(AdAccount, [{
-    key: 'getAdCreatives',
-    value: function getAdCreatives(fields, params, fetchFirstPage) {
-      return this.getEdge(AdCreative, fields, params, fetchFirstPage);
-    }
-  }, {
-    key: 'getAds',
-    value: function getAds(fields, params, fetchFirstPage) {
-      return this.getEdge(Ad, fields, params, fetchFirstPage);
-    }
-  }, {
-    key: 'getAdSets',
-    value: function getAdSets(fields, params, fetchFirstPage) {
-      return this.getEdge(AdSet, fields, params, fetchFirstPage);
-    }
-  }, {
-    key: 'getCampaigns',
-    value: function getCampaigns(fields, params, fetchFirstPage) {
-      return this.getEdge(Campaign, fields, params, fetchFirstPage);
-    }
-  }, {
-    key: 'getGeneratePreviews',
-    value: function getGeneratePreviews(fields, params, fetchFirstPage) {
-      return this.getEdge(AdPreview, fields, params, fetchFirstPage, 'generatepreviews');
-    }
-  }, {
-    key: 'getInsights',
-    value: function getInsights(fields, params, fetchFirstPage) {
-      return this.getEdge(Insights, fields, params, fetchFirstPage);
-    }
-  }, {
-    key: 'getUsers',
-    value: function getUsers(fields, params, fetchFirstPage) {
-      return this.getEdge(User, fields, params, fetchFirstPage);
-    }
-  }], [{
-    key: 'getEndpoint',
-    value: function getEndpoint() {
-      return 'adaccounts';
-    }
-  }, {
-    key: 'Fields',
-    get: function get() {
-      return Object.freeze({
-        account_groups: 'account_groups',
-        account_id: 'account_id',
-        account_status: 'account_status',
-        age: 'age',
-        agency_client_declaration: 'agency_client_declaration',
-        amount_spent: 'amount_spent',
-        balance: 'balance',
-        business: 'business',
-        business_city: 'business_city',
-        business_country_code: 'business_country_code',
-        business_name: 'business_name',
-        business_state: 'business_state',
-        business_street: 'business_street',
-        business_street2: 'business_street2',
-        business_zip: 'business_zip',
-        can_create_brand_lift_study: 'can_create_brand_lift_study',
-        capabilities: 'capabilities',
-        created_time: 'created_time',
-        currency: 'currency',
-        disable_reason: 'disable_reason',
-        end_advertiser: 'end_advertiser',
-        end_advertiser_name: 'end_advertiser_name',
-        failed_delivery_checks: 'failed_delivery_checks',
-        funding_source: 'funding_source',
-        funding_source_details: 'funding_source_details',
-        has_migrated_permissions: 'has_migrated_permissions',
-        id: 'id',
-        io_number: 'io_number',
-        is_notifications_enabled: 'is_notifications_enabled',
-        is_personal: 'is_personal',
-        is_prepay_account: 'is_prepay_account',
-        is_tax_id_required: 'is_tax_id_required',
-        last_used_time: 'last_used_time',
-        line_numbers: 'line_numbers',
-        media_agency: 'media_agency',
-        min_campaign_group_spend_cap: 'min_campaign_group_spend_cap',
-        min_daily_budget: 'min_daily_budget',
-        name: 'name',
-        offsite_pixels_tos_accepted: 'offsite_pixels_tos_accepted',
-        owner: 'owner',
-        owner_business: 'owner_business',
-        partner: 'partner',
-        rf_spec: 'rf_spec',
-        spend_cap: 'spend_cap',
-        tax_id: 'tax_id',
-        tax_id_status: 'tax_id_status',
-        tax_id_type: 'tax_id_type',
-        timezone_id: 'timezone_id',
-        timezone_name: 'timezone_name',
-        timezone_offset_hours_utc: 'timezone_offset_hours_utc',
-        tos_accepted: 'tos_accepted',
-        user_role: 'user_role'
-      });
-    }
-  }, {
-    key: 'AccessType',
-    get: function get() {
-      return Object.freeze({
-        owner: 'OWNER',
-        agency: 'AGENCY'
-      });
-    }
-  }, {
-    key: 'PermittedRoles',
-    get: function get() {
-      return Object.freeze({
-        admin: 'ADMIN',
-        general_user: 'GENERAL_USER',
-        reports_only: 'REPORTS_ONLY',
-        instagram_advertiser: 'INSTAGRAM_ADVERTISER',
-        instagram_manager: 'INSTAGRAM_MANAGER',
-        fb_employee_dso_advertiser: 'FB_EMPLOYEE_DSO_ADVERTISER'
-      });
-    }
-  }]);
-  return AdAccount;
-}(AbstractCrudObject);
-
-/**
  * Ad
  * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/custom-audience-api}
@@ -2487,6 +2240,147 @@ var CustomAudience = function (_AbstractCrudObject) {
     }
   }]);
   return CustomAudience;
+}(AbstractCrudObject);
+
+/**
+ * AdAccount
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/reference/ad-account}
+ */
+
+var AdAccount = function (_AbstractCrudObject) {
+  inherits(AdAccount, _AbstractCrudObject);
+
+  function AdAccount() {
+    classCallCheck(this, AdAccount);
+    return possibleConstructorReturn(this, (AdAccount.__proto__ || Object.getPrototypeOf(AdAccount)).apply(this, arguments));
+  }
+
+  createClass(AdAccount, [{
+    key: 'getAdCreatives',
+    value: function getAdCreatives(fields, params, fetchFirstPage) {
+      return this.getEdge(AdCreative, fields, params, fetchFirstPage);
+    }
+  }, {
+    key: 'getAds',
+    value: function getAds(fields, params, fetchFirstPage) {
+      return this.getEdge(Ad, fields, params, fetchFirstPage);
+    }
+  }, {
+    key: 'getAdSets',
+    value: function getAdSets(fields, params, fetchFirstPage) {
+      return this.getEdge(AdSet, fields, params, fetchFirstPage);
+    }
+  }, {
+    key: 'getCampaigns',
+    value: function getCampaigns(fields, params, fetchFirstPage) {
+      return this.getEdge(Campaign, fields, params, fetchFirstPage);
+    }
+  }, {
+    key: 'getGeneratePreviews',
+    value: function getGeneratePreviews(fields, params, fetchFirstPage) {
+      return this.getEdge(AdPreview, fields, params, fetchFirstPage, 'generatepreviews');
+    }
+  }, {
+    key: 'getInsights',
+    value: function getInsights(fields, params, fetchFirstPage) {
+      return this.getEdge(Insights, fields, params, fetchFirstPage);
+    }
+  }, {
+    key: 'getUsers',
+    value: function getUsers(fields, params, fetchFirstPage) {
+      return this.getEdge(User, fields, params, fetchFirstPage);
+    }
+  }, {
+    key: 'getCustomAudiences',
+    value: function getCustomAudiences(fields, params, fetchFirstPage) {
+      return this.getEdge(CustomAudience, fields, params, fetchFirstPage);
+    }
+  }], [{
+    key: 'getEndpoint',
+    value: function getEndpoint() {
+      return 'adaccounts';
+    }
+  }, {
+    key: 'Fields',
+    get: function get() {
+      return Object.freeze({
+        account_groups: 'account_groups',
+        account_id: 'account_id',
+        account_status: 'account_status',
+        age: 'age',
+        agency_client_declaration: 'agency_client_declaration',
+        amount_spent: 'amount_spent',
+        balance: 'balance',
+        business: 'business',
+        business_city: 'business_city',
+        business_country_code: 'business_country_code',
+        business_name: 'business_name',
+        business_state: 'business_state',
+        business_street: 'business_street',
+        business_street2: 'business_street2',
+        business_zip: 'business_zip',
+        can_create_brand_lift_study: 'can_create_brand_lift_study',
+        capabilities: 'capabilities',
+        created_time: 'created_time',
+        currency: 'currency',
+        disable_reason: 'disable_reason',
+        end_advertiser: 'end_advertiser',
+        end_advertiser_name: 'end_advertiser_name',
+        failed_delivery_checks: 'failed_delivery_checks',
+        funding_source: 'funding_source',
+        funding_source_details: 'funding_source_details',
+        has_migrated_permissions: 'has_migrated_permissions',
+        id: 'id',
+        io_number: 'io_number',
+        is_notifications_enabled: 'is_notifications_enabled',
+        is_personal: 'is_personal',
+        is_prepay_account: 'is_prepay_account',
+        is_tax_id_required: 'is_tax_id_required',
+        last_used_time: 'last_used_time',
+        line_numbers: 'line_numbers',
+        media_agency: 'media_agency',
+        min_campaign_group_spend_cap: 'min_campaign_group_spend_cap',
+        min_daily_budget: 'min_daily_budget',
+        name: 'name',
+        offsite_pixels_tos_accepted: 'offsite_pixels_tos_accepted',
+        owner: 'owner',
+        owner_business: 'owner_business',
+        partner: 'partner',
+        rf_spec: 'rf_spec',
+        spend_cap: 'spend_cap',
+        tax_id: 'tax_id',
+        tax_id_status: 'tax_id_status',
+        tax_id_type: 'tax_id_type',
+        timezone_id: 'timezone_id',
+        timezone_name: 'timezone_name',
+        timezone_offset_hours_utc: 'timezone_offset_hours_utc',
+        tos_accepted: 'tos_accepted',
+        user_role: 'user_role'
+      });
+    }
+  }, {
+    key: 'AccessType',
+    get: function get() {
+      return Object.freeze({
+        owner: 'OWNER',
+        agency: 'AGENCY'
+      });
+    }
+  }, {
+    key: 'PermittedRoles',
+    get: function get() {
+      return Object.freeze({
+        admin: 'ADMIN',
+        general_user: 'GENERAL_USER',
+        reports_only: 'REPORTS_ONLY',
+        instagram_advertiser: 'INSTAGRAM_ADVERTISER',
+        instagram_manager: 'INSTAGRAM_MANAGER',
+        fb_employee_dso_advertiser: 'FB_EMPLOYEE_DSO_ADVERTISER'
+      });
+    }
+  }]);
+  return AdAccount;
 }(AbstractCrudObject);
 
 exports.FacebookAdsApi = FacebookAdsApi;

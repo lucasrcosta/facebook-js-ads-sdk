@@ -14,7 +14,6 @@ export default class AdImage extends AbstractCrudObject {
       creatives: 'creatives',
       hash: 'hash',
       height: 'height',
-      last_used_time: 'last_used_time',
       name: 'name',
       original_height: 'original_height',
       original_width: 'original_width',

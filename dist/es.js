@@ -935,7 +935,10 @@ var AdPreview = function (_AbstractCrudObject) {
         mobile_medium_rectangle: 'MOBILE_MEDIUM_RECTANGLE',
         mobile_native: 'MOBILE_NATIVE',
         instagram_standard: 'INSTAGRAM_STANDARD',
-        audience_network_outstream_video: 'AUDIENCE_NETWORK_OUTSTREAM_VIDEO'
+        audience_network_outstream_video: 'AUDIENCE_NETWORK_OUTSTREAM_VIDEO',
+        instant_article_standard: 'INSTANT_ARTICLE_STANDARD',
+        instream_video_desktop: 'INSTREAM_VIDEO_DESKTOP',
+        instream_video_mobile: 'INSTREAM_VIDEO_MOBILE'
       });
     }
   }]);
@@ -971,7 +974,6 @@ var AdCreative = function (_AbstractCrudObject) {
     get: function get() {
       return Object.freeze({
         id: 'id',
-        actor_id: 'actor_id',
         adlabels: 'adlabels',
         applink_treatment: 'applink_treatment',
         body: 'body',
@@ -1527,6 +1529,7 @@ var AdSet = function (_AbstractCrudObject) {
         frequency_control_specs: 'frequency_control_specs',
         id: 'id',
         is_autobid: 'is_autobid',
+        'is_average_price_pacing': 'is_average_price_pacing',
         lifetime_budget: 'lifetime_budget',
         lifetime_frequency_cap: 'lifetime_frequency_cap',
         lifetime_imps: 'lifetime_imps',
@@ -1535,6 +1538,7 @@ var AdSet = function (_AbstractCrudObject) {
         pacing_type: 'pacing_type',
         promoted_object: 'promoted_object',
         recommendations: 'recommendations',
+        'recurring_budget_semantics': 'recurring_budget_semantics',
         rf_prediction_id: 'rf_prediction_id',
         rtb_flag: 'rtb_flag',
         start_time: 'start_time',
@@ -1703,6 +1707,7 @@ var Campaign = function (_AbstractCrudObject) {
       return Object.freeze({
         account_id: 'account_id',
         adlabels: 'adlabels',
+        'budget_rebalance_flag': 'budget_rebalance_flag',
         buying_type: 'buying_type',
         can_use_spend_cap: 'can_use_spend_cap',
         configured_status: 'configured_status',
@@ -1896,6 +1901,7 @@ var ProductItem = function (_AbstractCrudObject) {
         sale_price_start_date: 'sale_price_start_date',
         shipping_weight_unit: 'shipping_weight_unit',
         shipping_weight_value: 'shipping_weight_value',
+        short_description: 'short_description',
         size: 'size',
         start_date: 'start_date',
         url: 'url',
@@ -1953,6 +1959,7 @@ var ProductSet = function (_AbstractCrudObject) {
     key: 'Fields',
     get: function get() {
       return Object.freeze({
+        auto_creation_url: 'auto_creation_url',
         filter: 'filter',
         id: 'id',
         name: 'name',
@@ -2036,10 +2043,17 @@ var Business = function (_AbstractCrudObject) {
     key: 'Fields',
     get: function get() {
       return Object.freeze({
+        created_by: 'created_by',
+        created_time: 'created_time',
         id: 'id',
+        link: 'link',
         name: 'name',
         payment_account_id: 'payment_account_id',
-        primary_page: 'primary_page'
+        primary_page: 'primary_page',
+        timezone_id: 'timezone_id',
+        two_factor_type: 'two_factor_type',
+        updated_by: 'updated_by',
+        updated_time: 'updated_time'
       });
     }
   }]);
@@ -2084,6 +2098,7 @@ var User = function (_AbstractCrudObject) {
         devices: 'devices',
         education: 'education',
         email: 'email',
+        employee_number: 'employee_number',
         favorite_athletes: 'favorite_athletes',
         favorite_teams: 'favorite_teams',
         first_name: 'first_name',
@@ -2106,6 +2121,7 @@ var User = function (_AbstractCrudObject) {
         middle_name: 'middle_name',
         name: 'name',
         name_format: 'name_format',
+        page_scoped_id: 'page_scoped_id',
         payment_pricepoints: 'payment_pricepoints',
         political: 'political',
         public_key: 'public_key',
@@ -2190,7 +2206,6 @@ var AdAccount = function (_AbstractCrudObject) {
     key: 'Fields',
     get: function get() {
       return Object.freeze({
-        account_groups: 'account_groups',
         account_id: 'account_id',
         account_status: 'account_status',
         age: 'age',
@@ -2222,7 +2237,6 @@ var AdAccount = function (_AbstractCrudObject) {
         is_personal: 'is_personal',
         is_prepay_account: 'is_prepay_account',
         is_tax_id_required: 'is_tax_id_required',
-        last_used_time: 'last_used_time',
         line_numbers: 'line_numbers',
         media_agency: 'media_agency',
         min_campaign_group_spend_cap: 'min_campaign_group_spend_cap',
@@ -2296,7 +2310,6 @@ var AdImage = function (_AbstractCrudObject) {
         creatives: 'creatives',
         hash: 'hash',
         height: 'height',
-        last_used_time: 'last_used_time',
         name: 'name',
         original_height: 'original_height',
         original_width: 'original_width',

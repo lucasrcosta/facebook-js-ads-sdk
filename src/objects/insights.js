@@ -1,6 +1,4 @@
-import {
-  AbstractCrudObject
-} from './../core'
+import { AbstractCrudObject } from './../core'
 
 /**
  * Insights
@@ -9,7 +7,7 @@ import {
  * @see {@link https://developers.facebook.com/docs/marketing-api/insights-api}
  */
 export default class Insights extends AbstractCrudObject {
-  static get Fields() {
+  static get Fields () {
     return Object.freeze({
       account_id: 'account_id',
       account_name: 'account_name',
@@ -90,7 +88,7 @@ export default class Insights extends AbstractCrudObject {
     })
   }
 
-  static get ActionAttributionWindows() {
+  static get ActionAttributionWindows () {
     return Object.freeze({
       value_1d_view: '1d_view',
       value_7d_view: '7d_view',
@@ -102,7 +100,7 @@ export default class Insights extends AbstractCrudObject {
     })
   }
 
-  static get ActionBreakdowns() {
+  static get ActionBreakdowns () {
     return Object.freeze({
       action_carousel_card_id: 'action_carousel_card_id',
       action_carousel_card_name: 'action_carousel_card_name',
@@ -114,14 +112,14 @@ export default class Insights extends AbstractCrudObject {
     })
   }
 
-  static get ActionReportTime() {
+  static get ActionReportTime () {
     return Object.freeze({
       impression: 'impression',
       conversion: 'conversion'
     })
   }
 
-  static get Breakdowns() {
+  static get Breakdowns () {
     return Object.freeze({
       age: 'age',
       country: 'country',
@@ -140,7 +138,7 @@ export default class Insights extends AbstractCrudObject {
     })
   }
 
-  static get DatePreset() {
+  static get DatePreset () {
     return Object.freeze({
       today: 'today',
       yesterday: 'yesterday',
@@ -160,7 +158,7 @@ export default class Insights extends AbstractCrudObject {
     })
   }
 
-  static get Level() {
+  static get Level () {
     return Object.freeze({
       ad: 'ad',
       adset: 'adset',
@@ -169,7 +167,7 @@ export default class Insights extends AbstractCrudObject {
     })
   }
 
-  static get SummaryActionBreakdowns() {
+  static get SummaryActionBreakdowns () {
     return Object.freeze({
       action_carousel_card_id: 'action_carousel_card_id',
       action_carousel_card_name: 'action_carousel_card_name',
@@ -181,7 +179,7 @@ export default class Insights extends AbstractCrudObject {
     })
   }
 
-  static get Summary() {
+  static get Summary () {
     return Object.freeze({
       id: 'id',
       account_id: 'account_id',
@@ -199,7 +197,7 @@ export default class Insights extends AbstractCrudObject {
     })
   }
 
-  static getEndpoint() {
+  static getEndpoint () {
     return 'insights'
   }
 }

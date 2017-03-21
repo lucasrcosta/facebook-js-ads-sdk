@@ -9,6 +9,7 @@ import ProductItem from './product-item'
 export default class ProductSet extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
+      auto_creation_url: 'auto_creation_url',
       filter: 'filter',
       id: 'id',
       name: 'name',

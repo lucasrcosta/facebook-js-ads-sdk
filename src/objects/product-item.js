@@ -47,6 +47,7 @@ export default class ProductItem extends AbstractCrudObject {
       sale_price_start_date: 'sale_price_start_date',
       shipping_weight_unit: 'shipping_weight_unit',
       shipping_weight_value: 'shipping_weight_value',
+      short_description: 'short_description',
       size: 'size',
       start_date: 'start_date',
       url: 'url',

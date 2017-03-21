@@ -10,7 +10,6 @@ export default class AdCreative extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
       id: 'id',
-      actor_id: 'actor_id',
       adlabels: 'adlabels',
       applink_treatment: 'applink_treatment',
       body: 'body',

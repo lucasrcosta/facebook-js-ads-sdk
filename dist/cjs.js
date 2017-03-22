@@ -2153,6 +2153,105 @@ var User = function (_AbstractCrudObject) {
 }(AbstractCrudObject);
 
 /**
+ * Ad
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/custom-audience-api}
+ */
+
+var CustomAudience = function (_AbstractCrudObject) {
+  inherits(CustomAudience, _AbstractCrudObject);
+
+  function CustomAudience() {
+    classCallCheck(this, CustomAudience);
+    return possibleConstructorReturn(this, (CustomAudience.__proto__ || Object.getPrototypeOf(CustomAudience)).apply(this, arguments));
+  }
+
+  createClass(CustomAudience, null, [{
+    key: 'getEndpoint',
+    value: function getEndpoint() {
+      return 'customaudiences';
+    }
+  }, {
+    key: 'Fields',
+    get: function get() {
+      return Object.freeze({
+        account_id: 'account_id',
+        approximate_count: 'approximate_count',
+        data_source: 'data_source',
+        delivery_status: 'delivery_status',
+        description: 'description',
+        external_event_source: 'external_event_source',
+        id: 'id',
+        lookalike_audience_ids: 'lookalike_audience_ids',
+        lookalike_spec: 'lookalike_spec',
+        name: 'name',
+        operation_status: 'operation_status',
+        opt_out_link: 'opt_out_link',
+        permission_for_actions: 'permission_for_actions',
+        pixel_id: 'pixel_id',
+        retention_days: 'retention_days',
+        rule: 'rule',
+        subtype: 'subtype',
+        time_content_updated: 'time_content_updated',
+        time_created: 'time_created',
+        time_updated: 'time_updated',
+        claim_objective: 'claim_objective',
+        content_type: 'content_type',
+        dataset_id: 'dataset_id',
+        event_source_group: 'event_source_group',
+        list_of_accounts: 'list_of_accounts',
+        origin_audience_id: 'origin_audience_id',
+        prefill: 'prefill',
+        product_set_id: 'product_set_id',
+        associated_audience_id: 'associated_audience_id',
+        creation_params: 'creation_params',
+        exclusions: 'exclusions',
+        inclusions: 'inclusions',
+        parent_audience_id: 'parent_audience_id',
+        tags: 'tags'
+      });
+    }
+  }, {
+    key: 'ClaimObjective',
+    get: function get() {
+      return Object.freeze({
+        product: 'PRODUCT',
+        travel: 'TRAVEL'
+      });
+    }
+  }, {
+    key: 'ContentType',
+    get: function get() {
+      return Object.freeze({
+        destination: 'DESTINATION',
+        flight: 'FLIGHT',
+        hotel: 'HOTEL'
+      });
+    }
+  }, {
+    key: 'Subtype',
+    get: function get() {
+      return Object.freeze({
+        custom: 'CUSTOM',
+        website: 'WEBSITE',
+        app: 'APP',
+        offline_conversion: 'OFFLINE_CONVERSION',
+        claim: 'CLAIM',
+        partner: 'PARTNER',
+        managed: 'MANAGED',
+        video: 'VIDEO',
+        lookalike: 'LOOKALIKE',
+        engagement: 'ENGAGEMENT',
+        data_set: 'DATA_SET',
+        bag_of_accounts: 'BAG_OF_ACCOUNTS',
+        study_rule_audience: 'STUDY_RULE_AUDIENCE'
+      });
+    }
+  }]);
+  return CustomAudience;
+}(AbstractCrudObject);
+
+/**
  * AdAccount
  * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/reference/ad-account}
@@ -2200,6 +2299,11 @@ var AdAccount = function (_AbstractCrudObject) {
     key: 'getUsers',
     value: function getUsers(fields, params, fetchFirstPage) {
       return this.getEdge(User, fields, params, fetchFirstPage);
+    }
+  }, {
+    key: 'getCustomAudiences',
+    value: function getCustomAudiences(fields, params, fetchFirstPage) {
+      return this.getEdge(CustomAudience, fields, params, fetchFirstPage);
     }
   }], [{
     key: 'getEndpoint',
@@ -2349,6 +2453,7 @@ exports.AdSet = AdSet;
 exports.Ad = Ad;
 exports.Business = Business;
 exports.Campaign = Campaign;
+exports.CustomAudience = CustomAudience;
 exports.Insights = Insights;
 exports.ProductCatalog = ProductCatalog;
 exports.ProductItem = ProductItem;

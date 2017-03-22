@@ -6,7 +6,7 @@ import { AbstractCrudObject } from './../core'
  * @see {@link https://developers.facebook.com/docs/marketing-api/custom-audience-api}
  */
 export default class CustomAudience extends AbstractCrudObject {
-  static get Fields() {
+  static get Fields () {
     return Object.freeze({
       account_id: 'account_id',
       approximate_count: 'approximate_count',
@@ -45,22 +45,22 @@ export default class CustomAudience extends AbstractCrudObject {
     })
   }
 
-  static get ClaimObjective() {
+  static get ClaimObjective () {
     return Object.freeze({
       product: 'PRODUCT',
       travel: 'TRAVEL'
-    });
+    })
   }
 
-  static get ContentType() {
+  static get ContentType () {
     return Object.freeze({
       destination: 'DESTINATION',
       flight: 'FLIGHT',
       hotel: 'HOTEL'
-    });
+    })
   }
 
-  static get Subtype() {
+  static get Subtype () {
     return Object.freeze({
       custom: 'CUSTOM',
       website: 'WEBSITE',
@@ -75,10 +75,10 @@ export default class CustomAudience extends AbstractCrudObject {
       data_set: 'DATA_SET',
       bag_of_accounts: 'BAG_OF_ACCOUNTS',
       study_rule_audience: 'STUDY_RULE_AUDIENCE'
-    });
+    })
   }
 
-  static getEndpoint() {
+  static getEndpoint () {
     return 'customaudiences'
   }
 }

@@ -26,7 +26,7 @@ gulp.task('default', function () {
 })
 
 gulp.task('test-bundle', function () {
-  roll('amd', './test', 'suite.es6', 'suite', './test')
+  roll('amd', 'suite.es6', 'suite', './test', './test')
 })
 
 gulp.task('watch-bundle', function () {
@@ -52,7 +52,7 @@ gulp.task('integration', function () {
 })
 
 gulp.task('integration-bundle', function () {
-  roll('amd', './test/integration', 'test-integration.js', 'suite', './test/integration')
+  roll('amd', 'test-integration.js', 'suite', './test/integration', './test/integration')
 })
 
 gulp.task('integration-browser', ['integration-bundle'], function () {
@@ -64,8 +64,9 @@ gulp.task('watch-integration', function () {
   gulp.watch(['test/integration/test-integration.js'], ['integration'])
 })
 
-function roll (format, entry_dir, entry, name, dest_dir) {
+function roll (format, entry, name, entry_dir, dest_dir) {
   name = (name || format) + '.js'
+  entry_dir = entry_dir || './src'
   dest_dir = dest_dir || './dist'
   return rollup({
     entry: entry_dir + '/' + entry,
@@ -105,10 +106,10 @@ function roll (format, entry_dir, entry, name, dest_dir) {
 }
 
 gulp.task('dist', function () {
-  roll('amd', './dist', 'bundle.es6')
-  roll('cjs', './dist', 'bundle.es6')
-  roll('umd', './dist', 'bundle.es6')
-  roll('iife', './dist', 'bundle.es6')
-  roll('es', './dist', 'bundle.es6')
-  roll('cjs', './dist', 'globals.es6', 'globals')
+  roll('amd', 'bundle.es6')
+  roll('cjs', 'bundle.es6')
+  roll('umd', 'bundle.es6')
+  roll('iife', 'bundle.es6')
+  roll('es', 'bundle.es6')
+  roll('cjs', 'globals.es6', 'globals')
 })

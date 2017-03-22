@@ -13,6 +13,7 @@ export default class Campaign extends AbstractCrudObject {
     return Object.freeze({
       account_id: 'account_id',
       adlabels: 'adlabels',
+      'budget_rebalance_flag': 'budget_rebalance_flag',
       buying_type: 'buying_type',
       can_use_spend_cap: 'can_use_spend_cap',
       configured_status: 'configured_status',

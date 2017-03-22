@@ -16,7 +16,6 @@ import CustomAudience from './custom-audience'
 export default class AdAccount extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
-      account_groups: 'account_groups',
       account_id: 'account_id',
       account_status: 'account_status',
       age: 'age',
@@ -48,7 +47,6 @@ export default class AdAccount extends AbstractCrudObject {
       is_personal: 'is_personal',
       is_prepay_account: 'is_prepay_account',
       is_tax_id_required: 'is_tax_id_required',
-      last_used_time: 'last_used_time',
       line_numbers: 'line_numbers',
       media_agency: 'media_agency',
       min_campaign_group_spend_cap: 'min_campaign_group_spend_cap',
@@ -56,7 +54,6 @@ export default class AdAccount extends AbstractCrudObject {
       name: 'name',
       offsite_pixels_tos_accepted: 'offsite_pixels_tos_accepted',
       owner: 'owner',
-      owner_business: 'owner_business',
       partner: 'partner',
       rf_spec: 'rf_spec',
       spend_cap: 'spend_cap',

@@ -5,6 +5,7 @@ import AdPreview from './ad-preview'
 import AdSet from './ad-set'
 import Campaign from './campaign'
 import Insights from './insights'
+import ReachFrequencyPredictions from './reach-frequency-prediction'
 import User from './user'
 import CustomAudience from './custom-audience'
 
@@ -112,6 +113,10 @@ export default class AdAccount extends AbstractCrudObject {
 
   getInsights (fields, params, fetchFirstPage) {
     return this.getEdge(Insights, fields, params, fetchFirstPage)
+  }
+
+  getReachFrequencyPredictions (fields, params, fetchFirstPage) {
+    return this.getEdge(ReachFrequencyPredictions, fields, params, fetchFirstPage)
   }
 
   getUsers (fields, params, fetchFirstPage) {

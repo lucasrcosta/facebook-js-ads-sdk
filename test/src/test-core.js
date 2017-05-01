@@ -67,7 +67,7 @@ describe('AbstractObject', () => {
 
 describe('AbstractCrudObject', () => {
   class ConcreteCrudObject extends AbstractCrudObject {
-    static get Fields () { return Object.freeze({ field: 'field' }) }
+    static get Fields () { return Object.freeze({ field: 'field', anotherfield: 'anotherfield' }) }
   }
 
   it('should store changes for field properties', () => {
@@ -87,6 +87,13 @@ describe('AbstractCrudObject', () => {
     const object = new ConcreteCrudObject()
     object.field = 3
     object.exportData().should.be.eql({'field': 3})
+  })
+
+  it('should export all data', () => {
+    const object = new ConcreteCrudObject()
+    object._data = {'field': 3}
+    object.anotherfield = 4
+    object.exportAllData().should.be.eql({'anotherfield': 4, 'field': 3})
   })
 
   it('should clear change history', () => {

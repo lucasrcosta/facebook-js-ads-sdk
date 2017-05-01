@@ -6,7 +6,7 @@ import { FacebookRequestError } from './exceptions'
  */
 export default class FacebookAdsApi {
 
-  static get VERSION () { return 'v2.8' }
+  static get VERSION () { return 'v2.9' }
   static get GRAPH () { return 'https://graph.facebook.com' }
 
   /**

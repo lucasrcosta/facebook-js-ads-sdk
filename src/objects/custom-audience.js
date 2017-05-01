@@ -15,6 +15,7 @@ export default class CustomAudience extends AbstractCrudObject {
       description: 'description',
       external_event_source: 'external_event_source',
       id: 'id',
+      is_value_based: 'is_value_based',
       lookalike_audience_ids: 'lookalike_audience_ids',
       lookalike_spec: 'lookalike_spec',
       name: 'name',
@@ -47,6 +48,7 @@ export default class CustomAudience extends AbstractCrudObject {
 
   static get ClaimObjective () {
     return Object.freeze({
+      home_listing: 'HOME_LISTING',
       product: 'PRODUCT',
       travel: 'TRAVEL'
     })
@@ -56,7 +58,8 @@ export default class CustomAudience extends AbstractCrudObject {
     return Object.freeze({
       destination: 'DESTINATION',
       flight: 'FLIGHT',
-      hotel: 'HOTEL'
+      hotel: 'HOTEL',
+      home_listing: 'HOME_LISTING'
     })
   }
 

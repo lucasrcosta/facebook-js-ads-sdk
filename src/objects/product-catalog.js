@@ -11,10 +11,16 @@ export default class ProductCatalog extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
       business: 'business',
+      da_display_settings: 'da_display_settings',
+      default_image_url: 'default_image_url',
+      fallback_image_url: 'fallback_image_url',
       feed_count: 'feed_count',
       id: 'id',
+      image_padding_landscape: 'image_padding_landscape',
+      image_padding_square: 'image_padding_square',
       name: 'name',
-      product_count: 'product_count'
+      product_count: 'product_count',
+      vertical: 'vertical'
     })
   }
 

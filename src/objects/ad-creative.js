@@ -9,13 +9,15 @@ import AdPreview from './ad-preview'
 export default class AdCreative extends AbstractCrudObject {
   static get Fields () {
     return Object.freeze({
-      id: 'id',
+      account_id: 'account_id',
+      actor_id: 'actor_id',
       adlabels: 'adlabels',
       applink_treatment: 'applink_treatment',
       body: 'body',
+      call_to_action_type: 'call_to_action_type',
       effective_instagram_story_id: 'effective_instagram_story_id',
       effective_object_story_id: 'effective_object_story_id',
-      call_to_action_type: 'call_to_action_type',
+      id: 'id',
       image_crops: 'image_crops',
       image_hash: 'image_hash',
       image_url: 'image_url',
@@ -32,19 +34,17 @@ export default class AdCreative extends AbstractCrudObject {
       object_url: 'object_url',
       platform_customizations: 'platform_customizations',
       product_set_id: 'product_set_id',
-      run_status: 'run_status',
+      status: 'status',
       template_url: 'template_url',
+      template_url_spec: 'template_url_spec',
       thumbnail_url: 'thumbnail_url',
       title: 'title',
       url_tags: 'url_tags',
       use_page_actor_override: 'use_page_actor_override',
-      action_spec: 'action_spec',
+      video_id: 'video_id',
       call_to_action: 'call_to_action',
       dynamic_ad_voice: 'dynamic_ad_voice',
-      follow_redirect: 'follow_redirect',
-      image_file: 'image_file',
-      object_instagram_id: 'object_instagram_id',
-      place_page_set_id: 'place_page_set_id'
+      image_file: 'image_file'
     })
   }
 
@@ -68,18 +68,19 @@ export default class AdCreative extends AbstractCrudObject {
       use_mobile_app: 'USE_MOBILE_APP',
       book_travel: 'BOOK_TRAVEL',
       listen_music: 'LISTEN_MUSIC',
-      watch_video: 'WATCH_VIDEO',
       learn_more: 'LEARN_MORE',
       sign_up: 'SIGN_UP',
       download: 'DOWNLOAD',
       watch_more: 'WATCH_MORE',
       no_button: 'NO_BUTTON',
       call_now: 'CALL_NOW',
+      apply_now: 'APPLY_NOW',
       buy_now: 'BUY_NOW',
       get_offer: 'GET_OFFER',
       get_offer_view: 'GET_OFFER_VIEW',
       get_directions: 'GET_DIRECTIONS',
       message_page: 'MESSAGE_PAGE',
+      message_user: 'MESSAGE_USER',
       subscribe: 'SUBSCRIBE',
       sell_now: 'SELL_NOW',
       donate_now: 'DONATE_NOW',
@@ -87,6 +88,9 @@ export default class AdCreative extends AbstractCrudObject {
       contact_us: 'CONTACT_US',
       record_now: 'RECORD_NOW',
       vote_now: 'VOTE_NOW',
+      register_now: 'REGISTER_NOW',
+      request_time: 'REQUEST_TIME',
+      see_menu: 'SEE_MENU',
       open_movies: 'OPEN_MOVIES'
     })
   }
@@ -109,7 +113,7 @@ export default class AdCreative extends AbstractCrudObject {
     })
   }
 
-  static get RunStatus () {
+  static get Status () {
     return Object.freeze({
       active: 'ACTIVE',
       deleted: 'DELETED'

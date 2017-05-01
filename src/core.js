@@ -125,6 +125,14 @@ export class AbstractCrudObject extends AbstractObject {
   }
 
   /**
+   * Export object data
+   * @return {Object}
+   */
+  exportAllData () {
+    return this._data
+  }
+
+  /**
    * Clear change history
    * @return this
    */

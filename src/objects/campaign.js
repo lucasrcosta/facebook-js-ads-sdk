@@ -13,8 +13,10 @@ export default class Campaign extends AbstractCrudObject {
     return Object.freeze({
       account_id: 'account_id',
       adlabels: 'adlabels',
-      'budget_rebalance_flag': 'budget_rebalance_flag',
+      brand_lift_studies: 'brand_lift_studies',
+      budget_rebalance_flag: 'budget_rebalance_flag',
       buying_type: 'buying_type',
+      can_create_brand_lift_study: 'can_create_brand_lift_study',
       can_use_spend_cap: 'can_use_spend_cap',
       configured_status: 'configured_status',
       created_time: 'created_time',
@@ -104,21 +106,18 @@ export default class Campaign extends AbstractCrudObject {
 
   static get Objective () {
     return Object.freeze({
+      app_installs: 'APP_INSTALLS',
       brand_awareness: 'BRAND_AWARENESS',
-      canvas_app_engagement: 'CANVAS_APP_ENGAGEMENT',
-      canvas_app_installs: 'CANVAS_APP_INSTALLS',
       conversions: 'CONVERSIONS',
       event_responses: 'EVENT_RESPONSES',
-      external: 'EXTERNAL',
       lead_generation: 'LEAD_GENERATION',
       link_clicks: 'LINK_CLICKS',
       local_awareness: 'LOCAL_AWARENESS',
-      mobile_app_engagement: 'MOBILE_APP_ENGAGEMENT',
-      mobile_app_installs: 'MOBILE_APP_INSTALLS',
       offer_claims: 'OFFER_CLAIMS',
       page_likes: 'PAGE_LIKES',
       post_engagement: 'POST_ENGAGEMENT',
       product_catalog_sales: 'PRODUCT_CATALOG_SALES',
+      reach: 'REACH',
       video_views: 'VIDEO_VIEWS'
     })
   }

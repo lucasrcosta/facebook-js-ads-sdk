@@ -57,6 +57,8 @@ export default class AdAccount extends AbstractCrudObject {
       owner: 'owner',
       partner: 'partner',
       rf_spec: 'rf_spec',
+      salesforce_invoice_group_id: 'salesforce_invoice_group_id',
+      show_checkout_experience: 'show_checkout_experience',
       spend_cap: 'spend_cap',
       tax_id: 'tax_id',
       tax_id_status: 'tax_id_status',

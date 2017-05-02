@@ -1,5 +1,6 @@
 export { default as FacebookAdsApi } from './../src/api'
 export { default as AdAccount } from './../src/objects/ad-account'
+export { default as AdPixel } from './../src/objects/ad-pixel'
 export { default as AdCreative } from './../src/objects/ad-creative'
 export { default as AdImage } from './../src/objects/ad-image'
 export { default as AdPreview } from './../src/objects/ad-preview'

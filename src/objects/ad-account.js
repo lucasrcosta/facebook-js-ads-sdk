@@ -126,7 +126,7 @@ export default class AdAccount extends AbstractCrudObject {
     return this.getEdge(User, fields, params, fetchFirstPage)
   }
 
-  getPixels (fields, params, fetchFirstPage) {
+  getAdPixels (fields, params, fetchFirstPage) {
     return this.getEdge(AdPixel, fields, params, fetchFirstPage)
   }
 

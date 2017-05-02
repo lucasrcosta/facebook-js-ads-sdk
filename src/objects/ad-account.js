@@ -7,7 +7,7 @@ import Campaign from './campaign'
 import Insights from './insights'
 import ReachFrequencyPredictions from './reach-frequency-prediction'
 import User from './user'
-import AdPixel from './ad-pixel'
+import AdsPixel from './ads-pixel'
 import CustomAudience from './custom-audience'
 
 /**
@@ -127,7 +127,7 @@ export default class AdAccount extends AbstractCrudObject {
   }
 
   getAdPixels (fields, params, fetchFirstPage) {
-    return this.getEdge(AdPixel, fields, params, fetchFirstPage)
+    return this.getEdge(AdsPixel, fields, params, fetchFirstPage)
   }
 
   getCustomAudiences (fields, params, fetchFirstPage) {

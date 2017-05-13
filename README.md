@@ -60,7 +60,7 @@ This SDK returns [**Promises**](https://developer.mozilla.org/en-US/docs/Web/Jav
 
 ### Access Token
 
-To instantiate an Api object you will need a valid [access token](https://developers.facebook.com/docs/marketing-api/authentication) for an app with the `ads_management` permission. A quick way to obtaining a short-lived token is using the [Graph API Explorer](https://developers.facebook.com/tools/explorer/). Intantiate the API using the token:
+To instantiate an Api object you will need a valid [access token](https://developers.facebook.com/docs/marketing-api/authentication) for an app with the `ads_management` permission. A quick way to obtaining a short-lived token is using the [Graph API Explorer](https://developers.facebook.com/tools/explorer/). Instantiate the API using the token:
 
 ```javaScript
 const FacebookAdsApi = require('facebook-ads-sdk').FacebookAdsApi;
@@ -71,7 +71,7 @@ Once instantiated, the Api object be refered by the Graph objects. You can also 
 
 #### Debugging
 
-A `FacebookAdsApi` objedt offers a debbuging mode that will log all requests. To enable it just call `api.setDebug(true)` on an API instance.
+A `FacebookAdsApi` object offers a debugging mode that will log all requests. To enable it just call `api.setDebug(true)` on an API instance.
 
 ### Facebook Objects
 
@@ -86,7 +86,7 @@ console.log(account.id) // fields can be accessed as properties
 
 #### CRUD operations
 
-Most of Facebook's Objects can perform Create, Read, Update, and Delete operations. Enums such as `Fields` and other constants are provided by the classes to improve mantainability.
+Most of Facebook's Objects can perform Create, Read, Update, and Delete operations. Enums such as `Fields` and other constants are provided by the classes to improve maintainability.
 
 ##### Create
 
@@ -192,7 +192,7 @@ This package uses [StandardJS](http://standardjs.com/). Inconsistent code will b
 
 ### Unit Tests
 
-Unit tests run in Node.js, PhatomJS, and in Browsers. Travis CI will run both Node and Phatom tests to ensure isomporphism. 
+Unit tests run in Node.js, PhantomJS, and in Browsers. Travis CI will run both Node and PhantomJS tests to ensure isomorphism. 
 
 * The default `gulp` task  will watch the files and run the Node tests repeatedly.
 * `gulp test` will run the Node tests.
@@ -203,7 +203,7 @@ Front-end tests rely on a bundle processed before the tests. You can use `gulp w
 
 ### Integration Tests
 
-Integration tests run a few basic operations to ensure API connectivity. To run them you'll need to setup a `config.json` file in `tests/integration`. Copy the `config.sample` and fill `accessToken` and `accountId`.
+Integration tests run a few basic operations to ensure API connectivity. To run them, you'll need to setup a `config.json` file in `tests/integration`. Copy the `config.sample` and fill `accessToken` and `accountId`.
 
 * `gulp integration` will run integration tests on Node.
 * `gulp integration-browser` will open your system browser with the tests. Useful if you'd like to inspect the requests.

@@ -1,6 +1,7 @@
 import { AbstractCrudObject } from './../core'
 import ProductSet from './product-set'
 import ProductItem from './product-item'
+import ProductFeed from './product-feed'
 
 /**
  * Product Catalog
@@ -34,5 +35,9 @@ export default class ProductCatalog extends AbstractCrudObject {
 
   getProducts (fields, params, fetchFirstPage) {
     return this.getEdge(ProductItem, fields, params, fetchFirstPage)
+  }
+
+  getProductFeeds (fields, params, fetchFirstPage) {
+    return this.getEdge(ProductFeed, fields, params, fetchFirstPage)
   }
 }

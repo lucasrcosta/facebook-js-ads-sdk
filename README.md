@@ -18,7 +18,7 @@ const Campaign = adsSdk.Campaign
 
 const account = new AdAccount({ 'id': accountId })
 const insightsFields = ['impressions', 'frequency', 'unique_clicks', 'actions', 'spend', 'cpc']
-const insightsParams = { date_preset: Campaign.DatePreset.last_90_days }
+const insightsParams = { date_preset: Campaign.DatePreset.last_90d }
 var campaigns
 
 account.read([AdAccount.Fields.name])

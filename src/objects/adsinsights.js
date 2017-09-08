@@ -1,13 +1,8 @@
-import { AbstractCrudObject } from './../core'
+import { AbstractObject } from './../core'
 
-/**
- * Insights
- * @extends AbstractCrudObject
- * @see {@link https://developers.facebook.com/docs/marketing-api/reference/ads-insights}
- * @see {@link https://developers.facebook.com/docs/marketing-api/insights-api}
- */
-export default class Insights extends AbstractCrudObject {
-  static get Fields () {
+export default class AdsInsights extends AbstractObject {
+
+  static get Field () {
     return Object.freeze({
       account_id: 'account_id',
       account_name: 'account_name',
@@ -100,12 +95,12 @@ export default class Insights extends AbstractCrudObject {
 
   static get ActionAttributionWindows () {
     return Object.freeze({
-      value_1d_view: '1d_view',
-      value_7d_view: '7d_view',
-      value_28d_view: '28d_view',
       value_1d_click: '1d_click',
-      value_7d_click: '7d_click',
+      value_1d_view: '1d_view',
       value_28d_click: '28d_click',
+      value_28d_view: '28d_view',
+      value_7d_click: '7d_click',
+      value_7d_view: '7d_view',
       value_default: 'default'
     })
   }
@@ -117,16 +112,18 @@ export default class Insights extends AbstractCrudObject {
       action_carousel_card_name: 'action_carousel_card_name',
       action_destination: 'action_destination',
       action_device: 'action_device',
+      action_reaction: 'action_reaction',
       action_target_id: 'action_target_id',
       action_type: 'action_type',
+      action_video_sound: 'action_video_sound',
       action_video_type: 'action_video_type'
     })
   }
 
   static get ActionReportTime () {
     return Object.freeze({
-      impression: 'impression',
-      conversion: 'conversion'
+      conversion: 'conversion',
+      impression: 'impression'
     })
   }
 
@@ -134,51 +131,51 @@ export default class Insights extends AbstractCrudObject {
     return Object.freeze({
       age: 'age',
       country: 'country',
+      device_platform: 'device_platform',
       dma: 'dma',
-      gender: 'gender',
       frequency_value: 'frequency_value',
+      gender: 'gender',
       hourly_stats_aggregated_by_advertiser_time_zone: 'hourly_stats_aggregated_by_advertiser_time_zone',
       hourly_stats_aggregated_by_audience_time_zone: 'hourly_stats_aggregated_by_audience_time_zone',
       impression_device: 'impression_device',
       place_page_id: 'place_page_id',
-      publisher_platform: 'publisher_platform',
       platform_position: 'platform_position',
-      device_platform: 'device_platform',
       product_id: 'product_id',
+      publisher_platform: 'publisher_platform',
       region: 'region'
     })
   }
 
   static get DatePreset () {
     return Object.freeze({
-      today: 'today',
-      yesterday: 'yesterday',
-      this_month: 'this_month',
-      last_month: 'last_month',
-      this_quarter: 'this_quarter',
-      lifetime: 'lifetime',
-      last_3d: 'last_3d',
-      last_7d: 'last_7d',
       last_14d: 'last_14d',
       last_28d: 'last_28d',
       last_30d: 'last_30d',
+      last_3d: 'last_3d',
+      last_7d: 'last_7d',
       last_90d: 'last_90d',
+      last_month: 'last_month',
+      last_quarter: 'last_quarter',
       last_week_mon_sun: 'last_week_mon_sun',
       last_week_sun_sat: 'last_week_sun_sat',
-      last_quarter: 'last_quarter',
       last_year: 'last_year',
+      lifetime: 'lifetime',
+      this_month: 'this_month',
+      this_quarter: 'this_quarter',
       this_week_mon_today: 'this_week_mon_today',
       this_week_sun_today: 'this_week_sun_today',
-      this_year: 'this_year'
+      this_year: 'this_year',
+      today: 'today',
+      yesterday: 'yesterday'
     })
   }
 
   static get Level () {
     return Object.freeze({
+      account: 'account',
       ad: 'ad',
       adset: 'adset',
-      campaign: 'campaign',
-      account: 'account'
+      campaign: 'campaign'
     })
   }
 
@@ -189,15 +186,16 @@ export default class Insights extends AbstractCrudObject {
       action_carousel_card_name: 'action_carousel_card_name',
       action_destination: 'action_destination',
       action_device: 'action_device',
+      action_reaction: 'action_reaction',
       action_target_id: 'action_target_id',
       action_type: 'action_type',
+      action_video_sound: 'action_video_sound',
       action_video_type: 'action_video_type'
     })
   }
 
   static get Summary () {
     return Object.freeze({
-      id: 'id',
       account_id: 'account_id',
       async_percent_completion: 'async_percent_completion',
       async_status: 'async_status',
@@ -205,6 +203,7 @@ export default class Insights extends AbstractCrudObject {
       date_stop: 'date_stop',
       emails: 'emails',
       friendly_name: 'friendly_name',
+      id: 'id',
       is_bookmarked: 'is_bookmarked',
       is_running: 'is_running',
       schedule_id: 'schedule_id',
@@ -216,4 +215,5 @@ export default class Insights extends AbstractCrudObject {
   static getEndpoint () {
     return 'insights'
   }
+
 }

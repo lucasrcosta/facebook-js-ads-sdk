@@ -1,14 +1,13 @@
 import { AbstractCrudObject } from './../core'
-import AdAccount from './ad-account'
-import Business from './business'
+import AdAccount from './adaccount'
+import Domain from './domain'
+import Event from './event'
+import LeadgenForm from './leadgenform'
+import ProfilePictureSource from './profilepicturesource'
 
-/**
- * User
- * @extends AbstractCrudObject
- * @see {@link https://developers.facebook.com/docs/graph-api/reference/user}
- */
 export default class User extends AbstractCrudObject {
-  static get Fields () {
+
+  static get Field () {
     return Object.freeze({
       about: 'about',
       admin_notes: 'admin_notes',
@@ -68,11 +67,28 @@ export default class User extends AbstractCrudObject {
     })
   }
 
-  getAdAccounts (fields, params, fetchFirstPage) {
-    return this.getEdge(AdAccount, fields, params, fetchFirstPage)
+  getAccounts (fields, params) {
+    return this.getEdge(AbstractCrudObject, fields, params, 'accounts')
   }
 
-  getBusinesses (fields, params, fetchFirstPage) {
-    return this.getEdge(Business, fields, params, fetchFirstPage)
+  getAdAccounts (fields, params) {
+    return this.getEdge(AdAccount, fields, params, 'adaccounts')
   }
+
+  getLeadGenForms (fields, params) {
+    return this.getEdge(LeadgenForm, fields, params, 'leadgen_forms')
+  }
+
+  getPicture (fields, params) {
+    return this.getEdge(ProfilePictureSource, fields, params, 'picture')
+  }
+
+  getPromotableDomains (fields, params) {
+    return this.getEdge(Domain, fields, params, 'promotable_domains')
+  }
+
+  getPromotableEvents (fields, params) {
+    return this.getEdge(Event, fields, params, 'promotable_events')
+  }
+
 }

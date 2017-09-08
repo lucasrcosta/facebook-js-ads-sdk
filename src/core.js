@@ -270,18 +270,14 @@ export class AbstractCrudObject extends AbstractObject {
    * @param  {Object}  targetClass
    * @param  {Array}   [fields]
    * @param  {Object}  [params]
-   * @param  {Boolean} [fetchFirstPage]
    * @param  {String}  [endpoint]
    * @return {Cursor}
    */
-  getEdge (targetClass, fields, params = {}, fetchFirstPage = true, enpoint) {
+  getEdge (targetClass, fields, params = {}, enpoint) {
     if (fields) params['fields'] = fields.join(',')
     const sourceObject = this
     const cursor = new Cursor(sourceObject, targetClass, params, enpoint)
-    if (fetchFirstPage) {
-      return cursor.next()
-    }
-    return cursor
+    return cursor.next()
   }
 
   /**

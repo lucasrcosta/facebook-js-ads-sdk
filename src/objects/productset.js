@@ -1,13 +1,10 @@
 import { AbstractCrudObject } from './../core'
-import ProductItem from './product-item'
+import ProductGroup from './productgroup'
+import ProductItem from './productitem'
 
-/**
- * Product Set
- * @extends AbstractCrudObject
- * @see {@link https://developers.facebook.com/docs/marketing-api/reference/product-set}
- */
 export default class ProductSet extends AbstractCrudObject {
-  static get Fields () {
+
+  static get Field () {
     return Object.freeze({
       auto_creation_url: 'auto_creation_url',
       filter: 'filter',
@@ -17,12 +14,16 @@ export default class ProductSet extends AbstractCrudObject {
       product_count: 'product_count'
     })
   }
-
   static getEndpoint () {
     return 'product_sets'
   }
 
-  getProducts (fields, params, fetchFirstPage) {
-    return this.getEdge(ProductItem, fields, params, fetchFirstPage)
+  getProductGroups (fields, params) {
+    return this.getEdge(ProductGroup, fields, params, 'product_groups')
   }
+
+  getProducts (fields, params) {
+    return this.getEdge(ProductItem, fields, params, 'products')
+  }
+
 }

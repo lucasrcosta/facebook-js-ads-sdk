@@ -1,16 +1,15 @@
 import { AbstractCrudObject } from './../core'
 
-/**
- * AdImage
- * @extends AbstractCrudObject
- * @see {@link https://developers.facebook.com/docs/marketing-api/reference/ad-image}
- */
 export default class AdImage extends AbstractCrudObject {
-  static get Fields () {
+
+  static get Field () {
     return Object.freeze({
       account_id: 'account_id',
+      bytes: 'bytes',
+      copy_from: 'copy_from',
       created_time: 'created_time',
       creatives: 'creatives',
+      filename: 'filename',
       hash: 'hash',
       height: 'height',
       id: 'id',
@@ -24,10 +23,7 @@ export default class AdImage extends AbstractCrudObject {
       url: 'url',
       url_128: 'url_128',
       width: 'width',
-      bytes: 'bytes',
-      copy_from: 'copy_from',
-      zipbytes: 'zipbytes',
-      filename: 'filename'
+      zipbytes: 'zipbytes'
     })
   }
 
@@ -37,8 +33,8 @@ export default class AdImage extends AbstractCrudObject {
       deleted: 'DELETED'
     })
   }
-
   static getEndpoint () {
     return 'adimages'
   }
+
 }

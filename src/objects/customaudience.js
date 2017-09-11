@@ -81,32 +81,6 @@ export default class CustomAudience extends AbstractCrudObject {
     })
   }
 
-  static get Fields () {
-    return Object.freeze({
-      account_id: 'account_id',
-      approximate_count: 'approximate_count',
-      data_source: 'data_source',
-      delivery_status: 'delivery_status',
-      description: 'description',
-      external_event_source: 'external_event_source',
-      id: 'id',
-      is_value_based: 'is_value_based',
-      lookalike_audience_ids: 'lookalike_audience_ids',
-      lookalike_spec: 'lookalike_spec',
-      name: 'name',
-      operation_status: 'operation_status',
-      opt_out_link: 'opt_out_link',
-      permission_for_actions: 'permission_for_actions',
-      pixel_id: 'pixel_id',
-      retention_days: 'retention_days',
-      rule: 'rule',
-      subtype: 'subtype',
-      time_content_updated: 'time_content_updated',
-      time_created: 'time_created',
-      time_updated: 'time_updated'
-    })
-  }
-
   static getEndpoint () {
     return 'customaudiences'
   }

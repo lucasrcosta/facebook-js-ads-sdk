@@ -21,12 +21,12 @@ const insightsFields = ['impressions', 'frequency', 'unique_clicks', 'actions', 
 const insightsParams = { date_preset: Campaign.DatePreset.last_90d }
 var campaigns
 
-account.read([AdAccount.Fields.name])
+account.read([AdAccount.Field.name])
   .then((account) => {
     account.getInsights(insightsFields, insightsParams)
       .then((actInsights) => console.log(account, actInsights))
       .catch(console.error)
-    return account.getCampaigns([Campaign.Fields.name], { limit: 10 }) // fields array and params
+    return account.getCampaigns([Campaign.Field.name], { limit: 10 }) // fields array and params
   })
   .then((result) => {
     campaigns = result
@@ -86,7 +86,7 @@ console.log(account.id) // fields can be accessed as properties
 
 #### CRUD operations
 
-Most of Facebook's Objects can perform Create, Read, Update, and Delete operations. Enums such as `Fields` and other constants are provided by the classes to improve maintainability.
+Most of Facebook's Objects can perform Create, Read, Update, and Delete operations. Enums such as `Field` and other constants are provided by the classes to improve maintainability.
 
 ##### Create
 
@@ -94,8 +94,8 @@ Most of Facebook's Objects can perform Create, Read, Update, and Delete operatio
 const Campaign = require('facebook-ads-sdk').Campaign;
 const accountId = 'AD_ACCOUNT_ID'
 const data = {
-  [Campaign.Fields.name]: 'Campaign Name',
-  [Campaign.Fields.status]: Campaign.Status.paused
+  [Campaign.Field.name]: 'Campaign Name',
+  [Campaign.Field.status]: Campaign.Status.paused
 }
 new Campaign(data, accountId) // set data and parent ID on instantiation
   .create()
@@ -109,7 +109,7 @@ new Campaign(data, accountId) // set data and parent ID on instantiation
 const Campaign = require('facebook-ads-sdk').Campaign;
 const campaignId = 'CAMPAIGN_ID'
 new Campaign({ 'id': campaignId })
-  .read([Campaign.Fields.name]) // fields array
+  .read([Campaign.Field.name]) // fields array
   .then((campaign) => { console.log(campaign.name) })
   .catch(errorFunction)
 ```
@@ -129,7 +129,7 @@ Campaign.getByIds(campaignIds)
 const Campaign = require('facebook-ads-sdk').Campaign;
 const campaignId = 'CAMPAIGN_ID'
 const newName = 'New Campaign Name'
-new Campaign({ [Campaign.Fields.id]: campaignId, [Campaign.Fields.name]: newName })
+new Campaign({ [Campaign.Field.id]: campaignId, [Campaign.Field.name]: newName })
   .udpate()
   .then((result) => { console.log(result.success) })
   .catch(errorFunction)
@@ -155,7 +155,7 @@ Here's an example suposing we have currently 17 campaigns in an Ad Account:
 ```javascript
 const AdAccount = require('facebook-ads-sdk').AdAccount;
 const account = new AdAccount({'id': 'AD_ACCOUNT_ID'})
-account.getCampaigns([Campaign.Fields.name], { limit: 10 }) // fields array and params
+account.getCampaigns([Campaign.Field.name], { limit: 10 }) // fields array and params
 .then((campaigns) => {
   console.log(campaigns.length) // 10
   console.log(campaigns.hasNext()) // true

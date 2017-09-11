@@ -4,14 +4,14 @@ chai.should()
 
 describe('AbstractObject', () => {
   class ConcreteObject extends AbstractObject {
-    static get Fields () { return Object.freeze({ field: 'field' }) }
+    static get Field () { return Object.freeze({ field: 'field' }) }
   }
 
-  it('should possess a Fields enum', () => {
+  it('should possess a Field enum', () => {
     ;() => (new AbstractObject()).should.throw(Error)
-    ;() => (ConcreteObject.Fields = {}).should.throw(TypeError)
-    ;() => (ConcreteObject.Fields.field = '').should.throw(TypeError)
-    ConcreteObject.Fields.field.should.be.equal('field')
+    ;() => (ConcreteObject.Field = {}).should.throw(TypeError)
+    ;() => (ConcreteObject.Field.field = '').should.throw(TypeError)
+    ConcreteObject.Field.field.should.be.equal('field')
   })
 
   it('should create a data object with getters and setters for fields', () => {
@@ -67,7 +67,7 @@ describe('AbstractObject', () => {
 
 describe('AbstractCrudObject', () => {
   class ConcreteCrudObject extends AbstractCrudObject {
-    static get Fields () { return Object.freeze({ field: 'field', anotherfield: 'anotherfield' }) }
+    static get Field () { return Object.freeze({ field: 'field', anotherfield: 'anotherfield' }) }
   }
 
   it('should store changes for field properties', () => {
@@ -137,7 +137,7 @@ describe('Cursor', () => {
   const sourceObject = { getId: () => 'id', getApi: () => ({call: callStub}) }
   class targetClass {
     constructor (num) { this.v = num }
-    static get Fields () {}
+    static get Field () {}
     static getEndpoint () { 'endpoint' }
   }
 

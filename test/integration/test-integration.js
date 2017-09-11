@@ -35,7 +35,7 @@ describe('Graph Objects', function () {
 
   it('should be read', (done) => {
     account = new AdAccount({'id': accountId})
-    account.read([AdAccount.Fields.id, AdAccount.Fields.name])
+    account.read([AdAccount.Field.id, AdAccount.Field.name])
       .then(() => {
         account.name.should.be.ok
         done()
@@ -45,9 +45,9 @@ describe('Graph Objects', function () {
 
   it('should be created', (done) => {
     const data = {
-      [Campaign.Fields.name]: 'Facebook JS Ads SDK Test',
-      [Campaign.Fields.objective]: Campaign.Objective.link_clicks,
-      [Campaign.Fields.status]: Campaign.Status.paused
+      [Campaign.Field.name]: 'Facebook JS Ads SDK Test',
+      [Campaign.Field.objective]: Campaign.Objective.link_clicks,
+      [Campaign.Field.status]: Campaign.Status.paused
     }
     new Campaign(data, accountId).save()
       .then((result) => {
@@ -69,7 +69,7 @@ describe('Graph Objects', function () {
   })
 
   it('should read their related objects', (done) => {
-    account.getCampaigns([Campaign.Fields.name])
+    account.getCampaigns([Campaign.Field.name])
       .then((campaigns) => {
         campaigns.should.be.a('array').and.have.length.above(0)
         campaigns[0].should.be.an.instanceof(Campaign)
@@ -101,9 +101,9 @@ describe('Graph Objects', function () {
   it('should paginate edges', (done) => {
     var campaigns
     const data = {
-      [Campaign.Fields.name]: 'Facebook JS Ads SDK Test',
-      [Campaign.Fields.objective]: Campaign.Objective.link_clicks,
-      [Campaign.Fields.status]: Campaign.Status.paused
+      [Campaign.Field.name]: 'Facebook JS Ads SDK Test',
+      [Campaign.Field.objective]: Campaign.Objective.link_clicks,
+      [Campaign.Field.status]: Campaign.Status.paused
     }
     Promise.all([new Campaign(data, accountId).save(), new Campaign(data, accountId).save()])
       .then((result) => {

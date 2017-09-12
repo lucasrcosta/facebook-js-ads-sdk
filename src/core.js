@@ -8,10 +8,10 @@ export class AbstractObject {
 
   constructor () {
     this._data = {}
-    if (this.constructor.Fields === undefined) {
-      throw new Error('A "Fields" frozen object must be defined in the object class')
+    if (this.constructor.Field === undefined) {
+      throw new Error('A "Field" frozen object must be defined in the object class')
     }
-    this._fields = Object.keys(this.constructor.Fields)
+    this._fields = Object.keys(this.constructor.Field)
     this._fields.forEach((field) => {
       this._defineProperty(field)
     })

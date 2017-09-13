@@ -1,6 +1,6 @@
 import { AbstractObject } from './../core'
 
-export default class AdsInsights extends AbstractObject {
+export default class AdsInsights extends AbstractCrudObject {
 
   static get Field () {
     return Object.freeze({

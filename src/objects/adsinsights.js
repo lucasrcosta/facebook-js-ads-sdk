@@ -1,4 +1,4 @@
-import { AbstractObject } from './../core'
+import { AbstractCrudObject } from './../core'
 
 export default class AdsInsights extends AbstractCrudObject {
 

@@ -22,6 +22,11 @@ describe('AbstractObject', () => {
     descriptor.enumerable.should.be.ok
   })
 
+  it('should set data on instantiation', () => {
+    const object = new ConcreteObject({'field': 3})
+    object._data.should.be.eql({field: 3})
+  })
+
   it('should set a data field value', () => {
     const object = new ConcreteObject()
     object.set('field', 1)

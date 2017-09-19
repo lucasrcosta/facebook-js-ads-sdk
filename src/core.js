@@ -6,7 +6,7 @@ import FacebookAdsApi from './api'
  */
 export class AbstractObject {
 
-  constructor () {
+  constructor (data) {
     this._data = {}
     if (this.constructor.Field === undefined) {
       throw new Error('A "Field" frozen object must be defined in the object class')
@@ -15,6 +15,9 @@ export class AbstractObject {
     this._fields.forEach((field) => {
       this._defineProperty(field)
     })
+    if (data) {
+      this.setData(data)
+    }
   }
 
   /**

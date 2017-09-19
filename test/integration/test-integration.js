@@ -2,7 +2,8 @@ import chai from 'chai'
 import FacebookAdsApi from './../../src/api'
 import { accessToken, accountId } from './config.json'
 import { FacebookRequestError } from './../../src/exceptions'
-import AdAccount from './../../src/objects/ad-account'
+import AdAccount from './../../src/objects/adaccount'
+import AdsInsights from './../../src/objects/adsinsights'
 import Campaign from './../../src/objects/campaign'
 
 var api
@@ -74,6 +75,19 @@ describe('Graph Objects', function () {
         campaigns.should.be.a('array').and.have.length.above(0)
         campaigns[0].should.be.an.instanceof(Campaign)
         campaigns[0].name.should.be.ok
+        done()
+      })
+      .catch(done)
+  })
+
+  it('should get their insights', (done) => {
+    const insightsFields = [AdsInsights.Field.spend]
+    const insightsParams = { date_preset: Campaign.DatePreset.lifetime }
+    account.getInsights(insightsFields, insightsParams)
+      .then((insights) => {
+        insights.should.be.a('array').and.have.length.above(0)
+        insights[0].should.be.an.instanceof(AdsInsights)
+        insights[0].spend.should.be.ok
         done()
       })
       .catch(done)

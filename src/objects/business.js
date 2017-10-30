@@ -2,6 +2,7 @@ import { AbstractCrudObject } from './../core'
 import AdAccount from './adaccount'
 import AdsPixel from './adspixel'
 import BusinessAdAccountRequest from './businessadaccountrequest'
+import Page from './page'
 import BusinessPageRequest from './businesspagerequest'
 import EventSourceGroup from './eventsourcegroup'
 import LegacyBusinessAdAccountRequest from './legacybusinessadaccountrequest'
@@ -56,7 +57,7 @@ export default class Business extends AbstractCrudObject {
   }
 
   getClientPages (fields, params) {
-    return this.getEdge(AbstractCrudObject, fields, params, 'client_pages')
+    return this.getEdge(Page, fields, params, 'client_pages')
   }
 
   getEventSourceGroups (fields, params) {
@@ -96,7 +97,11 @@ export default class Business extends AbstractCrudObject {
   }
 
   getOwnedPages (fields, params) {
-    return this.getEdge(AbstractCrudObject, fields, params, 'owned_pages')
+    return this.getEdge(Page, fields, params, 'owned_pages')
+  }
+
+  getPages (fields, params) {
+    return this.getEdge(Page, fields, params, 'pages')
   }
 
   getOwnedPixels (fields, params) {

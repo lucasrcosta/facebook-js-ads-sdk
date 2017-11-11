@@ -1,3 +1,12 @@
+# DEPRECATED
+
+Facebook released the official SDK based on this project. This project will no longer be maintained.
+
+https://developers.facebook.com/ads/blog/post/2017/09/12/autogen-node.js-sdk/
+https://github.com/facebook/facebook-nodejs-ads-sdk
+
+A big thanks to all contributors.
+
 # Facebook Ads API SDK for Javascript [![Build Status](https://travis-ci.org/lucascosta/facebook-js-ads-sdk.svg?branch=master)](https://travis-ci.org/lucascosta/facebook-js-ads-sdk) [![Marketing API Version](https://img.shields.io/badge/marketing--api-2.9-brightgreen.svg)](https://developers.facebook.com/docs/marketing-apis)
 
 ![Marketing API Banner](https://raw.githubusercontent.com/lucascosta/facebook-js-ads-sdk/master/marketingapi.png)
